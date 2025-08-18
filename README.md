@@ -4,7 +4,7 @@ This directory contains auto-generated FlatBuffer tooling for the BPIO2 protocol
 
 ## Source Schema
 - Schema file: bpio.fbs
-- Generated on: Mon Aug 18 17:23:35 CEST 2025
+- Generated on: Mon Aug 18 17:37:02 CEST 2025
 
 ## Generated Languages
 
