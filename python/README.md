@@ -2,6 +2,7 @@
 
 A Python library for interfacing with the Bus Pirate using the binary mode flat buffer interface (BPIO2).
 
+Full documentation is available at [BPIO2 Documentation](https://docs.buspirate.com/docs/binmode-reference/protocol-bpio2/#python-library).
 ## Installation
 
 Clone this repository:
