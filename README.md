@@ -2,9 +2,15 @@
 
 This directory contains auto-generated FlatBuffer tooling for the BPIO2 protocol.
 
+## Documentation
+
+See the main [BPIO2 documentation](https://docs.buspirate.com/docs/binmode-reference/protocol-bpio2) for protocol details and usage examples.
+
+See [flatc](https://flatbuffers.dev/quick_start/) for language-specific usage instructions.
+
 ## Source Schema
 - Schema file: bpio.fbs
-- Generated on: Mon Aug 18 18:08:14 CEST 2025
+- Generated on: Mon Aug 18 18:11:00 CEST 2025
 
 ## Generated Languages
 
@@ -33,15 +39,15 @@ See [flatc](https://flatbuffers.dev/quick_start/) for language-specific usage in
 
 In addition to the generated tooling, you will need to include the flat buffer support library for your language in the /include/ folder.
 
-### Compilers Used
+## Compilers Used
 - **flatc**: For C++, C#, Dart, Go, Java, JavaScript, Kotlin, Lobster, Lua, PHP, Python, Rust, Swift, TypeScript
 - **flatcc**: For C 
 
 Javascript is deprecated in the latest flatc. Instead transpile from TypeScript to JavaScript if needed.
 
-### Example Usage
+## Example Usage
 
-#### Python
+### Python
 ```python
 # Add the python/tooling directory to your Python path
 import sys
@@ -52,13 +58,9 @@ from StatusRequest import StatusRequest
 from StatusResponse import StatusResponse
 ```
 
-#### C
+### C
 ```c
 // Include the generated headers
 #include "bpio2_reader.h"
 #include "bpio2_builder.h"
 ```
-
-## Documentation
-
-See the main [BPIO2 documentation](https://docs.buspirate.com/docs/binmode-reference/protocol-bpio2) for protocol details and usage examples.
