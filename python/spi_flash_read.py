@@ -6,7 +6,6 @@ Demonstrates reading entire flash memory with progress indication.
 
 import argparse
 import sys
-import os
 import time
 
 # Import BPIO client and SPI interface

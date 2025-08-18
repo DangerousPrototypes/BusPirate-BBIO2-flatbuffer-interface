@@ -6,8 +6,6 @@ Demonstrates basic I2C communication with configuration options.
 
 import argparse
 import sys
-import os
-import time
 
 # Import BPIO client and I2C interface
 from pybpio.bpio_client import BPIOClient

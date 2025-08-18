@@ -6,7 +6,6 @@ Demonstrates basic SPI communication with flash memory devices.
 
 import argparse
 import sys
-import os
 
 # Import BPIO client and SPI interface
 from pybpio.bpio_client import BPIOClient

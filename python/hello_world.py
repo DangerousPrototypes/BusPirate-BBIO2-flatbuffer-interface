@@ -6,7 +6,6 @@ Enter I2C mode, perform some basic operations, and display status.
 
 import argparse
 import sys
-import os
 
 # Import BPIO client and I2C interface
 from pybpio.bpio_client import BPIOClient
