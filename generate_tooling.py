@@ -165,9 +165,17 @@ This directory contains auto-generated FlatBuffer tooling for the BPIO2 protocol
 Each language directory contains the generated FlatBuffer code for that language.
 Include the appropriate files in your project according to your language's conventions.
 
+See [flatc](https://flatbuffers.dev/quick_start/) for language-specific usage instructions.
+
+## Flat Buffer Includes
+
+In addition to the generated tooling, you will need to include the flat buffer support library for your language in the /include/ folder.
+
 ### Compilers Used
 - **flatc**: For C++, C#, Dart, Go, Java, JavaScript, Kotlin, Lobster, Lua, PHP, Python, Rust, Swift, TypeScript
-- **flatcc**: For C (recommended for embedded/firmware use)
+- **flatcc**: For C 
+
+Javascript is deprecated in the latest flatc. Instead transpile from TypeScript to JavaScript if needed.
 
 ### Example Usage
 
