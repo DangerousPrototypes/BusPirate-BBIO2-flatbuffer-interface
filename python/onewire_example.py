@@ -6,14 +6,11 @@ Demonstrates 1-Wire communication with temperature sensors.
 
 import argparse
 import sys
-import os
 import time
 
-# Add parent directory to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from bpio_client import BPIOClient
-from bpio_1wire import BPIO1Wire
+# Import BPIO client and 1-Wire interface
+from pybpio.bpio_client import BPIOClient
+from pybpio.bpio_1wire import BPIO1Wire
 
 def onewire_read_temperature(client, voltage=5000):
     """Read temperature from DS18B20 sensor."""
@@ -26,16 +23,11 @@ def onewire_read_temperature(client, voltage=5000):
         
         # Configure DS18B20 scratchpad (optional)
         print("Configuring DS18B20 sensor...")
-        result = onewire.transfer(write_data=[0xCC, 0x4E, 0x00, 0x00, 0x7F])
-        if not result:
-            print("Warning: Failed to configure sensor")
+        onewire.transfer(write_data=[0xCC, 0x4E, 0x00, 0x00, 0x7F])
         
         # Start temperature conversion
         print("Starting temperature conversion...")
-        result = onewire.transfer(write_data=[0xCC, 0x44])
-        if not result:
-            print("Failed to start temperature conversion")
-            return False
+        onewire.transfer(write_data=[0xCC, 0x44])
         
         # Wait for conversion (750ms for 12-bit resolution)
         print("Waiting for conversion (750ms)...")
@@ -91,8 +83,10 @@ def onewire_search_devices(client, voltage=5000):
         print("Searching for 1-Wire devices...")
         
         # Simple presence detection
+        # False indicates no devices found
+        # None indicates no data in response
         result = onewire.reset()
-        if result:
+        if result is None:
             print("Device(s) detected on 1-Wire bus")
             
             # Try to read ROM (works only with single device)

@@ -1,3 +1,5 @@
+import time
+
 def show_progress(current, total, start_time, operation_name="Operation", unit="MB"):
     """Reusable progress indicator function."""
     progress = current / total

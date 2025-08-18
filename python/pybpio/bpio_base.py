@@ -1,5 +1,3 @@
-#from bpio_client import BPIOClient
-
 class BPIOBase:  
     def __init__(self, client):
         self.client = client

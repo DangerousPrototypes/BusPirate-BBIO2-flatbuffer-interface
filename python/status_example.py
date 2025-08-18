@@ -6,12 +6,9 @@ Demonstrates how to read and display various status information.
 
 import argparse
 import sys
-import os
 
-# Add parent directory to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from bpio_client import BPIOClient
+# Import BPIO client
+from pybpio.bpio_client import BPIOClient
 
 def show_detailed_status(client):
     """Display detailed status information."""

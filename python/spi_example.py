@@ -8,11 +8,9 @@ import argparse
 import sys
 import os
 
-# Add parent directory to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from bpio_client import BPIOClient
-from bpio_spi import BPIOSPI
+# Import BPIO client and SPI interface
+from pybpio.bpio_client import BPIOClient
+from pybpio.bpio_spi import BPIOSPI
 
 def spi_read_jedec_id(client, speed=1000000):
     """Read JEDEC ID from SPI flash memory."""

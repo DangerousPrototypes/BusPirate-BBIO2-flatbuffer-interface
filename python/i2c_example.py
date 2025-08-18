@@ -9,29 +9,20 @@ import sys
 import os
 import time
 
-# Add parent directory to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from bpio_client import BPIOClient
-from bpio_i2c import BPIOI2C
+# Import BPIO client and I2C interface
+from pybpio.bpio_client import BPIOClient
+from pybpio.bpio_i2c import BPIOI2C
 
 def i2c_basic_example(client, device_addr=0xA0, register_addr=0x00, read_bytes=8):
     """Basic I2C read example with status display."""
     i2c = BPIOI2C(client)
     
     # Configure I2C with all hardware settings
+    print("Configuring I2C interface...\n")
     if i2c.configure(speed=400000, pullup_enable=True, psu_enable=True, 
                     psu_set_mv=3300, psu_set_ma=0):
         
         # Show configuration with individual setters (less efficient but demonstrates API)
-        print("Setting additional configurations...")
-        i2c.set_mode_bitorder_msb()
-        
-        # Set LED colors (rainbow pattern)
-        led_colors = [0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0xFF00FF, 0x00FFFF] * 3
-        i2c.set_led_color(led_colors)
-        i2c.set_print_string("Hello from BPIO2 I2C interface!\r\n")
-        
         # Display status information
         print(f"Current mode: {i2c.get_mode_current()}")
         print(f"PSU enabled: {i2c.get_psu_enabled()}")
@@ -85,13 +76,12 @@ def i2c_eeprom_dump(client, device_addr=0xA0, size=256):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='BPIO2 I2C Example - Communicate with I2C devices',
+        description='BPIO2 I2C Example -Read from 24x02 EEPROM',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   %(prog)s -p COM3                           # Basic read from default EEPROM
   %(prog)s -p COM3 --device 0x50             # Read from device at 0x50
-  %(prog)s -p COM3 --dump --size 512         # Dump 512 bytes from EEPROM
   %(prog)s -p COM3 --register 0x10 --bytes 4 # Read 4 bytes from register 0x10
         """
     )
@@ -106,8 +96,6 @@ Examples:
                        help='Number of bytes to read (default: 8)')
     parser.add_argument('--dump', action='store_true',
                        help='Dump entire EEPROM contents')
-    parser.add_argument('--size', type=int, default=256,
-                       help='EEPROM size for dump operation (default: 256)')
     
     args = parser.parse_args()
     
@@ -116,7 +104,8 @@ Examples:
         print(f"Connected to Bus Pirate on {args.port}")
         
         if args.dump:
-            success = i2c_eeprom_dump(client, args.device, args.size)
+            # read all 256 bytes from 24x02 EEPROM
+            success = i2c_eeprom_dump(client, args.device, 256)
         else:
             success = i2c_basic_example(client, args.device, args.register, args.bytes)
         

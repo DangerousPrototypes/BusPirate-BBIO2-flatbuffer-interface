@@ -1,5 +1,4 @@
-from bpio_client import BPIOClient
-from bpio_base import BPIOBase
+from .bpio_base import BPIOBase
 
 class BPIO1Wire(BPIOBase):
     def __init__(self, client):

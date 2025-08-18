@@ -9,12 +9,10 @@ import sys
 import os
 import time
 
-# Add parent directory to path for imports
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from bpio_client import BPIOClient
-from bpio_spi import BPIOSPI
-from progress_indicator import show_progress
+# Import BPIO client and SPI interface
+from pybpio.bpio_client import BPIOClient
+from pybpio.bpio_spi import BPIOSPI
+from inc.progress_indicator import show_progress
 
 def read_spi_flash(client, filename, flash_size, speed, chunk_size):
     """Read SPI flash memory to file with progress indication."""
