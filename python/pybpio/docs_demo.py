@@ -71,9 +71,6 @@ class flatbuffers_docs_demo:
             return None
             
         try:
-            # COBS encode the data
-            encoded_data = cobs.encode(data)
-            
             # Clear any pending data
             self.serial_port.reset_input_buffer()
             self.serial_port.reset_output_buffer()
@@ -84,8 +81,7 @@ class flatbuffers_docs_demo:
             
             if self.debug:
                 print(f"Sent {len(data)} bytes (original data)")
-                print(f"Sent {len(encoded_data)} bytes (COBS encoded)")
-                print(f"Total bytes sent: {len(encoded_data) + 1} (including delimiter)")
+                print(f"Total bytes sent: {len(packet) + 1} (COBS + delimiter)")
 
             # Read response until we get the delimiter (0x00) - most efficient
             resp_encoded = bytearray()
