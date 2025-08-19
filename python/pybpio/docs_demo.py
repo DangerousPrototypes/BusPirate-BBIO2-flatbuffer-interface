@@ -192,10 +192,10 @@ class flatbuffers_docs_demo:
         status_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
 
         # Print hardware and firmware versions, test if fields are present
-        print(f"  Hardware version: {status_resp.HardwareVersionMajor()} REV{status_resp.HardwareVersionMinor()}")
-        print(f"  Firmware version: {status_resp.FirmwareVersionMajor()}.{status_resp.FirmwareVersionMinor()}")
-        print(f"  Firmware git hash: {status_resp.FirmwareGitHash().decode('utf-8')}")
-        print(f"  Firmware date: {status_resp.FirmwareDate().decode('utf-8')}")
+        print(f"  Hardware version: {status_resp.VersionHardwareMajor()} REV{status_resp.VersionHardwareMinor()}")
+        print(f"  Firmware version: {status_resp.VersionFirmwareMajor()}.{status_resp.VersionFirmwareMinor()}")
+        print(f"  Firmware git hash: {status_resp.VersionFirmwareGitHash().decode('utf-8')}")
+        print(f"  Firmware date: {status_resp.VersionFirmwareDate().decode('utf-8')}")
 
         modes_available = [status_resp.ModesAvailable(i).decode('utf-8') for i in range(status_resp.ModesAvailableLength())]
         print(f"  Available modes: {', '.join(modes_available)}")
