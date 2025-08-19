@@ -191,12 +191,13 @@ class flatbuffers_docs_demo:
         status_resp = StatusResponse.StatusResponse()
         status_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
 
-        # Print hardware and firmware versions, test if fields are present
+        # Print hardware and firmware versions
         print(f"  Hardware version: {status_resp.VersionHardwareMajor()} REV{status_resp.VersionHardwareMinor()}")
         print(f"  Firmware version: {status_resp.VersionFirmwareMajor()}.{status_resp.VersionFirmwareMinor()}")
         print(f"  Firmware git hash: {status_resp.VersionFirmwareGitHash().decode('utf-8')}")
         print(f"  Firmware date: {status_resp.VersionFirmwareDate().decode('utf-8')}")
 
+        # Print available modes
         modes_available = [status_resp.ModesAvailable(i).decode('utf-8') for i in range(status_resp.ModesAvailableLength())]
         print(f"  Available modes: {', '.join(modes_available)}")
 
@@ -301,9 +302,11 @@ class flatbuffers_docs_demo:
             print(f"Unexpected response type: {response_contents_type}")
             return False        
 
+        # Decode ConfigurationResponse
         config_resp = ConfigurationResponse.ConfigurationResponse()
         config_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
-        
+
+        # Print the error message if any
         if config_resp.Error():
             print(f"Configuration error: {config_resp.Error().decode('utf-8')}")
             return False
@@ -364,6 +367,7 @@ class flatbuffers_docs_demo:
         data_resp = DataResponse.DataResponse()
         data_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
         
+        # Print the error message if any
         if data_resp.Error():
             print(f"Data request error: {data_resp.Error().decode('utf-8')}")
             return False
@@ -377,7 +381,6 @@ class flatbuffers_docs_demo:
             return None
             
 demo = flatbuffers_docs_demo(port='COM35')
-
 if demo.status_request():
     if demo.configuration_request():
         data = demo.data_request()
