@@ -31,7 +31,7 @@ def erase_flash(spi):
         if status_data and len(status_data) == 1:
             if (status_data[0] & 0x01) == 0:  # WIP bit cleared
                 break
-        time.sleep(0.5)
+        time.sleep(0.1)
         
         elapsed = time.time() - start_time
         print(f'\rErasing... {elapsed:.1f}s elapsed', end='', flush=True)

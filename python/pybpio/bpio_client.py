@@ -259,8 +259,6 @@ class BPIOClient:
             ConfigurationRequest.AddPullupDisable(builder, kwargs['pullup_disable'])
         if 'pullup_enable' in kwargs:
             ConfigurationRequest.AddPullupEnable(builder, kwargs['pullup_enable'])
-        if 'pullx_config' in kwargs:
-            ConfigurationRequest.AddPullxConfig(builder, kwargs['pullx_config'])
         if 'io_direction_mask' in kwargs:
             ConfigurationRequest.AddIoDirectionMask(builder, kwargs['io_direction_mask'])
         if 'io_direction' in kwargs:
@@ -279,6 +277,8 @@ class BPIOClient:
             ConfigurationRequest.AddHardwareBootloader(builder, kwargs['hardware_bootloader'])
         if 'hardware_reset' in kwargs:
             ConfigurationRequest.AddHardwareReset(builder, kwargs['hardware_reset'])
+        if 'hardware_selftest' in kwargs:
+            ConfigurationRequest.AddHardwareSelftest(builder, kwargs['hardware_selftest'])
 
         config_request = ConfigurationRequest.End(builder)
         resp_packet = self.send_request(builder, RequestPacketContents.RequestPacketContents.ConfigurationRequest, config_request)
@@ -320,16 +320,19 @@ class BPIOClient:
         # copy the status response into a dictionary
         status_dict = {
             'error': status_resp.Error().decode('utf-8') if status_resp.Error() else None,
-            'hardware_version_major': status_resp.HardwareVersionMajor(),
-            'hardware_version_minor': status_resp.HardwareVersionMinor(),
-            'firmware_version_major': status_resp.FirmwareVersionMajor(),
-            'firmware_version_minor': status_resp.FirmwareVersionMinor(),
-            'firmware_git_hash': status_resp.FirmwareGitHash().decode('utf-8'),
-            'firmware_date': status_resp.FirmwareDate().decode('utf-8'),
+            'version_hardware_major': status_resp.VersionHardwareMajor(),
+            'version_hardware_minor': status_resp.VersionHardwareMinor(),
+            'version_firmware_major': status_resp.VersionFirmwareMajor(),
+            'version_firmware_minor': status_resp.VersionFirmwareMinor(),
+            'version_firmware_git_hash': status_resp.VersionFirmwareGitHash().decode('utf-8'),
+            'version_firmware_date': status_resp.VersionFirmwareDate().decode('utf-8'),
             'modes_available': [status_resp.ModesAvailable(i).decode('utf-8') for i in range(status_resp.ModesAvailableLength())],
             'mode_current': status_resp.ModeCurrent().decode('utf-8') if status_resp.ModeCurrent() else None,
             'mode_pin_labels': [status_resp.ModePinLabels(i).decode('utf-8') for i in range(status_resp.ModePinLabelsLength())],
             'mode_bitorder_msb': status_resp.ModeBitorderMsb(),
+            'mode_max_packet_size': status_resp.ModeMaxPacketSize(),
+            'mode_max_write': status_resp.ModeMaxWrite(),
+            'mode_max_read': status_resp.ModeMaxRead(),
             'psu_enabled': status_resp.PsuEnabled(),
             'psu_set_mv': status_resp.PsuSetMv(),
             'psu_set_ma': status_resp.PsuSetMa(),
@@ -337,7 +340,6 @@ class BPIOClient:
             'psu_measured_ma': status_resp.PsuMeasuredMa(),
             'psu_current_error': status_resp.PsuCurrentError(),
             'pullup_enabled': status_resp.PullupEnabled(),
-            'pullx_config': status_resp.PullxConfig(),
             'adc_mv': [status_resp.AdcMv(i) for i in range(status_resp.AdcMvLength())],
             'io_direction': status_resp.IoDirection(),
             'io_value': status_resp.IoValue(),
@@ -356,10 +358,10 @@ class BPIOClient:
             print(f"  Error: {status_dict['error']}")
             return
         
-        print(f"  Hardware version: {status_dict['hardware_version_major']} REV{status_dict['hardware_version_minor']}")
-        print(f"  Firmware version: {status_dict['firmware_version_major']}.{status_dict['firmware_version_minor']}")
-        print(f"  Firmware git hash: {status_dict['firmware_git_hash']}")
-        print(f"  Firmware date: {status_dict['firmware_date']}")
+        print(f"  Hardware version: {status_dict['version_hardware_major']} REV{status_dict['version_hardware_minor']}")
+        print(f"  Firmware version: {status_dict['version_firmware_major']}.{status_dict['version_firmware_minor']}")
+        print(f"  Firmware git hash: {status_dict['version_firmware_git_hash']}")
+        print(f"  Firmware date: {status_dict['version_firmware_date']}")
 
         if status_dict['modes_available']:
             print(f"  Available modes: {', '.join(status_dict['modes_available'])}")
@@ -371,6 +373,10 @@ class BPIOClient:
 
         if status_dict['mode_pin_labels']:
             print(f"  Pin labels: {', '.join(status_dict['mode_pin_labels'])}")
+
+        print(f"  Mode max packet size: {status_dict['mode_max_packet_size']} bytes")
+        print(f"  Mode max write size: {status_dict['mode_max_write']} bytes")
+        print(f"  Mode max read size: {status_dict['mode_max_read']} bytes")
 
         if status_dict['led_count']:
             print(f"  Number of LEDs: {status_dict['led_count']}")

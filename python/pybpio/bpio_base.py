@@ -61,13 +61,6 @@ class BPIOBase:
         return self.client.configuration_request(
             pullup_enable=True
         )
-    def set_pullx_config(self, config): 
-        """Set pull-x configuration for BP7+"""
-        if not self.config_check():
-            return None
-        return self.client.configuration_request(
-            pullx_config=config
-        )
     def set_io_direction(self, direction_mask, direction):
         """Set IO pin directions"""
         if not self.config_check():
@@ -118,6 +111,13 @@ class BPIOBase:
             return None
         return self.client.configuration_request(
             hardware_reset=True
+        )
+    def set_hardware_selftest(self):
+        """Run hardware self-test"""
+        if not self.config_check():
+            return None
+        return self.client.configuration_request(
+            hardware_selftest=True
         )
     # Functions to get each status parameter
     def show_status(self):
@@ -200,6 +200,30 @@ class BPIOBase:
             mode=True
         )
         return status_dict.get('mode_current', None)
+    def get_mode_max_packet_size(self):
+        """Get mode max packet size"""
+        if not self.config_check():
+            return None
+        status_dict = self.client.status_request(
+            mode=True
+        )
+        return status_dict.get('mode_max_packet_size', None)
+    def get_mode_max_write(self):
+        """Get mode max write size"""
+        if not self.config_check():
+            return None
+        status_dict = self.client.status_request(
+            mode=True
+        )
+        return status_dict.get('mode_max_write', None)
+    def get_mode_max_read(self):
+        """Get mode max read size"""
+        if not self.config_check():
+            return None
+        status_dict = self.client.status_request(
+            mode=True
+        )
+        return status_dict.get('mode_max_read', None)
     def get_mode_pin_labels(self):
         """Get mode pin labels"""
         if not self.config_check():
@@ -272,14 +296,6 @@ class BPIOBase:
             pullup=True
         )
         return status_dict.get('pullup_enabled', False)
-    def get_pullx_config(self):
-        """Get pull-x configuration for BP7+"""
-        if not self.config_check():
-            return None
-        status_dict = self.client.status_request(
-            pullx=True
-        )
-        return status_dict.get('pullx_config',None)
     def get_adc_mv(self):
         """Get ADC values in mV"""
         if not self.config_check():

@@ -23,19 +23,22 @@ def show_detailed_status(client):
     
     # Hardware Information
     print("Hardware Information:")
-    print(f"  Version: {status.get('hardware_version_major', 'Unknown')}.{status.get('hardware_version_minor', 'Unknown')}")
+    print(f"  Version: {status.get('version_hardware_major', 'Unknown')}.{status.get('version_hardware_minor', 'Unknown')}")
     
     # Firmware Information  
     print(f"\nFirmware Information:")
-    print(f"  Version: {status.get('firmware_version_major', 'Unknown')}.{status.get('firmware_version_minor', 'Unknown')}")
-    print(f"  Git Hash: {status.get('firmware_git_hash', 'Unknown')}")
-    print(f"  Build Date: {status.get('firmware_date', 'Unknown')}")
+    print(f"  Version: {status.get('version_firmware_major', 'Unknown')}.{status.get('version_firmware_minor', 'Unknown')}")
+    print(f"  Git Hash: {status.get('version_firmware_git_hash', 'Unknown')}")
+    print(f"  Build Date: {status.get('version_firmware_date', 'Unknown')}")
     
     # Current Mode
     print(f"\nMode Information:")
     print(f"  Current Mode: {status.get('mode_current', 'Unknown')}")
     print(f"  Available Modes: {', '.join(status.get('modes_available', []))}")
     print(f"  Bit Order MSB: {status.get('mode_bitorder_msb', False)}")
+    print(f"  Max Packet Size: {status.get('mode_max_packet_size', 'Unknown')} bytes")
+    print(f"  Max Write Size: {status.get('mode_max_write', 'Unknown')} bytes")
+    print(f"  Max Read Size: {status.get('mode_max_read', 'Unknown')} bytes")
     
     # Pin Labels
     pin_labels = status.get('mode_pin_labels', [])
@@ -54,9 +57,6 @@ def show_detailed_status(client):
     # Pull-up Resistors
     print(f"\nPull-up Resistors:")
     print(f"  Enabled: {status.get('pullup_enabled', False)}")
-    pullx_config = status.get('pullx_config')
-    if pullx_config is not None:
-        print(f"  Pull-x Config: 0x{pullx_config:02X}")
     
     # IO Pins
     io_direction = status.get('io_direction', 0)
