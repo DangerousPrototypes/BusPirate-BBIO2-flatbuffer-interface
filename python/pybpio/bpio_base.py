@@ -135,55 +135,58 @@ class BPIOBase:
             return None
         return self.client.status_request()
     
-    def get_hardware_version_major(self):
+    def get_version_hardware_major(self):
         """Get hardware version major"""
         if not self.config_check():
             return None
         status_dict = self.client.status_request(
             version=True
         )
-        return status_dict.get('hardware_version_major', None)
-    def get_hardware_version_minor(self):
+        return status_dict.get('version_hardware_major', None)
+    
+    def get_version_hardware_minor(self):
         """Get hardware version minor"""
         if not self.config_check():
             return None
         status_dict = self.client.status_request(
             version=True
         )
-        return status_dict.get('hardware_version_minor', None)
+        return status_dict.get('version_hardware_minor', None)
     
-    def get_firmware_version_major(self):
+    def get_version_firmware_major(self):
         """Get firmware version major"""
         if not self.config_check():
             return None
         status_dict = self.client.status_request(
             version=True
         )
-        return status_dict.get('firmware_version_major', None)
-    def get_firmware_version_minor(self):
+        return status_dict.get('version_firmware_major', None)
+    
+    def get_version_firmware_minor(self):
         """Get firmware version minor"""
         if not self.config_check(): 
             return None
         status_dict = self.client.status_request(
             version=True
         )
-        return status_dict.get('firmware_version_minor', None)
-    def get_firmware_git_hash(self):
+        return status_dict.get('version_firmware_minor', None)
+    
+    def get_version_firmware_git_hash(self):
         """Get firmware git hash"""
         if not self.config_check():
             return None
         status_dict = self.client.status_request(
             version=True
         )
-        return status_dict.get('firmware_git_hash', None)
-    def get_firmware_date(self):
+        return status_dict.get('version_firmware_git_hash', None)
+    def get_version_firmware_date(self):
         """Get firmware date"""
         if not self.config_check():
             return None
         status_dict = self.client.status_request(
             version=True
         )
-        return status_dict.get('firmware_date', None)
+        return status_dict.get('version_firmware_date', None)
     def get_modes_available(self):
         """Get available modes"""
         if not self.config_check():
