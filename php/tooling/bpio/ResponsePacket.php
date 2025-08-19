@@ -38,7 +38,7 @@ class ResponsePacket extends Table
     public function getVersionMajor()
     {
         $o = $this->__offset(4);
-        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
+        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 2;
     }
 
     /**
@@ -47,7 +47,7 @@ class ResponsePacket extends Table
     public function getVersionMinor()
     {
         $o = $this->__offset(6);
-        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 1;
+        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
     /**
@@ -99,7 +99,7 @@ class ResponsePacket extends Table
      */
     public static function addVersionMajor(FlatBufferBuilder $builder, $versionMajor)
     {
-        $builder->addByteX(0, $versionMajor, 0);
+        $builder->addByteX(0, $versionMajor, 2);
     }
 
     /**
@@ -109,7 +109,7 @@ class ResponsePacket extends Table
      */
     public static function addVersionMinor(FlatBufferBuilder $builder, $versionMinor)
     {
-        $builder->addByteX(1, $versionMinor, 1);
+        $builder->addByteX(1, $versionMinor, 0);
     }
 
     /**

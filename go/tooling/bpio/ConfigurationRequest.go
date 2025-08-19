@@ -158,20 +158,8 @@ func (rcv *ConfigurationRequest) MutatePullupEnable(n bool) bool {
 	return rcv._tab.MutateBoolSlot(22, n)
 }
 
-func (rcv *ConfigurationRequest) PullxConfig() uint32 {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(24))
-	if o != 0 {
-		return rcv._tab.GetUint32(o + rcv._tab.Pos)
-	}
-	return 0
-}
-
-func (rcv *ConfigurationRequest) MutatePullxConfig(n uint32) bool {
-	return rcv._tab.MutateUint32Slot(24, n)
-}
-
 func (rcv *ConfigurationRequest) IoDirectionMask() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(26))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(24))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -179,11 +167,11 @@ func (rcv *ConfigurationRequest) IoDirectionMask() byte {
 }
 
 func (rcv *ConfigurationRequest) MutateIoDirectionMask(n byte) bool {
-	return rcv._tab.MutateByteSlot(26, n)
+	return rcv._tab.MutateByteSlot(24, n)
 }
 
 func (rcv *ConfigurationRequest) IoDirection() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(28))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(26))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -191,11 +179,11 @@ func (rcv *ConfigurationRequest) IoDirection() byte {
 }
 
 func (rcv *ConfigurationRequest) MutateIoDirection(n byte) bool {
-	return rcv._tab.MutateByteSlot(28, n)
+	return rcv._tab.MutateByteSlot(26, n)
 }
 
 func (rcv *ConfigurationRequest) IoValueMask() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(30))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(28))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -203,11 +191,11 @@ func (rcv *ConfigurationRequest) IoValueMask() byte {
 }
 
 func (rcv *ConfigurationRequest) MutateIoValueMask(n byte) bool {
-	return rcv._tab.MutateByteSlot(30, n)
+	return rcv._tab.MutateByteSlot(28, n)
 }
 
 func (rcv *ConfigurationRequest) IoValue() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(32))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(30))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -215,11 +203,11 @@ func (rcv *ConfigurationRequest) IoValue() byte {
 }
 
 func (rcv *ConfigurationRequest) MutateIoValue(n byte) bool {
-	return rcv._tab.MutateByteSlot(32, n)
+	return rcv._tab.MutateByteSlot(30, n)
 }
 
 func (rcv *ConfigurationRequest) LedResume() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(32))
 	if o != 0 {
 		return rcv._tab.GetBool(o + rcv._tab.Pos)
 	}
@@ -227,11 +215,11 @@ func (rcv *ConfigurationRequest) LedResume() bool {
 }
 
 func (rcv *ConfigurationRequest) MutateLedResume(n bool) bool {
-	return rcv._tab.MutateBoolSlot(34, n)
+	return rcv._tab.MutateBoolSlot(32, n)
 }
 
 func (rcv *ConfigurationRequest) LedColor(j int) uint32 {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(36))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
 	if o != 0 {
 		a := rcv._tab.Vector(o)
 		return rcv._tab.GetUint32(a + flatbuffers.UOffsetT(j*4))
@@ -240,7 +228,7 @@ func (rcv *ConfigurationRequest) LedColor(j int) uint32 {
 }
 
 func (rcv *ConfigurationRequest) LedColorLength() int {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(36))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
 	if o != 0 {
 		return rcv._tab.VectorLen(o)
 	}
@@ -248,7 +236,7 @@ func (rcv *ConfigurationRequest) LedColorLength() int {
 }
 
 func (rcv *ConfigurationRequest) MutateLedColor(j int, n uint32) bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(36))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
 	if o != 0 {
 		a := rcv._tab.Vector(o)
 		return rcv._tab.MutateUint32(a+flatbuffers.UOffsetT(j*4), n)
@@ -257,7 +245,7 @@ func (rcv *ConfigurationRequest) MutateLedColor(j int, n uint32) bool {
 }
 
 func (rcv *ConfigurationRequest) PrintString() []byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(38))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(36))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
 	}
@@ -265,7 +253,7 @@ func (rcv *ConfigurationRequest) PrintString() []byte {
 }
 
 func (rcv *ConfigurationRequest) HardwareBootloader() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(40))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(38))
 	if o != 0 {
 		return rcv._tab.GetBool(o + rcv._tab.Pos)
 	}
@@ -273,11 +261,11 @@ func (rcv *ConfigurationRequest) HardwareBootloader() bool {
 }
 
 func (rcv *ConfigurationRequest) MutateHardwareBootloader(n bool) bool {
-	return rcv._tab.MutateBoolSlot(40, n)
+	return rcv._tab.MutateBoolSlot(38, n)
 }
 
 func (rcv *ConfigurationRequest) HardwareReset() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(42))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(40))
 	if o != 0 {
 		return rcv._tab.GetBool(o + rcv._tab.Pos)
 	}
@@ -285,6 +273,18 @@ func (rcv *ConfigurationRequest) HardwareReset() bool {
 }
 
 func (rcv *ConfigurationRequest) MutateHardwareReset(n bool) bool {
+	return rcv._tab.MutateBoolSlot(40, n)
+}
+
+func (rcv *ConfigurationRequest) HardwareSelftest() bool {
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(42))
+	if o != 0 {
+		return rcv._tab.GetBool(o + rcv._tab.Pos)
+	}
+	return false
+}
+
+func (rcv *ConfigurationRequest) MutateHardwareSelftest(n bool) bool {
 	return rcv._tab.MutateBoolSlot(42, n)
 }
 
@@ -321,38 +321,38 @@ func ConfigurationRequestAddPullupDisable(builder *flatbuffers.Builder, pullupDi
 func ConfigurationRequestAddPullupEnable(builder *flatbuffers.Builder, pullupEnable bool) {
 	builder.PrependBoolSlot(9, pullupEnable, false)
 }
-func ConfigurationRequestAddPullxConfig(builder *flatbuffers.Builder, pullxConfig uint32) {
-	builder.PrependUint32Slot(10, pullxConfig, 0)
-}
 func ConfigurationRequestAddIoDirectionMask(builder *flatbuffers.Builder, ioDirectionMask byte) {
-	builder.PrependByteSlot(11, ioDirectionMask, 0)
+	builder.PrependByteSlot(10, ioDirectionMask, 0)
 }
 func ConfigurationRequestAddIoDirection(builder *flatbuffers.Builder, ioDirection byte) {
-	builder.PrependByteSlot(12, ioDirection, 0)
+	builder.PrependByteSlot(11, ioDirection, 0)
 }
 func ConfigurationRequestAddIoValueMask(builder *flatbuffers.Builder, ioValueMask byte) {
-	builder.PrependByteSlot(13, ioValueMask, 0)
+	builder.PrependByteSlot(12, ioValueMask, 0)
 }
 func ConfigurationRequestAddIoValue(builder *flatbuffers.Builder, ioValue byte) {
-	builder.PrependByteSlot(14, ioValue, 0)
+	builder.PrependByteSlot(13, ioValue, 0)
 }
 func ConfigurationRequestAddLedResume(builder *flatbuffers.Builder, ledResume bool) {
-	builder.PrependBoolSlot(15, ledResume, false)
+	builder.PrependBoolSlot(14, ledResume, false)
 }
 func ConfigurationRequestAddLedColor(builder *flatbuffers.Builder, ledColor flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(16, flatbuffers.UOffsetT(ledColor), 0)
+	builder.PrependUOffsetTSlot(15, flatbuffers.UOffsetT(ledColor), 0)
 }
 func ConfigurationRequestStartLedColorVector(builder *flatbuffers.Builder, numElems int) flatbuffers.UOffsetT {
 	return builder.StartVector(4, numElems, 4)
 }
 func ConfigurationRequestAddPrintString(builder *flatbuffers.Builder, printString flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(17, flatbuffers.UOffsetT(printString), 0)
+	builder.PrependUOffsetTSlot(16, flatbuffers.UOffsetT(printString), 0)
 }
 func ConfigurationRequestAddHardwareBootloader(builder *flatbuffers.Builder, hardwareBootloader bool) {
-	builder.PrependBoolSlot(18, hardwareBootloader, false)
+	builder.PrependBoolSlot(17, hardwareBootloader, false)
 }
 func ConfigurationRequestAddHardwareReset(builder *flatbuffers.Builder, hardwareReset bool) {
-	builder.PrependBoolSlot(19, hardwareReset, false)
+	builder.PrependBoolSlot(18, hardwareReset, false)
+}
+func ConfigurationRequestAddHardwareSelftest(builder *flatbuffers.Builder, hardwareSelftest bool) {
+	builder.PrependBoolSlot(19, hardwareSelftest, false)
 }
 func ConfigurationRequestEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()

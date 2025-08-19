@@ -88,38 +88,33 @@ class ConfigurationRequest : Table() {
             val o = __offset(22)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
         }
-    val pullxConfig : UInt
-        get() {
-            val o = __offset(24)
-            return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
-        }
     val ioDirectionMask : UByte
         get() {
-            val o = __offset(26)
+            val o = __offset(24)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     val ioDirection : UByte
         get() {
-            val o = __offset(28)
+            val o = __offset(26)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     val ioValueMask : UByte
         get() {
-            val o = __offset(30)
+            val o = __offset(28)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     val ioValue : UByte
         get() {
-            val o = __offset(32)
+            val o = __offset(30)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     val ledResume : Boolean
         get() {
-            val o = __offset(34)
+            val o = __offset(32)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
         }
     fun ledColor(j: Int) : UInt {
-        val o = __offset(36)
+        val o = __offset(34)
         return if (o != 0) {
             bb.getInt(__vector(o) + j * 4).toUInt()
         } else {
@@ -128,27 +123,32 @@ class ConfigurationRequest : Table() {
     }
     val ledColorLength : Int
         get() {
-            val o = __offset(36); return if (o != 0) __vector_len(o) else 0
+            val o = __offset(34); return if (o != 0) __vector_len(o) else 0
         }
-    val ledColorAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(36, 4)
-    fun ledColorInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 36, 4)
+    val ledColorAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(34, 4)
+    fun ledColorInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 34, 4)
     val printString : String?
         get() {
-            val o = __offset(38)
+            val o = __offset(36)
             return if (o != 0) {
                 __string(o + bb_pos)
             } else {
                 null
             }
         }
-    val printStringAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(38, 1)
-    fun printStringInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 38, 1)
+    val printStringAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(36, 1)
+    fun printStringInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 36, 1)
     val hardwareBootloader : Boolean
+        get() {
+            val o = __offset(38)
+            return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
+        }
+    val hardwareReset : Boolean
         get() {
             val o = __offset(40)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
         }
-    val hardwareReset : Boolean
+    val hardwareSelftest : Boolean
         get() {
             val o = __offset(42)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
@@ -160,15 +160,15 @@ class ConfigurationRequest : Table() {
             _bb.order(ByteOrder.LITTLE_ENDIAN)
             return (obj.__assign(_bb.getInt(_bb.position()) + _bb.position(), _bb))
         }
-        fun createConfigurationRequest(builder: FlatBufferBuilder, modeOffset: Int, modeConfigurationOffset: Int, modeBitorderMsb: Boolean, modeBitorderLsb: Boolean, psuDisable: Boolean, psuEnable: Boolean, psuSetMv: UInt, psuSetMa: UShort, pullupDisable: Boolean, pullupEnable: Boolean, pullxConfig: UInt, ioDirectionMask: UByte, ioDirection: UByte, ioValueMask: UByte, ioValue: UByte, ledResume: Boolean, ledColorOffset: Int, printStringOffset: Int, hardwareBootloader: Boolean, hardwareReset: Boolean) : Int {
+        fun createConfigurationRequest(builder: FlatBufferBuilder, modeOffset: Int, modeConfigurationOffset: Int, modeBitorderMsb: Boolean, modeBitorderLsb: Boolean, psuDisable: Boolean, psuEnable: Boolean, psuSetMv: UInt, psuSetMa: UShort, pullupDisable: Boolean, pullupEnable: Boolean, ioDirectionMask: UByte, ioDirection: UByte, ioValueMask: UByte, ioValue: UByte, ledResume: Boolean, ledColorOffset: Int, printStringOffset: Int, hardwareBootloader: Boolean, hardwareReset: Boolean, hardwareSelftest: Boolean) : Int {
             builder.startTable(20)
             addPrintString(builder, printStringOffset)
             addLedColor(builder, ledColorOffset)
-            addPullxConfig(builder, pullxConfig)
             addPsuSetMv(builder, psuSetMv)
             addModeConfiguration(builder, modeConfigurationOffset)
             addMode(builder, modeOffset)
             addPsuSetMa(builder, psuSetMa)
+            addHardwareSelftest(builder, hardwareSelftest)
             addHardwareReset(builder, hardwareReset)
             addHardwareBootloader(builder, hardwareBootloader)
             addLedResume(builder, ledResume)
@@ -195,13 +195,12 @@ class ConfigurationRequest : Table() {
         fun addPsuSetMa(builder: FlatBufferBuilder, psuSetMa: UShort) = builder.addShort(7, psuSetMa.toShort(), 300)
         fun addPullupDisable(builder: FlatBufferBuilder, pullupDisable: Boolean) = builder.addBoolean(8, pullupDisable, false)
         fun addPullupEnable(builder: FlatBufferBuilder, pullupEnable: Boolean) = builder.addBoolean(9, pullupEnable, false)
-        fun addPullxConfig(builder: FlatBufferBuilder, pullxConfig: UInt) = builder.addInt(10, pullxConfig.toInt(), 0)
-        fun addIoDirectionMask(builder: FlatBufferBuilder, ioDirectionMask: UByte) = builder.addByte(11, ioDirectionMask.toByte(), 0)
-        fun addIoDirection(builder: FlatBufferBuilder, ioDirection: UByte) = builder.addByte(12, ioDirection.toByte(), 0)
-        fun addIoValueMask(builder: FlatBufferBuilder, ioValueMask: UByte) = builder.addByte(13, ioValueMask.toByte(), 0)
-        fun addIoValue(builder: FlatBufferBuilder, ioValue: UByte) = builder.addByte(14, ioValue.toByte(), 0)
-        fun addLedResume(builder: FlatBufferBuilder, ledResume: Boolean) = builder.addBoolean(15, ledResume, false)
-        fun addLedColor(builder: FlatBufferBuilder, ledColor: Int) = builder.addOffset(16, ledColor, 0)
+        fun addIoDirectionMask(builder: FlatBufferBuilder, ioDirectionMask: UByte) = builder.addByte(10, ioDirectionMask.toByte(), 0)
+        fun addIoDirection(builder: FlatBufferBuilder, ioDirection: UByte) = builder.addByte(11, ioDirection.toByte(), 0)
+        fun addIoValueMask(builder: FlatBufferBuilder, ioValueMask: UByte) = builder.addByte(12, ioValueMask.toByte(), 0)
+        fun addIoValue(builder: FlatBufferBuilder, ioValue: UByte) = builder.addByte(13, ioValue.toByte(), 0)
+        fun addLedResume(builder: FlatBufferBuilder, ledResume: Boolean) = builder.addBoolean(14, ledResume, false)
+        fun addLedColor(builder: FlatBufferBuilder, ledColor: Int) = builder.addOffset(15, ledColor, 0)
         @kotlin.ExperimentalUnsignedTypes
         fun createLedColorVector(builder: FlatBufferBuilder, data: UIntArray) : Int {
             builder.startVector(4, data.size, 4)
@@ -211,9 +210,10 @@ class ConfigurationRequest : Table() {
             return builder.endVector()
         }
         fun startLedColorVector(builder: FlatBufferBuilder, numElems: Int) = builder.startVector(4, numElems, 4)
-        fun addPrintString(builder: FlatBufferBuilder, printString: Int) = builder.addOffset(17, printString, 0)
-        fun addHardwareBootloader(builder: FlatBufferBuilder, hardwareBootloader: Boolean) = builder.addBoolean(18, hardwareBootloader, false)
-        fun addHardwareReset(builder: FlatBufferBuilder, hardwareReset: Boolean) = builder.addBoolean(19, hardwareReset, false)
+        fun addPrintString(builder: FlatBufferBuilder, printString: Int) = builder.addOffset(16, printString, 0)
+        fun addHardwareBootloader(builder: FlatBufferBuilder, hardwareBootloader: Boolean) = builder.addBoolean(17, hardwareBootloader, false)
+        fun addHardwareReset(builder: FlatBufferBuilder, hardwareReset: Boolean) = builder.addBoolean(18, hardwareReset, false)
+        fun addHardwareSelftest(builder: FlatBufferBuilder, hardwareSelftest: Boolean) = builder.addBoolean(19, hardwareSelftest, false)
         fun endConfigurationRequest(builder: FlatBufferBuilder) : Int {
             val o = builder.endTable()
             return o

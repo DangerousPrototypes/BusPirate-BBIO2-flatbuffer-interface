@@ -20,8 +20,8 @@ public struct ResponsePacket : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public ResponsePacket __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public byte VersionMajor { get { int o = __p.__offset(4); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte VersionMinor { get { int o = __p.__offset(6); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)1; } }
+  public byte VersionMajor { get { int o = __p.__offset(4); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)2; } }
+  public byte VersionMinor { get { int o = __p.__offset(6); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
   public bpio.ResponsePacketContents ContentsType { get { int o = __p.__offset(8); return o != 0 ? (bpio.ResponsePacketContents)__p.bb.Get(o + __p.bb_pos) : bpio.ResponsePacketContents.NONE; } }
   public TTable? Contents<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(10); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
   public bpio.ErrorResponse ContentsAsErrorResponse() { return Contents<bpio.ErrorResponse>().Value; }
@@ -30,8 +30,8 @@ public struct ResponsePacket : IFlatbufferObject
   public bpio.DataResponse ContentsAsDataResponse() { return Contents<bpio.DataResponse>().Value; }
 
   public static Offset<bpio.ResponsePacket> CreateResponsePacket(FlatBufferBuilder builder,
-      byte version_major = 0,
-      byte version_minor = 1,
+      byte version_major = 2,
+      byte version_minor = 0,
       bpio.ResponsePacketContents contents_type = bpio.ResponsePacketContents.NONE,
       int contentsOffset = 0) {
     builder.StartTable(4);
@@ -43,8 +43,8 @@ public struct ResponsePacket : IFlatbufferObject
   }
 
   public static void StartResponsePacket(FlatBufferBuilder builder) { builder.StartTable(4); }
-  public static void AddVersionMajor(FlatBufferBuilder builder, byte versionMajor) { builder.AddByte(0, versionMajor, 0); }
-  public static void AddVersionMinor(FlatBufferBuilder builder, byte versionMinor) { builder.AddByte(1, versionMinor, 1); }
+  public static void AddVersionMajor(FlatBufferBuilder builder, byte versionMajor) { builder.AddByte(0, versionMajor, 2); }
+  public static void AddVersionMinor(FlatBufferBuilder builder, byte versionMinor) { builder.AddByte(1, versionMinor, 0); }
   public static void AddContentsType(FlatBufferBuilder builder, bpio.ResponsePacketContents contentsType) { builder.AddByte(2, (byte)contentsType, 0); }
   public static void AddContents(FlatBufferBuilder builder, int contentsOffset) { builder.AddOffset(3, contentsOffset, 0); }
   public static Offset<bpio.ResponsePacket> EndResponsePacket(FlatBufferBuilder builder) {

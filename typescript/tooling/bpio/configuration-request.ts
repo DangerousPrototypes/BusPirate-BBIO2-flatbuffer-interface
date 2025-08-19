@@ -77,64 +77,64 @@ pullupEnable():boolean {
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
-pullxConfig():number {
-  const offset = this.bb!.__offset(this.bb_pos, 24);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
-
 ioDirectionMask():number {
-  const offset = this.bb!.__offset(this.bb_pos, 26);
+  const offset = this.bb!.__offset(this.bb_pos, 24);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 ioDirection():number {
-  const offset = this.bb!.__offset(this.bb_pos, 28);
+  const offset = this.bb!.__offset(this.bb_pos, 26);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 ioValueMask():number {
-  const offset = this.bb!.__offset(this.bb_pos, 30);
+  const offset = this.bb!.__offset(this.bb_pos, 28);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 ioValue():number {
-  const offset = this.bb!.__offset(this.bb_pos, 32);
+  const offset = this.bb!.__offset(this.bb_pos, 30);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 ledResume():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 34);
+  const offset = this.bb!.__offset(this.bb_pos, 32);
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
 ledColor(index: number):number|null {
-  const offset = this.bb!.__offset(this.bb_pos, 36);
+  const offset = this.bb!.__offset(this.bb_pos, 34);
   return offset ? this.bb!.readUint32(this.bb!.__vector(this.bb_pos + offset) + index * 4) : 0;
 }
 
 ledColorLength():number {
-  const offset = this.bb!.__offset(this.bb_pos, 36);
+  const offset = this.bb!.__offset(this.bb_pos, 34);
   return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
 }
 
 ledColorArray():Uint32Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 36);
+  const offset = this.bb!.__offset(this.bb_pos, 34);
   return offset ? new Uint32Array(this.bb!.bytes().buffer, this.bb!.bytes().byteOffset + this.bb!.__vector(this.bb_pos + offset), this.bb!.__vector_len(this.bb_pos + offset)) : null;
 }
 
 printString():string|null
 printString(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
 printString(optionalEncoding?:any):string|Uint8Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 38);
+  const offset = this.bb!.__offset(this.bb_pos, 36);
   return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
 hardwareBootloader():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 40);
+  const offset = this.bb!.__offset(this.bb_pos, 38);
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
 hardwareReset():boolean {
+  const offset = this.bb!.__offset(this.bb_pos, 40);
+  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
+}
+
+hardwareSelftest():boolean {
   const offset = this.bb!.__offset(this.bb_pos, 42);
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
@@ -183,32 +183,28 @@ static addPullupEnable(builder:flatbuffers.Builder, pullupEnable:boolean) {
   builder.addFieldInt8(9, +pullupEnable, +false);
 }
 
-static addPullxConfig(builder:flatbuffers.Builder, pullxConfig:number) {
-  builder.addFieldInt32(10, pullxConfig, 0);
-}
-
 static addIoDirectionMask(builder:flatbuffers.Builder, ioDirectionMask:number) {
-  builder.addFieldInt8(11, ioDirectionMask, 0);
+  builder.addFieldInt8(10, ioDirectionMask, 0);
 }
 
 static addIoDirection(builder:flatbuffers.Builder, ioDirection:number) {
-  builder.addFieldInt8(12, ioDirection, 0);
+  builder.addFieldInt8(11, ioDirection, 0);
 }
 
 static addIoValueMask(builder:flatbuffers.Builder, ioValueMask:number) {
-  builder.addFieldInt8(13, ioValueMask, 0);
+  builder.addFieldInt8(12, ioValueMask, 0);
 }
 
 static addIoValue(builder:flatbuffers.Builder, ioValue:number) {
-  builder.addFieldInt8(14, ioValue, 0);
+  builder.addFieldInt8(13, ioValue, 0);
 }
 
 static addLedResume(builder:flatbuffers.Builder, ledResume:boolean) {
-  builder.addFieldInt8(15, +ledResume, +false);
+  builder.addFieldInt8(14, +ledResume, +false);
 }
 
 static addLedColor(builder:flatbuffers.Builder, ledColorOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(16, ledColorOffset, 0);
+  builder.addFieldOffset(15, ledColorOffset, 0);
 }
 
 static createLedColorVector(builder:flatbuffers.Builder, data:number[]|Uint32Array):flatbuffers.Offset;
@@ -229,15 +225,19 @@ static startLedColorVector(builder:flatbuffers.Builder, numElems:number) {
 }
 
 static addPrintString(builder:flatbuffers.Builder, printStringOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(17, printStringOffset, 0);
+  builder.addFieldOffset(16, printStringOffset, 0);
 }
 
 static addHardwareBootloader(builder:flatbuffers.Builder, hardwareBootloader:boolean) {
-  builder.addFieldInt8(18, +hardwareBootloader, +false);
+  builder.addFieldInt8(17, +hardwareBootloader, +false);
 }
 
 static addHardwareReset(builder:flatbuffers.Builder, hardwareReset:boolean) {
-  builder.addFieldInt8(19, +hardwareReset, +false);
+  builder.addFieldInt8(18, +hardwareReset, +false);
+}
+
+static addHardwareSelftest(builder:flatbuffers.Builder, hardwareSelftest:boolean) {
+  builder.addFieldInt8(19, +hardwareSelftest, +false);
 }
 
 static endConfigurationRequest(builder:flatbuffers.Builder):flatbuffers.Offset {

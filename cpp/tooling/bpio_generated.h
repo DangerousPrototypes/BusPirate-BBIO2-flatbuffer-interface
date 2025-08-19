@@ -36,11 +36,11 @@ struct DataRequestBuilder;
 struct DataResponse;
 struct DataResponseBuilder;
 
-struct RequestPacket;
-struct RequestPacketBuilder;
-
 struct ErrorResponse;
 struct ErrorResponseBuilder;
+
+struct RequestPacket;
+struct RequestPacketBuilder;
 
 struct ResponsePacket;
 struct ResponsePacketBuilder;
@@ -268,51 +268,53 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef StatusResponseBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ERROR = 4,
-    VT_HARDWARE_VERSION_MAJOR = 6,
-    VT_HARDWARE_VERSION_MINOR = 8,
-    VT_FIRMWARE_VERSION_MAJOR = 10,
-    VT_FIRMWARE_VERSION_MINOR = 12,
-    VT_FIRMWARE_GIT_HASH = 14,
-    VT_FIRMWARE_DATE = 16,
+    VT_VERSION_HARDWARE_MAJOR = 6,
+    VT_VERSION_HARDWARE_MINOR = 8,
+    VT_VERSION_FIRMWARE_MAJOR = 10,
+    VT_VERSION_FIRMWARE_MINOR = 12,
+    VT_VERSION_FIRMWARE_GIT_HASH = 14,
+    VT_VERSION_FIRMWARE_DATE = 16,
     VT_MODES_AVAILABLE = 18,
     VT_MODE_CURRENT = 20,
     VT_MODE_PIN_LABELS = 22,
     VT_MODE_BITORDER_MSB = 24,
-    VT_PSU_ENABLED = 26,
-    VT_PSU_SET_MV = 28,
-    VT_PSU_SET_MA = 30,
-    VT_PSU_MEASURED_MV = 32,
-    VT_PSU_MEASURED_MA = 34,
-    VT_PSU_CURRENT_ERROR = 36,
-    VT_PULLUP_ENABLED = 38,
-    VT_PULLX_CONFIG = 40,
-    VT_ADC_MV = 42,
-    VT_IO_DIRECTION = 44,
-    VT_IO_VALUE = 46,
-    VT_DISK_SIZE_MB = 48,
-    VT_DISK_USED_MB = 50,
-    VT_LED_COUNT = 52
+    VT_MODE_MAX_PACKET_SIZE = 26,
+    VT_MODE_MAX_WRITE = 28,
+    VT_MODE_MAX_READ = 30,
+    VT_PSU_ENABLED = 32,
+    VT_PSU_SET_MV = 34,
+    VT_PSU_SET_MA = 36,
+    VT_PSU_MEASURED_MV = 38,
+    VT_PSU_MEASURED_MA = 40,
+    VT_PSU_CURRENT_ERROR = 42,
+    VT_PULLUP_ENABLED = 44,
+    VT_ADC_MV = 46,
+    VT_IO_DIRECTION = 48,
+    VT_IO_VALUE = 50,
+    VT_DISK_SIZE_MB = 52,
+    VT_DISK_USED_MB = 54,
+    VT_LED_COUNT = 56
   };
   const ::flatbuffers::String *error() const {
     return GetPointer<const ::flatbuffers::String *>(VT_ERROR);
   }
-  uint8_t hardware_version_major() const {
-    return GetField<uint8_t>(VT_HARDWARE_VERSION_MAJOR, 0);
+  uint8_t version_hardware_major() const {
+    return GetField<uint8_t>(VT_VERSION_HARDWARE_MAJOR, 0);
   }
-  uint8_t hardware_version_minor() const {
-    return GetField<uint8_t>(VT_HARDWARE_VERSION_MINOR, 0);
+  uint8_t version_hardware_minor() const {
+    return GetField<uint8_t>(VT_VERSION_HARDWARE_MINOR, 0);
   }
-  uint8_t firmware_version_major() const {
-    return GetField<uint8_t>(VT_FIRMWARE_VERSION_MAJOR, 0);
+  uint8_t version_firmware_major() const {
+    return GetField<uint8_t>(VT_VERSION_FIRMWARE_MAJOR, 0);
   }
-  uint8_t firmware_version_minor() const {
-    return GetField<uint8_t>(VT_FIRMWARE_VERSION_MINOR, 0);
+  uint8_t version_firmware_minor() const {
+    return GetField<uint8_t>(VT_VERSION_FIRMWARE_MINOR, 0);
   }
-  const ::flatbuffers::String *firmware_git_hash() const {
-    return GetPointer<const ::flatbuffers::String *>(VT_FIRMWARE_GIT_HASH);
+  const ::flatbuffers::String *version_firmware_git_hash() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_VERSION_FIRMWARE_GIT_HASH);
   }
-  const ::flatbuffers::String *firmware_date() const {
-    return GetPointer<const ::flatbuffers::String *>(VT_FIRMWARE_DATE);
+  const ::flatbuffers::String *version_firmware_date() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_VERSION_FIRMWARE_DATE);
   }
   const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *modes_available() const {
     return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>> *>(VT_MODES_AVAILABLE);
@@ -325,6 +327,15 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   }
   bool mode_bitorder_msb() const {
     return GetField<uint8_t>(VT_MODE_BITORDER_MSB, 0) != 0;
+  }
+  uint32_t mode_max_packet_size() const {
+    return GetField<uint32_t>(VT_MODE_MAX_PACKET_SIZE, 0);
+  }
+  uint32_t mode_max_write() const {
+    return GetField<uint32_t>(VT_MODE_MAX_WRITE, 0);
+  }
+  uint32_t mode_max_read() const {
+    return GetField<uint32_t>(VT_MODE_MAX_READ, 0);
   }
   bool psu_enabled() const {
     return GetField<uint8_t>(VT_PSU_ENABLED, 0) != 0;
@@ -346,9 +357,6 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   }
   bool pullup_enabled() const {
     return GetField<uint8_t>(VT_PULLUP_ENABLED, 0) != 0;
-  }
-  uint32_t pullx_config() const {
-    return GetField<uint32_t>(VT_PULLX_CONFIG, 0);
   }
   const ::flatbuffers::Vector<uint32_t> *adc_mv() const {
     return GetPointer<const ::flatbuffers::Vector<uint32_t> *>(VT_ADC_MV);
@@ -372,14 +380,14 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_ERROR) &&
            verifier.VerifyString(error()) &&
-           VerifyField<uint8_t>(verifier, VT_HARDWARE_VERSION_MAJOR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_HARDWARE_VERSION_MINOR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_FIRMWARE_VERSION_MAJOR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_FIRMWARE_VERSION_MINOR, 1) &&
-           VerifyOffset(verifier, VT_FIRMWARE_GIT_HASH) &&
-           verifier.VerifyString(firmware_git_hash()) &&
-           VerifyOffset(verifier, VT_FIRMWARE_DATE) &&
-           verifier.VerifyString(firmware_date()) &&
+           VerifyField<uint8_t>(verifier, VT_VERSION_HARDWARE_MAJOR, 1) &&
+           VerifyField<uint8_t>(verifier, VT_VERSION_HARDWARE_MINOR, 1) &&
+           VerifyField<uint8_t>(verifier, VT_VERSION_FIRMWARE_MAJOR, 1) &&
+           VerifyField<uint8_t>(verifier, VT_VERSION_FIRMWARE_MINOR, 1) &&
+           VerifyOffset(verifier, VT_VERSION_FIRMWARE_GIT_HASH) &&
+           verifier.VerifyString(version_firmware_git_hash()) &&
+           VerifyOffset(verifier, VT_VERSION_FIRMWARE_DATE) &&
+           verifier.VerifyString(version_firmware_date()) &&
            VerifyOffset(verifier, VT_MODES_AVAILABLE) &&
            verifier.VerifyVector(modes_available()) &&
            verifier.VerifyVectorOfStrings(modes_available()) &&
@@ -389,6 +397,9 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
            verifier.VerifyVector(mode_pin_labels()) &&
            verifier.VerifyVectorOfStrings(mode_pin_labels()) &&
            VerifyField<uint8_t>(verifier, VT_MODE_BITORDER_MSB, 1) &&
+           VerifyField<uint32_t>(verifier, VT_MODE_MAX_PACKET_SIZE, 4) &&
+           VerifyField<uint32_t>(verifier, VT_MODE_MAX_WRITE, 4) &&
+           VerifyField<uint32_t>(verifier, VT_MODE_MAX_READ, 4) &&
            VerifyField<uint8_t>(verifier, VT_PSU_ENABLED, 1) &&
            VerifyField<uint32_t>(verifier, VT_PSU_SET_MV, 4) &&
            VerifyField<uint32_t>(verifier, VT_PSU_SET_MA, 4) &&
@@ -396,7 +407,6 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
            VerifyField<uint32_t>(verifier, VT_PSU_MEASURED_MA, 4) &&
            VerifyField<uint8_t>(verifier, VT_PSU_CURRENT_ERROR, 1) &&
            VerifyField<uint8_t>(verifier, VT_PULLUP_ENABLED, 1) &&
-           VerifyField<uint32_t>(verifier, VT_PULLX_CONFIG, 4) &&
            VerifyOffset(verifier, VT_ADC_MV) &&
            verifier.VerifyVector(adc_mv()) &&
            VerifyField<uint8_t>(verifier, VT_IO_DIRECTION, 1) &&
@@ -415,23 +425,23 @@ struct StatusResponseBuilder {
   void add_error(::flatbuffers::Offset<::flatbuffers::String> error) {
     fbb_.AddOffset(StatusResponse::VT_ERROR, error);
   }
-  void add_hardware_version_major(uint8_t hardware_version_major) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_HARDWARE_VERSION_MAJOR, hardware_version_major, 0);
+  void add_version_hardware_major(uint8_t version_hardware_major) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_VERSION_HARDWARE_MAJOR, version_hardware_major, 0);
   }
-  void add_hardware_version_minor(uint8_t hardware_version_minor) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_HARDWARE_VERSION_MINOR, hardware_version_minor, 0);
+  void add_version_hardware_minor(uint8_t version_hardware_minor) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_VERSION_HARDWARE_MINOR, version_hardware_minor, 0);
   }
-  void add_firmware_version_major(uint8_t firmware_version_major) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_FIRMWARE_VERSION_MAJOR, firmware_version_major, 0);
+  void add_version_firmware_major(uint8_t version_firmware_major) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_VERSION_FIRMWARE_MAJOR, version_firmware_major, 0);
   }
-  void add_firmware_version_minor(uint8_t firmware_version_minor) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_FIRMWARE_VERSION_MINOR, firmware_version_minor, 0);
+  void add_version_firmware_minor(uint8_t version_firmware_minor) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_VERSION_FIRMWARE_MINOR, version_firmware_minor, 0);
   }
-  void add_firmware_git_hash(::flatbuffers::Offset<::flatbuffers::String> firmware_git_hash) {
-    fbb_.AddOffset(StatusResponse::VT_FIRMWARE_GIT_HASH, firmware_git_hash);
+  void add_version_firmware_git_hash(::flatbuffers::Offset<::flatbuffers::String> version_firmware_git_hash) {
+    fbb_.AddOffset(StatusResponse::VT_VERSION_FIRMWARE_GIT_HASH, version_firmware_git_hash);
   }
-  void add_firmware_date(::flatbuffers::Offset<::flatbuffers::String> firmware_date) {
-    fbb_.AddOffset(StatusResponse::VT_FIRMWARE_DATE, firmware_date);
+  void add_version_firmware_date(::flatbuffers::Offset<::flatbuffers::String> version_firmware_date) {
+    fbb_.AddOffset(StatusResponse::VT_VERSION_FIRMWARE_DATE, version_firmware_date);
   }
   void add_modes_available(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> modes_available) {
     fbb_.AddOffset(StatusResponse::VT_MODES_AVAILABLE, modes_available);
@@ -444,6 +454,15 @@ struct StatusResponseBuilder {
   }
   void add_mode_bitorder_msb(bool mode_bitorder_msb) {
     fbb_.AddElement<uint8_t>(StatusResponse::VT_MODE_BITORDER_MSB, static_cast<uint8_t>(mode_bitorder_msb), 0);
+  }
+  void add_mode_max_packet_size(uint32_t mode_max_packet_size) {
+    fbb_.AddElement<uint32_t>(StatusResponse::VT_MODE_MAX_PACKET_SIZE, mode_max_packet_size, 0);
+  }
+  void add_mode_max_write(uint32_t mode_max_write) {
+    fbb_.AddElement<uint32_t>(StatusResponse::VT_MODE_MAX_WRITE, mode_max_write, 0);
+  }
+  void add_mode_max_read(uint32_t mode_max_read) {
+    fbb_.AddElement<uint32_t>(StatusResponse::VT_MODE_MAX_READ, mode_max_read, 0);
   }
   void add_psu_enabled(bool psu_enabled) {
     fbb_.AddElement<uint8_t>(StatusResponse::VT_PSU_ENABLED, static_cast<uint8_t>(psu_enabled), 0);
@@ -465,9 +484,6 @@ struct StatusResponseBuilder {
   }
   void add_pullup_enabled(bool pullup_enabled) {
     fbb_.AddElement<uint8_t>(StatusResponse::VT_PULLUP_ENABLED, static_cast<uint8_t>(pullup_enabled), 0);
-  }
-  void add_pullx_config(uint32_t pullx_config) {
-    fbb_.AddElement<uint32_t>(StatusResponse::VT_PULLX_CONFIG, pullx_config, 0);
   }
   void add_adc_mv(::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> adc_mv) {
     fbb_.AddOffset(StatusResponse::VT_ADC_MV, adc_mv);
@@ -501,16 +517,19 @@ struct StatusResponseBuilder {
 inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     ::flatbuffers::Offset<::flatbuffers::String> error = 0,
-    uint8_t hardware_version_major = 0,
-    uint8_t hardware_version_minor = 0,
-    uint8_t firmware_version_major = 0,
-    uint8_t firmware_version_minor = 0,
-    ::flatbuffers::Offset<::flatbuffers::String> firmware_git_hash = 0,
-    ::flatbuffers::Offset<::flatbuffers::String> firmware_date = 0,
+    uint8_t version_hardware_major = 0,
+    uint8_t version_hardware_minor = 0,
+    uint8_t version_firmware_major = 0,
+    uint8_t version_firmware_minor = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> version_firmware_git_hash = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> version_firmware_date = 0,
     ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> modes_available = 0,
     ::flatbuffers::Offset<::flatbuffers::String> mode_current = 0,
     ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<::flatbuffers::String>>> mode_pin_labels = 0,
     bool mode_bitorder_msb = false,
+    uint32_t mode_max_packet_size = 0,
+    uint32_t mode_max_write = 0,
+    uint32_t mode_max_read = 0,
     bool psu_enabled = false,
     uint32_t psu_set_mv = 0,
     uint32_t psu_set_ma = 0,
@@ -518,7 +537,6 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
     uint32_t psu_measured_ma = 0,
     bool psu_current_error = false,
     bool pullup_enabled = false,
-    uint32_t pullx_config = 0,
     ::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> adc_mv = 0,
     uint8_t io_direction = 0,
     uint8_t io_value = 0,
@@ -529,16 +547,18 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
   builder_.add_disk_used_mb(disk_used_mb);
   builder_.add_disk_size_mb(disk_size_mb);
   builder_.add_adc_mv(adc_mv);
-  builder_.add_pullx_config(pullx_config);
   builder_.add_psu_measured_ma(psu_measured_ma);
   builder_.add_psu_measured_mv(psu_measured_mv);
   builder_.add_psu_set_ma(psu_set_ma);
   builder_.add_psu_set_mv(psu_set_mv);
+  builder_.add_mode_max_read(mode_max_read);
+  builder_.add_mode_max_write(mode_max_write);
+  builder_.add_mode_max_packet_size(mode_max_packet_size);
   builder_.add_mode_pin_labels(mode_pin_labels);
   builder_.add_mode_current(mode_current);
   builder_.add_modes_available(modes_available);
-  builder_.add_firmware_date(firmware_date);
-  builder_.add_firmware_git_hash(firmware_git_hash);
+  builder_.add_version_firmware_date(version_firmware_date);
+  builder_.add_version_firmware_git_hash(version_firmware_git_hash);
   builder_.add_error(error);
   builder_.add_led_count(led_count);
   builder_.add_io_value(io_value);
@@ -547,26 +567,29 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
   builder_.add_psu_current_error(psu_current_error);
   builder_.add_psu_enabled(psu_enabled);
   builder_.add_mode_bitorder_msb(mode_bitorder_msb);
-  builder_.add_firmware_version_minor(firmware_version_minor);
-  builder_.add_firmware_version_major(firmware_version_major);
-  builder_.add_hardware_version_minor(hardware_version_minor);
-  builder_.add_hardware_version_major(hardware_version_major);
+  builder_.add_version_firmware_minor(version_firmware_minor);
+  builder_.add_version_firmware_major(version_firmware_major);
+  builder_.add_version_hardware_minor(version_hardware_minor);
+  builder_.add_version_hardware_major(version_hardware_major);
   return builder_.Finish();
 }
 
 inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *error = nullptr,
-    uint8_t hardware_version_major = 0,
-    uint8_t hardware_version_minor = 0,
-    uint8_t firmware_version_major = 0,
-    uint8_t firmware_version_minor = 0,
-    const char *firmware_git_hash = nullptr,
-    const char *firmware_date = nullptr,
+    uint8_t version_hardware_major = 0,
+    uint8_t version_hardware_minor = 0,
+    uint8_t version_firmware_major = 0,
+    uint8_t version_firmware_minor = 0,
+    const char *version_firmware_git_hash = nullptr,
+    const char *version_firmware_date = nullptr,
     const std::vector<::flatbuffers::Offset<::flatbuffers::String>> *modes_available = nullptr,
     const char *mode_current = nullptr,
     const std::vector<::flatbuffers::Offset<::flatbuffers::String>> *mode_pin_labels = nullptr,
     bool mode_bitorder_msb = false,
+    uint32_t mode_max_packet_size = 0,
+    uint32_t mode_max_write = 0,
+    uint32_t mode_max_read = 0,
     bool psu_enabled = false,
     uint32_t psu_set_mv = 0,
     uint32_t psu_set_ma = 0,
@@ -574,7 +597,6 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
     uint32_t psu_measured_ma = 0,
     bool psu_current_error = false,
     bool pullup_enabled = false,
-    uint32_t pullx_config = 0,
     const std::vector<uint32_t> *adc_mv = nullptr,
     uint8_t io_direction = 0,
     uint8_t io_value = 0,
@@ -582,8 +604,8 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
     float disk_used_mb = 0.0f,
     uint8_t led_count = 0) {
   auto error__ = error ? _fbb.CreateString(error) : 0;
-  auto firmware_git_hash__ = firmware_git_hash ? _fbb.CreateString(firmware_git_hash) : 0;
-  auto firmware_date__ = firmware_date ? _fbb.CreateString(firmware_date) : 0;
+  auto version_firmware_git_hash__ = version_firmware_git_hash ? _fbb.CreateString(version_firmware_git_hash) : 0;
+  auto version_firmware_date__ = version_firmware_date ? _fbb.CreateString(version_firmware_date) : 0;
   auto modes_available__ = modes_available ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*modes_available) : 0;
   auto mode_current__ = mode_current ? _fbb.CreateString(mode_current) : 0;
   auto mode_pin_labels__ = mode_pin_labels ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*mode_pin_labels) : 0;
@@ -591,16 +613,19 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
   return bpio::CreateStatusResponse(
       _fbb,
       error__,
-      hardware_version_major,
-      hardware_version_minor,
-      firmware_version_major,
-      firmware_version_minor,
-      firmware_git_hash__,
-      firmware_date__,
+      version_hardware_major,
+      version_hardware_minor,
+      version_firmware_major,
+      version_firmware_minor,
+      version_firmware_git_hash__,
+      version_firmware_date__,
       modes_available__,
       mode_current__,
       mode_pin_labels__,
       mode_bitorder_msb,
+      mode_max_packet_size,
+      mode_max_write,
+      mode_max_read,
       psu_enabled,
       psu_set_mv,
       psu_set_ma,
@@ -608,7 +633,6 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
       psu_measured_ma,
       psu_current_error,
       pullup_enabled,
-      pullx_config,
       adc_mv__,
       io_direction,
       io_value,
@@ -791,16 +815,16 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
     VT_PSU_SET_MA = 18,
     VT_PULLUP_DISABLE = 20,
     VT_PULLUP_ENABLE = 22,
-    VT_PULLX_CONFIG = 24,
-    VT_IO_DIRECTION_MASK = 26,
-    VT_IO_DIRECTION = 28,
-    VT_IO_VALUE_MASK = 30,
-    VT_IO_VALUE = 32,
-    VT_LED_RESUME = 34,
-    VT_LED_COLOR = 36,
-    VT_PRINT_STRING = 38,
-    VT_HARDWARE_BOOTLOADER = 40,
-    VT_HARDWARE_RESET = 42
+    VT_IO_DIRECTION_MASK = 24,
+    VT_IO_DIRECTION = 26,
+    VT_IO_VALUE_MASK = 28,
+    VT_IO_VALUE = 30,
+    VT_LED_RESUME = 32,
+    VT_LED_COLOR = 34,
+    VT_PRINT_STRING = 36,
+    VT_HARDWARE_BOOTLOADER = 38,
+    VT_HARDWARE_RESET = 40,
+    VT_HARDWARE_SELFTEST = 42
   };
   const ::flatbuffers::String *mode() const {
     return GetPointer<const ::flatbuffers::String *>(VT_MODE);
@@ -832,9 +856,6 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
   bool pullup_enable() const {
     return GetField<uint8_t>(VT_PULLUP_ENABLE, 0) != 0;
   }
-  uint32_t pullx_config() const {
-    return GetField<uint32_t>(VT_PULLX_CONFIG, 0);
-  }
   uint8_t io_direction_mask() const {
     return GetField<uint8_t>(VT_IO_DIRECTION_MASK, 0);
   }
@@ -862,6 +883,9 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
   bool hardware_reset() const {
     return GetField<uint8_t>(VT_HARDWARE_RESET, 0) != 0;
   }
+  bool hardware_selftest() const {
+    return GetField<uint8_t>(VT_HARDWARE_SELFTEST, 0) != 0;
+  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_MODE) &&
@@ -876,7 +900,6 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
            VerifyField<uint16_t>(verifier, VT_PSU_SET_MA, 2) &&
            VerifyField<uint8_t>(verifier, VT_PULLUP_DISABLE, 1) &&
            VerifyField<uint8_t>(verifier, VT_PULLUP_ENABLE, 1) &&
-           VerifyField<uint32_t>(verifier, VT_PULLX_CONFIG, 4) &&
            VerifyField<uint8_t>(verifier, VT_IO_DIRECTION_MASK, 1) &&
            VerifyField<uint8_t>(verifier, VT_IO_DIRECTION, 1) &&
            VerifyField<uint8_t>(verifier, VT_IO_VALUE_MASK, 1) &&
@@ -888,6 +911,7 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
            verifier.VerifyString(print_string()) &&
            VerifyField<uint8_t>(verifier, VT_HARDWARE_BOOTLOADER, 1) &&
            VerifyField<uint8_t>(verifier, VT_HARDWARE_RESET, 1) &&
+           VerifyField<uint8_t>(verifier, VT_HARDWARE_SELFTEST, 1) &&
            verifier.EndTable();
   }
 };
@@ -926,9 +950,6 @@ struct ConfigurationRequestBuilder {
   void add_pullup_enable(bool pullup_enable) {
     fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_PULLUP_ENABLE, static_cast<uint8_t>(pullup_enable), 0);
   }
-  void add_pullx_config(uint32_t pullx_config) {
-    fbb_.AddElement<uint32_t>(ConfigurationRequest::VT_PULLX_CONFIG, pullx_config, 0);
-  }
   void add_io_direction_mask(uint8_t io_direction_mask) {
     fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_IO_DIRECTION_MASK, io_direction_mask, 0);
   }
@@ -956,6 +977,9 @@ struct ConfigurationRequestBuilder {
   void add_hardware_reset(bool hardware_reset) {
     fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_HARDWARE_RESET, static_cast<uint8_t>(hardware_reset), 0);
   }
+  void add_hardware_selftest(bool hardware_selftest) {
+    fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_HARDWARE_SELFTEST, static_cast<uint8_t>(hardware_selftest), 0);
+  }
   explicit ConfigurationRequestBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -979,7 +1003,6 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequest(
     uint16_t psu_set_ma = 300,
     bool pullup_disable = false,
     bool pullup_enable = false,
-    uint32_t pullx_config = 0,
     uint8_t io_direction_mask = 0,
     uint8_t io_direction = 0,
     uint8_t io_value_mask = 0,
@@ -988,15 +1011,16 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequest(
     ::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> led_color = 0,
     ::flatbuffers::Offset<::flatbuffers::String> print_string = 0,
     bool hardware_bootloader = false,
-    bool hardware_reset = false) {
+    bool hardware_reset = false,
+    bool hardware_selftest = false) {
   ConfigurationRequestBuilder builder_(_fbb);
   builder_.add_print_string(print_string);
   builder_.add_led_color(led_color);
-  builder_.add_pullx_config(pullx_config);
   builder_.add_psu_set_mv(psu_set_mv);
   builder_.add_mode_configuration(mode_configuration);
   builder_.add_mode(mode);
   builder_.add_psu_set_ma(psu_set_ma);
+  builder_.add_hardware_selftest(hardware_selftest);
   builder_.add_hardware_reset(hardware_reset);
   builder_.add_hardware_bootloader(hardware_bootloader);
   builder_.add_led_resume(led_resume);
@@ -1025,7 +1049,6 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequestDir
     uint16_t psu_set_ma = 300,
     bool pullup_disable = false,
     bool pullup_enable = false,
-    uint32_t pullx_config = 0,
     uint8_t io_direction_mask = 0,
     uint8_t io_direction = 0,
     uint8_t io_value_mask = 0,
@@ -1034,7 +1057,8 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequestDir
     const std::vector<uint32_t> *led_color = nullptr,
     const char *print_string = nullptr,
     bool hardware_bootloader = false,
-    bool hardware_reset = false) {
+    bool hardware_reset = false,
+    bool hardware_selftest = false) {
   auto mode__ = mode ? _fbb.CreateString(mode) : 0;
   auto led_color__ = led_color ? _fbb.CreateVector<uint32_t>(*led_color) : 0;
   auto print_string__ = print_string ? _fbb.CreateString(print_string) : 0;
@@ -1050,7 +1074,6 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequestDir
       psu_set_ma,
       pullup_disable,
       pullup_enable,
-      pullx_config,
       io_direction_mask,
       io_direction,
       io_value_mask,
@@ -1059,7 +1082,8 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequestDir
       led_color__,
       print_string__,
       hardware_bootloader,
-      hardware_reset);
+      hardware_reset,
+      hardware_selftest);
 }
 
 struct ConfigurationResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
@@ -1289,100 +1313,6 @@ inline ::flatbuffers::Offset<DataResponse> CreateDataResponseDirect(
       data_read__);
 }
 
-struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
-  typedef RequestPacketBuilder Builder;
-  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_VERSION_MAJOR = 4,
-    VT_VERSION_MINOR = 6,
-    VT_CONTENTS_TYPE = 8,
-    VT_CONTENTS = 10
-  };
-  uint8_t version_major() const {
-    return GetField<uint8_t>(VT_VERSION_MAJOR, 0);
-  }
-  uint8_t version_minor() const {
-    return GetField<uint8_t>(VT_VERSION_MINOR, 1);
-  }
-  bpio::RequestPacketContents contents_type() const {
-    return static_cast<bpio::RequestPacketContents>(GetField<uint8_t>(VT_CONTENTS_TYPE, 0));
-  }
-  const void *contents() const {
-    return GetPointer<const void *>(VT_CONTENTS);
-  }
-  template<typename T> const T *contents_as() const;
-  const bpio::StatusRequest *contents_as_StatusRequest() const {
-    return contents_type() == bpio::RequestPacketContents_StatusRequest ? static_cast<const bpio::StatusRequest *>(contents()) : nullptr;
-  }
-  const bpio::ConfigurationRequest *contents_as_ConfigurationRequest() const {
-    return contents_type() == bpio::RequestPacketContents_ConfigurationRequest ? static_cast<const bpio::ConfigurationRequest *>(contents()) : nullptr;
-  }
-  const bpio::DataRequest *contents_as_DataRequest() const {
-    return contents_type() == bpio::RequestPacketContents_DataRequest ? static_cast<const bpio::DataRequest *>(contents()) : nullptr;
-  }
-  bool Verify(::flatbuffers::Verifier &verifier) const {
-    return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_VERSION_MAJOR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_VERSION_MINOR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_CONTENTS_TYPE, 1) &&
-           VerifyOffset(verifier, VT_CONTENTS) &&
-           VerifyRequestPacketContents(verifier, contents(), contents_type()) &&
-           verifier.EndTable();
-  }
-};
-
-template<> inline const bpio::StatusRequest *RequestPacket::contents_as<bpio::StatusRequest>() const {
-  return contents_as_StatusRequest();
-}
-
-template<> inline const bpio::ConfigurationRequest *RequestPacket::contents_as<bpio::ConfigurationRequest>() const {
-  return contents_as_ConfigurationRequest();
-}
-
-template<> inline const bpio::DataRequest *RequestPacket::contents_as<bpio::DataRequest>() const {
-  return contents_as_DataRequest();
-}
-
-struct RequestPacketBuilder {
-  typedef RequestPacket Table;
-  ::flatbuffers::FlatBufferBuilder &fbb_;
-  ::flatbuffers::uoffset_t start_;
-  void add_version_major(uint8_t version_major) {
-    fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MAJOR, version_major, 0);
-  }
-  void add_version_minor(uint8_t version_minor) {
-    fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MINOR, version_minor, 1);
-  }
-  void add_contents_type(bpio::RequestPacketContents contents_type) {
-    fbb_.AddElement<uint8_t>(RequestPacket::VT_CONTENTS_TYPE, static_cast<uint8_t>(contents_type), 0);
-  }
-  void add_contents(::flatbuffers::Offset<void> contents) {
-    fbb_.AddOffset(RequestPacket::VT_CONTENTS, contents);
-  }
-  explicit RequestPacketBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
-        : fbb_(_fbb) {
-    start_ = fbb_.StartTable();
-  }
-  ::flatbuffers::Offset<RequestPacket> Finish() {
-    const auto end = fbb_.EndTable(start_);
-    auto o = ::flatbuffers::Offset<RequestPacket>(end);
-    return o;
-  }
-};
-
-inline ::flatbuffers::Offset<RequestPacket> CreateRequestPacket(
-    ::flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t version_major = 0,
-    uint8_t version_minor = 1,
-    bpio::RequestPacketContents contents_type = bpio::RequestPacketContents_NONE,
-    ::flatbuffers::Offset<void> contents = 0) {
-  RequestPacketBuilder builder_(_fbb);
-  builder_.add_contents(contents);
-  builder_.add_contents_type(contents_type);
-  builder_.add_version_minor(version_minor);
-  builder_.add_version_major(version_major);
-  return builder_.Finish();
-}
-
 struct ErrorResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ErrorResponseBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -1434,6 +1364,100 @@ inline ::flatbuffers::Offset<ErrorResponse> CreateErrorResponseDirect(
       error__);
 }
 
+struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
+  typedef RequestPacketBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_VERSION_MAJOR = 4,
+    VT_VERSION_MINOR = 6,
+    VT_CONTENTS_TYPE = 8,
+    VT_CONTENTS = 10
+  };
+  uint8_t version_major() const {
+    return GetField<uint8_t>(VT_VERSION_MAJOR, 2);
+  }
+  uint8_t version_minor() const {
+    return GetField<uint8_t>(VT_VERSION_MINOR, 0);
+  }
+  bpio::RequestPacketContents contents_type() const {
+    return static_cast<bpio::RequestPacketContents>(GetField<uint8_t>(VT_CONTENTS_TYPE, 0));
+  }
+  const void *contents() const {
+    return GetPointer<const void *>(VT_CONTENTS);
+  }
+  template<typename T> const T *contents_as() const;
+  const bpio::StatusRequest *contents_as_StatusRequest() const {
+    return contents_type() == bpio::RequestPacketContents_StatusRequest ? static_cast<const bpio::StatusRequest *>(contents()) : nullptr;
+  }
+  const bpio::ConfigurationRequest *contents_as_ConfigurationRequest() const {
+    return contents_type() == bpio::RequestPacketContents_ConfigurationRequest ? static_cast<const bpio::ConfigurationRequest *>(contents()) : nullptr;
+  }
+  const bpio::DataRequest *contents_as_DataRequest() const {
+    return contents_type() == bpio::RequestPacketContents_DataRequest ? static_cast<const bpio::DataRequest *>(contents()) : nullptr;
+  }
+  bool Verify(::flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint8_t>(verifier, VT_VERSION_MAJOR, 1) &&
+           VerifyField<uint8_t>(verifier, VT_VERSION_MINOR, 1) &&
+           VerifyField<uint8_t>(verifier, VT_CONTENTS_TYPE, 1) &&
+           VerifyOffset(verifier, VT_CONTENTS) &&
+           VerifyRequestPacketContents(verifier, contents(), contents_type()) &&
+           verifier.EndTable();
+  }
+};
+
+template<> inline const bpio::StatusRequest *RequestPacket::contents_as<bpio::StatusRequest>() const {
+  return contents_as_StatusRequest();
+}
+
+template<> inline const bpio::ConfigurationRequest *RequestPacket::contents_as<bpio::ConfigurationRequest>() const {
+  return contents_as_ConfigurationRequest();
+}
+
+template<> inline const bpio::DataRequest *RequestPacket::contents_as<bpio::DataRequest>() const {
+  return contents_as_DataRequest();
+}
+
+struct RequestPacketBuilder {
+  typedef RequestPacket Table;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_version_major(uint8_t version_major) {
+    fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MAJOR, version_major, 2);
+  }
+  void add_version_minor(uint8_t version_minor) {
+    fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MINOR, version_minor, 0);
+  }
+  void add_contents_type(bpio::RequestPacketContents contents_type) {
+    fbb_.AddElement<uint8_t>(RequestPacket::VT_CONTENTS_TYPE, static_cast<uint8_t>(contents_type), 0);
+  }
+  void add_contents(::flatbuffers::Offset<void> contents) {
+    fbb_.AddOffset(RequestPacket::VT_CONTENTS, contents);
+  }
+  explicit RequestPacketBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ::flatbuffers::Offset<RequestPacket> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = ::flatbuffers::Offset<RequestPacket>(end);
+    return o;
+  }
+};
+
+inline ::flatbuffers::Offset<RequestPacket> CreateRequestPacket(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    uint8_t version_major = 2,
+    uint8_t version_minor = 0,
+    bpio::RequestPacketContents contents_type = bpio::RequestPacketContents_NONE,
+    ::flatbuffers::Offset<void> contents = 0) {
+  RequestPacketBuilder builder_(_fbb);
+  builder_.add_contents(contents);
+  builder_.add_contents_type(contents_type);
+  builder_.add_version_minor(version_minor);
+  builder_.add_version_major(version_major);
+  return builder_.Finish();
+}
+
 struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ResponsePacketBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -1443,10 +1467,10 @@ struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     VT_CONTENTS = 10
   };
   uint8_t version_major() const {
-    return GetField<uint8_t>(VT_VERSION_MAJOR, 0);
+    return GetField<uint8_t>(VT_VERSION_MAJOR, 2);
   }
   uint8_t version_minor() const {
-    return GetField<uint8_t>(VT_VERSION_MINOR, 1);
+    return GetField<uint8_t>(VT_VERSION_MINOR, 0);
   }
   bpio::ResponsePacketContents contents_type() const {
     return static_cast<bpio::ResponsePacketContents>(GetField<uint8_t>(VT_CONTENTS_TYPE, 0));
@@ -1499,10 +1523,10 @@ struct ResponsePacketBuilder {
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
   void add_version_major(uint8_t version_major) {
-    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MAJOR, version_major, 0);
+    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MAJOR, version_major, 2);
   }
   void add_version_minor(uint8_t version_minor) {
-    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MINOR, version_minor, 1);
+    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MINOR, version_minor, 0);
   }
   void add_contents_type(bpio::ResponsePacketContents contents_type) {
     fbb_.AddElement<uint8_t>(ResponsePacket::VT_CONTENTS_TYPE, static_cast<uint8_t>(contents_type), 0);
@@ -1523,8 +1547,8 @@ struct ResponsePacketBuilder {
 
 inline ::flatbuffers::Offset<ResponsePacket> CreateResponsePacket(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t version_major = 0,
-    uint8_t version_minor = 1,
+    uint8_t version_major = 2,
+    uint8_t version_minor = 0,
     bpio::ResponsePacketContents contents_type = bpio::ResponsePacketContents_NONE,
     ::flatbuffers::Offset<void> contents = 0) {
   ResponsePacketBuilder builder_(_fbb);

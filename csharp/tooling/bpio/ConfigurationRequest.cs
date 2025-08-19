@@ -35,29 +35,29 @@ public struct ConfigurationRequest : IFlatbufferObject
   public ushort PsuSetMa { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)300; } }
   public bool PullupDisable { get { int o = __p.__offset(20); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
   public bool PullupEnable { get { int o = __p.__offset(22); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public uint PullxConfig { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public byte IoDirectionMask { get { int o = __p.__offset(26); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte IoDirection { get { int o = __p.__offset(28); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte IoValueMask { get { int o = __p.__offset(30); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte IoValue { get { int o = __p.__offset(32); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public bool LedResume { get { int o = __p.__offset(34); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public uint LedColor(int j) { int o = __p.__offset(36); return o != 0 ? __p.bb.GetUint(__p.__vector(o) + j * 4) : (uint)0; }
-  public int LedColorLength { get { int o = __p.__offset(36); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte IoDirectionMask { get { int o = __p.__offset(24); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte IoDirection { get { int o = __p.__offset(26); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte IoValueMask { get { int o = __p.__offset(28); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte IoValue { get { int o = __p.__offset(30); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public bool LedResume { get { int o = __p.__offset(32); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public uint LedColor(int j) { int o = __p.__offset(34); return o != 0 ? __p.bb.GetUint(__p.__vector(o) + j * 4) : (uint)0; }
+  public int LedColorLength { get { int o = __p.__offset(34); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<uint> GetLedColorBytes() { return __p.__vector_as_span<uint>(36, 4); }
+  public Span<uint> GetLedColorBytes() { return __p.__vector_as_span<uint>(34, 4); }
 #else
-  public ArraySegment<byte>? GetLedColorBytes() { return __p.__vector_as_arraysegment(36); }
+  public ArraySegment<byte>? GetLedColorBytes() { return __p.__vector_as_arraysegment(34); }
 #endif
-  public uint[] GetLedColorArray() { return __p.__vector_as_array<uint>(36); }
-  public string PrintString { get { int o = __p.__offset(38); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public uint[] GetLedColorArray() { return __p.__vector_as_array<uint>(34); }
+  public string PrintString { get { int o = __p.__offset(36); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetPrintStringBytes() { return __p.__vector_as_span<byte>(38, 1); }
+  public Span<byte> GetPrintStringBytes() { return __p.__vector_as_span<byte>(36, 1); }
 #else
-  public ArraySegment<byte>? GetPrintStringBytes() { return __p.__vector_as_arraysegment(38); }
+  public ArraySegment<byte>? GetPrintStringBytes() { return __p.__vector_as_arraysegment(36); }
 #endif
-  public byte[] GetPrintStringArray() { return __p.__vector_as_array<byte>(38); }
-  public bool HardwareBootloader { get { int o = __p.__offset(40); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool HardwareReset { get { int o = __p.__offset(42); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public byte[] GetPrintStringArray() { return __p.__vector_as_array<byte>(36); }
+  public bool HardwareBootloader { get { int o = __p.__offset(38); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public bool HardwareReset { get { int o = __p.__offset(40); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public bool HardwareSelftest { get { int o = __p.__offset(42); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
   public static Offset<bpio.ConfigurationRequest> CreateConfigurationRequest(FlatBufferBuilder builder,
       StringOffset modeOffset = default(StringOffset),
@@ -70,7 +70,6 @@ public struct ConfigurationRequest : IFlatbufferObject
       ushort psu_set_ma = 300,
       bool pullup_disable = false,
       bool pullup_enable = false,
-      uint pullx_config = 0,
       byte io_direction_mask = 0,
       byte io_direction = 0,
       byte io_value_mask = 0,
@@ -79,15 +78,16 @@ public struct ConfigurationRequest : IFlatbufferObject
       VectorOffset led_colorOffset = default(VectorOffset),
       StringOffset print_stringOffset = default(StringOffset),
       bool hardware_bootloader = false,
-      bool hardware_reset = false) {
+      bool hardware_reset = false,
+      bool hardware_selftest = false) {
     builder.StartTable(20);
     ConfigurationRequest.AddPrintString(builder, print_stringOffset);
     ConfigurationRequest.AddLedColor(builder, led_colorOffset);
-    ConfigurationRequest.AddPullxConfig(builder, pullx_config);
     ConfigurationRequest.AddPsuSetMv(builder, psu_set_mv);
     ConfigurationRequest.AddModeConfiguration(builder, mode_configurationOffset);
     ConfigurationRequest.AddMode(builder, modeOffset);
     ConfigurationRequest.AddPsuSetMa(builder, psu_set_ma);
+    ConfigurationRequest.AddHardwareSelftest(builder, hardware_selftest);
     ConfigurationRequest.AddHardwareReset(builder, hardware_reset);
     ConfigurationRequest.AddHardwareBootloader(builder, hardware_bootloader);
     ConfigurationRequest.AddLedResume(builder, led_resume);
@@ -115,21 +115,21 @@ public struct ConfigurationRequest : IFlatbufferObject
   public static void AddPsuSetMa(FlatBufferBuilder builder, ushort psuSetMa) { builder.AddUshort(7, psuSetMa, 300); }
   public static void AddPullupDisable(FlatBufferBuilder builder, bool pullupDisable) { builder.AddBool(8, pullupDisable, false); }
   public static void AddPullupEnable(FlatBufferBuilder builder, bool pullupEnable) { builder.AddBool(9, pullupEnable, false); }
-  public static void AddPullxConfig(FlatBufferBuilder builder, uint pullxConfig) { builder.AddUint(10, pullxConfig, 0); }
-  public static void AddIoDirectionMask(FlatBufferBuilder builder, byte ioDirectionMask) { builder.AddByte(11, ioDirectionMask, 0); }
-  public static void AddIoDirection(FlatBufferBuilder builder, byte ioDirection) { builder.AddByte(12, ioDirection, 0); }
-  public static void AddIoValueMask(FlatBufferBuilder builder, byte ioValueMask) { builder.AddByte(13, ioValueMask, 0); }
-  public static void AddIoValue(FlatBufferBuilder builder, byte ioValue) { builder.AddByte(14, ioValue, 0); }
-  public static void AddLedResume(FlatBufferBuilder builder, bool ledResume) { builder.AddBool(15, ledResume, false); }
-  public static void AddLedColor(FlatBufferBuilder builder, VectorOffset ledColorOffset) { builder.AddOffset(16, ledColorOffset.Value, 0); }
+  public static void AddIoDirectionMask(FlatBufferBuilder builder, byte ioDirectionMask) { builder.AddByte(10, ioDirectionMask, 0); }
+  public static void AddIoDirection(FlatBufferBuilder builder, byte ioDirection) { builder.AddByte(11, ioDirection, 0); }
+  public static void AddIoValueMask(FlatBufferBuilder builder, byte ioValueMask) { builder.AddByte(12, ioValueMask, 0); }
+  public static void AddIoValue(FlatBufferBuilder builder, byte ioValue) { builder.AddByte(13, ioValue, 0); }
+  public static void AddLedResume(FlatBufferBuilder builder, bool ledResume) { builder.AddBool(14, ledResume, false); }
+  public static void AddLedColor(FlatBufferBuilder builder, VectorOffset ledColorOffset) { builder.AddOffset(15, ledColorOffset.Value, 0); }
   public static VectorOffset CreateLedColorVector(FlatBufferBuilder builder, uint[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddUint(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateLedColorVectorBlock(FlatBufferBuilder builder, uint[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateLedColorVectorBlock(FlatBufferBuilder builder, ArraySegment<uint> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateLedColorVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<uint>(dataPtr, sizeInBytes); return builder.EndVector(); }
   public static void StartLedColorVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddPrintString(FlatBufferBuilder builder, StringOffset printStringOffset) { builder.AddOffset(17, printStringOffset.Value, 0); }
-  public static void AddHardwareBootloader(FlatBufferBuilder builder, bool hardwareBootloader) { builder.AddBool(18, hardwareBootloader, false); }
-  public static void AddHardwareReset(FlatBufferBuilder builder, bool hardwareReset) { builder.AddBool(19, hardwareReset, false); }
+  public static void AddPrintString(FlatBufferBuilder builder, StringOffset printStringOffset) { builder.AddOffset(16, printStringOffset.Value, 0); }
+  public static void AddHardwareBootloader(FlatBufferBuilder builder, bool hardwareBootloader) { builder.AddBool(17, hardwareBootloader, false); }
+  public static void AddHardwareReset(FlatBufferBuilder builder, bool hardwareReset) { builder.AddBool(18, hardwareReset, false); }
+  public static void AddHardwareSelftest(FlatBufferBuilder builder, bool hardwareSelftest) { builder.AddBool(19, hardwareSelftest, false); }
   public static Offset<bpio.ConfigurationRequest> EndConfigurationRequest(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<bpio.ConfigurationRequest>(o);
@@ -152,16 +152,16 @@ static public class ConfigurationRequestVerify
       && verifier.VerifyField(tablePos, 18 /*PsuSetMa*/, 2 /*ushort*/, 2, false)
       && verifier.VerifyField(tablePos, 20 /*PullupDisable*/, 1 /*bool*/, 1, false)
       && verifier.VerifyField(tablePos, 22 /*PullupEnable*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 24 /*PullxConfig*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 26 /*IoDirectionMask*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 28 /*IoDirection*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 30 /*IoValueMask*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 32 /*IoValue*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 34 /*LedResume*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyVectorOfData(tablePos, 36 /*LedColor*/, 4 /*uint*/, false)
-      && verifier.VerifyString(tablePos, 38 /*PrintString*/, false)
-      && verifier.VerifyField(tablePos, 40 /*HardwareBootloader*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 42 /*HardwareReset*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyField(tablePos, 24 /*IoDirectionMask*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 26 /*IoDirection*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 28 /*IoValueMask*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 30 /*IoValue*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 32 /*LedResume*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyVectorOfData(tablePos, 34 /*LedColor*/, 4 /*uint*/, false)
+      && verifier.VerifyString(tablePos, 36 /*PrintString*/, false)
+      && verifier.VerifyField(tablePos, 38 /*HardwareBootloader*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyField(tablePos, 40 /*HardwareReset*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyField(tablePos, 42 /*HardwareSelftest*/, 1 /*bool*/, 1, false)
       && verifier.VerifyTableEnd(tablePos);
   }
 }

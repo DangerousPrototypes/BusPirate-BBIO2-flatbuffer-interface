@@ -118,20 +118,11 @@ class ConfigurationRequest extends Table
     }
 
     /**
-     * @return uint
-     */
-    public function getPullxConfig()
-    {
-        $o = $this->__offset(24);
-        return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
-    }
-
-    /**
      * @return byte
      */
     public function getIoDirectionMask()
     {
-        $o = $this->__offset(26);
+        $o = $this->__offset(24);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -140,7 +131,7 @@ class ConfigurationRequest extends Table
      */
     public function getIoDirection()
     {
-        $o = $this->__offset(28);
+        $o = $this->__offset(26);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -149,7 +140,7 @@ class ConfigurationRequest extends Table
      */
     public function getIoValueMask()
     {
-        $o = $this->__offset(30);
+        $o = $this->__offset(28);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -158,7 +149,7 @@ class ConfigurationRequest extends Table
      */
     public function getIoValue()
     {
-        $o = $this->__offset(32);
+        $o = $this->__offset(30);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -167,7 +158,7 @@ class ConfigurationRequest extends Table
      */
     public function getLedResume()
     {
-        $o = $this->__offset(34);
+        $o = $this->__offset(32);
         return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
     }
 
@@ -177,7 +168,7 @@ class ConfigurationRequest extends Table
      */
     public function getLedColor($j)
     {
-        $o = $this->__offset(36);
+        $o = $this->__offset(34);
         return $o != 0 ? $this->bb->getUint($this->__vector($o) + $j * 4) : 0;
     }
 
@@ -186,13 +177,13 @@ class ConfigurationRequest extends Table
      */
     public function getLedColorLength()
     {
-        $o = $this->__offset(36);
+        $o = $this->__offset(34);
         return $o != 0 ? $this->__vector_len($o) : 0;
     }
 
     public function getPrintString()
     {
-        $o = $this->__offset(38);
+        $o = $this->__offset(36);
         return $o != 0 ? $this->__string($o + $this->bb_pos) : null;
     }
 
@@ -201,7 +192,7 @@ class ConfigurationRequest extends Table
      */
     public function getHardwareBootloader()
     {
-        $o = $this->__offset(40);
+        $o = $this->__offset(38);
         return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
     }
 
@@ -209,6 +200,15 @@ class ConfigurationRequest extends Table
      * @return bool
      */
     public function getHardwareReset()
+    {
+        $o = $this->__offset(40);
+        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getHardwareSelftest()
     {
         $o = $this->__offset(42);
         return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
@@ -227,7 +227,7 @@ class ConfigurationRequest extends Table
      * @param FlatBufferBuilder $builder
      * @return ConfigurationRequest
      */
-    public static function createConfigurationRequest(FlatBufferBuilder $builder, $mode, $mode_configuration, $mode_bitorder_msb, $mode_bitorder_lsb, $psu_disable, $psu_enable, $psu_set_mv, $psu_set_ma, $pullup_disable, $pullup_enable, $pullx_config, $io_direction_mask, $io_direction, $io_value_mask, $io_value, $led_resume, $led_color, $print_string, $hardware_bootloader, $hardware_reset)
+    public static function createConfigurationRequest(FlatBufferBuilder $builder, $mode, $mode_configuration, $mode_bitorder_msb, $mode_bitorder_lsb, $psu_disable, $psu_enable, $psu_set_mv, $psu_set_ma, $pullup_disable, $pullup_enable, $io_direction_mask, $io_direction, $io_value_mask, $io_value, $led_resume, $led_color, $print_string, $hardware_bootloader, $hardware_reset, $hardware_selftest)
     {
         $builder->startObject(20);
         self::addMode($builder, $mode);
@@ -240,7 +240,6 @@ class ConfigurationRequest extends Table
         self::addPsuSetMa($builder, $psu_set_ma);
         self::addPullupDisable($builder, $pullup_disable);
         self::addPullupEnable($builder, $pullup_enable);
-        self::addPullxConfig($builder, $pullx_config);
         self::addIoDirectionMask($builder, $io_direction_mask);
         self::addIoDirection($builder, $io_direction);
         self::addIoValueMask($builder, $io_value_mask);
@@ -250,6 +249,7 @@ class ConfigurationRequest extends Table
         self::addPrintString($builder, $print_string);
         self::addHardwareBootloader($builder, $hardware_bootloader);
         self::addHardwareReset($builder, $hardware_reset);
+        self::addHardwareSelftest($builder, $hardware_selftest);
         $o = $builder->endObject();
         return $o;
     }
@@ -356,22 +356,12 @@ class ConfigurationRequest extends Table
 
     /**
      * @param FlatBufferBuilder $builder
-     * @param uint
-     * @return void
-     */
-    public static function addPullxConfig(FlatBufferBuilder $builder, $pullxConfig)
-    {
-        $builder->addUintX(10, $pullxConfig, 0);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
      * @param byte
      * @return void
      */
     public static function addIoDirectionMask(FlatBufferBuilder $builder, $ioDirectionMask)
     {
-        $builder->addByteX(11, $ioDirectionMask, 0);
+        $builder->addByteX(10, $ioDirectionMask, 0);
     }
 
     /**
@@ -381,7 +371,7 @@ class ConfigurationRequest extends Table
      */
     public static function addIoDirection(FlatBufferBuilder $builder, $ioDirection)
     {
-        $builder->addByteX(12, $ioDirection, 0);
+        $builder->addByteX(11, $ioDirection, 0);
     }
 
     /**
@@ -391,7 +381,7 @@ class ConfigurationRequest extends Table
      */
     public static function addIoValueMask(FlatBufferBuilder $builder, $ioValueMask)
     {
-        $builder->addByteX(13, $ioValueMask, 0);
+        $builder->addByteX(12, $ioValueMask, 0);
     }
 
     /**
@@ -401,7 +391,7 @@ class ConfigurationRequest extends Table
      */
     public static function addIoValue(FlatBufferBuilder $builder, $ioValue)
     {
-        $builder->addByteX(14, $ioValue, 0);
+        $builder->addByteX(13, $ioValue, 0);
     }
 
     /**
@@ -411,7 +401,7 @@ class ConfigurationRequest extends Table
      */
     public static function addLedResume(FlatBufferBuilder $builder, $ledResume)
     {
-        $builder->addBoolX(15, $ledResume, false);
+        $builder->addBoolX(14, $ledResume, false);
     }
 
     /**
@@ -421,7 +411,7 @@ class ConfigurationRequest extends Table
      */
     public static function addLedColor(FlatBufferBuilder $builder, $ledColor)
     {
-        $builder->addOffsetX(16, $ledColor, 0);
+        $builder->addOffsetX(15, $ledColor, 0);
     }
 
     /**
@@ -455,7 +445,7 @@ class ConfigurationRequest extends Table
      */
     public static function addPrintString(FlatBufferBuilder $builder, $printString)
     {
-        $builder->addOffsetX(17, $printString, 0);
+        $builder->addOffsetX(16, $printString, 0);
     }
 
     /**
@@ -465,7 +455,7 @@ class ConfigurationRequest extends Table
      */
     public static function addHardwareBootloader(FlatBufferBuilder $builder, $hardwareBootloader)
     {
-        $builder->addBoolX(18, $hardwareBootloader, false);
+        $builder->addBoolX(17, $hardwareBootloader, false);
     }
 
     /**
@@ -475,7 +465,17 @@ class ConfigurationRequest extends Table
      */
     public static function addHardwareReset(FlatBufferBuilder $builder, $hardwareReset)
     {
-        $builder->addBoolX(19, $hardwareReset, false);
+        $builder->addBoolX(18, $hardwareReset, false);
+    }
+
+    /**
+     * @param FlatBufferBuilder $builder
+     * @param bool
+     * @return void
+     */
+    public static function addHardwareSelftest(FlatBufferBuilder $builder, $hardwareSelftest)
+    {
+        $builder->addBoolX(19, $hardwareSelftest, false);
     }
 
     /**

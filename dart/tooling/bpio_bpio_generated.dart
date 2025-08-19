@@ -219,34 +219,36 @@ class StatusResponse {
   final int _bcOffset;
 
   String? get error => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 4);
-  int get hardwareVersionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0);
-  int get hardwareVersionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 8, 0);
-  int get firmwareVersionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 10, 0);
-  int get firmwareVersionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 12, 0);
-  String? get firmwareGitHash => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 14);
-  String? get firmwareDate => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 16);
+  int get versionHardwareMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0);
+  int get versionHardwareMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 8, 0);
+  int get versionFirmwareMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 10, 0);
+  int get versionFirmwareMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 12, 0);
+  String? get versionFirmwareGitHash => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 14);
+  String? get versionFirmwareDate => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 16);
   List<String>? get modesAvailable => const fb.ListReader<String>(fb.StringReader()).vTableGetNullable(_bc, _bcOffset, 18);
   String? get modeCurrent => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 20);
   List<String>? get modePinLabels => const fb.ListReader<String>(fb.StringReader()).vTableGetNullable(_bc, _bcOffset, 22);
   bool get modeBitorderMsb => const fb.BoolReader().vTableGet(_bc, _bcOffset, 24, false);
-  bool get psuEnabled => const fb.BoolReader().vTableGet(_bc, _bcOffset, 26, false);
-  int get psuSetMv => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 28, 0);
-  int get psuSetMa => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 30, 0);
-  int get psuMeasuredMv => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 32, 0);
-  int get psuMeasuredMa => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 34, 0);
-  bool get psuCurrentError => const fb.BoolReader().vTableGet(_bc, _bcOffset, 36, false);
-  bool get pullupEnabled => const fb.BoolReader().vTableGet(_bc, _bcOffset, 38, false);
-  int get pullxConfig => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 40, 0);
-  List<int>? get adcMv => const fb.ListReader<int>(fb.Uint32Reader()).vTableGetNullable(_bc, _bcOffset, 42);
-  int get ioDirection => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 44, 0);
-  int get ioValue => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 46, 0);
-  double get diskSizeMb => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 48, 0.0);
-  double get diskUsedMb => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 50, 0.0);
-  int get ledCount => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 52, 0);
+  int get modeMaxPacketSize => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 26, 0);
+  int get modeMaxWrite => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 28, 0);
+  int get modeMaxRead => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 30, 0);
+  bool get psuEnabled => const fb.BoolReader().vTableGet(_bc, _bcOffset, 32, false);
+  int get psuSetMv => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 34, 0);
+  int get psuSetMa => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 36, 0);
+  int get psuMeasuredMv => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 38, 0);
+  int get psuMeasuredMa => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 40, 0);
+  bool get psuCurrentError => const fb.BoolReader().vTableGet(_bc, _bcOffset, 42, false);
+  bool get pullupEnabled => const fb.BoolReader().vTableGet(_bc, _bcOffset, 44, false);
+  List<int>? get adcMv => const fb.ListReader<int>(fb.Uint32Reader()).vTableGetNullable(_bc, _bcOffset, 46);
+  int get ioDirection => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 48, 0);
+  int get ioValue => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 50, 0);
+  double get diskSizeMb => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 52, 0.0);
+  double get diskUsedMb => const fb.Float32Reader().vTableGet(_bc, _bcOffset, 54, 0.0);
+  int get ledCount => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 56, 0);
 
   @override
   String toString() {
-    return 'StatusResponse{error: ${error}, hardwareVersionMajor: ${hardwareVersionMajor}, hardwareVersionMinor: ${hardwareVersionMinor}, firmwareVersionMajor: ${firmwareVersionMajor}, firmwareVersionMinor: ${firmwareVersionMinor}, firmwareGitHash: ${firmwareGitHash}, firmwareDate: ${firmwareDate}, modesAvailable: ${modesAvailable}, modeCurrent: ${modeCurrent}, modePinLabels: ${modePinLabels}, modeBitorderMsb: ${modeBitorderMsb}, psuEnabled: ${psuEnabled}, psuSetMv: ${psuSetMv}, psuSetMa: ${psuSetMa}, psuMeasuredMv: ${psuMeasuredMv}, psuMeasuredMa: ${psuMeasuredMa}, psuCurrentError: ${psuCurrentError}, pullupEnabled: ${pullupEnabled}, pullxConfig: ${pullxConfig}, adcMv: ${adcMv}, ioDirection: ${ioDirection}, ioValue: ${ioValue}, diskSizeMb: ${diskSizeMb}, diskUsedMb: ${diskUsedMb}, ledCount: ${ledCount}}';
+    return 'StatusResponse{error: ${error}, versionHardwareMajor: ${versionHardwareMajor}, versionHardwareMinor: ${versionHardwareMinor}, versionFirmwareMajor: ${versionFirmwareMajor}, versionFirmwareMinor: ${versionFirmwareMinor}, versionFirmwareGitHash: ${versionFirmwareGitHash}, versionFirmwareDate: ${versionFirmwareDate}, modesAvailable: ${modesAvailable}, modeCurrent: ${modeCurrent}, modePinLabels: ${modePinLabels}, modeBitorderMsb: ${modeBitorderMsb}, modeMaxPacketSize: ${modeMaxPacketSize}, modeMaxWrite: ${modeMaxWrite}, modeMaxRead: ${modeMaxRead}, psuEnabled: ${psuEnabled}, psuSetMv: ${psuSetMv}, psuSetMa: ${psuSetMa}, psuMeasuredMv: ${psuMeasuredMv}, psuMeasuredMa: ${psuMeasuredMa}, psuCurrentError: ${psuCurrentError}, pullupEnabled: ${pullupEnabled}, adcMv: ${adcMv}, ioDirection: ${ioDirection}, ioValue: ${ioValue}, diskSizeMb: ${diskSizeMb}, diskUsedMb: ${diskUsedMb}, ledCount: ${ledCount}}';
   }
 }
 
@@ -264,34 +266,34 @@ class StatusResponseBuilder {
   final fb.Builder fbBuilder;
 
   void begin() {
-    fbBuilder.startTable(25);
+    fbBuilder.startTable(27);
   }
 
   int addErrorOffset(int? offset) {
     fbBuilder.addOffset(0, offset);
     return fbBuilder.offset;
   }
-  int addHardwareVersionMajor(int? hardwareVersionMajor) {
-    fbBuilder.addUint8(1, hardwareVersionMajor);
+  int addVersionHardwareMajor(int? versionHardwareMajor) {
+    fbBuilder.addUint8(1, versionHardwareMajor);
     return fbBuilder.offset;
   }
-  int addHardwareVersionMinor(int? hardwareVersionMinor) {
-    fbBuilder.addUint8(2, hardwareVersionMinor);
+  int addVersionHardwareMinor(int? versionHardwareMinor) {
+    fbBuilder.addUint8(2, versionHardwareMinor);
     return fbBuilder.offset;
   }
-  int addFirmwareVersionMajor(int? firmwareVersionMajor) {
-    fbBuilder.addUint8(3, firmwareVersionMajor);
+  int addVersionFirmwareMajor(int? versionFirmwareMajor) {
+    fbBuilder.addUint8(3, versionFirmwareMajor);
     return fbBuilder.offset;
   }
-  int addFirmwareVersionMinor(int? firmwareVersionMinor) {
-    fbBuilder.addUint8(4, firmwareVersionMinor);
+  int addVersionFirmwareMinor(int? versionFirmwareMinor) {
+    fbBuilder.addUint8(4, versionFirmwareMinor);
     return fbBuilder.offset;
   }
-  int addFirmwareGitHashOffset(int? offset) {
+  int addVersionFirmwareGitHashOffset(int? offset) {
     fbBuilder.addOffset(5, offset);
     return fbBuilder.offset;
   }
-  int addFirmwareDateOffset(int? offset) {
+  int addVersionFirmwareDateOffset(int? offset) {
     fbBuilder.addOffset(6, offset);
     return fbBuilder.offset;
   }
@@ -311,60 +313,68 @@ class StatusResponseBuilder {
     fbBuilder.addBool(10, modeBitorderMsb);
     return fbBuilder.offset;
   }
+  int addModeMaxPacketSize(int? modeMaxPacketSize) {
+    fbBuilder.addUint32(11, modeMaxPacketSize);
+    return fbBuilder.offset;
+  }
+  int addModeMaxWrite(int? modeMaxWrite) {
+    fbBuilder.addUint32(12, modeMaxWrite);
+    return fbBuilder.offset;
+  }
+  int addModeMaxRead(int? modeMaxRead) {
+    fbBuilder.addUint32(13, modeMaxRead);
+    return fbBuilder.offset;
+  }
   int addPsuEnabled(bool? psuEnabled) {
-    fbBuilder.addBool(11, psuEnabled);
+    fbBuilder.addBool(14, psuEnabled);
     return fbBuilder.offset;
   }
   int addPsuSetMv(int? psuSetMv) {
-    fbBuilder.addUint32(12, psuSetMv);
+    fbBuilder.addUint32(15, psuSetMv);
     return fbBuilder.offset;
   }
   int addPsuSetMa(int? psuSetMa) {
-    fbBuilder.addUint32(13, psuSetMa);
+    fbBuilder.addUint32(16, psuSetMa);
     return fbBuilder.offset;
   }
   int addPsuMeasuredMv(int? psuMeasuredMv) {
-    fbBuilder.addUint32(14, psuMeasuredMv);
+    fbBuilder.addUint32(17, psuMeasuredMv);
     return fbBuilder.offset;
   }
   int addPsuMeasuredMa(int? psuMeasuredMa) {
-    fbBuilder.addUint32(15, psuMeasuredMa);
+    fbBuilder.addUint32(18, psuMeasuredMa);
     return fbBuilder.offset;
   }
   int addPsuCurrentError(bool? psuCurrentError) {
-    fbBuilder.addBool(16, psuCurrentError);
+    fbBuilder.addBool(19, psuCurrentError);
     return fbBuilder.offset;
   }
   int addPullupEnabled(bool? pullupEnabled) {
-    fbBuilder.addBool(17, pullupEnabled);
-    return fbBuilder.offset;
-  }
-  int addPullxConfig(int? pullxConfig) {
-    fbBuilder.addUint32(18, pullxConfig);
+    fbBuilder.addBool(20, pullupEnabled);
     return fbBuilder.offset;
   }
   int addAdcMvOffset(int? offset) {
-    fbBuilder.addOffset(19, offset);
+    fbBuilder.addOffset(21, offset);
     return fbBuilder.offset;
   }
   int addIoDirection(int? ioDirection) {
-    fbBuilder.addUint8(20, ioDirection);
+    fbBuilder.addUint8(22, ioDirection);
     return fbBuilder.offset;
   }
   int addIoValue(int? ioValue) {
-    fbBuilder.addUint8(21, ioValue);
+    fbBuilder.addUint8(23, ioValue);
     return fbBuilder.offset;
   }
   int addDiskSizeMb(double? diskSizeMb) {
-    fbBuilder.addFloat32(22, diskSizeMb);
+    fbBuilder.addFloat32(24, diskSizeMb);
     return fbBuilder.offset;
   }
   int addDiskUsedMb(double? diskUsedMb) {
-    fbBuilder.addFloat32(23, diskUsedMb);
+    fbBuilder.addFloat32(25, diskUsedMb);
     return fbBuilder.offset;
   }
   int addLedCount(int? ledCount) {
-    fbBuilder.addUint8(24, ledCount);
+    fbBuilder.addUint8(26, ledCount);
     return fbBuilder.offset;
   }
 
@@ -375,16 +385,19 @@ class StatusResponseBuilder {
 
 class StatusResponseObjectBuilder extends fb.ObjectBuilder {
   final String? _error;
-  final int? _hardwareVersionMajor;
-  final int? _hardwareVersionMinor;
-  final int? _firmwareVersionMajor;
-  final int? _firmwareVersionMinor;
-  final String? _firmwareGitHash;
-  final String? _firmwareDate;
+  final int? _versionHardwareMajor;
+  final int? _versionHardwareMinor;
+  final int? _versionFirmwareMajor;
+  final int? _versionFirmwareMinor;
+  final String? _versionFirmwareGitHash;
+  final String? _versionFirmwareDate;
   final List<String>? _modesAvailable;
   final String? _modeCurrent;
   final List<String>? _modePinLabels;
   final bool? _modeBitorderMsb;
+  final int? _modeMaxPacketSize;
+  final int? _modeMaxWrite;
+  final int? _modeMaxRead;
   final bool? _psuEnabled;
   final int? _psuSetMv;
   final int? _psuSetMa;
@@ -392,7 +405,6 @@ class StatusResponseObjectBuilder extends fb.ObjectBuilder {
   final int? _psuMeasuredMa;
   final bool? _psuCurrentError;
   final bool? _pullupEnabled;
-  final int? _pullxConfig;
   final List<int>? _adcMv;
   final int? _ioDirection;
   final int? _ioValue;
@@ -402,16 +414,19 @@ class StatusResponseObjectBuilder extends fb.ObjectBuilder {
 
   StatusResponseObjectBuilder({
     String? error,
-    int? hardwareVersionMajor,
-    int? hardwareVersionMinor,
-    int? firmwareVersionMajor,
-    int? firmwareVersionMinor,
-    String? firmwareGitHash,
-    String? firmwareDate,
+    int? versionHardwareMajor,
+    int? versionHardwareMinor,
+    int? versionFirmwareMajor,
+    int? versionFirmwareMinor,
+    String? versionFirmwareGitHash,
+    String? versionFirmwareDate,
     List<String>? modesAvailable,
     String? modeCurrent,
     List<String>? modePinLabels,
     bool? modeBitorderMsb,
+    int? modeMaxPacketSize,
+    int? modeMaxWrite,
+    int? modeMaxRead,
     bool? psuEnabled,
     int? psuSetMv,
     int? psuSetMa,
@@ -419,7 +434,6 @@ class StatusResponseObjectBuilder extends fb.ObjectBuilder {
     int? psuMeasuredMa,
     bool? psuCurrentError,
     bool? pullupEnabled,
-    int? pullxConfig,
     List<int>? adcMv,
     int? ioDirection,
     int? ioValue,
@@ -428,16 +442,19 @@ class StatusResponseObjectBuilder extends fb.ObjectBuilder {
     int? ledCount,
   })
       : _error = error,
-        _hardwareVersionMajor = hardwareVersionMajor,
-        _hardwareVersionMinor = hardwareVersionMinor,
-        _firmwareVersionMajor = firmwareVersionMajor,
-        _firmwareVersionMinor = firmwareVersionMinor,
-        _firmwareGitHash = firmwareGitHash,
-        _firmwareDate = firmwareDate,
+        _versionHardwareMajor = versionHardwareMajor,
+        _versionHardwareMinor = versionHardwareMinor,
+        _versionFirmwareMajor = versionFirmwareMajor,
+        _versionFirmwareMinor = versionFirmwareMinor,
+        _versionFirmwareGitHash = versionFirmwareGitHash,
+        _versionFirmwareDate = versionFirmwareDate,
         _modesAvailable = modesAvailable,
         _modeCurrent = modeCurrent,
         _modePinLabels = modePinLabels,
         _modeBitorderMsb = modeBitorderMsb,
+        _modeMaxPacketSize = modeMaxPacketSize,
+        _modeMaxWrite = modeMaxWrite,
+        _modeMaxRead = modeMaxRead,
         _psuEnabled = psuEnabled,
         _psuSetMv = psuSetMv,
         _psuSetMa = psuSetMa,
@@ -445,7 +462,6 @@ class StatusResponseObjectBuilder extends fb.ObjectBuilder {
         _psuMeasuredMa = psuMeasuredMa,
         _psuCurrentError = psuCurrentError,
         _pullupEnabled = pullupEnabled,
-        _pullxConfig = pullxConfig,
         _adcMv = adcMv,
         _ioDirection = ioDirection,
         _ioValue = ioValue,
@@ -458,10 +474,10 @@ class StatusResponseObjectBuilder extends fb.ObjectBuilder {
   int finish(fb.Builder fbBuilder) {
     final int? errorOffset = _error == null ? null
         : fbBuilder.writeString(_error!);
-    final int? firmwareGitHashOffset = _firmwareGitHash == null ? null
-        : fbBuilder.writeString(_firmwareGitHash!);
-    final int? firmwareDateOffset = _firmwareDate == null ? null
-        : fbBuilder.writeString(_firmwareDate!);
+    final int? versionFirmwareGitHashOffset = _versionFirmwareGitHash == null ? null
+        : fbBuilder.writeString(_versionFirmwareGitHash!);
+    final int? versionFirmwareDateOffset = _versionFirmwareDate == null ? null
+        : fbBuilder.writeString(_versionFirmwareDate!);
     final int? modesAvailableOffset = _modesAvailable == null ? null
         : fbBuilder.writeList(_modesAvailable!.map(fbBuilder.writeString).toList());
     final int? modeCurrentOffset = _modeCurrent == null ? null
@@ -470,32 +486,34 @@ class StatusResponseObjectBuilder extends fb.ObjectBuilder {
         : fbBuilder.writeList(_modePinLabels!.map(fbBuilder.writeString).toList());
     final int? adcMvOffset = _adcMv == null ? null
         : fbBuilder.writeListUint32(_adcMv!);
-    fbBuilder.startTable(25);
+    fbBuilder.startTable(27);
     fbBuilder.addOffset(0, errorOffset);
-    fbBuilder.addUint8(1, _hardwareVersionMajor);
-    fbBuilder.addUint8(2, _hardwareVersionMinor);
-    fbBuilder.addUint8(3, _firmwareVersionMajor);
-    fbBuilder.addUint8(4, _firmwareVersionMinor);
-    fbBuilder.addOffset(5, firmwareGitHashOffset);
-    fbBuilder.addOffset(6, firmwareDateOffset);
+    fbBuilder.addUint8(1, _versionHardwareMajor);
+    fbBuilder.addUint8(2, _versionHardwareMinor);
+    fbBuilder.addUint8(3, _versionFirmwareMajor);
+    fbBuilder.addUint8(4, _versionFirmwareMinor);
+    fbBuilder.addOffset(5, versionFirmwareGitHashOffset);
+    fbBuilder.addOffset(6, versionFirmwareDateOffset);
     fbBuilder.addOffset(7, modesAvailableOffset);
     fbBuilder.addOffset(8, modeCurrentOffset);
     fbBuilder.addOffset(9, modePinLabelsOffset);
     fbBuilder.addBool(10, _modeBitorderMsb);
-    fbBuilder.addBool(11, _psuEnabled);
-    fbBuilder.addUint32(12, _psuSetMv);
-    fbBuilder.addUint32(13, _psuSetMa);
-    fbBuilder.addUint32(14, _psuMeasuredMv);
-    fbBuilder.addUint32(15, _psuMeasuredMa);
-    fbBuilder.addBool(16, _psuCurrentError);
-    fbBuilder.addBool(17, _pullupEnabled);
-    fbBuilder.addUint32(18, _pullxConfig);
-    fbBuilder.addOffset(19, adcMvOffset);
-    fbBuilder.addUint8(20, _ioDirection);
-    fbBuilder.addUint8(21, _ioValue);
-    fbBuilder.addFloat32(22, _diskSizeMb);
-    fbBuilder.addFloat32(23, _diskUsedMb);
-    fbBuilder.addUint8(24, _ledCount);
+    fbBuilder.addUint32(11, _modeMaxPacketSize);
+    fbBuilder.addUint32(12, _modeMaxWrite);
+    fbBuilder.addUint32(13, _modeMaxRead);
+    fbBuilder.addBool(14, _psuEnabled);
+    fbBuilder.addUint32(15, _psuSetMv);
+    fbBuilder.addUint32(16, _psuSetMa);
+    fbBuilder.addUint32(17, _psuMeasuredMv);
+    fbBuilder.addUint32(18, _psuMeasuredMa);
+    fbBuilder.addBool(19, _psuCurrentError);
+    fbBuilder.addBool(20, _pullupEnabled);
+    fbBuilder.addOffset(21, adcMvOffset);
+    fbBuilder.addUint8(22, _ioDirection);
+    fbBuilder.addUint8(23, _ioValue);
+    fbBuilder.addFloat32(24, _diskSizeMb);
+    fbBuilder.addFloat32(25, _diskUsedMb);
+    fbBuilder.addUint8(26, _ledCount);
     return fbBuilder.endTable();
   }
 
@@ -708,20 +726,20 @@ class ConfigurationRequest {
   int get psuSetMa => const fb.Uint16Reader().vTableGet(_bc, _bcOffset, 18, 300);
   bool get pullupDisable => const fb.BoolReader().vTableGet(_bc, _bcOffset, 20, false);
   bool get pullupEnable => const fb.BoolReader().vTableGet(_bc, _bcOffset, 22, false);
-  int get pullxConfig => const fb.Uint32Reader().vTableGet(_bc, _bcOffset, 24, 0);
-  int get ioDirectionMask => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 26, 0);
-  int get ioDirection => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 28, 0);
-  int get ioValueMask => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 30, 0);
-  int get ioValue => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 32, 0);
-  bool get ledResume => const fb.BoolReader().vTableGet(_bc, _bcOffset, 34, false);
-  List<int>? get ledColor => const fb.ListReader<int>(fb.Uint32Reader()).vTableGetNullable(_bc, _bcOffset, 36);
-  String? get printString => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 38);
-  bool get hardwareBootloader => const fb.BoolReader().vTableGet(_bc, _bcOffset, 40, false);
-  bool get hardwareReset => const fb.BoolReader().vTableGet(_bc, _bcOffset, 42, false);
+  int get ioDirectionMask => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 24, 0);
+  int get ioDirection => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 26, 0);
+  int get ioValueMask => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 28, 0);
+  int get ioValue => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 30, 0);
+  bool get ledResume => const fb.BoolReader().vTableGet(_bc, _bcOffset, 32, false);
+  List<int>? get ledColor => const fb.ListReader<int>(fb.Uint32Reader()).vTableGetNullable(_bc, _bcOffset, 34);
+  String? get printString => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 36);
+  bool get hardwareBootloader => const fb.BoolReader().vTableGet(_bc, _bcOffset, 38, false);
+  bool get hardwareReset => const fb.BoolReader().vTableGet(_bc, _bcOffset, 40, false);
+  bool get hardwareSelftest => const fb.BoolReader().vTableGet(_bc, _bcOffset, 42, false);
 
   @override
   String toString() {
-    return 'ConfigurationRequest{mode: ${mode}, modeConfiguration: ${modeConfiguration}, modeBitorderMsb: ${modeBitorderMsb}, modeBitorderLsb: ${modeBitorderLsb}, psuDisable: ${psuDisable}, psuEnable: ${psuEnable}, psuSetMv: ${psuSetMv}, psuSetMa: ${psuSetMa}, pullupDisable: ${pullupDisable}, pullupEnable: ${pullupEnable}, pullxConfig: ${pullxConfig}, ioDirectionMask: ${ioDirectionMask}, ioDirection: ${ioDirection}, ioValueMask: ${ioValueMask}, ioValue: ${ioValue}, ledResume: ${ledResume}, ledColor: ${ledColor}, printString: ${printString}, hardwareBootloader: ${hardwareBootloader}, hardwareReset: ${hardwareReset}}';
+    return 'ConfigurationRequest{mode: ${mode}, modeConfiguration: ${modeConfiguration}, modeBitorderMsb: ${modeBitorderMsb}, modeBitorderLsb: ${modeBitorderLsb}, psuDisable: ${psuDisable}, psuEnable: ${psuEnable}, psuSetMv: ${psuSetMv}, psuSetMa: ${psuSetMa}, pullupDisable: ${pullupDisable}, pullupEnable: ${pullupEnable}, ioDirectionMask: ${ioDirectionMask}, ioDirection: ${ioDirection}, ioValueMask: ${ioValueMask}, ioValue: ${ioValue}, ledResume: ${ledResume}, ledColor: ${ledColor}, printString: ${printString}, hardwareBootloader: ${hardwareBootloader}, hardwareReset: ${hardwareReset}, hardwareSelftest: ${hardwareSelftest}}';
   }
 }
 
@@ -782,44 +800,44 @@ class ConfigurationRequestBuilder {
     fbBuilder.addBool(9, pullupEnable);
     return fbBuilder.offset;
   }
-  int addPullxConfig(int? pullxConfig) {
-    fbBuilder.addUint32(10, pullxConfig);
-    return fbBuilder.offset;
-  }
   int addIoDirectionMask(int? ioDirectionMask) {
-    fbBuilder.addUint8(11, ioDirectionMask);
+    fbBuilder.addUint8(10, ioDirectionMask);
     return fbBuilder.offset;
   }
   int addIoDirection(int? ioDirection) {
-    fbBuilder.addUint8(12, ioDirection);
+    fbBuilder.addUint8(11, ioDirection);
     return fbBuilder.offset;
   }
   int addIoValueMask(int? ioValueMask) {
-    fbBuilder.addUint8(13, ioValueMask);
+    fbBuilder.addUint8(12, ioValueMask);
     return fbBuilder.offset;
   }
   int addIoValue(int? ioValue) {
-    fbBuilder.addUint8(14, ioValue);
+    fbBuilder.addUint8(13, ioValue);
     return fbBuilder.offset;
   }
   int addLedResume(bool? ledResume) {
-    fbBuilder.addBool(15, ledResume);
+    fbBuilder.addBool(14, ledResume);
     return fbBuilder.offset;
   }
   int addLedColorOffset(int? offset) {
-    fbBuilder.addOffset(16, offset);
+    fbBuilder.addOffset(15, offset);
     return fbBuilder.offset;
   }
   int addPrintStringOffset(int? offset) {
-    fbBuilder.addOffset(17, offset);
+    fbBuilder.addOffset(16, offset);
     return fbBuilder.offset;
   }
   int addHardwareBootloader(bool? hardwareBootloader) {
-    fbBuilder.addBool(18, hardwareBootloader);
+    fbBuilder.addBool(17, hardwareBootloader);
     return fbBuilder.offset;
   }
   int addHardwareReset(bool? hardwareReset) {
-    fbBuilder.addBool(19, hardwareReset);
+    fbBuilder.addBool(18, hardwareReset);
+    return fbBuilder.offset;
+  }
+  int addHardwareSelftest(bool? hardwareSelftest) {
+    fbBuilder.addBool(19, hardwareSelftest);
     return fbBuilder.offset;
   }
 
@@ -839,7 +857,6 @@ class ConfigurationRequestObjectBuilder extends fb.ObjectBuilder {
   final int? _psuSetMa;
   final bool? _pullupDisable;
   final bool? _pullupEnable;
-  final int? _pullxConfig;
   final int? _ioDirectionMask;
   final int? _ioDirection;
   final int? _ioValueMask;
@@ -849,6 +866,7 @@ class ConfigurationRequestObjectBuilder extends fb.ObjectBuilder {
   final String? _printString;
   final bool? _hardwareBootloader;
   final bool? _hardwareReset;
+  final bool? _hardwareSelftest;
 
   ConfigurationRequestObjectBuilder({
     String? mode,
@@ -861,7 +879,6 @@ class ConfigurationRequestObjectBuilder extends fb.ObjectBuilder {
     int? psuSetMa,
     bool? pullupDisable,
     bool? pullupEnable,
-    int? pullxConfig,
     int? ioDirectionMask,
     int? ioDirection,
     int? ioValueMask,
@@ -871,6 +888,7 @@ class ConfigurationRequestObjectBuilder extends fb.ObjectBuilder {
     String? printString,
     bool? hardwareBootloader,
     bool? hardwareReset,
+    bool? hardwareSelftest,
   })
       : _mode = mode,
         _modeConfiguration = modeConfiguration,
@@ -882,7 +900,6 @@ class ConfigurationRequestObjectBuilder extends fb.ObjectBuilder {
         _psuSetMa = psuSetMa,
         _pullupDisable = pullupDisable,
         _pullupEnable = pullupEnable,
-        _pullxConfig = pullxConfig,
         _ioDirectionMask = ioDirectionMask,
         _ioDirection = ioDirection,
         _ioValueMask = ioValueMask,
@@ -891,7 +908,8 @@ class ConfigurationRequestObjectBuilder extends fb.ObjectBuilder {
         _ledColor = ledColor,
         _printString = printString,
         _hardwareBootloader = hardwareBootloader,
-        _hardwareReset = hardwareReset;
+        _hardwareReset = hardwareReset,
+        _hardwareSelftest = hardwareSelftest;
 
   /// Finish building, and store into the [fbBuilder].
   @override
@@ -914,16 +932,16 @@ class ConfigurationRequestObjectBuilder extends fb.ObjectBuilder {
     fbBuilder.addUint16(7, _psuSetMa);
     fbBuilder.addBool(8, _pullupDisable);
     fbBuilder.addBool(9, _pullupEnable);
-    fbBuilder.addUint32(10, _pullxConfig);
-    fbBuilder.addUint8(11, _ioDirectionMask);
-    fbBuilder.addUint8(12, _ioDirection);
-    fbBuilder.addUint8(13, _ioValueMask);
-    fbBuilder.addUint8(14, _ioValue);
-    fbBuilder.addBool(15, _ledResume);
-    fbBuilder.addOffset(16, ledColorOffset);
-    fbBuilder.addOffset(17, printStringOffset);
-    fbBuilder.addBool(18, _hardwareBootloader);
-    fbBuilder.addBool(19, _hardwareReset);
+    fbBuilder.addUint8(10, _ioDirectionMask);
+    fbBuilder.addUint8(11, _ioDirection);
+    fbBuilder.addUint8(12, _ioValueMask);
+    fbBuilder.addUint8(13, _ioValue);
+    fbBuilder.addBool(14, _ledResume);
+    fbBuilder.addOffset(15, ledColorOffset);
+    fbBuilder.addOffset(16, printStringOffset);
+    fbBuilder.addBool(17, _hardwareBootloader);
+    fbBuilder.addBool(18, _hardwareReset);
+    fbBuilder.addBool(19, _hardwareSelftest);
     return fbBuilder.endTable();
   }
 
@@ -1210,6 +1228,79 @@ class DataResponseObjectBuilder extends fb.ObjectBuilder {
     return fbBuilder.buffer;
   }
 }
+class ErrorResponse {
+  ErrorResponse._(this._bc, this._bcOffset);
+  factory ErrorResponse(List<int> bytes) {
+    final rootRef = fb.BufferContext.fromBytes(bytes);
+    return reader.read(rootRef, 0);
+  }
+
+  static const fb.Reader<ErrorResponse> reader = _ErrorResponseReader();
+
+  final fb.BufferContext _bc;
+  final int _bcOffset;
+
+  String? get error => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 4);
+
+  @override
+  String toString() {
+    return 'ErrorResponse{error: ${error}}';
+  }
+}
+
+class _ErrorResponseReader extends fb.TableReader<ErrorResponse> {
+  const _ErrorResponseReader();
+
+  @override
+  ErrorResponse createObject(fb.BufferContext bc, int offset) => 
+    ErrorResponse._(bc, offset);
+}
+
+class ErrorResponseBuilder {
+  ErrorResponseBuilder(this.fbBuilder);
+
+  final fb.Builder fbBuilder;
+
+  void begin() {
+    fbBuilder.startTable(1);
+  }
+
+  int addErrorOffset(int? offset) {
+    fbBuilder.addOffset(0, offset);
+    return fbBuilder.offset;
+  }
+
+  int finish() {
+    return fbBuilder.endTable();
+  }
+}
+
+class ErrorResponseObjectBuilder extends fb.ObjectBuilder {
+  final String? _error;
+
+  ErrorResponseObjectBuilder({
+    String? error,
+  })
+      : _error = error;
+
+  /// Finish building, and store into the [fbBuilder].
+  @override
+  int finish(fb.Builder fbBuilder) {
+    final int? errorOffset = _error == null ? null
+        : fbBuilder.writeString(_error!);
+    fbBuilder.startTable(1);
+    fbBuilder.addOffset(0, errorOffset);
+    return fbBuilder.endTable();
+  }
+
+  /// Convenience method to serialize to byte list.
+  @override
+  Uint8List toBytes([String? fileIdentifier]) {
+    final fbBuilder = fb.Builder(deduplicateTables: false);
+    fbBuilder.finish(finish(fbBuilder), fileIdentifier);
+    return fbBuilder.buffer;
+  }
+}
 class RequestPacket {
   RequestPacket._(this._bc, this._bcOffset);
   factory RequestPacket(List<int> bytes) {
@@ -1222,8 +1313,8 @@ class RequestPacket {
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 0);
-  int get versionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 1);
+  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 2);
+  int get versionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0);
   RequestPacketContentsTypeId? get contentsType => RequestPacketContentsTypeId._createOrNull(const fb.Uint8Reader().vTableGetNullable(_bc, _bcOffset, 8));
   dynamic get contents {
     switch (contentsType?.value) {
@@ -1316,79 +1407,6 @@ class RequestPacketObjectBuilder extends fb.ObjectBuilder {
     return fbBuilder.buffer;
   }
 }
-class ErrorResponse {
-  ErrorResponse._(this._bc, this._bcOffset);
-  factory ErrorResponse(List<int> bytes) {
-    final rootRef = fb.BufferContext.fromBytes(bytes);
-    return reader.read(rootRef, 0);
-  }
-
-  static const fb.Reader<ErrorResponse> reader = _ErrorResponseReader();
-
-  final fb.BufferContext _bc;
-  final int _bcOffset;
-
-  String? get error => const fb.StringReader().vTableGetNullable(_bc, _bcOffset, 4);
-
-  @override
-  String toString() {
-    return 'ErrorResponse{error: ${error}}';
-  }
-}
-
-class _ErrorResponseReader extends fb.TableReader<ErrorResponse> {
-  const _ErrorResponseReader();
-
-  @override
-  ErrorResponse createObject(fb.BufferContext bc, int offset) => 
-    ErrorResponse._(bc, offset);
-}
-
-class ErrorResponseBuilder {
-  ErrorResponseBuilder(this.fbBuilder);
-
-  final fb.Builder fbBuilder;
-
-  void begin() {
-    fbBuilder.startTable(1);
-  }
-
-  int addErrorOffset(int? offset) {
-    fbBuilder.addOffset(0, offset);
-    return fbBuilder.offset;
-  }
-
-  int finish() {
-    return fbBuilder.endTable();
-  }
-}
-
-class ErrorResponseObjectBuilder extends fb.ObjectBuilder {
-  final String? _error;
-
-  ErrorResponseObjectBuilder({
-    String? error,
-  })
-      : _error = error;
-
-  /// Finish building, and store into the [fbBuilder].
-  @override
-  int finish(fb.Builder fbBuilder) {
-    final int? errorOffset = _error == null ? null
-        : fbBuilder.writeString(_error!);
-    fbBuilder.startTable(1);
-    fbBuilder.addOffset(0, errorOffset);
-    return fbBuilder.endTable();
-  }
-
-  /// Convenience method to serialize to byte list.
-  @override
-  Uint8List toBytes([String? fileIdentifier]) {
-    final fbBuilder = fb.Builder(deduplicateTables: false);
-    fbBuilder.finish(finish(fbBuilder), fileIdentifier);
-    return fbBuilder.buffer;
-  }
-}
 class ResponsePacket {
   ResponsePacket._(this._bc, this._bcOffset);
   factory ResponsePacket(List<int> bytes) {
@@ -1401,8 +1419,8 @@ class ResponsePacket {
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 0);
-  int get versionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 1);
+  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 2);
+  int get versionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0);
   ResponsePacketContentsTypeId? get contentsType => ResponsePacketContentsTypeId._createOrNull(const fb.Uint8Reader().vTableGetNullable(_bc, _bcOffset, 8));
   dynamic get contents {
     switch (contentsType?.value) {

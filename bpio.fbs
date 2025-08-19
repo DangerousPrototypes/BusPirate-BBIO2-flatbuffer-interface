@@ -8,19 +8,21 @@ table StatusRequest{
 
 // returns the status queries requested in StatusRequest
 // if query is empty, then all queries are performed
-//TODO: add max read/write, packet size? switch to big buff?
 table StatusResponse {
   error:string; // Error message if any.
-  hardware_version_major:uint8; //HW version
-  hardware_version_minor:uint8; //HW revision
-  firmware_version_major:uint8;//FW version
-  firmware_version_minor:uint8; //FW revision
-  firmware_git_hash:string; //Git hash of the firmware.
-  firmware_date:string; //Date of the firmware build.
+  version_hardware_major:uint8; //HW version
+  version_hardware_minor:uint8; //HW revision
+  version_firmware_major:uint8;//FW version
+  version_firmware_minor:uint8; //FW revision
+  version_firmware_git_hash:string; //Git hash of the firmware.
+  version_firmware_date:string; //Date of the firmware build.
   modes_available:[string]; // List of modes available on the device.
   mode_current:string; // Current mode name.
   mode_pin_labels:[string]; // Labels for the pins in the current mode.
   mode_bitorder_msb:bool; // Bit order for the current mode (true for MSB first, false for LSB first).
+  mode_max_packet_size:uint32; // Maximum flat buffer packet size for the current mode.
+  mode_max_write:uint32; // Maximum data write size for the current mode.
+  mode_max_read:uint32; // Maximum data read size for the current mode.
   psu_enabled:bool; // Power supply enabled.
   psu_set_mv:uint32; // Power supply set voltage in millivolts.
   psu_set_ma:uint32; // Power supply set current in milliamps.
@@ -28,7 +30,6 @@ table StatusResponse {
   psu_measured_ma:uint32; // measured power supply current in milliamps.
   psu_current_error:bool; // Power supply fuse error.
   pullup_enabled:bool; // Pull-up resistors enabled.
-  pullx_config:uint32; //configuration for pull-x on BP7+
   adc_mv:[uint32]; // IO pin ADC values in millivolts.
   io_direction:uint8; // IO pin directions (true for output, false for input).
   io_value:uint8; // IO pin values (true for high, false for low).
@@ -75,7 +76,6 @@ table ConfigurationRequest {
   psu_set_ma:uint16=300; // Set current in milliamps, 0 for unlimited (psu_enable must = true).
   pullup_disable:bool; // Disable pull-up resistors.
   pullup_enable:bool; // Enable pull-up resistors.
-  pullx_config:uint32; //configuration for pull-x on BP7+
   io_direction_mask:uint8; // Bitmask for IO pin directions (1=modify this pin).
   io_direction:uint8; // IO pin directions in 8 bit byte (1 output, 0 input).
   io_value_mask:uint8; // Bitmask for IO pin values (1=modify this pin).
@@ -85,6 +85,7 @@ table ConfigurationRequest {
   print_string:string; // string to print on terminal 
   hardware_bootloader:bool; // Enter bootloader mode.
   hardware_reset:bool; // Hardware reset the device.
+  hardware_selftest:bool; // Perform a self-test on the device.
 }
 
 table ConfigurationResponse{
@@ -105,23 +106,23 @@ table DataResponse {
   data_read:[ubyte]; // Data read from device
 }
 
+table ErrorResponse {
+  error:string; // Error message if any.
+}
+
 union RequestPacketContents { StatusRequest, ConfigurationRequest, DataRequest}
 
 table RequestPacket {
-  version_major:uint8=0;
-  version_minor:uint8=1;
+  version_major:uint8=2;
+  version_minor:uint8=0;
   contents:RequestPacketContents;
-}
-
-table ErrorResponse {
-  error:string; // Error message if any.
 }
 
 union ResponsePacketContents { ErrorResponse, StatusResponse, ConfigurationResponse, DataResponse}
 
 table ResponsePacket{
-  version_major:uint8=0;
-  version_minor:uint8=1;
+  version_major:uint8=2;
+  version_minor:uint8=0;
   contents:ResponsePacketContents;
 }
 

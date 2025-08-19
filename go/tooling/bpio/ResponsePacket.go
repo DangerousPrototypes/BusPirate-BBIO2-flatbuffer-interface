@@ -46,7 +46,7 @@ func (rcv *ResponsePacket) VersionMajor() byte {
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
-	return 0
+	return 2
 }
 
 func (rcv *ResponsePacket) MutateVersionMajor(n byte) bool {
@@ -58,7 +58,7 @@ func (rcv *ResponsePacket) VersionMinor() byte {
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
-	return 1
+	return 0
 }
 
 func (rcv *ResponsePacket) MutateVersionMinor(n byte) bool {
@@ -90,10 +90,10 @@ func ResponsePacketStart(builder *flatbuffers.Builder) {
 	builder.StartObject(4)
 }
 func ResponsePacketAddVersionMajor(builder *flatbuffers.Builder, versionMajor byte) {
-	builder.PrependByteSlot(0, versionMajor, 0)
+	builder.PrependByteSlot(0, versionMajor, 2)
 }
 func ResponsePacketAddVersionMinor(builder *flatbuffers.Builder, versionMinor byte) {
-	builder.PrependByteSlot(1, versionMinor, 1)
+	builder.PrependByteSlot(1, versionMinor, 0)
 }
 func ResponsePacketAddContentsType(builder *flatbuffers.Builder, contentsType ResponsePacketContents) {
 	builder.PrependByteSlot(2, byte(contentsType), 0)

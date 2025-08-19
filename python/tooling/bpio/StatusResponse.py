@@ -32,42 +32,42 @@ class StatusResponse(object):
         return None
 
     # StatusResponse
-    def HardwareVersionMajor(self):
+    def VersionHardwareMajor(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def HardwareVersionMinor(self):
+    def VersionHardwareMinor(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def FirmwareVersionMajor(self):
+    def VersionFirmwareMajor(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def FirmwareVersionMinor(self):
+    def VersionFirmwareMinor(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def FirmwareGitHash(self):
+    def VersionFirmwareGitHash(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(14))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
         return None
 
     # StatusResponse
-    def FirmwareDate(self):
+    def VersionFirmwareDate(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(16))
         if o != 0:
             return self._tab.String(o + self._tab.Pos)
@@ -128,64 +128,78 @@ class StatusResponse(object):
         return False
 
     # StatusResponse
-    def PsuEnabled(self):
+    def ModeMaxPacketSize(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(26))
         if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
+            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
+        return 0
 
     # StatusResponse
-    def PsuSetMv(self):
+    def ModeMaxWrite(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(28))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def PsuSetMa(self):
+    def ModeMaxRead(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(30))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def PsuMeasuredMv(self):
+    def PsuEnabled(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(32))
         if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
-        return 0
+            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
+        return False
 
     # StatusResponse
-    def PsuMeasuredMa(self):
+    def PsuSetMv(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(34))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def PsuCurrentError(self):
+    def PsuSetMa(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(36))
         if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
+            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
+        return 0
 
     # StatusResponse
-    def PullupEnabled(self):
+    def PsuMeasuredMv(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(38))
         if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
+            return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
+        return 0
 
     # StatusResponse
-    def PullxConfig(self):
+    def PsuMeasuredMa(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(40))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
-    def AdcMv(self, j):
+    def PsuCurrentError(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(42))
+        if o != 0:
+            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
+        return False
+
+    # StatusResponse
+    def PullupEnabled(self):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(44))
+        if o != 0:
+            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
+        return False
+
+    # StatusResponse
+    def AdcMv(self, j):
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(46))
         if o != 0:
             a = self._tab.Vector(o)
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
@@ -193,60 +207,60 @@ class StatusResponse(object):
 
     # StatusResponse
     def AdcMvAsNumpy(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(42))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(46))
         if o != 0:
             return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Uint32Flags, o)
         return 0
 
     # StatusResponse
     def AdcMvLength(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(42))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(46))
         if o != 0:
             return self._tab.VectorLen(o)
         return 0
 
     # StatusResponse
     def AdcMvIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(42))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(46))
         return o == 0
 
     # StatusResponse
     def IoDirection(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(44))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(48))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
     def IoValue(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(46))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(50))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # StatusResponse
     def DiskSizeMb(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(48))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(52))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
     # StatusResponse
     def DiskUsedMb(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(50))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(54))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Float32Flags, o + self._tab.Pos)
         return 0.0
 
     # StatusResponse
     def LedCount(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(52))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(56))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
 def StatusResponseStart(builder):
-    builder.StartObject(25)
+    builder.StartObject(27)
 
 def Start(builder):
     StatusResponseStart(builder)
@@ -257,41 +271,41 @@ def StatusResponseAddError(builder, error):
 def AddError(builder, error):
     StatusResponseAddError(builder, error)
 
-def StatusResponseAddHardwareVersionMajor(builder, hardwareVersionMajor):
-    builder.PrependUint8Slot(1, hardwareVersionMajor, 0)
+def StatusResponseAddVersionHardwareMajor(builder, versionHardwareMajor):
+    builder.PrependUint8Slot(1, versionHardwareMajor, 0)
 
-def AddHardwareVersionMajor(builder, hardwareVersionMajor):
-    StatusResponseAddHardwareVersionMajor(builder, hardwareVersionMajor)
+def AddVersionHardwareMajor(builder, versionHardwareMajor):
+    StatusResponseAddVersionHardwareMajor(builder, versionHardwareMajor)
 
-def StatusResponseAddHardwareVersionMinor(builder, hardwareVersionMinor):
-    builder.PrependUint8Slot(2, hardwareVersionMinor, 0)
+def StatusResponseAddVersionHardwareMinor(builder, versionHardwareMinor):
+    builder.PrependUint8Slot(2, versionHardwareMinor, 0)
 
-def AddHardwareVersionMinor(builder, hardwareVersionMinor):
-    StatusResponseAddHardwareVersionMinor(builder, hardwareVersionMinor)
+def AddVersionHardwareMinor(builder, versionHardwareMinor):
+    StatusResponseAddVersionHardwareMinor(builder, versionHardwareMinor)
 
-def StatusResponseAddFirmwareVersionMajor(builder, firmwareVersionMajor):
-    builder.PrependUint8Slot(3, firmwareVersionMajor, 0)
+def StatusResponseAddVersionFirmwareMajor(builder, versionFirmwareMajor):
+    builder.PrependUint8Slot(3, versionFirmwareMajor, 0)
 
-def AddFirmwareVersionMajor(builder, firmwareVersionMajor):
-    StatusResponseAddFirmwareVersionMajor(builder, firmwareVersionMajor)
+def AddVersionFirmwareMajor(builder, versionFirmwareMajor):
+    StatusResponseAddVersionFirmwareMajor(builder, versionFirmwareMajor)
 
-def StatusResponseAddFirmwareVersionMinor(builder, firmwareVersionMinor):
-    builder.PrependUint8Slot(4, firmwareVersionMinor, 0)
+def StatusResponseAddVersionFirmwareMinor(builder, versionFirmwareMinor):
+    builder.PrependUint8Slot(4, versionFirmwareMinor, 0)
 
-def AddFirmwareVersionMinor(builder, firmwareVersionMinor):
-    StatusResponseAddFirmwareVersionMinor(builder, firmwareVersionMinor)
+def AddVersionFirmwareMinor(builder, versionFirmwareMinor):
+    StatusResponseAddVersionFirmwareMinor(builder, versionFirmwareMinor)
 
-def StatusResponseAddFirmwareGitHash(builder, firmwareGitHash):
-    builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(firmwareGitHash), 0)
+def StatusResponseAddVersionFirmwareGitHash(builder, versionFirmwareGitHash):
+    builder.PrependUOffsetTRelativeSlot(5, flatbuffers.number_types.UOffsetTFlags.py_type(versionFirmwareGitHash), 0)
 
-def AddFirmwareGitHash(builder, firmwareGitHash):
-    StatusResponseAddFirmwareGitHash(builder, firmwareGitHash)
+def AddVersionFirmwareGitHash(builder, versionFirmwareGitHash):
+    StatusResponseAddVersionFirmwareGitHash(builder, versionFirmwareGitHash)
 
-def StatusResponseAddFirmwareDate(builder, firmwareDate):
-    builder.PrependUOffsetTRelativeSlot(6, flatbuffers.number_types.UOffsetTFlags.py_type(firmwareDate), 0)
+def StatusResponseAddVersionFirmwareDate(builder, versionFirmwareDate):
+    builder.PrependUOffsetTRelativeSlot(6, flatbuffers.number_types.UOffsetTFlags.py_type(versionFirmwareDate), 0)
 
-def AddFirmwareDate(builder, firmwareDate):
-    StatusResponseAddFirmwareDate(builder, firmwareDate)
+def AddVersionFirmwareDate(builder, versionFirmwareDate):
+    StatusResponseAddVersionFirmwareDate(builder, versionFirmwareDate)
 
 def StatusResponseAddModesAvailable(builder, modesAvailable):
     builder.PrependUOffsetTRelativeSlot(7, flatbuffers.number_types.UOffsetTFlags.py_type(modesAvailable), 0)
@@ -329,56 +343,68 @@ def StatusResponseAddModeBitorderMsb(builder, modeBitorderMsb):
 def AddModeBitorderMsb(builder, modeBitorderMsb):
     StatusResponseAddModeBitorderMsb(builder, modeBitorderMsb)
 
+def StatusResponseAddModeMaxPacketSize(builder, modeMaxPacketSize):
+    builder.PrependUint32Slot(11, modeMaxPacketSize, 0)
+
+def AddModeMaxPacketSize(builder, modeMaxPacketSize):
+    StatusResponseAddModeMaxPacketSize(builder, modeMaxPacketSize)
+
+def StatusResponseAddModeMaxWrite(builder, modeMaxWrite):
+    builder.PrependUint32Slot(12, modeMaxWrite, 0)
+
+def AddModeMaxWrite(builder, modeMaxWrite):
+    StatusResponseAddModeMaxWrite(builder, modeMaxWrite)
+
+def StatusResponseAddModeMaxRead(builder, modeMaxRead):
+    builder.PrependUint32Slot(13, modeMaxRead, 0)
+
+def AddModeMaxRead(builder, modeMaxRead):
+    StatusResponseAddModeMaxRead(builder, modeMaxRead)
+
 def StatusResponseAddPsuEnabled(builder, psuEnabled):
-    builder.PrependBoolSlot(11, psuEnabled, 0)
+    builder.PrependBoolSlot(14, psuEnabled, 0)
 
 def AddPsuEnabled(builder, psuEnabled):
     StatusResponseAddPsuEnabled(builder, psuEnabled)
 
 def StatusResponseAddPsuSetMv(builder, psuSetMv):
-    builder.PrependUint32Slot(12, psuSetMv, 0)
+    builder.PrependUint32Slot(15, psuSetMv, 0)
 
 def AddPsuSetMv(builder, psuSetMv):
     StatusResponseAddPsuSetMv(builder, psuSetMv)
 
 def StatusResponseAddPsuSetMa(builder, psuSetMa):
-    builder.PrependUint32Slot(13, psuSetMa, 0)
+    builder.PrependUint32Slot(16, psuSetMa, 0)
 
 def AddPsuSetMa(builder, psuSetMa):
     StatusResponseAddPsuSetMa(builder, psuSetMa)
 
 def StatusResponseAddPsuMeasuredMv(builder, psuMeasuredMv):
-    builder.PrependUint32Slot(14, psuMeasuredMv, 0)
+    builder.PrependUint32Slot(17, psuMeasuredMv, 0)
 
 def AddPsuMeasuredMv(builder, psuMeasuredMv):
     StatusResponseAddPsuMeasuredMv(builder, psuMeasuredMv)
 
 def StatusResponseAddPsuMeasuredMa(builder, psuMeasuredMa):
-    builder.PrependUint32Slot(15, psuMeasuredMa, 0)
+    builder.PrependUint32Slot(18, psuMeasuredMa, 0)
 
 def AddPsuMeasuredMa(builder, psuMeasuredMa):
     StatusResponseAddPsuMeasuredMa(builder, psuMeasuredMa)
 
 def StatusResponseAddPsuCurrentError(builder, psuCurrentError):
-    builder.PrependBoolSlot(16, psuCurrentError, 0)
+    builder.PrependBoolSlot(19, psuCurrentError, 0)
 
 def AddPsuCurrentError(builder, psuCurrentError):
     StatusResponseAddPsuCurrentError(builder, psuCurrentError)
 
 def StatusResponseAddPullupEnabled(builder, pullupEnabled):
-    builder.PrependBoolSlot(17, pullupEnabled, 0)
+    builder.PrependBoolSlot(20, pullupEnabled, 0)
 
 def AddPullupEnabled(builder, pullupEnabled):
     StatusResponseAddPullupEnabled(builder, pullupEnabled)
 
-def StatusResponseAddPullxConfig(builder, pullxConfig):
-    builder.PrependUint32Slot(18, pullxConfig, 0)
-
-def AddPullxConfig(builder, pullxConfig):
-    StatusResponseAddPullxConfig(builder, pullxConfig)
-
 def StatusResponseAddAdcMv(builder, adcMv):
-    builder.PrependUOffsetTRelativeSlot(19, flatbuffers.number_types.UOffsetTFlags.py_type(adcMv), 0)
+    builder.PrependUOffsetTRelativeSlot(21, flatbuffers.number_types.UOffsetTFlags.py_type(adcMv), 0)
 
 def AddAdcMv(builder, adcMv):
     StatusResponseAddAdcMv(builder, adcMv)
@@ -390,31 +416,31 @@ def StartAdcMvVector(builder, numElems):
     return StatusResponseStartAdcMvVector(builder, numElems)
 
 def StatusResponseAddIoDirection(builder, ioDirection):
-    builder.PrependUint8Slot(20, ioDirection, 0)
+    builder.PrependUint8Slot(22, ioDirection, 0)
 
 def AddIoDirection(builder, ioDirection):
     StatusResponseAddIoDirection(builder, ioDirection)
 
 def StatusResponseAddIoValue(builder, ioValue):
-    builder.PrependUint8Slot(21, ioValue, 0)
+    builder.PrependUint8Slot(23, ioValue, 0)
 
 def AddIoValue(builder, ioValue):
     StatusResponseAddIoValue(builder, ioValue)
 
 def StatusResponseAddDiskSizeMb(builder, diskSizeMb):
-    builder.PrependFloat32Slot(22, diskSizeMb, 0.0)
+    builder.PrependFloat32Slot(24, diskSizeMb, 0.0)
 
 def AddDiskSizeMb(builder, diskSizeMb):
     StatusResponseAddDiskSizeMb(builder, diskSizeMb)
 
 def StatusResponseAddDiskUsedMb(builder, diskUsedMb):
-    builder.PrependFloat32Slot(23, diskUsedMb, 0.0)
+    builder.PrependFloat32Slot(25, diskUsedMb, 0.0)
 
 def AddDiskUsedMb(builder, diskUsedMb):
     StatusResponseAddDiskUsedMb(builder, diskUsedMb)
 
 def StatusResponseAddLedCount(builder, ledCount):
-    builder.PrependUint8Slot(24, ledCount, 0)
+    builder.PrependUint8Slot(26, ledCount, 0)
 
 def AddLedCount(builder, ledCount):
     StatusResponseAddLedCount(builder, ledCount)

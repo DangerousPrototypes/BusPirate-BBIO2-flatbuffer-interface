@@ -49,7 +49,7 @@ func (rcv *StatusResponse) Error() []byte {
 	return nil
 }
 
-func (rcv *StatusResponse) HardwareVersionMajor() byte {
+func (rcv *StatusResponse) VersionHardwareMajor() byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(6))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
@@ -57,11 +57,11 @@ func (rcv *StatusResponse) HardwareVersionMajor() byte {
 	return 0
 }
 
-func (rcv *StatusResponse) MutateHardwareVersionMajor(n byte) bool {
+func (rcv *StatusResponse) MutateVersionHardwareMajor(n byte) bool {
 	return rcv._tab.MutateByteSlot(6, n)
 }
 
-func (rcv *StatusResponse) HardwareVersionMinor() byte {
+func (rcv *StatusResponse) VersionHardwareMinor() byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(8))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
@@ -69,11 +69,11 @@ func (rcv *StatusResponse) HardwareVersionMinor() byte {
 	return 0
 }
 
-func (rcv *StatusResponse) MutateHardwareVersionMinor(n byte) bool {
+func (rcv *StatusResponse) MutateVersionHardwareMinor(n byte) bool {
 	return rcv._tab.MutateByteSlot(8, n)
 }
 
-func (rcv *StatusResponse) FirmwareVersionMajor() byte {
+func (rcv *StatusResponse) VersionFirmwareMajor() byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(10))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
@@ -81,11 +81,11 @@ func (rcv *StatusResponse) FirmwareVersionMajor() byte {
 	return 0
 }
 
-func (rcv *StatusResponse) MutateFirmwareVersionMajor(n byte) bool {
+func (rcv *StatusResponse) MutateVersionFirmwareMajor(n byte) bool {
 	return rcv._tab.MutateByteSlot(10, n)
 }
 
-func (rcv *StatusResponse) FirmwareVersionMinor() byte {
+func (rcv *StatusResponse) VersionFirmwareMinor() byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(12))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
@@ -93,11 +93,11 @@ func (rcv *StatusResponse) FirmwareVersionMinor() byte {
 	return 0
 }
 
-func (rcv *StatusResponse) MutateFirmwareVersionMinor(n byte) bool {
+func (rcv *StatusResponse) MutateVersionFirmwareMinor(n byte) bool {
 	return rcv._tab.MutateByteSlot(12, n)
 }
 
-func (rcv *StatusResponse) FirmwareGitHash() []byte {
+func (rcv *StatusResponse) VersionFirmwareGitHash() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(14))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -105,7 +105,7 @@ func (rcv *StatusResponse) FirmwareGitHash() []byte {
 	return nil
 }
 
-func (rcv *StatusResponse) FirmwareDate() []byte {
+func (rcv *StatusResponse) VersionFirmwareDate() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(16))
 	if o != 0 {
 		return rcv._tab.ByteVector(o + rcv._tab.Pos)
@@ -167,19 +167,19 @@ func (rcv *StatusResponse) MutateModeBitorderMsb(n bool) bool {
 	return rcv._tab.MutateBoolSlot(24, n)
 }
 
-func (rcv *StatusResponse) PsuEnabled() bool {
+func (rcv *StatusResponse) ModeMaxPacketSize() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(26))
 	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
+		return rcv._tab.GetUint32(o + rcv._tab.Pos)
 	}
-	return false
+	return 0
 }
 
-func (rcv *StatusResponse) MutatePsuEnabled(n bool) bool {
-	return rcv._tab.MutateBoolSlot(26, n)
+func (rcv *StatusResponse) MutateModeMaxPacketSize(n uint32) bool {
+	return rcv._tab.MutateUint32Slot(26, n)
 }
 
-func (rcv *StatusResponse) PsuSetMv() uint32 {
+func (rcv *StatusResponse) ModeMaxWrite() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(28))
 	if o != 0 {
 		return rcv._tab.GetUint32(o + rcv._tab.Pos)
@@ -187,11 +187,11 @@ func (rcv *StatusResponse) PsuSetMv() uint32 {
 	return 0
 }
 
-func (rcv *StatusResponse) MutatePsuSetMv(n uint32) bool {
+func (rcv *StatusResponse) MutateModeMaxWrite(n uint32) bool {
 	return rcv._tab.MutateUint32Slot(28, n)
 }
 
-func (rcv *StatusResponse) PsuSetMa() uint32 {
+func (rcv *StatusResponse) ModeMaxRead() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(30))
 	if o != 0 {
 		return rcv._tab.GetUint32(o + rcv._tab.Pos)
@@ -199,23 +199,23 @@ func (rcv *StatusResponse) PsuSetMa() uint32 {
 	return 0
 }
 
-func (rcv *StatusResponse) MutatePsuSetMa(n uint32) bool {
+func (rcv *StatusResponse) MutateModeMaxRead(n uint32) bool {
 	return rcv._tab.MutateUint32Slot(30, n)
 }
 
-func (rcv *StatusResponse) PsuMeasuredMv() uint32 {
+func (rcv *StatusResponse) PsuEnabled() bool {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(32))
 	if o != 0 {
-		return rcv._tab.GetUint32(o + rcv._tab.Pos)
+		return rcv._tab.GetBool(o + rcv._tab.Pos)
 	}
-	return 0
+	return false
 }
 
-func (rcv *StatusResponse) MutatePsuMeasuredMv(n uint32) bool {
-	return rcv._tab.MutateUint32Slot(32, n)
+func (rcv *StatusResponse) MutatePsuEnabled(n bool) bool {
+	return rcv._tab.MutateBoolSlot(32, n)
 }
 
-func (rcv *StatusResponse) PsuMeasuredMa() uint32 {
+func (rcv *StatusResponse) PsuSetMv() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
 	if o != 0 {
 		return rcv._tab.GetUint32(o + rcv._tab.Pos)
@@ -223,35 +223,35 @@ func (rcv *StatusResponse) PsuMeasuredMa() uint32 {
 	return 0
 }
 
-func (rcv *StatusResponse) MutatePsuMeasuredMa(n uint32) bool {
+func (rcv *StatusResponse) MutatePsuSetMv(n uint32) bool {
 	return rcv._tab.MutateUint32Slot(34, n)
 }
 
-func (rcv *StatusResponse) PsuCurrentError() bool {
+func (rcv *StatusResponse) PsuSetMa() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(36))
 	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
+		return rcv._tab.GetUint32(o + rcv._tab.Pos)
 	}
-	return false
+	return 0
 }
 
-func (rcv *StatusResponse) MutatePsuCurrentError(n bool) bool {
-	return rcv._tab.MutateBoolSlot(36, n)
+func (rcv *StatusResponse) MutatePsuSetMa(n uint32) bool {
+	return rcv._tab.MutateUint32Slot(36, n)
 }
 
-func (rcv *StatusResponse) PullupEnabled() bool {
+func (rcv *StatusResponse) PsuMeasuredMv() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(38))
 	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
+		return rcv._tab.GetUint32(o + rcv._tab.Pos)
 	}
-	return false
+	return 0
 }
 
-func (rcv *StatusResponse) MutatePullupEnabled(n bool) bool {
-	return rcv._tab.MutateBoolSlot(38, n)
+func (rcv *StatusResponse) MutatePsuMeasuredMv(n uint32) bool {
+	return rcv._tab.MutateUint32Slot(38, n)
 }
 
-func (rcv *StatusResponse) PullxConfig() uint32 {
+func (rcv *StatusResponse) PsuMeasuredMa() uint32 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(40))
 	if o != 0 {
 		return rcv._tab.GetUint32(o + rcv._tab.Pos)
@@ -259,12 +259,36 @@ func (rcv *StatusResponse) PullxConfig() uint32 {
 	return 0
 }
 
-func (rcv *StatusResponse) MutatePullxConfig(n uint32) bool {
+func (rcv *StatusResponse) MutatePsuMeasuredMa(n uint32) bool {
 	return rcv._tab.MutateUint32Slot(40, n)
 }
 
-func (rcv *StatusResponse) AdcMv(j int) uint32 {
+func (rcv *StatusResponse) PsuCurrentError() bool {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(42))
+	if o != 0 {
+		return rcv._tab.GetBool(o + rcv._tab.Pos)
+	}
+	return false
+}
+
+func (rcv *StatusResponse) MutatePsuCurrentError(n bool) bool {
+	return rcv._tab.MutateBoolSlot(42, n)
+}
+
+func (rcv *StatusResponse) PullupEnabled() bool {
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(44))
+	if o != 0 {
+		return rcv._tab.GetBool(o + rcv._tab.Pos)
+	}
+	return false
+}
+
+func (rcv *StatusResponse) MutatePullupEnabled(n bool) bool {
+	return rcv._tab.MutateBoolSlot(44, n)
+}
+
+func (rcv *StatusResponse) AdcMv(j int) uint32 {
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(46))
 	if o != 0 {
 		a := rcv._tab.Vector(o)
 		return rcv._tab.GetUint32(a + flatbuffers.UOffsetT(j*4))
@@ -273,7 +297,7 @@ func (rcv *StatusResponse) AdcMv(j int) uint32 {
 }
 
 func (rcv *StatusResponse) AdcMvLength() int {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(42))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(46))
 	if o != 0 {
 		return rcv._tab.VectorLen(o)
 	}
@@ -281,7 +305,7 @@ func (rcv *StatusResponse) AdcMvLength() int {
 }
 
 func (rcv *StatusResponse) MutateAdcMv(j int, n uint32) bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(42))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(46))
 	if o != 0 {
 		a := rcv._tab.Vector(o)
 		return rcv._tab.MutateUint32(a+flatbuffers.UOffsetT(j*4), n)
@@ -290,7 +314,7 @@ func (rcv *StatusResponse) MutateAdcMv(j int, n uint32) bool {
 }
 
 func (rcv *StatusResponse) IoDirection() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(44))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(48))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -298,11 +322,11 @@ func (rcv *StatusResponse) IoDirection() byte {
 }
 
 func (rcv *StatusResponse) MutateIoDirection(n byte) bool {
-	return rcv._tab.MutateByteSlot(44, n)
+	return rcv._tab.MutateByteSlot(48, n)
 }
 
 func (rcv *StatusResponse) IoValue() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(46))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(50))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -310,11 +334,11 @@ func (rcv *StatusResponse) IoValue() byte {
 }
 
 func (rcv *StatusResponse) MutateIoValue(n byte) bool {
-	return rcv._tab.MutateByteSlot(46, n)
+	return rcv._tab.MutateByteSlot(50, n)
 }
 
 func (rcv *StatusResponse) DiskSizeMb() float32 {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(48))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(52))
 	if o != 0 {
 		return rcv._tab.GetFloat32(o + rcv._tab.Pos)
 	}
@@ -322,11 +346,11 @@ func (rcv *StatusResponse) DiskSizeMb() float32 {
 }
 
 func (rcv *StatusResponse) MutateDiskSizeMb(n float32) bool {
-	return rcv._tab.MutateFloat32Slot(48, n)
+	return rcv._tab.MutateFloat32Slot(52, n)
 }
 
 func (rcv *StatusResponse) DiskUsedMb() float32 {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(50))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(54))
 	if o != 0 {
 		return rcv._tab.GetFloat32(o + rcv._tab.Pos)
 	}
@@ -334,11 +358,11 @@ func (rcv *StatusResponse) DiskUsedMb() float32 {
 }
 
 func (rcv *StatusResponse) MutateDiskUsedMb(n float32) bool {
-	return rcv._tab.MutateFloat32Slot(50, n)
+	return rcv._tab.MutateFloat32Slot(54, n)
 }
 
 func (rcv *StatusResponse) LedCount() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(52))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(56))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -346,32 +370,32 @@ func (rcv *StatusResponse) LedCount() byte {
 }
 
 func (rcv *StatusResponse) MutateLedCount(n byte) bool {
-	return rcv._tab.MutateByteSlot(52, n)
+	return rcv._tab.MutateByteSlot(56, n)
 }
 
 func StatusResponseStart(builder *flatbuffers.Builder) {
-	builder.StartObject(25)
+	builder.StartObject(27)
 }
 func StatusResponseAddError(builder *flatbuffers.Builder, error flatbuffers.UOffsetT) {
 	builder.PrependUOffsetTSlot(0, flatbuffers.UOffsetT(error), 0)
 }
-func StatusResponseAddHardwareVersionMajor(builder *flatbuffers.Builder, hardwareVersionMajor byte) {
-	builder.PrependByteSlot(1, hardwareVersionMajor, 0)
+func StatusResponseAddVersionHardwareMajor(builder *flatbuffers.Builder, versionHardwareMajor byte) {
+	builder.PrependByteSlot(1, versionHardwareMajor, 0)
 }
-func StatusResponseAddHardwareVersionMinor(builder *flatbuffers.Builder, hardwareVersionMinor byte) {
-	builder.PrependByteSlot(2, hardwareVersionMinor, 0)
+func StatusResponseAddVersionHardwareMinor(builder *flatbuffers.Builder, versionHardwareMinor byte) {
+	builder.PrependByteSlot(2, versionHardwareMinor, 0)
 }
-func StatusResponseAddFirmwareVersionMajor(builder *flatbuffers.Builder, firmwareVersionMajor byte) {
-	builder.PrependByteSlot(3, firmwareVersionMajor, 0)
+func StatusResponseAddVersionFirmwareMajor(builder *flatbuffers.Builder, versionFirmwareMajor byte) {
+	builder.PrependByteSlot(3, versionFirmwareMajor, 0)
 }
-func StatusResponseAddFirmwareVersionMinor(builder *flatbuffers.Builder, firmwareVersionMinor byte) {
-	builder.PrependByteSlot(4, firmwareVersionMinor, 0)
+func StatusResponseAddVersionFirmwareMinor(builder *flatbuffers.Builder, versionFirmwareMinor byte) {
+	builder.PrependByteSlot(4, versionFirmwareMinor, 0)
 }
-func StatusResponseAddFirmwareGitHash(builder *flatbuffers.Builder, firmwareGitHash flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(5, flatbuffers.UOffsetT(firmwareGitHash), 0)
+func StatusResponseAddVersionFirmwareGitHash(builder *flatbuffers.Builder, versionFirmwareGitHash flatbuffers.UOffsetT) {
+	builder.PrependUOffsetTSlot(5, flatbuffers.UOffsetT(versionFirmwareGitHash), 0)
 }
-func StatusResponseAddFirmwareDate(builder *flatbuffers.Builder, firmwareDate flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(6, flatbuffers.UOffsetT(firmwareDate), 0)
+func StatusResponseAddVersionFirmwareDate(builder *flatbuffers.Builder, versionFirmwareDate flatbuffers.UOffsetT) {
+	builder.PrependUOffsetTSlot(6, flatbuffers.UOffsetT(versionFirmwareDate), 0)
 }
 func StatusResponseAddModesAvailable(builder *flatbuffers.Builder, modesAvailable flatbuffers.UOffsetT) {
 	builder.PrependUOffsetTSlot(7, flatbuffers.UOffsetT(modesAvailable), 0)
@@ -391,50 +415,56 @@ func StatusResponseStartModePinLabelsVector(builder *flatbuffers.Builder, numEle
 func StatusResponseAddModeBitorderMsb(builder *flatbuffers.Builder, modeBitorderMsb bool) {
 	builder.PrependBoolSlot(10, modeBitorderMsb, false)
 }
+func StatusResponseAddModeMaxPacketSize(builder *flatbuffers.Builder, modeMaxPacketSize uint32) {
+	builder.PrependUint32Slot(11, modeMaxPacketSize, 0)
+}
+func StatusResponseAddModeMaxWrite(builder *flatbuffers.Builder, modeMaxWrite uint32) {
+	builder.PrependUint32Slot(12, modeMaxWrite, 0)
+}
+func StatusResponseAddModeMaxRead(builder *flatbuffers.Builder, modeMaxRead uint32) {
+	builder.PrependUint32Slot(13, modeMaxRead, 0)
+}
 func StatusResponseAddPsuEnabled(builder *flatbuffers.Builder, psuEnabled bool) {
-	builder.PrependBoolSlot(11, psuEnabled, false)
+	builder.PrependBoolSlot(14, psuEnabled, false)
 }
 func StatusResponseAddPsuSetMv(builder *flatbuffers.Builder, psuSetMv uint32) {
-	builder.PrependUint32Slot(12, psuSetMv, 0)
+	builder.PrependUint32Slot(15, psuSetMv, 0)
 }
 func StatusResponseAddPsuSetMa(builder *flatbuffers.Builder, psuSetMa uint32) {
-	builder.PrependUint32Slot(13, psuSetMa, 0)
+	builder.PrependUint32Slot(16, psuSetMa, 0)
 }
 func StatusResponseAddPsuMeasuredMv(builder *flatbuffers.Builder, psuMeasuredMv uint32) {
-	builder.PrependUint32Slot(14, psuMeasuredMv, 0)
+	builder.PrependUint32Slot(17, psuMeasuredMv, 0)
 }
 func StatusResponseAddPsuMeasuredMa(builder *flatbuffers.Builder, psuMeasuredMa uint32) {
-	builder.PrependUint32Slot(15, psuMeasuredMa, 0)
+	builder.PrependUint32Slot(18, psuMeasuredMa, 0)
 }
 func StatusResponseAddPsuCurrentError(builder *flatbuffers.Builder, psuCurrentError bool) {
-	builder.PrependBoolSlot(16, psuCurrentError, false)
+	builder.PrependBoolSlot(19, psuCurrentError, false)
 }
 func StatusResponseAddPullupEnabled(builder *flatbuffers.Builder, pullupEnabled bool) {
-	builder.PrependBoolSlot(17, pullupEnabled, false)
-}
-func StatusResponseAddPullxConfig(builder *flatbuffers.Builder, pullxConfig uint32) {
-	builder.PrependUint32Slot(18, pullxConfig, 0)
+	builder.PrependBoolSlot(20, pullupEnabled, false)
 }
 func StatusResponseAddAdcMv(builder *flatbuffers.Builder, adcMv flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(19, flatbuffers.UOffsetT(adcMv), 0)
+	builder.PrependUOffsetTSlot(21, flatbuffers.UOffsetT(adcMv), 0)
 }
 func StatusResponseStartAdcMvVector(builder *flatbuffers.Builder, numElems int) flatbuffers.UOffsetT {
 	return builder.StartVector(4, numElems, 4)
 }
 func StatusResponseAddIoDirection(builder *flatbuffers.Builder, ioDirection byte) {
-	builder.PrependByteSlot(20, ioDirection, 0)
+	builder.PrependByteSlot(22, ioDirection, 0)
 }
 func StatusResponseAddIoValue(builder *flatbuffers.Builder, ioValue byte) {
-	builder.PrependByteSlot(21, ioValue, 0)
+	builder.PrependByteSlot(23, ioValue, 0)
 }
 func StatusResponseAddDiskSizeMb(builder *flatbuffers.Builder, diskSizeMb float32) {
-	builder.PrependFloat32Slot(22, diskSizeMb, 0.0)
+	builder.PrependFloat32Slot(24, diskSizeMb, 0.0)
 }
 func StatusResponseAddDiskUsedMb(builder *flatbuffers.Builder, diskUsedMb float32) {
-	builder.PrependFloat32Slot(23, diskUsedMb, 0.0)
+	builder.PrependFloat32Slot(25, diskUsedMb, 0.0)
 }
 func StatusResponseAddLedCount(builder *flatbuffers.Builder, ledCount byte) {
-	builder.PrependByteSlot(24, ledCount, 0)
+	builder.PrependByteSlot(26, ledCount, 0)
 }
 func StatusResponseEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()

@@ -439,30 +439,32 @@ impl<'a> flatbuffers::Follow<'a> for StatusResponse<'a> {
 
 impl<'a> StatusResponse<'a> {
   pub const VT_ERROR: flatbuffers::VOffsetT = 4;
-  pub const VT_HARDWARE_VERSION_MAJOR: flatbuffers::VOffsetT = 6;
-  pub const VT_HARDWARE_VERSION_MINOR: flatbuffers::VOffsetT = 8;
-  pub const VT_FIRMWARE_VERSION_MAJOR: flatbuffers::VOffsetT = 10;
-  pub const VT_FIRMWARE_VERSION_MINOR: flatbuffers::VOffsetT = 12;
-  pub const VT_FIRMWARE_GIT_HASH: flatbuffers::VOffsetT = 14;
-  pub const VT_FIRMWARE_DATE: flatbuffers::VOffsetT = 16;
+  pub const VT_VERSION_HARDWARE_MAJOR: flatbuffers::VOffsetT = 6;
+  pub const VT_VERSION_HARDWARE_MINOR: flatbuffers::VOffsetT = 8;
+  pub const VT_VERSION_FIRMWARE_MAJOR: flatbuffers::VOffsetT = 10;
+  pub const VT_VERSION_FIRMWARE_MINOR: flatbuffers::VOffsetT = 12;
+  pub const VT_VERSION_FIRMWARE_GIT_HASH: flatbuffers::VOffsetT = 14;
+  pub const VT_VERSION_FIRMWARE_DATE: flatbuffers::VOffsetT = 16;
   pub const VT_MODES_AVAILABLE: flatbuffers::VOffsetT = 18;
   pub const VT_MODE_CURRENT: flatbuffers::VOffsetT = 20;
   pub const VT_MODE_PIN_LABELS: flatbuffers::VOffsetT = 22;
   pub const VT_MODE_BITORDER_MSB: flatbuffers::VOffsetT = 24;
-  pub const VT_PSU_ENABLED: flatbuffers::VOffsetT = 26;
-  pub const VT_PSU_SET_MV: flatbuffers::VOffsetT = 28;
-  pub const VT_PSU_SET_MA: flatbuffers::VOffsetT = 30;
-  pub const VT_PSU_MEASURED_MV: flatbuffers::VOffsetT = 32;
-  pub const VT_PSU_MEASURED_MA: flatbuffers::VOffsetT = 34;
-  pub const VT_PSU_CURRENT_ERROR: flatbuffers::VOffsetT = 36;
-  pub const VT_PULLUP_ENABLED: flatbuffers::VOffsetT = 38;
-  pub const VT_PULLX_CONFIG: flatbuffers::VOffsetT = 40;
-  pub const VT_ADC_MV: flatbuffers::VOffsetT = 42;
-  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 44;
-  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 46;
-  pub const VT_DISK_SIZE_MB: flatbuffers::VOffsetT = 48;
-  pub const VT_DISK_USED_MB: flatbuffers::VOffsetT = 50;
-  pub const VT_LED_COUNT: flatbuffers::VOffsetT = 52;
+  pub const VT_MODE_MAX_PACKET_SIZE: flatbuffers::VOffsetT = 26;
+  pub const VT_MODE_MAX_WRITE: flatbuffers::VOffsetT = 28;
+  pub const VT_MODE_MAX_READ: flatbuffers::VOffsetT = 30;
+  pub const VT_PSU_ENABLED: flatbuffers::VOffsetT = 32;
+  pub const VT_PSU_SET_MV: flatbuffers::VOffsetT = 34;
+  pub const VT_PSU_SET_MA: flatbuffers::VOffsetT = 36;
+  pub const VT_PSU_MEASURED_MV: flatbuffers::VOffsetT = 38;
+  pub const VT_PSU_MEASURED_MA: flatbuffers::VOffsetT = 40;
+  pub const VT_PSU_CURRENT_ERROR: flatbuffers::VOffsetT = 42;
+  pub const VT_PULLUP_ENABLED: flatbuffers::VOffsetT = 44;
+  pub const VT_ADC_MV: flatbuffers::VOffsetT = 46;
+  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 48;
+  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 50;
+  pub const VT_DISK_SIZE_MB: flatbuffers::VOffsetT = 52;
+  pub const VT_DISK_USED_MB: flatbuffers::VOffsetT = 54;
+  pub const VT_LED_COUNT: flatbuffers::VOffsetT = 56;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -477,16 +479,18 @@ impl<'a> StatusResponse<'a> {
     builder.add_disk_used_mb(args.disk_used_mb);
     builder.add_disk_size_mb(args.disk_size_mb);
     if let Some(x) = args.adc_mv { builder.add_adc_mv(x); }
-    builder.add_pullx_config(args.pullx_config);
     builder.add_psu_measured_ma(args.psu_measured_ma);
     builder.add_psu_measured_mv(args.psu_measured_mv);
     builder.add_psu_set_ma(args.psu_set_ma);
     builder.add_psu_set_mv(args.psu_set_mv);
+    builder.add_mode_max_read(args.mode_max_read);
+    builder.add_mode_max_write(args.mode_max_write);
+    builder.add_mode_max_packet_size(args.mode_max_packet_size);
     if let Some(x) = args.mode_pin_labels { builder.add_mode_pin_labels(x); }
     if let Some(x) = args.mode_current { builder.add_mode_current(x); }
     if let Some(x) = args.modes_available { builder.add_modes_available(x); }
-    if let Some(x) = args.firmware_date { builder.add_firmware_date(x); }
-    if let Some(x) = args.firmware_git_hash { builder.add_firmware_git_hash(x); }
+    if let Some(x) = args.version_firmware_date { builder.add_version_firmware_date(x); }
+    if let Some(x) = args.version_firmware_git_hash { builder.add_version_firmware_git_hash(x); }
     if let Some(x) = args.error { builder.add_error(x); }
     builder.add_led_count(args.led_count);
     builder.add_io_value(args.io_value);
@@ -495,10 +499,10 @@ impl<'a> StatusResponse<'a> {
     builder.add_psu_current_error(args.psu_current_error);
     builder.add_psu_enabled(args.psu_enabled);
     builder.add_mode_bitorder_msb(args.mode_bitorder_msb);
-    builder.add_firmware_version_minor(args.firmware_version_minor);
-    builder.add_firmware_version_major(args.firmware_version_major);
-    builder.add_hardware_version_minor(args.hardware_version_minor);
-    builder.add_hardware_version_major(args.hardware_version_major);
+    builder.add_version_firmware_minor(args.version_firmware_minor);
+    builder.add_version_firmware_major(args.version_firmware_major);
+    builder.add_version_hardware_minor(args.version_hardware_minor);
+    builder.add_version_hardware_major(args.version_hardware_major);
     builder.finish()
   }
 
@@ -511,46 +515,46 @@ impl<'a> StatusResponse<'a> {
     unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(StatusResponse::VT_ERROR, None)}
   }
   #[inline]
-  pub fn hardware_version_major(&self) -> u8 {
+  pub fn version_hardware_major(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(StatusResponse::VT_HARDWARE_VERSION_MAJOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_VERSION_HARDWARE_MAJOR, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn hardware_version_minor(&self) -> u8 {
+  pub fn version_hardware_minor(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(StatusResponse::VT_HARDWARE_VERSION_MINOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_VERSION_HARDWARE_MINOR, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn firmware_version_major(&self) -> u8 {
+  pub fn version_firmware_major(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(StatusResponse::VT_FIRMWARE_VERSION_MAJOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_VERSION_FIRMWARE_MAJOR, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn firmware_version_minor(&self) -> u8 {
+  pub fn version_firmware_minor(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(StatusResponse::VT_FIRMWARE_VERSION_MINOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_VERSION_FIRMWARE_MINOR, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn firmware_git_hash(&self) -> Option<&'a str> {
+  pub fn version_firmware_git_hash(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(StatusResponse::VT_FIRMWARE_GIT_HASH, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(StatusResponse::VT_VERSION_FIRMWARE_GIT_HASH, None)}
   }
   #[inline]
-  pub fn firmware_date(&self) -> Option<&'a str> {
+  pub fn version_firmware_date(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(StatusResponse::VT_FIRMWARE_DATE, None)}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(StatusResponse::VT_VERSION_FIRMWARE_DATE, None)}
   }
   #[inline]
   pub fn modes_available(&self) -> Option<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>> {
@@ -579,6 +583,27 @@ impl<'a> StatusResponse<'a> {
     // Created from valid Table for this object
     // which contains a valid value in this slot
     unsafe { self._tab.get::<bool>(StatusResponse::VT_MODE_BITORDER_MSB, Some(false)).unwrap()}
+  }
+  #[inline]
+  pub fn mode_max_packet_size(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(StatusResponse::VT_MODE_MAX_PACKET_SIZE, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn mode_max_write(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(StatusResponse::VT_MODE_MAX_WRITE, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn mode_max_read(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(StatusResponse::VT_MODE_MAX_READ, Some(0)).unwrap()}
   }
   #[inline]
   pub fn psu_enabled(&self) -> bool {
@@ -628,13 +653,6 @@ impl<'a> StatusResponse<'a> {
     // Created from valid Table for this object
     // which contains a valid value in this slot
     unsafe { self._tab.get::<bool>(StatusResponse::VT_PULLUP_ENABLED, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn pullx_config(&self) -> u32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u32>(StatusResponse::VT_PULLX_CONFIG, Some(0)).unwrap()}
   }
   #[inline]
   pub fn adc_mv(&self) -> Option<flatbuffers::Vector<'a, u32>> {
@@ -688,16 +706,19 @@ impl flatbuffers::Verifiable for StatusResponse<'_> {
     use self::flatbuffers::Verifiable;
     v.visit_table(pos)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("error", Self::VT_ERROR, false)?
-     .visit_field::<u8>("hardware_version_major", Self::VT_HARDWARE_VERSION_MAJOR, false)?
-     .visit_field::<u8>("hardware_version_minor", Self::VT_HARDWARE_VERSION_MINOR, false)?
-     .visit_field::<u8>("firmware_version_major", Self::VT_FIRMWARE_VERSION_MAJOR, false)?
-     .visit_field::<u8>("firmware_version_minor", Self::VT_FIRMWARE_VERSION_MINOR, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("firmware_git_hash", Self::VT_FIRMWARE_GIT_HASH, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("firmware_date", Self::VT_FIRMWARE_DATE, false)?
+     .visit_field::<u8>("version_hardware_major", Self::VT_VERSION_HARDWARE_MAJOR, false)?
+     .visit_field::<u8>("version_hardware_minor", Self::VT_VERSION_HARDWARE_MINOR, false)?
+     .visit_field::<u8>("version_firmware_major", Self::VT_VERSION_FIRMWARE_MAJOR, false)?
+     .visit_field::<u8>("version_firmware_minor", Self::VT_VERSION_FIRMWARE_MINOR, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("version_firmware_git_hash", Self::VT_VERSION_FIRMWARE_GIT_HASH, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("version_firmware_date", Self::VT_VERSION_FIRMWARE_DATE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>>>("modes_available", Self::VT_MODES_AVAILABLE, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("mode_current", Self::VT_MODE_CURRENT, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, flatbuffers::ForwardsUOffset<&'_ str>>>>("mode_pin_labels", Self::VT_MODE_PIN_LABELS, false)?
      .visit_field::<bool>("mode_bitorder_msb", Self::VT_MODE_BITORDER_MSB, false)?
+     .visit_field::<u32>("mode_max_packet_size", Self::VT_MODE_MAX_PACKET_SIZE, false)?
+     .visit_field::<u32>("mode_max_write", Self::VT_MODE_MAX_WRITE, false)?
+     .visit_field::<u32>("mode_max_read", Self::VT_MODE_MAX_READ, false)?
      .visit_field::<bool>("psu_enabled", Self::VT_PSU_ENABLED, false)?
      .visit_field::<u32>("psu_set_mv", Self::VT_PSU_SET_MV, false)?
      .visit_field::<u32>("psu_set_ma", Self::VT_PSU_SET_MA, false)?
@@ -705,7 +726,6 @@ impl flatbuffers::Verifiable for StatusResponse<'_> {
      .visit_field::<u32>("psu_measured_ma", Self::VT_PSU_MEASURED_MA, false)?
      .visit_field::<bool>("psu_current_error", Self::VT_PSU_CURRENT_ERROR, false)?
      .visit_field::<bool>("pullup_enabled", Self::VT_PULLUP_ENABLED, false)?
-     .visit_field::<u32>("pullx_config", Self::VT_PULLX_CONFIG, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("adc_mv", Self::VT_ADC_MV, false)?
      .visit_field::<u8>("io_direction", Self::VT_IO_DIRECTION, false)?
      .visit_field::<u8>("io_value", Self::VT_IO_VALUE, false)?
@@ -718,16 +738,19 @@ impl flatbuffers::Verifiable for StatusResponse<'_> {
 }
 pub struct StatusResponseArgs<'a> {
     pub error: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub hardware_version_major: u8,
-    pub hardware_version_minor: u8,
-    pub firmware_version_major: u8,
-    pub firmware_version_minor: u8,
-    pub firmware_git_hash: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub firmware_date: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub version_hardware_major: u8,
+    pub version_hardware_minor: u8,
+    pub version_firmware_major: u8,
+    pub version_firmware_minor: u8,
+    pub version_firmware_git_hash: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub version_firmware_date: Option<flatbuffers::WIPOffset<&'a str>>,
     pub modes_available: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>>,
     pub mode_current: Option<flatbuffers::WIPOffset<&'a str>>,
     pub mode_pin_labels: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, flatbuffers::ForwardsUOffset<&'a str>>>>,
     pub mode_bitorder_msb: bool,
+    pub mode_max_packet_size: u32,
+    pub mode_max_write: u32,
+    pub mode_max_read: u32,
     pub psu_enabled: bool,
     pub psu_set_mv: u32,
     pub psu_set_ma: u32,
@@ -735,7 +758,6 @@ pub struct StatusResponseArgs<'a> {
     pub psu_measured_ma: u32,
     pub psu_current_error: bool,
     pub pullup_enabled: bool,
-    pub pullx_config: u32,
     pub adc_mv: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
     pub io_direction: u8,
     pub io_value: u8,
@@ -748,16 +770,19 @@ impl<'a> Default for StatusResponseArgs<'a> {
   fn default() -> Self {
     StatusResponseArgs {
       error: None,
-      hardware_version_major: 0,
-      hardware_version_minor: 0,
-      firmware_version_major: 0,
-      firmware_version_minor: 0,
-      firmware_git_hash: None,
-      firmware_date: None,
+      version_hardware_major: 0,
+      version_hardware_minor: 0,
+      version_firmware_major: 0,
+      version_firmware_minor: 0,
+      version_firmware_git_hash: None,
+      version_firmware_date: None,
       modes_available: None,
       mode_current: None,
       mode_pin_labels: None,
       mode_bitorder_msb: false,
+      mode_max_packet_size: 0,
+      mode_max_write: 0,
+      mode_max_read: 0,
       psu_enabled: false,
       psu_set_mv: 0,
       psu_set_ma: 0,
@@ -765,7 +790,6 @@ impl<'a> Default for StatusResponseArgs<'a> {
       psu_measured_ma: 0,
       psu_current_error: false,
       pullup_enabled: false,
-      pullx_config: 0,
       adc_mv: None,
       io_direction: 0,
       io_value: 0,
@@ -786,28 +810,28 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> StatusResponseBuilder<'a, 'b, A
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_ERROR, error);
   }
   #[inline]
-  pub fn add_hardware_version_major(&mut self, hardware_version_major: u8) {
-    self.fbb_.push_slot::<u8>(StatusResponse::VT_HARDWARE_VERSION_MAJOR, hardware_version_major, 0);
+  pub fn add_version_hardware_major(&mut self, version_hardware_major: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_VERSION_HARDWARE_MAJOR, version_hardware_major, 0);
   }
   #[inline]
-  pub fn add_hardware_version_minor(&mut self, hardware_version_minor: u8) {
-    self.fbb_.push_slot::<u8>(StatusResponse::VT_HARDWARE_VERSION_MINOR, hardware_version_minor, 0);
+  pub fn add_version_hardware_minor(&mut self, version_hardware_minor: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_VERSION_HARDWARE_MINOR, version_hardware_minor, 0);
   }
   #[inline]
-  pub fn add_firmware_version_major(&mut self, firmware_version_major: u8) {
-    self.fbb_.push_slot::<u8>(StatusResponse::VT_FIRMWARE_VERSION_MAJOR, firmware_version_major, 0);
+  pub fn add_version_firmware_major(&mut self, version_firmware_major: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_VERSION_FIRMWARE_MAJOR, version_firmware_major, 0);
   }
   #[inline]
-  pub fn add_firmware_version_minor(&mut self, firmware_version_minor: u8) {
-    self.fbb_.push_slot::<u8>(StatusResponse::VT_FIRMWARE_VERSION_MINOR, firmware_version_minor, 0);
+  pub fn add_version_firmware_minor(&mut self, version_firmware_minor: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_VERSION_FIRMWARE_MINOR, version_firmware_minor, 0);
   }
   #[inline]
-  pub fn add_firmware_git_hash(&mut self, firmware_git_hash: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_FIRMWARE_GIT_HASH, firmware_git_hash);
+  pub fn add_version_firmware_git_hash(&mut self, version_firmware_git_hash: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_VERSION_FIRMWARE_GIT_HASH, version_firmware_git_hash);
   }
   #[inline]
-  pub fn add_firmware_date(&mut self, firmware_date: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_FIRMWARE_DATE, firmware_date);
+  pub fn add_version_firmware_date(&mut self, version_firmware_date: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_VERSION_FIRMWARE_DATE, version_firmware_date);
   }
   #[inline]
   pub fn add_modes_available(&mut self, modes_available: flatbuffers::WIPOffset<flatbuffers::Vector<'b , flatbuffers::ForwardsUOffset<&'b  str>>>) {
@@ -824,6 +848,18 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> StatusResponseBuilder<'a, 'b, A
   #[inline]
   pub fn add_mode_bitorder_msb(&mut self, mode_bitorder_msb: bool) {
     self.fbb_.push_slot::<bool>(StatusResponse::VT_MODE_BITORDER_MSB, mode_bitorder_msb, false);
+  }
+  #[inline]
+  pub fn add_mode_max_packet_size(&mut self, mode_max_packet_size: u32) {
+    self.fbb_.push_slot::<u32>(StatusResponse::VT_MODE_MAX_PACKET_SIZE, mode_max_packet_size, 0);
+  }
+  #[inline]
+  pub fn add_mode_max_write(&mut self, mode_max_write: u32) {
+    self.fbb_.push_slot::<u32>(StatusResponse::VT_MODE_MAX_WRITE, mode_max_write, 0);
+  }
+  #[inline]
+  pub fn add_mode_max_read(&mut self, mode_max_read: u32) {
+    self.fbb_.push_slot::<u32>(StatusResponse::VT_MODE_MAX_READ, mode_max_read, 0);
   }
   #[inline]
   pub fn add_psu_enabled(&mut self, psu_enabled: bool) {
@@ -852,10 +888,6 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> StatusResponseBuilder<'a, 'b, A
   #[inline]
   pub fn add_pullup_enabled(&mut self, pullup_enabled: bool) {
     self.fbb_.push_slot::<bool>(StatusResponse::VT_PULLUP_ENABLED, pullup_enabled, false);
-  }
-  #[inline]
-  pub fn add_pullx_config(&mut self, pullx_config: u32) {
-    self.fbb_.push_slot::<u32>(StatusResponse::VT_PULLX_CONFIG, pullx_config, 0);
   }
   #[inline]
   pub fn add_adc_mv(&mut self, adc_mv: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
@@ -900,16 +932,19 @@ impl core::fmt::Debug for StatusResponse<'_> {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut ds = f.debug_struct("StatusResponse");
       ds.field("error", &self.error());
-      ds.field("hardware_version_major", &self.hardware_version_major());
-      ds.field("hardware_version_minor", &self.hardware_version_minor());
-      ds.field("firmware_version_major", &self.firmware_version_major());
-      ds.field("firmware_version_minor", &self.firmware_version_minor());
-      ds.field("firmware_git_hash", &self.firmware_git_hash());
-      ds.field("firmware_date", &self.firmware_date());
+      ds.field("version_hardware_major", &self.version_hardware_major());
+      ds.field("version_hardware_minor", &self.version_hardware_minor());
+      ds.field("version_firmware_major", &self.version_firmware_major());
+      ds.field("version_firmware_minor", &self.version_firmware_minor());
+      ds.field("version_firmware_git_hash", &self.version_firmware_git_hash());
+      ds.field("version_firmware_date", &self.version_firmware_date());
       ds.field("modes_available", &self.modes_available());
       ds.field("mode_current", &self.mode_current());
       ds.field("mode_pin_labels", &self.mode_pin_labels());
       ds.field("mode_bitorder_msb", &self.mode_bitorder_msb());
+      ds.field("mode_max_packet_size", &self.mode_max_packet_size());
+      ds.field("mode_max_write", &self.mode_max_write());
+      ds.field("mode_max_read", &self.mode_max_read());
       ds.field("psu_enabled", &self.psu_enabled());
       ds.field("psu_set_mv", &self.psu_set_mv());
       ds.field("psu_set_ma", &self.psu_set_ma());
@@ -917,7 +952,6 @@ impl core::fmt::Debug for StatusResponse<'_> {
       ds.field("psu_measured_ma", &self.psu_measured_ma());
       ds.field("psu_current_error", &self.psu_current_error());
       ds.field("pullup_enabled", &self.pullup_enabled());
-      ds.field("pullx_config", &self.pullx_config());
       ds.field("adc_mv", &self.adc_mv());
       ds.field("io_direction", &self.io_direction());
       ds.field("io_value", &self.io_value());
@@ -1254,16 +1288,16 @@ impl<'a> ConfigurationRequest<'a> {
   pub const VT_PSU_SET_MA: flatbuffers::VOffsetT = 18;
   pub const VT_PULLUP_DISABLE: flatbuffers::VOffsetT = 20;
   pub const VT_PULLUP_ENABLE: flatbuffers::VOffsetT = 22;
-  pub const VT_PULLX_CONFIG: flatbuffers::VOffsetT = 24;
-  pub const VT_IO_DIRECTION_MASK: flatbuffers::VOffsetT = 26;
-  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 28;
-  pub const VT_IO_VALUE_MASK: flatbuffers::VOffsetT = 30;
-  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 32;
-  pub const VT_LED_RESUME: flatbuffers::VOffsetT = 34;
-  pub const VT_LED_COLOR: flatbuffers::VOffsetT = 36;
-  pub const VT_PRINT_STRING: flatbuffers::VOffsetT = 38;
-  pub const VT_HARDWARE_BOOTLOADER: flatbuffers::VOffsetT = 40;
-  pub const VT_HARDWARE_RESET: flatbuffers::VOffsetT = 42;
+  pub const VT_IO_DIRECTION_MASK: flatbuffers::VOffsetT = 24;
+  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 26;
+  pub const VT_IO_VALUE_MASK: flatbuffers::VOffsetT = 28;
+  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 30;
+  pub const VT_LED_RESUME: flatbuffers::VOffsetT = 32;
+  pub const VT_LED_COLOR: flatbuffers::VOffsetT = 34;
+  pub const VT_PRINT_STRING: flatbuffers::VOffsetT = 36;
+  pub const VT_HARDWARE_BOOTLOADER: flatbuffers::VOffsetT = 38;
+  pub const VT_HARDWARE_RESET: flatbuffers::VOffsetT = 40;
+  pub const VT_HARDWARE_SELFTEST: flatbuffers::VOffsetT = 42;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -1277,11 +1311,11 @@ impl<'a> ConfigurationRequest<'a> {
     let mut builder = ConfigurationRequestBuilder::new(_fbb);
     if let Some(x) = args.print_string { builder.add_print_string(x); }
     if let Some(x) = args.led_color { builder.add_led_color(x); }
-    builder.add_pullx_config(args.pullx_config);
     builder.add_psu_set_mv(args.psu_set_mv);
     if let Some(x) = args.mode_configuration { builder.add_mode_configuration(x); }
     if let Some(x) = args.mode { builder.add_mode(x); }
     builder.add_psu_set_ma(args.psu_set_ma);
+    builder.add_hardware_selftest(args.hardware_selftest);
     builder.add_hardware_reset(args.hardware_reset);
     builder.add_hardware_bootloader(args.hardware_bootloader);
     builder.add_led_resume(args.led_resume);
@@ -1370,13 +1404,6 @@ impl<'a> ConfigurationRequest<'a> {
     unsafe { self._tab.get::<bool>(ConfigurationRequest::VT_PULLUP_ENABLE, Some(false)).unwrap()}
   }
   #[inline]
-  pub fn pullx_config(&self) -> u32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u32>(ConfigurationRequest::VT_PULLX_CONFIG, Some(0)).unwrap()}
-  }
-  #[inline]
   pub fn io_direction_mask(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
@@ -1439,6 +1466,13 @@ impl<'a> ConfigurationRequest<'a> {
     // which contains a valid value in this slot
     unsafe { self._tab.get::<bool>(ConfigurationRequest::VT_HARDWARE_RESET, Some(false)).unwrap()}
   }
+  #[inline]
+  pub fn hardware_selftest(&self) -> bool {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<bool>(ConfigurationRequest::VT_HARDWARE_SELFTEST, Some(false)).unwrap()}
+  }
 }
 
 impl flatbuffers::Verifiable for ConfigurationRequest<'_> {
@@ -1458,7 +1492,6 @@ impl flatbuffers::Verifiable for ConfigurationRequest<'_> {
      .visit_field::<u16>("psu_set_ma", Self::VT_PSU_SET_MA, false)?
      .visit_field::<bool>("pullup_disable", Self::VT_PULLUP_DISABLE, false)?
      .visit_field::<bool>("pullup_enable", Self::VT_PULLUP_ENABLE, false)?
-     .visit_field::<u32>("pullx_config", Self::VT_PULLX_CONFIG, false)?
      .visit_field::<u8>("io_direction_mask", Self::VT_IO_DIRECTION_MASK, false)?
      .visit_field::<u8>("io_direction", Self::VT_IO_DIRECTION, false)?
      .visit_field::<u8>("io_value_mask", Self::VT_IO_VALUE_MASK, false)?
@@ -1468,6 +1501,7 @@ impl flatbuffers::Verifiable for ConfigurationRequest<'_> {
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("print_string", Self::VT_PRINT_STRING, false)?
      .visit_field::<bool>("hardware_bootloader", Self::VT_HARDWARE_BOOTLOADER, false)?
      .visit_field::<bool>("hardware_reset", Self::VT_HARDWARE_RESET, false)?
+     .visit_field::<bool>("hardware_selftest", Self::VT_HARDWARE_SELFTEST, false)?
      .finish();
     Ok(())
   }
@@ -1483,7 +1517,6 @@ pub struct ConfigurationRequestArgs<'a> {
     pub psu_set_ma: u16,
     pub pullup_disable: bool,
     pub pullup_enable: bool,
-    pub pullx_config: u32,
     pub io_direction_mask: u8,
     pub io_direction: u8,
     pub io_value_mask: u8,
@@ -1493,6 +1526,7 @@ pub struct ConfigurationRequestArgs<'a> {
     pub print_string: Option<flatbuffers::WIPOffset<&'a str>>,
     pub hardware_bootloader: bool,
     pub hardware_reset: bool,
+    pub hardware_selftest: bool,
 }
 impl<'a> Default for ConfigurationRequestArgs<'a> {
   #[inline]
@@ -1508,7 +1542,6 @@ impl<'a> Default for ConfigurationRequestArgs<'a> {
       psu_set_ma: 300,
       pullup_disable: false,
       pullup_enable: false,
-      pullx_config: 0,
       io_direction_mask: 0,
       io_direction: 0,
       io_value_mask: 0,
@@ -1518,6 +1551,7 @@ impl<'a> Default for ConfigurationRequestArgs<'a> {
       print_string: None,
       hardware_bootloader: false,
       hardware_reset: false,
+      hardware_selftest: false,
     }
   }
 }
@@ -1568,10 +1602,6 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ConfigurationRequestBuilder<'a,
     self.fbb_.push_slot::<bool>(ConfigurationRequest::VT_PULLUP_ENABLE, pullup_enable, false);
   }
   #[inline]
-  pub fn add_pullx_config(&mut self, pullx_config: u32) {
-    self.fbb_.push_slot::<u32>(ConfigurationRequest::VT_PULLX_CONFIG, pullx_config, 0);
-  }
-  #[inline]
   pub fn add_io_direction_mask(&mut self, io_direction_mask: u8) {
     self.fbb_.push_slot::<u8>(ConfigurationRequest::VT_IO_DIRECTION_MASK, io_direction_mask, 0);
   }
@@ -1608,6 +1638,10 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ConfigurationRequestBuilder<'a,
     self.fbb_.push_slot::<bool>(ConfigurationRequest::VT_HARDWARE_RESET, hardware_reset, false);
   }
   #[inline]
+  pub fn add_hardware_selftest(&mut self, hardware_selftest: bool) {
+    self.fbb_.push_slot::<bool>(ConfigurationRequest::VT_HARDWARE_SELFTEST, hardware_selftest, false);
+  }
+  #[inline]
   pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> ConfigurationRequestBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     ConfigurationRequestBuilder {
@@ -1635,7 +1669,6 @@ impl core::fmt::Debug for ConfigurationRequest<'_> {
       ds.field("psu_set_ma", &self.psu_set_ma());
       ds.field("pullup_disable", &self.pullup_disable());
       ds.field("pullup_enable", &self.pullup_enable());
-      ds.field("pullx_config", &self.pullx_config());
       ds.field("io_direction_mask", &self.io_direction_mask());
       ds.field("io_direction", &self.io_direction());
       ds.field("io_value_mask", &self.io_value_mask());
@@ -1645,6 +1678,7 @@ impl core::fmt::Debug for ConfigurationRequest<'_> {
       ds.field("print_string", &self.print_string());
       ds.field("hardware_bootloader", &self.hardware_bootloader());
       ds.field("hardware_reset", &self.hardware_reset());
+      ds.field("hardware_selftest", &self.hardware_selftest());
       ds.finish()
   }
 }
@@ -2041,231 +2075,6 @@ impl core::fmt::Debug for DataResponse<'_> {
       ds.finish()
   }
 }
-pub enum RequestPacketOffset {}
-#[derive(Copy, Clone, PartialEq)]
-
-pub struct RequestPacket<'a> {
-  pub _tab: flatbuffers::Table<'a>,
-}
-
-impl<'a> flatbuffers::Follow<'a> for RequestPacket<'a> {
-  type Inner = RequestPacket<'a>;
-  #[inline]
-  unsafe fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
-    Self { _tab: flatbuffers::Table::new(buf, loc) }
-  }
-}
-
-impl<'a> RequestPacket<'a> {
-  pub const VT_VERSION_MAJOR: flatbuffers::VOffsetT = 4;
-  pub const VT_VERSION_MINOR: flatbuffers::VOffsetT = 6;
-  pub const VT_CONTENTS_TYPE: flatbuffers::VOffsetT = 8;
-  pub const VT_CONTENTS: flatbuffers::VOffsetT = 10;
-
-  #[inline]
-  pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
-    RequestPacket { _tab: table }
-  }
-  #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
-    args: &'args RequestPacketArgs
-  ) -> flatbuffers::WIPOffset<RequestPacket<'bldr>> {
-    let mut builder = RequestPacketBuilder::new(_fbb);
-    if let Some(x) = args.contents { builder.add_contents(x); }
-    builder.add_contents_type(args.contents_type);
-    builder.add_version_minor(args.version_minor);
-    builder.add_version_major(args.version_major);
-    builder.finish()
-  }
-
-
-  #[inline]
-  pub fn version_major(&self) -> u8 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MAJOR, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn version_minor(&self) -> u8 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MINOR, Some(1)).unwrap()}
-  }
-  #[inline]
-  pub fn contents_type(&self) -> RequestPacketContents {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<RequestPacketContents>(RequestPacket::VT_CONTENTS_TYPE, Some(RequestPacketContents::NONE)).unwrap()}
-  }
-  #[inline]
-  pub fn contents(&self) -> Option<flatbuffers::Table<'a>> {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Table<'a>>>(RequestPacket::VT_CONTENTS, None)}
-  }
-  #[inline]
-  #[allow(non_snake_case)]
-  pub fn contents_as_status_request(&self) -> Option<StatusRequest<'a>> {
-    if self.contents_type() == RequestPacketContents::StatusRequest {
-      self.contents().map(|t| {
-       // Safety:
-       // Created from a valid Table for this object
-       // Which contains a valid union in this slot
-       unsafe { StatusRequest::init_from_table(t) }
-     })
-    } else {
-      None
-    }
-  }
-
-  #[inline]
-  #[allow(non_snake_case)]
-  pub fn contents_as_configuration_request(&self) -> Option<ConfigurationRequest<'a>> {
-    if self.contents_type() == RequestPacketContents::ConfigurationRequest {
-      self.contents().map(|t| {
-       // Safety:
-       // Created from a valid Table for this object
-       // Which contains a valid union in this slot
-       unsafe { ConfigurationRequest::init_from_table(t) }
-     })
-    } else {
-      None
-    }
-  }
-
-  #[inline]
-  #[allow(non_snake_case)]
-  pub fn contents_as_data_request(&self) -> Option<DataRequest<'a>> {
-    if self.contents_type() == RequestPacketContents::DataRequest {
-      self.contents().map(|t| {
-       // Safety:
-       // Created from a valid Table for this object
-       // Which contains a valid union in this slot
-       unsafe { DataRequest::init_from_table(t) }
-     })
-    } else {
-      None
-    }
-  }
-
-}
-
-impl flatbuffers::Verifiable for RequestPacket<'_> {
-  #[inline]
-  fn run_verifier(
-    v: &mut flatbuffers::Verifier, pos: usize
-  ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
-    use self::flatbuffers::Verifiable;
-    v.visit_table(pos)?
-     .visit_field::<u8>("version_major", Self::VT_VERSION_MAJOR, false)?
-     .visit_field::<u8>("version_minor", Self::VT_VERSION_MINOR, false)?
-     .visit_union::<RequestPacketContents, _>("contents_type", Self::VT_CONTENTS_TYPE, "contents", Self::VT_CONTENTS, false, |key, v, pos| {
-        match key {
-          RequestPacketContents::StatusRequest => v.verify_union_variant::<flatbuffers::ForwardsUOffset<StatusRequest>>("RequestPacketContents::StatusRequest", pos),
-          RequestPacketContents::ConfigurationRequest => v.verify_union_variant::<flatbuffers::ForwardsUOffset<ConfigurationRequest>>("RequestPacketContents::ConfigurationRequest", pos),
-          RequestPacketContents::DataRequest => v.verify_union_variant::<flatbuffers::ForwardsUOffset<DataRequest>>("RequestPacketContents::DataRequest", pos),
-          _ => Ok(()),
-        }
-     })?
-     .finish();
-    Ok(())
-  }
-}
-pub struct RequestPacketArgs {
-    pub version_major: u8,
-    pub version_minor: u8,
-    pub contents_type: RequestPacketContents,
-    pub contents: Option<flatbuffers::WIPOffset<flatbuffers::UnionWIPOffset>>,
-}
-impl<'a> Default for RequestPacketArgs {
-  #[inline]
-  fn default() -> Self {
-    RequestPacketArgs {
-      version_major: 0,
-      version_minor: 1,
-      contents_type: RequestPacketContents::NONE,
-      contents: None,
-    }
-  }
-}
-
-pub struct RequestPacketBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
-  start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
-}
-impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> RequestPacketBuilder<'a, 'b, A> {
-  #[inline]
-  pub fn add_version_major(&mut self, version_major: u8) {
-    self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MAJOR, version_major, 0);
-  }
-  #[inline]
-  pub fn add_version_minor(&mut self, version_minor: u8) {
-    self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MINOR, version_minor, 1);
-  }
-  #[inline]
-  pub fn add_contents_type(&mut self, contents_type: RequestPacketContents) {
-    self.fbb_.push_slot::<RequestPacketContents>(RequestPacket::VT_CONTENTS_TYPE, contents_type, RequestPacketContents::NONE);
-  }
-  #[inline]
-  pub fn add_contents(&mut self, contents: flatbuffers::WIPOffset<flatbuffers::UnionWIPOffset>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(RequestPacket::VT_CONTENTS, contents);
-  }
-  #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> RequestPacketBuilder<'a, 'b, A> {
-    let start = _fbb.start_table();
-    RequestPacketBuilder {
-      fbb_: _fbb,
-      start_: start,
-    }
-  }
-  #[inline]
-  pub fn finish(self) -> flatbuffers::WIPOffset<RequestPacket<'a>> {
-    let o = self.fbb_.end_table(self.start_);
-    flatbuffers::WIPOffset::new(o.value())
-  }
-}
-
-impl core::fmt::Debug for RequestPacket<'_> {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let mut ds = f.debug_struct("RequestPacket");
-      ds.field("version_major", &self.version_major());
-      ds.field("version_minor", &self.version_minor());
-      ds.field("contents_type", &self.contents_type());
-      match self.contents_type() {
-        RequestPacketContents::StatusRequest => {
-          if let Some(x) = self.contents_as_status_request() {
-            ds.field("contents", &x)
-          } else {
-            ds.field("contents", &"InvalidFlatbuffer: Union discriminant does not match value.")
-          }
-        },
-        RequestPacketContents::ConfigurationRequest => {
-          if let Some(x) = self.contents_as_configuration_request() {
-            ds.field("contents", &x)
-          } else {
-            ds.field("contents", &"InvalidFlatbuffer: Union discriminant does not match value.")
-          }
-        },
-        RequestPacketContents::DataRequest => {
-          if let Some(x) = self.contents_as_data_request() {
-            ds.field("contents", &x)
-          } else {
-            ds.field("contents", &"InvalidFlatbuffer: Union discriminant does not match value.")
-          }
-        },
-        _ => {
-          let x: Option<()> = None;
-          ds.field("contents", &x)
-        },
-      };
-      ds.finish()
-  }
-}
 pub enum ErrorResponseOffset {}
 #[derive(Copy, Clone, PartialEq)]
 
@@ -2363,6 +2172,231 @@ impl core::fmt::Debug for ErrorResponse<'_> {
       ds.finish()
   }
 }
+pub enum RequestPacketOffset {}
+#[derive(Copy, Clone, PartialEq)]
+
+pub struct RequestPacket<'a> {
+  pub _tab: flatbuffers::Table<'a>,
+}
+
+impl<'a> flatbuffers::Follow<'a> for RequestPacket<'a> {
+  type Inner = RequestPacket<'a>;
+  #[inline]
+  unsafe fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
+    Self { _tab: flatbuffers::Table::new(buf, loc) }
+  }
+}
+
+impl<'a> RequestPacket<'a> {
+  pub const VT_VERSION_MAJOR: flatbuffers::VOffsetT = 4;
+  pub const VT_VERSION_MINOR: flatbuffers::VOffsetT = 6;
+  pub const VT_CONTENTS_TYPE: flatbuffers::VOffsetT = 8;
+  pub const VT_CONTENTS: flatbuffers::VOffsetT = 10;
+
+  #[inline]
+  pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
+    RequestPacket { _tab: table }
+  }
+  #[allow(unused_mut)]
+  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
+    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
+    args: &'args RequestPacketArgs
+  ) -> flatbuffers::WIPOffset<RequestPacket<'bldr>> {
+    let mut builder = RequestPacketBuilder::new(_fbb);
+    if let Some(x) = args.contents { builder.add_contents(x); }
+    builder.add_contents_type(args.contents_type);
+    builder.add_version_minor(args.version_minor);
+    builder.add_version_major(args.version_major);
+    builder.finish()
+  }
+
+
+  #[inline]
+  pub fn version_major(&self) -> u8 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MAJOR, Some(2)).unwrap()}
+  }
+  #[inline]
+  pub fn version_minor(&self) -> u8 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MINOR, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn contents_type(&self) -> RequestPacketContents {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<RequestPacketContents>(RequestPacket::VT_CONTENTS_TYPE, Some(RequestPacketContents::NONE)).unwrap()}
+  }
+  #[inline]
+  pub fn contents(&self) -> Option<flatbuffers::Table<'a>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Table<'a>>>(RequestPacket::VT_CONTENTS, None)}
+  }
+  #[inline]
+  #[allow(non_snake_case)]
+  pub fn contents_as_status_request(&self) -> Option<StatusRequest<'a>> {
+    if self.contents_type() == RequestPacketContents::StatusRequest {
+      self.contents().map(|t| {
+       // Safety:
+       // Created from a valid Table for this object
+       // Which contains a valid union in this slot
+       unsafe { StatusRequest::init_from_table(t) }
+     })
+    } else {
+      None
+    }
+  }
+
+  #[inline]
+  #[allow(non_snake_case)]
+  pub fn contents_as_configuration_request(&self) -> Option<ConfigurationRequest<'a>> {
+    if self.contents_type() == RequestPacketContents::ConfigurationRequest {
+      self.contents().map(|t| {
+       // Safety:
+       // Created from a valid Table for this object
+       // Which contains a valid union in this slot
+       unsafe { ConfigurationRequest::init_from_table(t) }
+     })
+    } else {
+      None
+    }
+  }
+
+  #[inline]
+  #[allow(non_snake_case)]
+  pub fn contents_as_data_request(&self) -> Option<DataRequest<'a>> {
+    if self.contents_type() == RequestPacketContents::DataRequest {
+      self.contents().map(|t| {
+       // Safety:
+       // Created from a valid Table for this object
+       // Which contains a valid union in this slot
+       unsafe { DataRequest::init_from_table(t) }
+     })
+    } else {
+      None
+    }
+  }
+
+}
+
+impl flatbuffers::Verifiable for RequestPacket<'_> {
+  #[inline]
+  fn run_verifier(
+    v: &mut flatbuffers::Verifier, pos: usize
+  ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
+    use self::flatbuffers::Verifiable;
+    v.visit_table(pos)?
+     .visit_field::<u8>("version_major", Self::VT_VERSION_MAJOR, false)?
+     .visit_field::<u8>("version_minor", Self::VT_VERSION_MINOR, false)?
+     .visit_union::<RequestPacketContents, _>("contents_type", Self::VT_CONTENTS_TYPE, "contents", Self::VT_CONTENTS, false, |key, v, pos| {
+        match key {
+          RequestPacketContents::StatusRequest => v.verify_union_variant::<flatbuffers::ForwardsUOffset<StatusRequest>>("RequestPacketContents::StatusRequest", pos),
+          RequestPacketContents::ConfigurationRequest => v.verify_union_variant::<flatbuffers::ForwardsUOffset<ConfigurationRequest>>("RequestPacketContents::ConfigurationRequest", pos),
+          RequestPacketContents::DataRequest => v.verify_union_variant::<flatbuffers::ForwardsUOffset<DataRequest>>("RequestPacketContents::DataRequest", pos),
+          _ => Ok(()),
+        }
+     })?
+     .finish();
+    Ok(())
+  }
+}
+pub struct RequestPacketArgs {
+    pub version_major: u8,
+    pub version_minor: u8,
+    pub contents_type: RequestPacketContents,
+    pub contents: Option<flatbuffers::WIPOffset<flatbuffers::UnionWIPOffset>>,
+}
+impl<'a> Default for RequestPacketArgs {
+  #[inline]
+  fn default() -> Self {
+    RequestPacketArgs {
+      version_major: 2,
+      version_minor: 0,
+      contents_type: RequestPacketContents::NONE,
+      contents: None,
+    }
+  }
+}
+
+pub struct RequestPacketBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
+  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
+  start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
+}
+impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> RequestPacketBuilder<'a, 'b, A> {
+  #[inline]
+  pub fn add_version_major(&mut self, version_major: u8) {
+    self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MAJOR, version_major, 2);
+  }
+  #[inline]
+  pub fn add_version_minor(&mut self, version_minor: u8) {
+    self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MINOR, version_minor, 0);
+  }
+  #[inline]
+  pub fn add_contents_type(&mut self, contents_type: RequestPacketContents) {
+    self.fbb_.push_slot::<RequestPacketContents>(RequestPacket::VT_CONTENTS_TYPE, contents_type, RequestPacketContents::NONE);
+  }
+  #[inline]
+  pub fn add_contents(&mut self, contents: flatbuffers::WIPOffset<flatbuffers::UnionWIPOffset>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(RequestPacket::VT_CONTENTS, contents);
+  }
+  #[inline]
+  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> RequestPacketBuilder<'a, 'b, A> {
+    let start = _fbb.start_table();
+    RequestPacketBuilder {
+      fbb_: _fbb,
+      start_: start,
+    }
+  }
+  #[inline]
+  pub fn finish(self) -> flatbuffers::WIPOffset<RequestPacket<'a>> {
+    let o = self.fbb_.end_table(self.start_);
+    flatbuffers::WIPOffset::new(o.value())
+  }
+}
+
+impl core::fmt::Debug for RequestPacket<'_> {
+  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+    let mut ds = f.debug_struct("RequestPacket");
+      ds.field("version_major", &self.version_major());
+      ds.field("version_minor", &self.version_minor());
+      ds.field("contents_type", &self.contents_type());
+      match self.contents_type() {
+        RequestPacketContents::StatusRequest => {
+          if let Some(x) = self.contents_as_status_request() {
+            ds.field("contents", &x)
+          } else {
+            ds.field("contents", &"InvalidFlatbuffer: Union discriminant does not match value.")
+          }
+        },
+        RequestPacketContents::ConfigurationRequest => {
+          if let Some(x) = self.contents_as_configuration_request() {
+            ds.field("contents", &x)
+          } else {
+            ds.field("contents", &"InvalidFlatbuffer: Union discriminant does not match value.")
+          }
+        },
+        RequestPacketContents::DataRequest => {
+          if let Some(x) = self.contents_as_data_request() {
+            ds.field("contents", &x)
+          } else {
+            ds.field("contents", &"InvalidFlatbuffer: Union discriminant does not match value.")
+          }
+        },
+        _ => {
+          let x: Option<()> = None;
+          ds.field("contents", &x)
+        },
+      };
+      ds.finish()
+  }
+}
 pub enum ResponsePacketOffset {}
 #[derive(Copy, Clone, PartialEq)]
 
@@ -2407,14 +2441,14 @@ impl<'a> ResponsePacket<'a> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MAJOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MAJOR, Some(2)).unwrap()}
   }
   #[inline]
   pub fn version_minor(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MINOR, Some(1)).unwrap()}
+    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MINOR, Some(0)).unwrap()}
   }
   #[inline]
   pub fn contents_type(&self) -> ResponsePacketContents {
@@ -2524,8 +2558,8 @@ impl<'a> Default for ResponsePacketArgs {
   #[inline]
   fn default() -> Self {
     ResponsePacketArgs {
-      version_major: 0,
-      version_minor: 1,
+      version_major: 2,
+      version_minor: 0,
       contents_type: ResponsePacketContents::NONE,
       contents: None,
     }
@@ -2539,11 +2573,11 @@ pub struct ResponsePacketBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
 impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ResponsePacketBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_version_major(&mut self, version_major: u8) {
-    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MAJOR, version_major, 0);
+    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MAJOR, version_major, 2);
   }
   #[inline]
   pub fn add_version_minor(&mut self, version_minor: u8) {
-    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MINOR, version_minor, 1);
+    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MINOR, version_minor, 0);
   }
   #[inline]
   pub fn add_contents_type(&mut self, contents_type: ResponsePacketContents) {

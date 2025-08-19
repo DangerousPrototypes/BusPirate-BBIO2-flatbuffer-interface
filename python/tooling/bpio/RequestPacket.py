@@ -29,14 +29,14 @@ class RequestPacket(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
-        return 0
+        return 2
 
     # RequestPacket
     def VersionMinor(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
-        return 1
+        return 0
 
     # RequestPacket
     def ContentsType(self):
@@ -62,13 +62,13 @@ def Start(builder):
     RequestPacketStart(builder)
 
 def RequestPacketAddVersionMajor(builder, versionMajor):
-    builder.PrependUint8Slot(0, versionMajor, 0)
+    builder.PrependUint8Slot(0, versionMajor, 2)
 
 def AddVersionMajor(builder, versionMajor):
     RequestPacketAddVersionMajor(builder, versionMajor)
 
 def RequestPacketAddVersionMinor(builder, versionMinor):
-    builder.PrependUint8Slot(1, versionMinor, 1)
+    builder.PrependUint8Slot(1, versionMinor, 0)
 
 def AddVersionMinor(builder, versionMinor):
     RequestPacketAddVersionMinor(builder, versionMinor)
