@@ -113,16 +113,16 @@ table ErrorResponse {
 union RequestPacketContents { StatusRequest, ConfigurationRequest, DataRequest}
 
 table RequestPacket {
-  version_major:uint8=2;
-  version_minor:uint8=0;
+  version_major:uint8;
+  version_minor:uint8;
   contents:RequestPacketContents;
 }
 
 union ResponsePacketContents { ErrorResponse, StatusResponse, ConfigurationResponse, DataResponse}
 
 table ResponsePacket{
-  version_major:uint8=2;
-  version_minor:uint8=0;
+  version_major:uint8;
+  version_minor:uint8;
   contents:ResponsePacketContents;
 }
 

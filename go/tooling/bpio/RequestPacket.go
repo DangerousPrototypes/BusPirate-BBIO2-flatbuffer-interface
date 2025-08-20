@@ -46,7 +46,7 @@ func (rcv *RequestPacket) VersionMajor() byte {
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
-	return 2
+	return 0
 }
 
 func (rcv *RequestPacket) MutateVersionMajor(n byte) bool {
@@ -90,7 +90,7 @@ func RequestPacketStart(builder *flatbuffers.Builder) {
 	builder.StartObject(4)
 }
 func RequestPacketAddVersionMajor(builder *flatbuffers.Builder, versionMajor byte) {
-	builder.PrependByteSlot(0, versionMajor, 2)
+	builder.PrependByteSlot(0, versionMajor, 0)
 }
 func RequestPacketAddVersionMinor(builder *flatbuffers.Builder, versionMinor byte) {
 	builder.PrependByteSlot(1, versionMinor, 0)

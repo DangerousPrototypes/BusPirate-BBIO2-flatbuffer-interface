@@ -1373,7 +1373,7 @@ struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     VT_CONTENTS = 10
   };
   uint8_t version_major() const {
-    return GetField<uint8_t>(VT_VERSION_MAJOR, 2);
+    return GetField<uint8_t>(VT_VERSION_MAJOR, 0);
   }
   uint8_t version_minor() const {
     return GetField<uint8_t>(VT_VERSION_MINOR, 0);
@@ -1422,7 +1422,7 @@ struct RequestPacketBuilder {
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
   void add_version_major(uint8_t version_major) {
-    fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MAJOR, version_major, 2);
+    fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MAJOR, version_major, 0);
   }
   void add_version_minor(uint8_t version_minor) {
     fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MINOR, version_minor, 0);
@@ -1446,7 +1446,7 @@ struct RequestPacketBuilder {
 
 inline ::flatbuffers::Offset<RequestPacket> CreateRequestPacket(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t version_major = 2,
+    uint8_t version_major = 0,
     uint8_t version_minor = 0,
     bpio::RequestPacketContents contents_type = bpio::RequestPacketContents_NONE,
     ::flatbuffers::Offset<void> contents = 0) {
@@ -1467,7 +1467,7 @@ struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     VT_CONTENTS = 10
   };
   uint8_t version_major() const {
-    return GetField<uint8_t>(VT_VERSION_MAJOR, 2);
+    return GetField<uint8_t>(VT_VERSION_MAJOR, 0);
   }
   uint8_t version_minor() const {
     return GetField<uint8_t>(VT_VERSION_MINOR, 0);
@@ -1523,7 +1523,7 @@ struct ResponsePacketBuilder {
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
   void add_version_major(uint8_t version_major) {
-    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MAJOR, version_major, 2);
+    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MAJOR, version_major, 0);
   }
   void add_version_minor(uint8_t version_minor) {
     fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MINOR, version_minor, 0);
@@ -1547,7 +1547,7 @@ struct ResponsePacketBuilder {
 
 inline ::flatbuffers::Offset<ResponsePacket> CreateResponsePacket(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t version_major = 2,
+    uint8_t version_major = 0,
     uint8_t version_minor = 0,
     bpio::ResponsePacketContents contents_type = bpio::ResponsePacketContents_NONE,
     ::flatbuffers::Offset<void> contents = 0) {

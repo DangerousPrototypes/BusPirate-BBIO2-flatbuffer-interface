@@ -31,7 +31,7 @@ class ResponsePacket : Table() {
     val versionMajor : UByte
         get() {
             val o = __offset(4)
-            return if(o != 0) bb.get(o + bb_pos).toUByte() else 2u
+            return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     val versionMinor : UByte
         get() {
@@ -62,7 +62,7 @@ class ResponsePacket : Table() {
             return endResponsePacket(builder)
         }
         fun startResponsePacket(builder: FlatBufferBuilder) = builder.startTable(4)
-        fun addVersionMajor(builder: FlatBufferBuilder, versionMajor: UByte) = builder.addByte(0, versionMajor.toByte(), 2)
+        fun addVersionMajor(builder: FlatBufferBuilder, versionMajor: UByte) = builder.addByte(0, versionMajor.toByte(), 0)
         fun addVersionMinor(builder: FlatBufferBuilder, versionMinor: UByte) = builder.addByte(1, versionMinor.toByte(), 0)
         fun addContentsType(builder: FlatBufferBuilder, contentsType: UByte) = builder.addByte(2, contentsType.toByte(), 0)
         fun addContents(builder: FlatBufferBuilder, contents: Int) = builder.addOffset(3, contents, 0)

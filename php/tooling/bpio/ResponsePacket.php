@@ -38,7 +38,7 @@ class ResponsePacket extends Table
     public function getVersionMajor()
     {
         $o = $this->__offset(4);
-        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 2;
+        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
     /**
@@ -99,7 +99,7 @@ class ResponsePacket extends Table
      */
     public static function addVersionMajor(FlatBufferBuilder $builder, $versionMajor)
     {
-        $builder->addByteX(0, $versionMajor, 2);
+        $builder->addByteX(0, $versionMajor, 0);
     }
 
     /**

@@ -564,7 +564,7 @@ struct ErrorResponseBuilder:
 
 class RequestPacket : flatbuffers.handle
     def version_major() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 4, 2)
+        return flatbuffers.field_uint8(buf_, pos_, 4, 0)
     def version_minor() -> int:
         return flatbuffers.field_uint8(buf_, pos_, 6, 0)
     def contents_type() -> RequestPacketContents:
@@ -584,7 +584,7 @@ struct RequestPacketBuilder:
         b_.StartObject(4)
         return this
     def add_version_major(version_major:int):
-        b_.PrependUint8Slot(0, version_major, 2)
+        b_.PrependUint8Slot(0, version_major, 0)
         return this
     def add_version_minor(version_minor:int):
         b_.PrependUint8Slot(1, version_minor, 0)
@@ -600,7 +600,7 @@ struct RequestPacketBuilder:
 
 class ResponsePacket : flatbuffers.handle
     def version_major() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 4, 2)
+        return flatbuffers.field_uint8(buf_, pos_, 4, 0)
     def version_minor() -> int:
         return flatbuffers.field_uint8(buf_, pos_, 6, 0)
     def contents_type() -> ResponsePacketContents:
@@ -622,7 +622,7 @@ struct ResponsePacketBuilder:
         b_.StartObject(4)
         return this
     def add_version_major(version_major:int):
-        b_.PrependUint8Slot(0, version_major, 2)
+        b_.PrependUint8Slot(0, version_major, 0)
         return this
     def add_version_minor(version_minor:int):
         b_.PrependUint8Slot(1, version_minor, 0)

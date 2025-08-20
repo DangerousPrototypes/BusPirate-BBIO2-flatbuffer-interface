@@ -1313,7 +1313,7 @@ class RequestPacket {
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 2);
+  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 0);
   int get versionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0);
   RequestPacketContentsTypeId? get contentsType => RequestPacketContentsTypeId._createOrNull(const fb.Uint8Reader().vTableGetNullable(_bc, _bcOffset, 8));
   dynamic get contents {
@@ -1419,7 +1419,7 @@ class ResponsePacket {
   final fb.BufferContext _bc;
   final int _bcOffset;
 
-  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 2);
+  int get versionMajor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 4, 0);
   int get versionMinor => const fb.Uint8Reader().vTableGet(_bc, _bcOffset, 6, 0);
   ResponsePacketContentsTypeId? get contentsType => ResponsePacketContentsTypeId._createOrNull(const fb.Uint8Reader().vTableGetNullable(_bc, _bcOffset, 8));
   dynamic get contents {

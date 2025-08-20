@@ -2216,7 +2216,7 @@ impl<'a> RequestPacket<'a> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MAJOR, Some(2)).unwrap()}
+    unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MAJOR, Some(0)).unwrap()}
   }
   #[inline]
   pub fn version_minor(&self) -> u8 {
@@ -2317,7 +2317,7 @@ impl<'a> Default for RequestPacketArgs {
   #[inline]
   fn default() -> Self {
     RequestPacketArgs {
-      version_major: 2,
+      version_major: 0,
       version_minor: 0,
       contents_type: RequestPacketContents::NONE,
       contents: None,
@@ -2332,7 +2332,7 @@ pub struct RequestPacketBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
 impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> RequestPacketBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_version_major(&mut self, version_major: u8) {
-    self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MAJOR, version_major, 2);
+    self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MAJOR, version_major, 0);
   }
   #[inline]
   pub fn add_version_minor(&mut self, version_minor: u8) {
@@ -2441,7 +2441,7 @@ impl<'a> ResponsePacket<'a> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MAJOR, Some(2)).unwrap()}
+    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MAJOR, Some(0)).unwrap()}
   }
   #[inline]
   pub fn version_minor(&self) -> u8 {
@@ -2558,7 +2558,7 @@ impl<'a> Default for ResponsePacketArgs {
   #[inline]
   fn default() -> Self {
     ResponsePacketArgs {
-      version_major: 2,
+      version_major: 0,
       version_minor: 0,
       contents_type: ResponsePacketContents::NONE,
       contents: None,
@@ -2573,7 +2573,7 @@ pub struct ResponsePacketBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
 impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ResponsePacketBuilder<'a, 'b, A> {
   #[inline]
   pub fn add_version_major(&mut self, version_major: u8) {
-    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MAJOR, version_major, 2);
+    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MAJOR, version_major, 0);
   }
   #[inline]
   pub fn add_version_minor(&mut self, version_minor: u8) {

@@ -798,19 +798,19 @@ public struct bpio_RequestPacket: FlatBufferObject, Verifiable {
     var p: VOffset { self.rawValue }
   }
 
-  public var versionMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMajor.v); return o == 0 ? 2 : _accessor.readBuffer(of: UInt8.self, at: o) }
+  public var versionMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var versionMinor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var contentsType: bpio_RequestPacketContents { let o = _accessor.offset(VTOFFSET.contentsType.v); return o == 0 ? .none_ : bpio_RequestPacketContents(rawValue: _accessor.readBuffer(of: UInt8.self, at: o)) ?? .none_ }
   public func contents<T: FlatbuffersInitializable>(type: T.Type) -> T? { let o = _accessor.offset(VTOFFSET.contents.v); return o == 0 ? nil : _accessor.union(o) }
   public static func startRequestPacket(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 4) }
-  public static func add(versionMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMajor, def: 2, at: VTOFFSET.versionMajor.p) }
+  public static func add(versionMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMajor, def: 0, at: VTOFFSET.versionMajor.p) }
   public static func add(versionMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMinor, def: 0, at: VTOFFSET.versionMinor.p) }
   public static func add(contentsType: bpio_RequestPacketContents, _ fbb: inout FlatBufferBuilder) { fbb.add(element: contentsType.rawValue, def: 0, at: VTOFFSET.contentsType.p) }
   public static func add(contents: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: contents, at: VTOFFSET.contents.p) }
   public static func endRequestPacket(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
   public static func createRequestPacket(
     _ fbb: inout FlatBufferBuilder,
-    versionMajor: UInt8 = 2,
+    versionMajor: UInt8 = 0,
     versionMinor: UInt8 = 0,
     contentsType: bpio_RequestPacketContents = .none_,
     contentsOffset contents: Offset = Offset()
@@ -861,19 +861,19 @@ public struct bpio_ResponsePacket: FlatBufferObject, Verifiable {
     var p: VOffset { self.rawValue }
   }
 
-  public var versionMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMajor.v); return o == 0 ? 2 : _accessor.readBuffer(of: UInt8.self, at: o) }
+  public var versionMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var versionMinor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var contentsType: bpio_ResponsePacketContents { let o = _accessor.offset(VTOFFSET.contentsType.v); return o == 0 ? .none_ : bpio_ResponsePacketContents(rawValue: _accessor.readBuffer(of: UInt8.self, at: o)) ?? .none_ }
   public func contents<T: FlatbuffersInitializable>(type: T.Type) -> T? { let o = _accessor.offset(VTOFFSET.contents.v); return o == 0 ? nil : _accessor.union(o) }
   public static func startResponsePacket(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 4) }
-  public static func add(versionMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMajor, def: 2, at: VTOFFSET.versionMajor.p) }
+  public static func add(versionMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMajor, def: 0, at: VTOFFSET.versionMajor.p) }
   public static func add(versionMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMinor, def: 0, at: VTOFFSET.versionMinor.p) }
   public static func add(contentsType: bpio_ResponsePacketContents, _ fbb: inout FlatBufferBuilder) { fbb.add(element: contentsType.rawValue, def: 0, at: VTOFFSET.contentsType.p) }
   public static func add(contents: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: contents, at: VTOFFSET.contents.p) }
   public static func endResponsePacket(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
   public static func createResponsePacket(
     _ fbb: inout FlatBufferBuilder,
-    versionMajor: UInt8 = 2,
+    versionMajor: UInt8 = 0,
     versionMinor: UInt8 = 0,
     contentsType: bpio_ResponsePacketContents = .none_,
     contentsOffset contents: Offset = Offset()

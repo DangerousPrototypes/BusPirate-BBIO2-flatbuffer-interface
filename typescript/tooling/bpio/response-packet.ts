@@ -27,7 +27,7 @@ static getSizePrefixedRootAsResponsePacket(bb:flatbuffers.ByteBuffer, obj?:Respo
 
 versionMajor():number {
   const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 2;
+  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 versionMinor():number {
@@ -50,7 +50,7 @@ static startResponsePacket(builder:flatbuffers.Builder) {
 }
 
 static addVersionMajor(builder:flatbuffers.Builder, versionMajor:number) {
-  builder.addFieldInt8(0, versionMajor, 2);
+  builder.addFieldInt8(0, versionMajor, 0);
 }
 
 static addVersionMinor(builder:flatbuffers.Builder, versionMinor:number) {

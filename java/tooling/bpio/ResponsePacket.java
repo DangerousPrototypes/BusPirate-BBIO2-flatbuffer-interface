@@ -27,7 +27,7 @@ public final class ResponsePacket extends Table {
   public void __init(int _i, ByteBuffer _bb) { __reset(_i, _bb); }
   public ResponsePacket __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public int versionMajor() { int o = __offset(4); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 2; }
+  public int versionMajor() { int o = __offset(4); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
   public int versionMinor() { int o = __offset(6); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
   public byte contentsType() { int o = __offset(8); return o != 0 ? bb.get(o + bb_pos) : 0; }
   public Table contents(Table obj) { int o = __offset(10); return o != 0 ? __union(obj, o + bb_pos) : null; }
@@ -46,7 +46,7 @@ public final class ResponsePacket extends Table {
   }
 
   public static void startResponsePacket(FlatBufferBuilder builder) { builder.startTable(4); }
-  public static void addVersionMajor(FlatBufferBuilder builder, int versionMajor) { builder.addByte(0, (byte) versionMajor, (byte) 2); }
+  public static void addVersionMajor(FlatBufferBuilder builder, int versionMajor) { builder.addByte(0, (byte) versionMajor, (byte) 0); }
   public static void addVersionMinor(FlatBufferBuilder builder, int versionMinor) { builder.addByte(1, (byte) versionMinor, (byte) 0); }
   public static void addContentsType(FlatBufferBuilder builder, byte contentsType) { builder.addByte(2, contentsType, 0); }
   public static void addContents(FlatBufferBuilder builder, int contentsOffset) { builder.addOffset(3, contentsOffset, 0); }

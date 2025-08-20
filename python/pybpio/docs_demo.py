@@ -152,6 +152,8 @@ class flatbuffers_docs_demo:
 
         # Create a RequestPacket
         RequestPacket.Start(builder)
+        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
+        RequestPacket.AddVersionMinor(builder, 0)
         RequestPacket.AddContentsType(builder, RequestPacketContents.RequestPacketContents.StatusRequest) # Add the StatusRequest type
         RequestPacket.AddContents(builder, status_request) # Add the StatusRequest
         request_packet = RequestPacket.End(builder)
@@ -267,6 +269,8 @@ class flatbuffers_docs_demo:
 
         # Create a RequestPacket
         RequestPacket.Start(builder)
+        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
+        RequestPacket.AddVersionMinor(builder, 0)
         RequestPacket.AddContentsType(builder, RequestPacketContents.RequestPacketContents.ConfigurationRequest) # Add the ConfigRequest type
         RequestPacket.AddContents(builder, config_request) # Add the ConfigRequest
         request_packet = RequestPacket.End(builder)
@@ -328,6 +332,8 @@ class flatbuffers_docs_demo:
 
         # Create a RequestPacket
         RequestPacket.Start(builder)
+        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
+        RequestPacket.AddVersionMinor(builder, 0)
         RequestPacket.AddContentsType(builder, RequestPacketContents.RequestPacketContents.DataRequest) # Add the DataRequest type
         RequestPacket.AddContents(builder, data_request) # Add the DataRequest
         request_packet = RequestPacket.End(builder)

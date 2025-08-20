@@ -148,6 +148,8 @@ class BPIOClient:
         """Send a request packet and return the response"""
         """Wrap contents in a RequestPacket"""
         RequestPacket.Start(builder)
+        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
+        RequestPacket.AddVersionMinor(builder, 0)
         RequestPacket.AddContentsType(builder, request_contents_type)
         RequestPacket.AddContents(builder, request_contents)
         final_packet = RequestPacket.End(builder)
