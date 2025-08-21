@@ -25,29 +25,22 @@ class ResponsePacket(object):
         self._tab = flatbuffers.table.Table(buf, pos)
 
     # ResponsePacket
-    def VersionMajor(self):
+    def Error(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(4))
         if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
-        return 0
+            return self._tab.String(o + self._tab.Pos)
+        return None
 
     # ResponsePacket
-    def VersionMinor(self):
+    def ContentsType(self):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(6))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # ResponsePacket
-    def ContentsType(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
-        return 0
-
-    # ResponsePacket
     def Contents(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         if o != 0:
             from flatbuffers.table import Table
             obj = Table(bytearray(), 0)
@@ -56,31 +49,25 @@ class ResponsePacket(object):
         return None
 
 def ResponsePacketStart(builder):
-    builder.StartObject(4)
+    builder.StartObject(3)
 
 def Start(builder):
     ResponsePacketStart(builder)
 
-def ResponsePacketAddVersionMajor(builder, versionMajor):
-    builder.PrependUint8Slot(0, versionMajor, 0)
+def ResponsePacketAddError(builder, error):
+    builder.PrependUOffsetTRelativeSlot(0, flatbuffers.number_types.UOffsetTFlags.py_type(error), 0)
 
-def AddVersionMajor(builder, versionMajor):
-    ResponsePacketAddVersionMajor(builder, versionMajor)
-
-def ResponsePacketAddVersionMinor(builder, versionMinor):
-    builder.PrependUint8Slot(1, versionMinor, 0)
-
-def AddVersionMinor(builder, versionMinor):
-    ResponsePacketAddVersionMinor(builder, versionMinor)
+def AddError(builder, error):
+    ResponsePacketAddError(builder, error)
 
 def ResponsePacketAddContentsType(builder, contentsType):
-    builder.PrependUint8Slot(2, contentsType, 0)
+    builder.PrependUint8Slot(1, contentsType, 0)
 
 def AddContentsType(builder, contentsType):
     ResponsePacketAddContentsType(builder, contentsType)
 
 def ResponsePacketAddContents(builder, contents):
-    builder.PrependUOffsetTRelativeSlot(3, flatbuffers.number_types.UOffsetTFlags.py_type(contents), 0)
+    builder.PrependUOffsetTRelativeSlot(2, flatbuffers.number_types.UOffsetTFlags.py_type(contents), 0)
 
 def AddContents(builder, contents):
     ResponsePacketAddContents(builder, contents)

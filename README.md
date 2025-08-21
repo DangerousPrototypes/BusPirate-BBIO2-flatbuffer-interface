@@ -10,7 +10,7 @@ See [flatc](https://flatbuffers.dev/quick_start/) for language-specific usage in
 
 ## Source Schema
 - Schema file: bpio.fbs
-- Generated on: Wed Aug 20 12:47:31 CEST 2025
+- Generated on: Thu Aug 21 13:14:50 CEST 2025
 
 ## Generated Languages
 

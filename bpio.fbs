@@ -10,6 +10,8 @@ table StatusRequest{
 // if query is empty, then all queries are performed
 table StatusResponse {
   error:string; // Error message if any.
+  version_flatbuffers_major:uint8; // Flatbuffers version major.
+  version_flatbuffers_minor:uint16; // Flatbuffers version minor.
   version_hardware_major:uint8; //HW version
   version_hardware_minor:uint8; //HW revision
   version_firmware_major:uint8;//FW version
@@ -106,23 +108,25 @@ table DataResponse {
   data_read:[ubyte]; // Data read from device
 }
 
-table ErrorResponse {
-  error:string; // Error message if any.
-}
+//table ErrorResponse {
+//  error:string; // Error message if any.
+//}
 
 union RequestPacketContents { StatusRequest, ConfigurationRequest, DataRequest}
 
 table RequestPacket {
   version_major:uint8;
-  version_minor:uint8;
+  //version_minor:uint8;
+  minimum_version_minor:uint16; // Minimum version minor for compatibility.
   contents:RequestPacketContents;
 }
 
-union ResponsePacketContents { ErrorResponse, StatusResponse, ConfigurationResponse, DataResponse}
+union ResponsePacketContents {StatusResponse, ConfigurationResponse, DataResponse} // ErrorResponse,
 
 table ResponsePacket{
-  version_major:uint8;
-  version_minor:uint8;
+  //version_major:uint8;
+  //version_minor:uint8;
+  error:string; // Error message if any.
   contents:ResponsePacketContents;
 }
 

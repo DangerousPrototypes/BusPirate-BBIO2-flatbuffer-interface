@@ -27,29 +27,27 @@ public final class ResponsePacket extends Table {
   public void __init(int _i, ByteBuffer _bb) { __reset(_i, _bb); }
   public ResponsePacket __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public int versionMajor() { int o = __offset(4); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public int versionMinor() { int o = __offset(6); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public byte contentsType() { int o = __offset(8); return o != 0 ? bb.get(o + bb_pos) : 0; }
-  public Table contents(Table obj) { int o = __offset(10); return o != 0 ? __union(obj, o + bb_pos) : null; }
+  public String error() { int o = __offset(4); return o != 0 ? __string(o + bb_pos) : null; }
+  public ByteBuffer errorAsByteBuffer() { return __vector_as_bytebuffer(4, 1); }
+  public ByteBuffer errorInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 4, 1); }
+  public byte contentsType() { int o = __offset(6); return o != 0 ? bb.get(o + bb_pos) : 0; }
+  public Table contents(Table obj) { int o = __offset(8); return o != 0 ? __union(obj, o + bb_pos) : null; }
 
   public static int createResponsePacket(FlatBufferBuilder builder,
-      int versionMajor,
-      int versionMinor,
+      int errorOffset,
       byte contentsType,
       int contentsOffset) {
-    builder.startTable(4);
+    builder.startTable(3);
     ResponsePacket.addContents(builder, contentsOffset);
+    ResponsePacket.addError(builder, errorOffset);
     ResponsePacket.addContentsType(builder, contentsType);
-    ResponsePacket.addVersionMinor(builder, versionMinor);
-    ResponsePacket.addVersionMajor(builder, versionMajor);
     return ResponsePacket.endResponsePacket(builder);
   }
 
-  public static void startResponsePacket(FlatBufferBuilder builder) { builder.startTable(4); }
-  public static void addVersionMajor(FlatBufferBuilder builder, int versionMajor) { builder.addByte(0, (byte) versionMajor, (byte) 0); }
-  public static void addVersionMinor(FlatBufferBuilder builder, int versionMinor) { builder.addByte(1, (byte) versionMinor, (byte) 0); }
-  public static void addContentsType(FlatBufferBuilder builder, byte contentsType) { builder.addByte(2, contentsType, 0); }
-  public static void addContents(FlatBufferBuilder builder, int contentsOffset) { builder.addOffset(3, contentsOffset, 0); }
+  public static void startResponsePacket(FlatBufferBuilder builder) { builder.startTable(3); }
+  public static void addError(FlatBufferBuilder builder, int errorOffset) { builder.addOffset(0, errorOffset, 0); }
+  public static void addContentsType(FlatBufferBuilder builder, byte contentsType) { builder.addByte(1, contentsType, 0); }
+  public static void addContents(FlatBufferBuilder builder, int contentsOffset) { builder.addOffset(2, contentsOffset, 0); }
   public static int endResponsePacket(FlatBufferBuilder builder) {
     int o = builder.endTable();
     return o;

@@ -56,10 +56,9 @@ public enum bpio_ResponsePacketContents: UInt8, UnionEnum {
   public static var byteSize: Int { return MemoryLayout<UInt8>.size }
   public var value: UInt8 { return self.rawValue }
   case none_ = 0
-  case errorresponse = 1
-  case statusresponse = 2
-  case configurationresponse = 3
-  case dataresponse = 4
+  case statusresponse = 1
+  case configurationresponse = 2
+  case dataresponse = 3
 
   public static var max: bpio_ResponsePacketContents { return .dataresponse }
   public static var min: bpio_ResponsePacketContents { return .none_ }
@@ -114,38 +113,42 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
 
   private enum VTOFFSET: VOffset {
     case error = 4
-    case versionHardwareMajor = 6
-    case versionHardwareMinor = 8
-    case versionFirmwareMajor = 10
-    case versionFirmwareMinor = 12
-    case versionFirmwareGitHash = 14
-    case versionFirmwareDate = 16
-    case modesAvailable = 18
-    case modeCurrent = 20
-    case modePinLabels = 22
-    case modeBitorderMsb = 24
-    case modeMaxPacketSize = 26
-    case modeMaxWrite = 28
-    case modeMaxRead = 30
-    case psuEnabled = 32
-    case psuSetMv = 34
-    case psuSetMa = 36
-    case psuMeasuredMv = 38
-    case psuMeasuredMa = 40
-    case psuCurrentError = 42
-    case pullupEnabled = 44
-    case adcMv = 46
-    case ioDirection = 48
-    case ioValue = 50
-    case diskSizeMb = 52
-    case diskUsedMb = 54
-    case ledCount = 56
+    case versionFlatbuffersMajor = 6
+    case versionFlatbuffersMinor = 8
+    case versionHardwareMajor = 10
+    case versionHardwareMinor = 12
+    case versionFirmwareMajor = 14
+    case versionFirmwareMinor = 16
+    case versionFirmwareGitHash = 18
+    case versionFirmwareDate = 20
+    case modesAvailable = 22
+    case modeCurrent = 24
+    case modePinLabels = 26
+    case modeBitorderMsb = 28
+    case modeMaxPacketSize = 30
+    case modeMaxWrite = 32
+    case modeMaxRead = 34
+    case psuEnabled = 36
+    case psuSetMv = 38
+    case psuSetMa = 40
+    case psuMeasuredMv = 42
+    case psuMeasuredMa = 44
+    case psuCurrentError = 46
+    case pullupEnabled = 48
+    case adcMv = 50
+    case ioDirection = 52
+    case ioValue = 54
+    case diskSizeMb = 56
+    case diskUsedMb = 58
+    case ledCount = 60
     var v: Int32 { Int32(self.rawValue) }
     var p: VOffset { self.rawValue }
   }
 
   public var error: String? { let o = _accessor.offset(VTOFFSET.error.v); return o == 0 ? nil : _accessor.string(at: o) }
   public var errorSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.error.v) }
+  public var versionFlatbuffersMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionFlatbuffersMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
+  public var versionFlatbuffersMinor: UInt16 { let o = _accessor.offset(VTOFFSET.versionFlatbuffersMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt16.self, at: o) }
   public var versionHardwareMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionHardwareMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var versionHardwareMinor: UInt8 { let o = _accessor.offset(VTOFFSET.versionHardwareMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var versionFirmwareMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionFirmwareMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
@@ -183,8 +186,10 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
   public var diskSizeMb: Float32 { let o = _accessor.offset(VTOFFSET.diskSizeMb.v); return o == 0 ? 0.0 : _accessor.readBuffer(of: Float32.self, at: o) }
   public var diskUsedMb: Float32 { let o = _accessor.offset(VTOFFSET.diskUsedMb.v); return o == 0 ? 0.0 : _accessor.readBuffer(of: Float32.self, at: o) }
   public var ledCount: UInt8 { let o = _accessor.offset(VTOFFSET.ledCount.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
-  public static func startStatusResponse(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 27) }
+  public static func startStatusResponse(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 29) }
   public static func add(error: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: error, at: VTOFFSET.error.p) }
+  public static func add(versionFlatbuffersMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFlatbuffersMajor, def: 0, at: VTOFFSET.versionFlatbuffersMajor.p) }
+  public static func add(versionFlatbuffersMinor: UInt16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFlatbuffersMinor, def: 0, at: VTOFFSET.versionFlatbuffersMinor.p) }
   public static func add(versionHardwareMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionHardwareMajor, def: 0, at: VTOFFSET.versionHardwareMajor.p) }
   public static func add(versionHardwareMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionHardwareMinor, def: 0, at: VTOFFSET.versionHardwareMinor.p) }
   public static func add(versionFirmwareMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFirmwareMajor, def: 0, at: VTOFFSET.versionFirmwareMajor.p) }
@@ -219,6 +224,8 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
   public static func createStatusResponse(
     _ fbb: inout FlatBufferBuilder,
     errorOffset error: Offset = Offset(),
+    versionFlatbuffersMajor: UInt8 = 0,
+    versionFlatbuffersMinor: UInt16 = 0,
     versionHardwareMajor: UInt8 = 0,
     versionHardwareMinor: UInt8 = 0,
     versionFirmwareMajor: UInt8 = 0,
@@ -248,6 +255,8 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
   ) -> Offset {
     let __start = bpio_StatusResponse.startStatusResponse(&fbb)
     bpio_StatusResponse.add(error: error, &fbb)
+    bpio_StatusResponse.add(versionFlatbuffersMajor: versionFlatbuffersMajor, &fbb)
+    bpio_StatusResponse.add(versionFlatbuffersMinor: versionFlatbuffersMinor, &fbb)
     bpio_StatusResponse.add(versionHardwareMajor: versionHardwareMajor, &fbb)
     bpio_StatusResponse.add(versionHardwareMinor: versionHardwareMinor, &fbb)
     bpio_StatusResponse.add(versionFirmwareMajor: versionFirmwareMajor, &fbb)
@@ -280,6 +289,8 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
   public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
     var _v = try verifier.visitTable(at: position)
     try _v.visit(field: VTOFFSET.error.p, fieldName: "error", required: false, type: ForwardOffset<String>.self)
+    try _v.visit(field: VTOFFSET.versionFlatbuffersMajor.p, fieldName: "versionFlatbuffersMajor", required: false, type: UInt8.self)
+    try _v.visit(field: VTOFFSET.versionFlatbuffersMinor.p, fieldName: "versionFlatbuffersMinor", required: false, type: UInt16.self)
     try _v.visit(field: VTOFFSET.versionHardwareMajor.p, fieldName: "versionHardwareMajor", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.versionHardwareMinor.p, fieldName: "versionHardwareMinor", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.versionFirmwareMajor.p, fieldName: "versionFirmwareMajor", required: false, type: UInt8.self)
@@ -744,42 +755,6 @@ public struct bpio_DataResponse: FlatBufferObject, Verifiable {
   }
 }
 
-public struct bpio_ErrorResponse: FlatBufferObject, Verifiable {
-
-  static func validateVersion() { FlatBuffersVersion_25_2_10() }
-  public var __buffer: ByteBuffer! { return _accessor.bb }
-  private var _accessor: Table
-
-  private init(_ t: Table) { _accessor = t }
-  public init(_ bb: ByteBuffer, o: Int32) { _accessor = Table(bb: bb, position: o) }
-
-  private enum VTOFFSET: VOffset {
-    case error = 4
-    var v: Int32 { Int32(self.rawValue) }
-    var p: VOffset { self.rawValue }
-  }
-
-  public var error: String? { let o = _accessor.offset(VTOFFSET.error.v); return o == 0 ? nil : _accessor.string(at: o) }
-  public var errorSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.error.v) }
-  public static func startErrorResponse(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 1) }
-  public static func add(error: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: error, at: VTOFFSET.error.p) }
-  public static func endErrorResponse(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
-  public static func createErrorResponse(
-    _ fbb: inout FlatBufferBuilder,
-    errorOffset error: Offset = Offset()
-  ) -> Offset {
-    let __start = bpio_ErrorResponse.startErrorResponse(&fbb)
-    bpio_ErrorResponse.add(error: error, &fbb)
-    return bpio_ErrorResponse.endErrorResponse(&fbb, start: __start)
-  }
-
-  public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
-    var _v = try verifier.visitTable(at: position)
-    try _v.visit(field: VTOFFSET.error.p, fieldName: "error", required: false, type: ForwardOffset<String>.self)
-    _v.finish()
-  }
-}
-
 public struct bpio_RequestPacket: FlatBufferObject, Verifiable {
 
   static func validateVersion() { FlatBuffersVersion_25_2_10() }
@@ -791,7 +766,7 @@ public struct bpio_RequestPacket: FlatBufferObject, Verifiable {
 
   private enum VTOFFSET: VOffset {
     case versionMajor = 4
-    case versionMinor = 6
+    case minimumVersionMinor = 6
     case contentsType = 8
     case contents = 10
     var v: Int32 { Int32(self.rawValue) }
@@ -799,25 +774,25 @@ public struct bpio_RequestPacket: FlatBufferObject, Verifiable {
   }
 
   public var versionMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
-  public var versionMinor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
+  public var minimumVersionMinor: UInt16 { let o = _accessor.offset(VTOFFSET.minimumVersionMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt16.self, at: o) }
   public var contentsType: bpio_RequestPacketContents { let o = _accessor.offset(VTOFFSET.contentsType.v); return o == 0 ? .none_ : bpio_RequestPacketContents(rawValue: _accessor.readBuffer(of: UInt8.self, at: o)) ?? .none_ }
   public func contents<T: FlatbuffersInitializable>(type: T.Type) -> T? { let o = _accessor.offset(VTOFFSET.contents.v); return o == 0 ? nil : _accessor.union(o) }
   public static func startRequestPacket(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 4) }
   public static func add(versionMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMajor, def: 0, at: VTOFFSET.versionMajor.p) }
-  public static func add(versionMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMinor, def: 0, at: VTOFFSET.versionMinor.p) }
+  public static func add(minimumVersionMinor: UInt16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: minimumVersionMinor, def: 0, at: VTOFFSET.minimumVersionMinor.p) }
   public static func add(contentsType: bpio_RequestPacketContents, _ fbb: inout FlatBufferBuilder) { fbb.add(element: contentsType.rawValue, def: 0, at: VTOFFSET.contentsType.p) }
   public static func add(contents: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: contents, at: VTOFFSET.contents.p) }
   public static func endRequestPacket(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
   public static func createRequestPacket(
     _ fbb: inout FlatBufferBuilder,
     versionMajor: UInt8 = 0,
-    versionMinor: UInt8 = 0,
+    minimumVersionMinor: UInt16 = 0,
     contentsType: bpio_RequestPacketContents = .none_,
     contentsOffset contents: Offset = Offset()
   ) -> Offset {
     let __start = bpio_RequestPacket.startRequestPacket(&fbb)
     bpio_RequestPacket.add(versionMajor: versionMajor, &fbb)
-    bpio_RequestPacket.add(versionMinor: versionMinor, &fbb)
+    bpio_RequestPacket.add(minimumVersionMinor: minimumVersionMinor, &fbb)
     bpio_RequestPacket.add(contentsType: contentsType, &fbb)
     bpio_RequestPacket.add(contents: contents, &fbb)
     return bpio_RequestPacket.endRequestPacket(&fbb, start: __start)
@@ -826,7 +801,7 @@ public struct bpio_RequestPacket: FlatBufferObject, Verifiable {
   public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
     var _v = try verifier.visitTable(at: position)
     try _v.visit(field: VTOFFSET.versionMajor.p, fieldName: "versionMajor", required: false, type: UInt8.self)
-    try _v.visit(field: VTOFFSET.versionMinor.p, fieldName: "versionMinor", required: false, type: UInt8.self)
+    try _v.visit(field: VTOFFSET.minimumVersionMinor.p, fieldName: "minimumVersionMinor", required: false, type: UInt16.self)
     try _v.visit(unionKey: VTOFFSET.contentsType.p, unionField: VTOFFSET.contents.p, unionKeyName: "contentsType", fieldName: "contents", required: false, completion: { (verifier, key: bpio_RequestPacketContents, pos) in
       switch key {
       case .none_:
@@ -853,34 +828,30 @@ public struct bpio_ResponsePacket: FlatBufferObject, Verifiable {
   public init(_ bb: ByteBuffer, o: Int32) { _accessor = Table(bb: bb, position: o) }
 
   private enum VTOFFSET: VOffset {
-    case versionMajor = 4
-    case versionMinor = 6
-    case contentsType = 8
-    case contents = 10
+    case error = 4
+    case contentsType = 6
+    case contents = 8
     var v: Int32 { Int32(self.rawValue) }
     var p: VOffset { self.rawValue }
   }
 
-  public var versionMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
-  public var versionMinor: UInt8 { let o = _accessor.offset(VTOFFSET.versionMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
+  public var error: String? { let o = _accessor.offset(VTOFFSET.error.v); return o == 0 ? nil : _accessor.string(at: o) }
+  public var errorSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.error.v) }
   public var contentsType: bpio_ResponsePacketContents { let o = _accessor.offset(VTOFFSET.contentsType.v); return o == 0 ? .none_ : bpio_ResponsePacketContents(rawValue: _accessor.readBuffer(of: UInt8.self, at: o)) ?? .none_ }
   public func contents<T: FlatbuffersInitializable>(type: T.Type) -> T? { let o = _accessor.offset(VTOFFSET.contents.v); return o == 0 ? nil : _accessor.union(o) }
-  public static func startResponsePacket(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 4) }
-  public static func add(versionMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMajor, def: 0, at: VTOFFSET.versionMajor.p) }
-  public static func add(versionMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionMinor, def: 0, at: VTOFFSET.versionMinor.p) }
+  public static func startResponsePacket(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 3) }
+  public static func add(error: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: error, at: VTOFFSET.error.p) }
   public static func add(contentsType: bpio_ResponsePacketContents, _ fbb: inout FlatBufferBuilder) { fbb.add(element: contentsType.rawValue, def: 0, at: VTOFFSET.contentsType.p) }
   public static func add(contents: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: contents, at: VTOFFSET.contents.p) }
   public static func endResponsePacket(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
   public static func createResponsePacket(
     _ fbb: inout FlatBufferBuilder,
-    versionMajor: UInt8 = 0,
-    versionMinor: UInt8 = 0,
+    errorOffset error: Offset = Offset(),
     contentsType: bpio_ResponsePacketContents = .none_,
     contentsOffset contents: Offset = Offset()
   ) -> Offset {
     let __start = bpio_ResponsePacket.startResponsePacket(&fbb)
-    bpio_ResponsePacket.add(versionMajor: versionMajor, &fbb)
-    bpio_ResponsePacket.add(versionMinor: versionMinor, &fbb)
+    bpio_ResponsePacket.add(error: error, &fbb)
     bpio_ResponsePacket.add(contentsType: contentsType, &fbb)
     bpio_ResponsePacket.add(contents: contents, &fbb)
     return bpio_ResponsePacket.endResponsePacket(&fbb, start: __start)
@@ -888,14 +859,11 @@ public struct bpio_ResponsePacket: FlatBufferObject, Verifiable {
 
   public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
     var _v = try verifier.visitTable(at: position)
-    try _v.visit(field: VTOFFSET.versionMajor.p, fieldName: "versionMajor", required: false, type: UInt8.self)
-    try _v.visit(field: VTOFFSET.versionMinor.p, fieldName: "versionMinor", required: false, type: UInt8.self)
+    try _v.visit(field: VTOFFSET.error.p, fieldName: "error", required: false, type: ForwardOffset<String>.self)
     try _v.visit(unionKey: VTOFFSET.contentsType.p, unionField: VTOFFSET.contents.p, unionKeyName: "contentsType", fieldName: "contents", required: false, completion: { (verifier, key: bpio_ResponsePacketContents, pos) in
       switch key {
       case .none_:
         break // NOTE - SWIFT doesnt support none
-      case .errorresponse:
-        try ForwardOffset<bpio_ErrorResponse>.verify(&verifier, at: pos, of: bpio_ErrorResponse.self)
       case .statusresponse:
         try ForwardOffset<bpio_StatusResponse>.verify(&verifier, at: pos, of: bpio_StatusResponse.self)
       case .configurationresponse:

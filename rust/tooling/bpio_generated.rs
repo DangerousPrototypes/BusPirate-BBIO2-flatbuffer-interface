@@ -229,12 +229,11 @@ pub struct RequestPacketContentsUnionTableOffset {}
 #[deprecated(since = "2.0.0", note = "Use associated constants instead. This will no longer be generated in 2021.")]
 pub const ENUM_MIN_RESPONSE_PACKET_CONTENTS: u8 = 0;
 #[deprecated(since = "2.0.0", note = "Use associated constants instead. This will no longer be generated in 2021.")]
-pub const ENUM_MAX_RESPONSE_PACKET_CONTENTS: u8 = 4;
+pub const ENUM_MAX_RESPONSE_PACKET_CONTENTS: u8 = 3;
 #[deprecated(since = "2.0.0", note = "Use associated constants instead. This will no longer be generated in 2021.")]
 #[allow(non_camel_case_types)]
-pub const ENUM_VALUES_RESPONSE_PACKET_CONTENTS: [ResponsePacketContents; 5] = [
+pub const ENUM_VALUES_RESPONSE_PACKET_CONTENTS: [ResponsePacketContents; 4] = [
   ResponsePacketContents::NONE,
-  ResponsePacketContents::ErrorResponse,
   ResponsePacketContents::StatusResponse,
   ResponsePacketContents::ConfigurationResponse,
   ResponsePacketContents::DataResponse,
@@ -246,16 +245,14 @@ pub struct ResponsePacketContents(pub u8);
 #[allow(non_upper_case_globals)]
 impl ResponsePacketContents {
   pub const NONE: Self = Self(0);
-  pub const ErrorResponse: Self = Self(1);
-  pub const StatusResponse: Self = Self(2);
-  pub const ConfigurationResponse: Self = Self(3);
-  pub const DataResponse: Self = Self(4);
+  pub const StatusResponse: Self = Self(1);
+  pub const ConfigurationResponse: Self = Self(2);
+  pub const DataResponse: Self = Self(3);
 
   pub const ENUM_MIN: u8 = 0;
-  pub const ENUM_MAX: u8 = 4;
+  pub const ENUM_MAX: u8 = 3;
   pub const ENUM_VALUES: &'static [Self] = &[
     Self::NONE,
-    Self::ErrorResponse,
     Self::StatusResponse,
     Self::ConfigurationResponse,
     Self::DataResponse,
@@ -264,7 +261,6 @@ impl ResponsePacketContents {
   pub fn variant_name(self) -> Option<&'static str> {
     match self {
       Self::NONE => Some("NONE"),
-      Self::ErrorResponse => Some("ErrorResponse"),
       Self::StatusResponse => Some("StatusResponse"),
       Self::ConfigurationResponse => Some("ConfigurationResponse"),
       Self::DataResponse => Some("DataResponse"),
@@ -439,32 +435,34 @@ impl<'a> flatbuffers::Follow<'a> for StatusResponse<'a> {
 
 impl<'a> StatusResponse<'a> {
   pub const VT_ERROR: flatbuffers::VOffsetT = 4;
-  pub const VT_VERSION_HARDWARE_MAJOR: flatbuffers::VOffsetT = 6;
-  pub const VT_VERSION_HARDWARE_MINOR: flatbuffers::VOffsetT = 8;
-  pub const VT_VERSION_FIRMWARE_MAJOR: flatbuffers::VOffsetT = 10;
-  pub const VT_VERSION_FIRMWARE_MINOR: flatbuffers::VOffsetT = 12;
-  pub const VT_VERSION_FIRMWARE_GIT_HASH: flatbuffers::VOffsetT = 14;
-  pub const VT_VERSION_FIRMWARE_DATE: flatbuffers::VOffsetT = 16;
-  pub const VT_MODES_AVAILABLE: flatbuffers::VOffsetT = 18;
-  pub const VT_MODE_CURRENT: flatbuffers::VOffsetT = 20;
-  pub const VT_MODE_PIN_LABELS: flatbuffers::VOffsetT = 22;
-  pub const VT_MODE_BITORDER_MSB: flatbuffers::VOffsetT = 24;
-  pub const VT_MODE_MAX_PACKET_SIZE: flatbuffers::VOffsetT = 26;
-  pub const VT_MODE_MAX_WRITE: flatbuffers::VOffsetT = 28;
-  pub const VT_MODE_MAX_READ: flatbuffers::VOffsetT = 30;
-  pub const VT_PSU_ENABLED: flatbuffers::VOffsetT = 32;
-  pub const VT_PSU_SET_MV: flatbuffers::VOffsetT = 34;
-  pub const VT_PSU_SET_MA: flatbuffers::VOffsetT = 36;
-  pub const VT_PSU_MEASURED_MV: flatbuffers::VOffsetT = 38;
-  pub const VT_PSU_MEASURED_MA: flatbuffers::VOffsetT = 40;
-  pub const VT_PSU_CURRENT_ERROR: flatbuffers::VOffsetT = 42;
-  pub const VT_PULLUP_ENABLED: flatbuffers::VOffsetT = 44;
-  pub const VT_ADC_MV: flatbuffers::VOffsetT = 46;
-  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 48;
-  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 50;
-  pub const VT_DISK_SIZE_MB: flatbuffers::VOffsetT = 52;
-  pub const VT_DISK_USED_MB: flatbuffers::VOffsetT = 54;
-  pub const VT_LED_COUNT: flatbuffers::VOffsetT = 56;
+  pub const VT_VERSION_FLATBUFFERS_MAJOR: flatbuffers::VOffsetT = 6;
+  pub const VT_VERSION_FLATBUFFERS_MINOR: flatbuffers::VOffsetT = 8;
+  pub const VT_VERSION_HARDWARE_MAJOR: flatbuffers::VOffsetT = 10;
+  pub const VT_VERSION_HARDWARE_MINOR: flatbuffers::VOffsetT = 12;
+  pub const VT_VERSION_FIRMWARE_MAJOR: flatbuffers::VOffsetT = 14;
+  pub const VT_VERSION_FIRMWARE_MINOR: flatbuffers::VOffsetT = 16;
+  pub const VT_VERSION_FIRMWARE_GIT_HASH: flatbuffers::VOffsetT = 18;
+  pub const VT_VERSION_FIRMWARE_DATE: flatbuffers::VOffsetT = 20;
+  pub const VT_MODES_AVAILABLE: flatbuffers::VOffsetT = 22;
+  pub const VT_MODE_CURRENT: flatbuffers::VOffsetT = 24;
+  pub const VT_MODE_PIN_LABELS: flatbuffers::VOffsetT = 26;
+  pub const VT_MODE_BITORDER_MSB: flatbuffers::VOffsetT = 28;
+  pub const VT_MODE_MAX_PACKET_SIZE: flatbuffers::VOffsetT = 30;
+  pub const VT_MODE_MAX_WRITE: flatbuffers::VOffsetT = 32;
+  pub const VT_MODE_MAX_READ: flatbuffers::VOffsetT = 34;
+  pub const VT_PSU_ENABLED: flatbuffers::VOffsetT = 36;
+  pub const VT_PSU_SET_MV: flatbuffers::VOffsetT = 38;
+  pub const VT_PSU_SET_MA: flatbuffers::VOffsetT = 40;
+  pub const VT_PSU_MEASURED_MV: flatbuffers::VOffsetT = 42;
+  pub const VT_PSU_MEASURED_MA: flatbuffers::VOffsetT = 44;
+  pub const VT_PSU_CURRENT_ERROR: flatbuffers::VOffsetT = 46;
+  pub const VT_PULLUP_ENABLED: flatbuffers::VOffsetT = 48;
+  pub const VT_ADC_MV: flatbuffers::VOffsetT = 50;
+  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 52;
+  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 54;
+  pub const VT_DISK_SIZE_MB: flatbuffers::VOffsetT = 56;
+  pub const VT_DISK_USED_MB: flatbuffers::VOffsetT = 58;
+  pub const VT_LED_COUNT: flatbuffers::VOffsetT = 60;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -492,6 +490,7 @@ impl<'a> StatusResponse<'a> {
     if let Some(x) = args.version_firmware_date { builder.add_version_firmware_date(x); }
     if let Some(x) = args.version_firmware_git_hash { builder.add_version_firmware_git_hash(x); }
     if let Some(x) = args.error { builder.add_error(x); }
+    builder.add_version_flatbuffers_minor(args.version_flatbuffers_minor);
     builder.add_led_count(args.led_count);
     builder.add_io_value(args.io_value);
     builder.add_io_direction(args.io_direction);
@@ -503,6 +502,7 @@ impl<'a> StatusResponse<'a> {
     builder.add_version_firmware_major(args.version_firmware_major);
     builder.add_version_hardware_minor(args.version_hardware_minor);
     builder.add_version_hardware_major(args.version_hardware_major);
+    builder.add_version_flatbuffers_major(args.version_flatbuffers_major);
     builder.finish()
   }
 
@@ -513,6 +513,20 @@ impl<'a> StatusResponse<'a> {
     // Created from valid Table for this object
     // which contains a valid value in this slot
     unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(StatusResponse::VT_ERROR, None)}
+  }
+  #[inline]
+  pub fn version_flatbuffers_major(&self) -> u8 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_VERSION_FLATBUFFERS_MAJOR, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn version_flatbuffers_minor(&self) -> u16 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u16>(StatusResponse::VT_VERSION_FLATBUFFERS_MINOR, Some(0)).unwrap()}
   }
   #[inline]
   pub fn version_hardware_major(&self) -> u8 {
@@ -706,6 +720,8 @@ impl flatbuffers::Verifiable for StatusResponse<'_> {
     use self::flatbuffers::Verifiable;
     v.visit_table(pos)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("error", Self::VT_ERROR, false)?
+     .visit_field::<u8>("version_flatbuffers_major", Self::VT_VERSION_FLATBUFFERS_MAJOR, false)?
+     .visit_field::<u16>("version_flatbuffers_minor", Self::VT_VERSION_FLATBUFFERS_MINOR, false)?
      .visit_field::<u8>("version_hardware_major", Self::VT_VERSION_HARDWARE_MAJOR, false)?
      .visit_field::<u8>("version_hardware_minor", Self::VT_VERSION_HARDWARE_MINOR, false)?
      .visit_field::<u8>("version_firmware_major", Self::VT_VERSION_FIRMWARE_MAJOR, false)?
@@ -738,6 +754,8 @@ impl flatbuffers::Verifiable for StatusResponse<'_> {
 }
 pub struct StatusResponseArgs<'a> {
     pub error: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub version_flatbuffers_major: u8,
+    pub version_flatbuffers_minor: u16,
     pub version_hardware_major: u8,
     pub version_hardware_minor: u8,
     pub version_firmware_major: u8,
@@ -770,6 +788,8 @@ impl<'a> Default for StatusResponseArgs<'a> {
   fn default() -> Self {
     StatusResponseArgs {
       error: None,
+      version_flatbuffers_major: 0,
+      version_flatbuffers_minor: 0,
       version_hardware_major: 0,
       version_hardware_minor: 0,
       version_firmware_major: 0,
@@ -808,6 +828,14 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> StatusResponseBuilder<'a, 'b, A
   #[inline]
   pub fn add_error(&mut self, error: flatbuffers::WIPOffset<&'b  str>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_ERROR, error);
+  }
+  #[inline]
+  pub fn add_version_flatbuffers_major(&mut self, version_flatbuffers_major: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_VERSION_FLATBUFFERS_MAJOR, version_flatbuffers_major, 0);
+  }
+  #[inline]
+  pub fn add_version_flatbuffers_minor(&mut self, version_flatbuffers_minor: u16) {
+    self.fbb_.push_slot::<u16>(StatusResponse::VT_VERSION_FLATBUFFERS_MINOR, version_flatbuffers_minor, 0);
   }
   #[inline]
   pub fn add_version_hardware_major(&mut self, version_hardware_major: u8) {
@@ -932,6 +960,8 @@ impl core::fmt::Debug for StatusResponse<'_> {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut ds = f.debug_struct("StatusResponse");
       ds.field("error", &self.error());
+      ds.field("version_flatbuffers_major", &self.version_flatbuffers_major());
+      ds.field("version_flatbuffers_minor", &self.version_flatbuffers_minor());
       ds.field("version_hardware_major", &self.version_hardware_major());
       ds.field("version_hardware_minor", &self.version_hardware_minor());
       ds.field("version_firmware_major", &self.version_firmware_major());
@@ -2075,103 +2105,6 @@ impl core::fmt::Debug for DataResponse<'_> {
       ds.finish()
   }
 }
-pub enum ErrorResponseOffset {}
-#[derive(Copy, Clone, PartialEq)]
-
-pub struct ErrorResponse<'a> {
-  pub _tab: flatbuffers::Table<'a>,
-}
-
-impl<'a> flatbuffers::Follow<'a> for ErrorResponse<'a> {
-  type Inner = ErrorResponse<'a>;
-  #[inline]
-  unsafe fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
-    Self { _tab: flatbuffers::Table::new(buf, loc) }
-  }
-}
-
-impl<'a> ErrorResponse<'a> {
-  pub const VT_ERROR: flatbuffers::VOffsetT = 4;
-
-  #[inline]
-  pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
-    ErrorResponse { _tab: table }
-  }
-  #[allow(unused_mut)]
-  pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
-    _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
-    args: &'args ErrorResponseArgs<'args>
-  ) -> flatbuffers::WIPOffset<ErrorResponse<'bldr>> {
-    let mut builder = ErrorResponseBuilder::new(_fbb);
-    if let Some(x) = args.error { builder.add_error(x); }
-    builder.finish()
-  }
-
-
-  #[inline]
-  pub fn error(&self) -> Option<&'a str> {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(ErrorResponse::VT_ERROR, None)}
-  }
-}
-
-impl flatbuffers::Verifiable for ErrorResponse<'_> {
-  #[inline]
-  fn run_verifier(
-    v: &mut flatbuffers::Verifier, pos: usize
-  ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
-    use self::flatbuffers::Verifiable;
-    v.visit_table(pos)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("error", Self::VT_ERROR, false)?
-     .finish();
-    Ok(())
-  }
-}
-pub struct ErrorResponseArgs<'a> {
-    pub error: Option<flatbuffers::WIPOffset<&'a str>>,
-}
-impl<'a> Default for ErrorResponseArgs<'a> {
-  #[inline]
-  fn default() -> Self {
-    ErrorResponseArgs {
-      error: None,
-    }
-  }
-}
-
-pub struct ErrorResponseBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
-  fbb_: &'b mut flatbuffers::FlatBufferBuilder<'a, A>,
-  start_: flatbuffers::WIPOffset<flatbuffers::TableUnfinishedWIPOffset>,
-}
-impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ErrorResponseBuilder<'a, 'b, A> {
-  #[inline]
-  pub fn add_error(&mut self, error: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(ErrorResponse::VT_ERROR, error);
-  }
-  #[inline]
-  pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> ErrorResponseBuilder<'a, 'b, A> {
-    let start = _fbb.start_table();
-    ErrorResponseBuilder {
-      fbb_: _fbb,
-      start_: start,
-    }
-  }
-  #[inline]
-  pub fn finish(self) -> flatbuffers::WIPOffset<ErrorResponse<'a>> {
-    let o = self.fbb_.end_table(self.start_);
-    flatbuffers::WIPOffset::new(o.value())
-  }
-}
-
-impl core::fmt::Debug for ErrorResponse<'_> {
-  fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-    let mut ds = f.debug_struct("ErrorResponse");
-      ds.field("error", &self.error());
-      ds.finish()
-  }
-}
 pub enum RequestPacketOffset {}
 #[derive(Copy, Clone, PartialEq)]
 
@@ -2189,7 +2122,7 @@ impl<'a> flatbuffers::Follow<'a> for RequestPacket<'a> {
 
 impl<'a> RequestPacket<'a> {
   pub const VT_VERSION_MAJOR: flatbuffers::VOffsetT = 4;
-  pub const VT_VERSION_MINOR: flatbuffers::VOffsetT = 6;
+  pub const VT_MINIMUM_VERSION_MINOR: flatbuffers::VOffsetT = 6;
   pub const VT_CONTENTS_TYPE: flatbuffers::VOffsetT = 8;
   pub const VT_CONTENTS: flatbuffers::VOffsetT = 10;
 
@@ -2204,8 +2137,8 @@ impl<'a> RequestPacket<'a> {
   ) -> flatbuffers::WIPOffset<RequestPacket<'bldr>> {
     let mut builder = RequestPacketBuilder::new(_fbb);
     if let Some(x) = args.contents { builder.add_contents(x); }
+    builder.add_minimum_version_minor(args.minimum_version_minor);
     builder.add_contents_type(args.contents_type);
-    builder.add_version_minor(args.version_minor);
     builder.add_version_major(args.version_major);
     builder.finish()
   }
@@ -2219,11 +2152,11 @@ impl<'a> RequestPacket<'a> {
     unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MAJOR, Some(0)).unwrap()}
   }
   #[inline]
-  pub fn version_minor(&self) -> u8 {
+  pub fn minimum_version_minor(&self) -> u16 {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(RequestPacket::VT_VERSION_MINOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<u16>(RequestPacket::VT_MINIMUM_VERSION_MINOR, Some(0)).unwrap()}
   }
   #[inline]
   pub fn contents_type(&self) -> RequestPacketContents {
@@ -2294,7 +2227,7 @@ impl flatbuffers::Verifiable for RequestPacket<'_> {
     use self::flatbuffers::Verifiable;
     v.visit_table(pos)?
      .visit_field::<u8>("version_major", Self::VT_VERSION_MAJOR, false)?
-     .visit_field::<u8>("version_minor", Self::VT_VERSION_MINOR, false)?
+     .visit_field::<u16>("minimum_version_minor", Self::VT_MINIMUM_VERSION_MINOR, false)?
      .visit_union::<RequestPacketContents, _>("contents_type", Self::VT_CONTENTS_TYPE, "contents", Self::VT_CONTENTS, false, |key, v, pos| {
         match key {
           RequestPacketContents::StatusRequest => v.verify_union_variant::<flatbuffers::ForwardsUOffset<StatusRequest>>("RequestPacketContents::StatusRequest", pos),
@@ -2309,7 +2242,7 @@ impl flatbuffers::Verifiable for RequestPacket<'_> {
 }
 pub struct RequestPacketArgs {
     pub version_major: u8,
-    pub version_minor: u8,
+    pub minimum_version_minor: u16,
     pub contents_type: RequestPacketContents,
     pub contents: Option<flatbuffers::WIPOffset<flatbuffers::UnionWIPOffset>>,
 }
@@ -2318,7 +2251,7 @@ impl<'a> Default for RequestPacketArgs {
   fn default() -> Self {
     RequestPacketArgs {
       version_major: 0,
-      version_minor: 0,
+      minimum_version_minor: 0,
       contents_type: RequestPacketContents::NONE,
       contents: None,
     }
@@ -2335,8 +2268,8 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> RequestPacketBuilder<'a, 'b, A>
     self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MAJOR, version_major, 0);
   }
   #[inline]
-  pub fn add_version_minor(&mut self, version_minor: u8) {
-    self.fbb_.push_slot::<u8>(RequestPacket::VT_VERSION_MINOR, version_minor, 0);
+  pub fn add_minimum_version_minor(&mut self, minimum_version_minor: u16) {
+    self.fbb_.push_slot::<u16>(RequestPacket::VT_MINIMUM_VERSION_MINOR, minimum_version_minor, 0);
   }
   #[inline]
   pub fn add_contents_type(&mut self, contents_type: RequestPacketContents) {
@@ -2365,7 +2298,7 @@ impl core::fmt::Debug for RequestPacket<'_> {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut ds = f.debug_struct("RequestPacket");
       ds.field("version_major", &self.version_major());
-      ds.field("version_minor", &self.version_minor());
+      ds.field("minimum_version_minor", &self.minimum_version_minor());
       ds.field("contents_type", &self.contents_type());
       match self.contents_type() {
         RequestPacketContents::StatusRequest => {
@@ -2413,10 +2346,9 @@ impl<'a> flatbuffers::Follow<'a> for ResponsePacket<'a> {
 }
 
 impl<'a> ResponsePacket<'a> {
-  pub const VT_VERSION_MAJOR: flatbuffers::VOffsetT = 4;
-  pub const VT_VERSION_MINOR: flatbuffers::VOffsetT = 6;
-  pub const VT_CONTENTS_TYPE: flatbuffers::VOffsetT = 8;
-  pub const VT_CONTENTS: flatbuffers::VOffsetT = 10;
+  pub const VT_ERROR: flatbuffers::VOffsetT = 4;
+  pub const VT_CONTENTS_TYPE: flatbuffers::VOffsetT = 6;
+  pub const VT_CONTENTS: flatbuffers::VOffsetT = 8;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -2425,30 +2357,22 @@ impl<'a> ResponsePacket<'a> {
   #[allow(unused_mut)]
   pub fn create<'bldr: 'args, 'args: 'mut_bldr, 'mut_bldr, A: flatbuffers::Allocator + 'bldr>(
     _fbb: &'mut_bldr mut flatbuffers::FlatBufferBuilder<'bldr, A>,
-    args: &'args ResponsePacketArgs
+    args: &'args ResponsePacketArgs<'args>
   ) -> flatbuffers::WIPOffset<ResponsePacket<'bldr>> {
     let mut builder = ResponsePacketBuilder::new(_fbb);
     if let Some(x) = args.contents { builder.add_contents(x); }
+    if let Some(x) = args.error { builder.add_error(x); }
     builder.add_contents_type(args.contents_type);
-    builder.add_version_minor(args.version_minor);
-    builder.add_version_major(args.version_major);
     builder.finish()
   }
 
 
   #[inline]
-  pub fn version_major(&self) -> u8 {
+  pub fn error(&self) -> Option<&'a str> {
     // Safety:
     // Created from valid Table for this object
     // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MAJOR, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn version_minor(&self) -> u8 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(ResponsePacket::VT_VERSION_MINOR, Some(0)).unwrap()}
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(ResponsePacket::VT_ERROR, None)}
   }
   #[inline]
   pub fn contents_type(&self) -> ResponsePacketContents {
@@ -2464,21 +2388,6 @@ impl<'a> ResponsePacket<'a> {
     // which contains a valid value in this slot
     unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Table<'a>>>(ResponsePacket::VT_CONTENTS, None)}
   }
-  #[inline]
-  #[allow(non_snake_case)]
-  pub fn contents_as_error_response(&self) -> Option<ErrorResponse<'a>> {
-    if self.contents_type() == ResponsePacketContents::ErrorResponse {
-      self.contents().map(|t| {
-       // Safety:
-       // Created from a valid Table for this object
-       // Which contains a valid union in this slot
-       unsafe { ErrorResponse::init_from_table(t) }
-     })
-    } else {
-      None
-    }
-  }
-
   #[inline]
   #[allow(non_snake_case)]
   pub fn contents_as_status_response(&self) -> Option<StatusResponse<'a>> {
@@ -2533,11 +2442,9 @@ impl flatbuffers::Verifiable for ResponsePacket<'_> {
   ) -> Result<(), flatbuffers::InvalidFlatbuffer> {
     use self::flatbuffers::Verifiable;
     v.visit_table(pos)?
-     .visit_field::<u8>("version_major", Self::VT_VERSION_MAJOR, false)?
-     .visit_field::<u8>("version_minor", Self::VT_VERSION_MINOR, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("error", Self::VT_ERROR, false)?
      .visit_union::<ResponsePacketContents, _>("contents_type", Self::VT_CONTENTS_TYPE, "contents", Self::VT_CONTENTS, false, |key, v, pos| {
         match key {
-          ResponsePacketContents::ErrorResponse => v.verify_union_variant::<flatbuffers::ForwardsUOffset<ErrorResponse>>("ResponsePacketContents::ErrorResponse", pos),
           ResponsePacketContents::StatusResponse => v.verify_union_variant::<flatbuffers::ForwardsUOffset<StatusResponse>>("ResponsePacketContents::StatusResponse", pos),
           ResponsePacketContents::ConfigurationResponse => v.verify_union_variant::<flatbuffers::ForwardsUOffset<ConfigurationResponse>>("ResponsePacketContents::ConfigurationResponse", pos),
           ResponsePacketContents::DataResponse => v.verify_union_variant::<flatbuffers::ForwardsUOffset<DataResponse>>("ResponsePacketContents::DataResponse", pos),
@@ -2548,18 +2455,16 @@ impl flatbuffers::Verifiable for ResponsePacket<'_> {
     Ok(())
   }
 }
-pub struct ResponsePacketArgs {
-    pub version_major: u8,
-    pub version_minor: u8,
+pub struct ResponsePacketArgs<'a> {
+    pub error: Option<flatbuffers::WIPOffset<&'a str>>,
     pub contents_type: ResponsePacketContents,
     pub contents: Option<flatbuffers::WIPOffset<flatbuffers::UnionWIPOffset>>,
 }
-impl<'a> Default for ResponsePacketArgs {
+impl<'a> Default for ResponsePacketArgs<'a> {
   #[inline]
   fn default() -> Self {
     ResponsePacketArgs {
-      version_major: 0,
-      version_minor: 0,
+      error: None,
       contents_type: ResponsePacketContents::NONE,
       contents: None,
     }
@@ -2572,12 +2477,8 @@ pub struct ResponsePacketBuilder<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> {
 }
 impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ResponsePacketBuilder<'a, 'b, A> {
   #[inline]
-  pub fn add_version_major(&mut self, version_major: u8) {
-    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MAJOR, version_major, 0);
-  }
-  #[inline]
-  pub fn add_version_minor(&mut self, version_minor: u8) {
-    self.fbb_.push_slot::<u8>(ResponsePacket::VT_VERSION_MINOR, version_minor, 0);
+  pub fn add_error(&mut self, error: flatbuffers::WIPOffset<&'b  str>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(ResponsePacket::VT_ERROR, error);
   }
   #[inline]
   pub fn add_contents_type(&mut self, contents_type: ResponsePacketContents) {
@@ -2605,17 +2506,9 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ResponsePacketBuilder<'a, 'b, A
 impl core::fmt::Debug for ResponsePacket<'_> {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut ds = f.debug_struct("ResponsePacket");
-      ds.field("version_major", &self.version_major());
-      ds.field("version_minor", &self.version_minor());
+      ds.field("error", &self.error());
       ds.field("contents_type", &self.contents_type());
       match self.contents_type() {
-        ResponsePacketContents::ErrorResponse => {
-          if let Some(x) = self.contents_as_error_response() {
-            ds.field("contents", &x)
-          } else {
-            ds.field("contents", &"InvalidFlatbuffer: Union discriminant does not match value.")
-          }
-        },
         ResponsePacketContents::StatusResponse => {
           if let Some(x) = self.contents_as_status_response() {
             ds.field("contents", &x)

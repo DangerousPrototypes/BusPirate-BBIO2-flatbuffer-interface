@@ -41,32 +41,16 @@ func (rcv *ResponsePacket) Table() flatbuffers.Table {
 	return rcv._tab
 }
 
-func (rcv *ResponsePacket) VersionMajor() byte {
+func (rcv *ResponsePacket) Error() []byte {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(4))
 	if o != 0 {
-		return rcv._tab.GetByte(o + rcv._tab.Pos)
+		return rcv._tab.ByteVector(o + rcv._tab.Pos)
 	}
-	return 0
-}
-
-func (rcv *ResponsePacket) MutateVersionMajor(n byte) bool {
-	return rcv._tab.MutateByteSlot(4, n)
-}
-
-func (rcv *ResponsePacket) VersionMinor() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(6))
-	if o != 0 {
-		return rcv._tab.GetByte(o + rcv._tab.Pos)
-	}
-	return 0
-}
-
-func (rcv *ResponsePacket) MutateVersionMinor(n byte) bool {
-	return rcv._tab.MutateByteSlot(6, n)
+	return nil
 }
 
 func (rcv *ResponsePacket) ContentsType() ResponsePacketContents {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(8))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(6))
 	if o != 0 {
 		return ResponsePacketContents(rcv._tab.GetByte(o + rcv._tab.Pos))
 	}
@@ -74,11 +58,11 @@ func (rcv *ResponsePacket) ContentsType() ResponsePacketContents {
 }
 
 func (rcv *ResponsePacket) MutateContentsType(n ResponsePacketContents) bool {
-	return rcv._tab.MutateByteSlot(8, byte(n))
+	return rcv._tab.MutateByteSlot(6, byte(n))
 }
 
 func (rcv *ResponsePacket) Contents(obj *flatbuffers.Table) bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(10))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(8))
 	if o != 0 {
 		rcv._tab.Union(obj, o)
 		return true
@@ -87,19 +71,16 @@ func (rcv *ResponsePacket) Contents(obj *flatbuffers.Table) bool {
 }
 
 func ResponsePacketStart(builder *flatbuffers.Builder) {
-	builder.StartObject(4)
+	builder.StartObject(3)
 }
-func ResponsePacketAddVersionMajor(builder *flatbuffers.Builder, versionMajor byte) {
-	builder.PrependByteSlot(0, versionMajor, 0)
-}
-func ResponsePacketAddVersionMinor(builder *flatbuffers.Builder, versionMinor byte) {
-	builder.PrependByteSlot(1, versionMinor, 0)
+func ResponsePacketAddError(builder *flatbuffers.Builder, error flatbuffers.UOffsetT) {
+	builder.PrependUOffsetTSlot(0, flatbuffers.UOffsetT(error), 0)
 }
 func ResponsePacketAddContentsType(builder *flatbuffers.Builder, contentsType ResponsePacketContents) {
-	builder.PrependByteSlot(2, byte(contentsType), 0)
+	builder.PrependByteSlot(1, byte(contentsType), 0)
 }
 func ResponsePacketAddContents(builder *flatbuffers.Builder, contents flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(3, flatbuffers.UOffsetT(contents), 0)
+	builder.PrependUOffsetTSlot(2, flatbuffers.UOffsetT(contents), 0)
 }
 func ResponsePacketEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()

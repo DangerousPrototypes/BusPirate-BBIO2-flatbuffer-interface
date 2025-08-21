@@ -28,26 +28,26 @@ public final class RequestPacket extends Table {
   public RequestPacket __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public int versionMajor() { int o = __offset(4); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public int versionMinor() { int o = __offset(6); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int minimumVersionMinor() { int o = __offset(6); return o != 0 ? bb.getShort(o + bb_pos) & 0xFFFF : 0; }
   public byte contentsType() { int o = __offset(8); return o != 0 ? bb.get(o + bb_pos) : 0; }
   public Table contents(Table obj) { int o = __offset(10); return o != 0 ? __union(obj, o + bb_pos) : null; }
 
   public static int createRequestPacket(FlatBufferBuilder builder,
       int versionMajor,
-      int versionMinor,
+      int minimumVersionMinor,
       byte contentsType,
       int contentsOffset) {
     builder.startTable(4);
     RequestPacket.addContents(builder, contentsOffset);
+    RequestPacket.addMinimumVersionMinor(builder, minimumVersionMinor);
     RequestPacket.addContentsType(builder, contentsType);
-    RequestPacket.addVersionMinor(builder, versionMinor);
     RequestPacket.addVersionMajor(builder, versionMajor);
     return RequestPacket.endRequestPacket(builder);
   }
 
   public static void startRequestPacket(FlatBufferBuilder builder) { builder.startTable(4); }
   public static void addVersionMajor(FlatBufferBuilder builder, int versionMajor) { builder.addByte(0, (byte) versionMajor, (byte) 0); }
-  public static void addVersionMinor(FlatBufferBuilder builder, int versionMinor) { builder.addByte(1, (byte) versionMinor, (byte) 0); }
+  public static void addMinimumVersionMinor(FlatBufferBuilder builder, int minimumVersionMinor) { builder.addShort(1, (short) minimumVersionMinor, (short) 0); }
   public static void addContentsType(FlatBufferBuilder builder, byte contentsType) { builder.addByte(2, contentsType, 0); }
   public static void addContents(FlatBufferBuilder builder, int contentsOffset) { builder.addOffset(3, contentsOffset, 0); }
   public static int endRequestPacket(FlatBufferBuilder builder) {

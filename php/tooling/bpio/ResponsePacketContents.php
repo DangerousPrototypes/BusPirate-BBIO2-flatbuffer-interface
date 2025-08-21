@@ -6,14 +6,12 @@ namespace bpio;
 class ResponsePacketContents
 {
     const NONE = 0;
-    const ErrorResponse = 1;
-    const StatusResponse = 2;
-    const ConfigurationResponse = 3;
-    const DataResponse = 4;
+    const StatusResponse = 1;
+    const ConfigurationResponse = 2;
+    const DataResponse = 3;
 
     private static $names = array(
         ResponsePacketContents::NONE=>"NONE",
-        ResponsePacketContents::ErrorResponse=>"ErrorResponse",
         ResponsePacketContents::StatusResponse=>"StatusResponse",
         ResponsePacketContents::ConfigurationResponse=>"ConfigurationResponse",
         ResponsePacketContents::DataResponse=>"DataResponse",

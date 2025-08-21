@@ -8,15 +8,13 @@ type ResponsePacketContents byte
 
 const (
 	ResponsePacketContentsNONE                  ResponsePacketContents = 0
-	ResponsePacketContentsErrorResponse         ResponsePacketContents = 1
-	ResponsePacketContentsStatusResponse        ResponsePacketContents = 2
-	ResponsePacketContentsConfigurationResponse ResponsePacketContents = 3
-	ResponsePacketContentsDataResponse          ResponsePacketContents = 4
+	ResponsePacketContentsStatusResponse        ResponsePacketContents = 1
+	ResponsePacketContentsConfigurationResponse ResponsePacketContents = 2
+	ResponsePacketContentsDataResponse          ResponsePacketContents = 3
 )
 
 var EnumNamesResponsePacketContents = map[ResponsePacketContents]string{
 	ResponsePacketContentsNONE:                  "NONE",
-	ResponsePacketContentsErrorResponse:         "ErrorResponse",
 	ResponsePacketContentsStatusResponse:        "StatusResponse",
 	ResponsePacketContentsConfigurationResponse: "ConfigurationResponse",
 	ResponsePacketContentsDataResponse:          "DataResponse",
@@ -24,7 +22,6 @@ var EnumNamesResponsePacketContents = map[ResponsePacketContents]string{
 
 var EnumValuesResponsePacketContents = map[string]ResponsePacketContents{
 	"NONE":                  ResponsePacketContentsNONE,
-	"ErrorResponse":         ResponsePacketContentsErrorResponse,
 	"StatusResponse":        ResponsePacketContentsStatusResponse,
 	"ConfigurationResponse": ResponsePacketContentsConfigurationResponse,
 	"DataResponse":          ResponsePacketContentsDataResponse,

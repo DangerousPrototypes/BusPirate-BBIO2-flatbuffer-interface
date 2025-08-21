@@ -4,25 +4,22 @@
 
 import { ConfigurationResponse } from '../bpio/configuration-response.js';
 import { DataResponse } from '../bpio/data-response.js';
-import { ErrorResponse } from '../bpio/error-response.js';
 import { StatusResponse } from '../bpio/status-response.js';
 
 
 export enum ResponsePacketContents {
   NONE = 0,
-  ErrorResponse = 1,
-  StatusResponse = 2,
-  ConfigurationResponse = 3,
-  DataResponse = 4
+  StatusResponse = 1,
+  ConfigurationResponse = 2,
+  DataResponse = 3
 }
 
 export function unionToResponsePacketContents(
   type: ResponsePacketContents,
-  accessor: (obj:ConfigurationResponse|DataResponse|ErrorResponse|StatusResponse) => ConfigurationResponse|DataResponse|ErrorResponse|StatusResponse|null
-): ConfigurationResponse|DataResponse|ErrorResponse|StatusResponse|null {
+  accessor: (obj:ConfigurationResponse|DataResponse|StatusResponse) => ConfigurationResponse|DataResponse|StatusResponse|null
+): ConfigurationResponse|DataResponse|StatusResponse|null {
   switch(ResponsePacketContents[type]) {
     case 'NONE': return null; 
-    case 'ErrorResponse': return accessor(new ErrorResponse())! as ErrorResponse;
     case 'StatusResponse': return accessor(new StatusResponse())! as StatusResponse;
     case 'ConfigurationResponse': return accessor(new ConfigurationResponse())! as ConfigurationResponse;
     case 'DataResponse': return accessor(new DataResponse())! as DataResponse;
@@ -32,12 +29,11 @@ export function unionToResponsePacketContents(
 
 export function unionListToResponsePacketContents(
   type: ResponsePacketContents, 
-  accessor: (index: number, obj:ConfigurationResponse|DataResponse|ErrorResponse|StatusResponse) => ConfigurationResponse|DataResponse|ErrorResponse|StatusResponse|null, 
+  accessor: (index: number, obj:ConfigurationResponse|DataResponse|StatusResponse) => ConfigurationResponse|DataResponse|StatusResponse|null, 
   index: number
-): ConfigurationResponse|DataResponse|ErrorResponse|StatusResponse|null {
+): ConfigurationResponse|DataResponse|StatusResponse|null {
   switch(ResponsePacketContents[type]) {
     case 'NONE': return null; 
-    case 'ErrorResponse': return accessor(index, new ErrorResponse())! as ErrorResponse;
     case 'StatusResponse': return accessor(index, new StatusResponse())! as StatusResponse;
     case 'ConfigurationResponse': return accessor(index, new ConfigurationResponse())! as ConfigurationResponse;
     case 'DataResponse': return accessor(index, new DataResponse())! as DataResponse;

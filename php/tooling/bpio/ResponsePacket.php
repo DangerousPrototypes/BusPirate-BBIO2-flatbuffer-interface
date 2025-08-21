@@ -32,22 +32,10 @@ class ResponsePacket extends Table
         return $this;
     }
 
-    /**
-     * @return byte
-     */
-    public function getVersionMajor()
+    public function getError()
     {
         $o = $this->__offset(4);
-        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
-    }
-
-    /**
-     * @return byte
-     */
-    public function getVersionMinor()
-    {
-        $o = $this->__offset(6);
-        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
+        return $o != 0 ? $this->__string($o + $this->bb_pos) : null;
     }
 
     /**
@@ -55,7 +43,7 @@ class ResponsePacket extends Table
      */
     public function getContentsType()
     {
-        $o = $this->__offset(8);
+        $o = $this->__offset(6);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : \bpio\ResponsePacketContents::NONE;
     }
 
@@ -64,7 +52,7 @@ class ResponsePacket extends Table
      */
     public function getContents($obj)
     {
-        $o = $this->__offset(10);
+        $o = $this->__offset(8);
         return $o != 0 ? $this->__union($obj, $o) : null;
     }
 
@@ -74,18 +62,17 @@ class ResponsePacket extends Table
      */
     public static function startResponsePacket(FlatBufferBuilder $builder)
     {
-        $builder->StartObject(4);
+        $builder->StartObject(3);
     }
 
     /**
      * @param FlatBufferBuilder $builder
      * @return ResponsePacket
      */
-    public static function createResponsePacket(FlatBufferBuilder $builder, $version_major, $version_minor, $contents_type, $contents)
+    public static function createResponsePacket(FlatBufferBuilder $builder, $error, $contents_type, $contents)
     {
-        $builder->startObject(4);
-        self::addVersionMajor($builder, $version_major);
-        self::addVersionMinor($builder, $version_minor);
+        $builder->startObject(3);
+        self::addError($builder, $error);
         self::addContentsType($builder, $contents_type);
         self::addContents($builder, $contents);
         $o = $builder->endObject();
@@ -94,22 +81,12 @@ class ResponsePacket extends Table
 
     /**
      * @param FlatBufferBuilder $builder
-     * @param byte
+     * @param StringOffset
      * @return void
      */
-    public static function addVersionMajor(FlatBufferBuilder $builder, $versionMajor)
+    public static function addError(FlatBufferBuilder $builder, $error)
     {
-        $builder->addByteX(0, $versionMajor, 0);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param byte
-     * @return void
-     */
-    public static function addVersionMinor(FlatBufferBuilder $builder, $versionMinor)
-    {
-        $builder->addByteX(1, $versionMinor, 0);
+        $builder->addOffsetX(0, $error, 0);
     }
 
     /**
@@ -119,12 +96,12 @@ class ResponsePacket extends Table
      */
     public static function addContentsType(FlatBufferBuilder $builder, $contentsType)
     {
-        $builder->addByteX(2, $contentsType, 0);
+        $builder->addByteX(1, $contentsType, 0);
     }
 
     public static function addContents(FlatBufferBuilder $builder, $offset)
     {
-        $builder->addOffsetX(3, $offset, 0);
+        $builder->addOffsetX(2, $offset, 0);
     }
 
     /**

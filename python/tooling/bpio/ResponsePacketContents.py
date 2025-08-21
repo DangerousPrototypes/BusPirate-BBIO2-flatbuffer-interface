@@ -4,7 +4,6 @@
 
 class ResponsePacketContents(object):
     NONE = 0
-    ErrorResponse = 1
-    StatusResponse = 2
-    ConfigurationResponse = 3
-    DataResponse = 4
+    StatusResponse = 1
+    ConfigurationResponse = 2
+    DataResponse = 3

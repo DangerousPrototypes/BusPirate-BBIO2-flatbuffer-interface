@@ -53,16 +53,16 @@ func (rcv *RequestPacket) MutateVersionMajor(n byte) bool {
 	return rcv._tab.MutateByteSlot(4, n)
 }
 
-func (rcv *RequestPacket) VersionMinor() byte {
+func (rcv *RequestPacket) MinimumVersionMinor() uint16 {
 	o := flatbuffers.UOffsetT(rcv._tab.Offset(6))
 	if o != 0 {
-		return rcv._tab.GetByte(o + rcv._tab.Pos)
+		return rcv._tab.GetUint16(o + rcv._tab.Pos)
 	}
 	return 0
 }
 
-func (rcv *RequestPacket) MutateVersionMinor(n byte) bool {
-	return rcv._tab.MutateByteSlot(6, n)
+func (rcv *RequestPacket) MutateMinimumVersionMinor(n uint16) bool {
+	return rcv._tab.MutateUint16Slot(6, n)
 }
 
 func (rcv *RequestPacket) ContentsType() RequestPacketContents {
@@ -92,8 +92,8 @@ func RequestPacketStart(builder *flatbuffers.Builder) {
 func RequestPacketAddVersionMajor(builder *flatbuffers.Builder, versionMajor byte) {
 	builder.PrependByteSlot(0, versionMajor, 0)
 }
-func RequestPacketAddVersionMinor(builder *flatbuffers.Builder, versionMinor byte) {
-	builder.PrependByteSlot(1, versionMinor, 0)
+func RequestPacketAddMinimumVersionMinor(builder *flatbuffers.Builder, minimumVersionMinor uint16) {
+	builder.PrependUint16Slot(1, minimumVersionMinor, 0)
 }
 func RequestPacketAddContentsType(builder *flatbuffers.Builder, contentsType RequestPacketContents) {
 	builder.PrependByteSlot(2, byte(contentsType), 0)

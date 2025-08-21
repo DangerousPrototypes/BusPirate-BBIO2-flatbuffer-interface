@@ -25,44 +25,37 @@ static getSizePrefixedRootAsResponsePacket(bb:flatbuffers.ByteBuffer, obj?:Respo
   return (obj || new ResponsePacket()).__init(bb.readInt32(bb.position()) + bb.position(), bb);
 }
 
-versionMajor():number {
+error():string|null
+error(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
+error(optionalEncoding?:any):string|Uint8Array|null {
   const offset = this.bb!.__offset(this.bb_pos, 4);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
-}
-
-versionMinor():number {
-  const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
+  return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
 contentsType():ResponsePacketContents {
-  const offset = this.bb!.__offset(this.bb_pos, 8);
+  const offset = this.bb!.__offset(this.bb_pos, 6);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : ResponsePacketContents.NONE;
 }
 
 contents<T extends flatbuffers.Table>(obj:any):any|null {
-  const offset = this.bb!.__offset(this.bb_pos, 10);
+  const offset = this.bb!.__offset(this.bb_pos, 8);
   return offset ? this.bb!.__union(obj, this.bb_pos + offset) : null;
 }
 
 static startResponsePacket(builder:flatbuffers.Builder) {
-  builder.startObject(4);
+  builder.startObject(3);
 }
 
-static addVersionMajor(builder:flatbuffers.Builder, versionMajor:number) {
-  builder.addFieldInt8(0, versionMajor, 0);
-}
-
-static addVersionMinor(builder:flatbuffers.Builder, versionMinor:number) {
-  builder.addFieldInt8(1, versionMinor, 0);
+static addError(builder:flatbuffers.Builder, errorOffset:flatbuffers.Offset) {
+  builder.addFieldOffset(0, errorOffset, 0);
 }
 
 static addContentsType(builder:flatbuffers.Builder, contentsType:ResponsePacketContents) {
-  builder.addFieldInt8(2, contentsType, ResponsePacketContents.NONE);
+  builder.addFieldInt8(1, contentsType, ResponsePacketContents.NONE);
 }
 
 static addContents(builder:flatbuffers.Builder, contentsOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(3, contentsOffset, 0);
+  builder.addFieldOffset(2, contentsOffset, 0);
 }
 
 static endResponsePacket(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -78,10 +71,9 @@ static finishSizePrefixedResponsePacketBuffer(builder:flatbuffers.Builder, offse
   builder.finish(offset, undefined, true);
 }
 
-static createResponsePacket(builder:flatbuffers.Builder, versionMajor:number, versionMinor:number, contentsType:ResponsePacketContents, contentsOffset:flatbuffers.Offset):flatbuffers.Offset {
+static createResponsePacket(builder:flatbuffers.Builder, errorOffset:flatbuffers.Offset, contentsType:ResponsePacketContents, contentsOffset:flatbuffers.Offset):flatbuffers.Offset {
   ResponsePacket.startResponsePacket(builder);
-  ResponsePacket.addVersionMajor(builder, versionMajor);
-  ResponsePacket.addVersionMinor(builder, versionMinor);
+  ResponsePacket.addError(builder, errorOffset);
   ResponsePacket.addContentsType(builder, contentsType);
   ResponsePacket.addContents(builder, contentsOffset);
   return ResponsePacket.endResponsePacket(builder);

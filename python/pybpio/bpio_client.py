@@ -22,7 +22,7 @@ import tooling.bpio.ResponsePacketContents as ResponsePacketContents
 import tooling.bpio.StatusRequest as StatusRequest
 import tooling.bpio.StatusRequestTypes as StatusRequestTypes
 import tooling.bpio.StatusResponse as StatusResponse
-import tooling.bpio.ErrorResponse as ErrorResponse
+#import tooling.bpio.ErrorResponse as ErrorResponse
 
 class BPIOClient:
     def __init__(self, port, baudrate=3000000, timeout=2, debug=False):
@@ -148,8 +148,8 @@ class BPIOClient:
         """Send a request packet and return the response"""
         """Wrap contents in a RequestPacket"""
         RequestPacket.Start(builder)
-        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
-        RequestPacket.AddVersionMinor(builder, 0)
+        RequestPacket.AddVersionMajor(builder, 2)  # BPIO2
+        RequestPacket.AddMinimumVersionMinor(builder, 0) # Minimum flatbuffers version required
         RequestPacket.AddContentsType(builder, request_contents_type)
         RequestPacket.AddContents(builder, request_contents)
         final_packet = RequestPacket.End(builder)
@@ -162,16 +162,18 @@ class BPIOClient:
             return False
 
         # Decode response packet
-        resp_packet = ResponsePacket.ResponsePacket.GetRootAsResponsePacket(resp_data, 0)
+        resp_packet = ResponsePacket.ResponsePacket.GetRootAsResponsePacket(resp_data, 0)     
+
+        #if response_contents_type == ResponsePacketContents.ResponsePacketContents.ErrorResponse:
+        if resp_packet.Error():
+            #error_resp = ErrorResponse.ErrorResponse()
+            #error_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
+            print(f"Error: {resp_packet.Error().decode('utf-8')}")
+            return False
+        
         response_contents_type = resp_packet.ContentsType()
         if self.debug:
-            print(f"ContentsType: {response_contents_type}")        
-
-        if response_contents_type == ResponsePacketContents.ResponsePacketContents.ErrorResponse:
-            error_resp = ErrorResponse.ErrorResponse()
-            error_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
-            print(f"Error: {error_resp.Error().decode('utf-8')}")
-            return False
+            print(f"ContentsType: {response_contents_type}")          
         
         expected_type = self._expected_response(request_contents_type)        
         if response_contents_type != expected_type:
@@ -318,6 +320,8 @@ class BPIOClient:
         # copy the status response into a dictionary
         status_dict = {
             'error': status_resp.Error().decode('utf-8') if status_resp.Error() else None,
+            'version_flatbuffers_major': status_resp.VersionFlatbuffersMajor
+            'version_flatbuffers_minor': status_resp.VersionFlatbuffersMinor(),
             'version_hardware_major': status_resp.VersionHardwareMajor(),
             'version_hardware_minor': status_resp.VersionHardwareMinor(),
             'version_firmware_major': status_resp.VersionFirmwareMajor(),
@@ -356,6 +360,7 @@ class BPIOClient:
             print(f"  Error: {status_dict['error']}")
             return
         
+        print(f"  Flatbuffers version: {status_dict['version_flatbuffers_major']}.{status_dict['version_flatbuffers_minor']}")
         print(f"  Hardware version: {status_dict['version_hardware_major']} REV{status_dict['version_hardware_minor']}")
         print(f"  Firmware version: {status_dict['version_firmware_major']}.{status_dict['version_firmware_minor']}")
         print(f"  Firmware git hash: {status_dict['version_firmware_git_hash']}")
