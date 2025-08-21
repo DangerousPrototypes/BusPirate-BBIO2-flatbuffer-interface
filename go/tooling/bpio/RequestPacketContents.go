@@ -8,13 +8,15 @@ type RequestPacketContents byte
 
 const (
 	RequestPacketContentsNONE                 RequestPacketContents = 0
-	RequestPacketContentsStatusRequest        RequestPacketContents = 1
-	RequestPacketContentsConfigurationRequest RequestPacketContents = 2
-	RequestPacketContentsDataRequest          RequestPacketContents = 3
+	RequestPacketContentsMonster              RequestPacketContents = 1
+	RequestPacketContentsStatusRequest        RequestPacketContents = 2
+	RequestPacketContentsConfigurationRequest RequestPacketContents = 3
+	RequestPacketContentsDataRequest          RequestPacketContents = 4
 )
 
 var EnumNamesRequestPacketContents = map[RequestPacketContents]string{
 	RequestPacketContentsNONE:                 "NONE",
+	RequestPacketContentsMonster:              "Monster",
 	RequestPacketContentsStatusRequest:        "StatusRequest",
 	RequestPacketContentsConfigurationRequest: "ConfigurationRequest",
 	RequestPacketContentsDataRequest:          "DataRequest",
@@ -22,6 +24,7 @@ var EnumNamesRequestPacketContents = map[RequestPacketContents]string{
 
 var EnumValuesRequestPacketContents = map[string]RequestPacketContents{
 	"NONE":                 RequestPacketContentsNONE,
+	"Monster":              RequestPacketContentsMonster,
 	"StatusRequest":        RequestPacketContentsStatusRequest,
 	"ConfigurationRequest": RequestPacketContentsConfigurationRequest,
 	"DataRequest":          RequestPacketContentsDataRequest,

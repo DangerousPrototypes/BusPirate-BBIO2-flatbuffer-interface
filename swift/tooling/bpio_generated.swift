@@ -27,6 +27,36 @@ public enum bpio_StatusRequestTypes: Int8, Enum, Verifiable {
 }
 
 
+public enum bpio_Color: Int8, Enum, Verifiable {
+  public typealias T = Int8
+  public static var byteSize: Int { return MemoryLayout<Int8>.size }
+  public var value: Int8 { return self.rawValue }
+  case red = 0
+  case green = 1
+  case blue = 2
+
+  public static var max: bpio_Color { return .blue }
+  public static var min: bpio_Color { return .red }
+}
+
+
+public enum bpio_Equipment: UInt8, UnionEnum {
+  public typealias T = UInt8
+
+  public init?(value: T) {
+    self.init(rawValue: value)
+  }
+
+  public static var byteSize: Int { return MemoryLayout<UInt8>.size }
+  public var value: UInt8 { return self.rawValue }
+  case none_ = 0
+  case weapon = 1
+
+  public static var max: bpio_Equipment { return .weapon }
+  public static var min: bpio_Equipment { return .none_ }
+}
+
+
 public enum bpio_RequestPacketContents: UInt8, UnionEnum {
   public typealias T = UInt8
 
@@ -37,9 +67,10 @@ public enum bpio_RequestPacketContents: UInt8, UnionEnum {
   public static var byteSize: Int { return MemoryLayout<UInt8>.size }
   public var value: UInt8 { return self.rawValue }
   case none_ = 0
-  case statusrequest = 1
-  case configurationrequest = 2
-  case datarequest = 3
+  case monster = 1
+  case statusrequest = 2
+  case configurationrequest = 3
+  case datarequest = 4
 
   public static var max: bpio_RequestPacketContents { return .datarequest }
   public static var min: bpio_RequestPacketContents { return .none_ }
@@ -56,14 +87,65 @@ public enum bpio_ResponsePacketContents: UInt8, UnionEnum {
   public static var byteSize: Int { return MemoryLayout<UInt8>.size }
   public var value: UInt8 { return self.rawValue }
   case none_ = 0
-  case statusresponse = 1
-  case configurationresponse = 2
-  case dataresponse = 3
+  case errorresponse = 1
+  case monster = 2
+  case configurationresponse = 3
+  case statusresponse = 4
+  case dataresponse = 5
 
   public static var max: bpio_ResponsePacketContents { return .dataresponse }
   public static var min: bpio_ResponsePacketContents { return .none_ }
 }
 
+
+public struct bpio_Vec3: NativeStruct, Verifiable, FlatbuffersInitializable {
+
+  static func validateVersion() { FlatBuffersVersion_25_2_10() }
+
+  private var _x: Float32
+  private var _y: Float32
+  private var _z: Float32
+
+  public init(_ bb: ByteBuffer, o: Int32) {
+    let _accessor = Struct(bb: bb, position: o)
+    _x = _accessor.readBuffer(of: Float32.self, at: 0)
+    _y = _accessor.readBuffer(of: Float32.self, at: 4)
+    _z = _accessor.readBuffer(of: Float32.self, at: 8)
+  }
+
+  public init(x: Float32, y: Float32, z: Float32) {
+    _x = x
+    _y = y
+    _z = z
+  }
+
+  public init() {
+    _x = 0.0
+    _y = 0.0
+    _z = 0.0
+  }
+
+  public var x: Float32 { _x }
+  public var y: Float32 { _y }
+  public var z: Float32 { _z }
+
+  public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
+    try verifier.inBuffer(position: position, of: bpio_Vec3.self)
+  }
+}
+
+public struct bpio_Vec3_Mutable: FlatBufferObject {
+
+  static func validateVersion() { FlatBuffersVersion_25_2_10() }
+  public var __buffer: ByteBuffer! { return _accessor.bb }
+  private var _accessor: Struct
+
+  public init(_ bb: ByteBuffer, o: Int32) { _accessor = Struct(bb: bb, position: o) }
+
+  public var x: Float32 { return _accessor.readBuffer(of: Float32.self, at: 0) }
+  public var y: Float32 { return _accessor.readBuffer(of: Float32.self, at: 4) }
+  public var z: Float32 { return _accessor.readBuffer(of: Float32.self, at: 8) }
+}
 
 public struct bpio_StatusRequest: FlatBufferObject, Verifiable {
 
@@ -98,6 +180,158 @@ public struct bpio_StatusRequest: FlatBufferObject, Verifiable {
   public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
     var _v = try verifier.visitTable(at: position)
     try _v.visit(field: VTOFFSET.query.p, fieldName: "query", required: false, type: ForwardOffset<Vector<bpio_StatusRequestTypes, bpio_StatusRequestTypes>>.self)
+    _v.finish()
+  }
+}
+
+public struct bpio_Monster: FlatBufferObject, Verifiable {
+
+  static func validateVersion() { FlatBuffersVersion_25_2_10() }
+  public var __buffer: ByteBuffer! { return _accessor.bb }
+  private var _accessor: Table
+
+  private init(_ t: Table) { _accessor = t }
+  public init(_ bb: ByteBuffer, o: Int32) { _accessor = Table(bb: bb, position: o) }
+
+  private enum VTOFFSET: VOffset {
+    case pos = 4
+    case mana = 6
+    case hp = 8
+    case name = 10
+    case inventory = 14
+    case color = 16
+    case weapons = 18
+    case equippedType = 20
+    case equipped = 22
+    case path = 24
+    var v: Int32 { Int32(self.rawValue) }
+    var p: VOffset { self.rawValue }
+  }
+
+  public var pos: bpio_Vec3? { let o = _accessor.offset(VTOFFSET.pos.v); return o == 0 ? nil : _accessor.readBuffer(of: bpio_Vec3.self, at: o) }
+  public var mutablePos: bpio_Vec3_Mutable? { let o = _accessor.offset(VTOFFSET.pos.v); return o == 0 ? nil : bpio_Vec3_Mutable(_accessor.bb, o: o + _accessor.position) }
+  public var mana: Int16 { let o = _accessor.offset(VTOFFSET.mana.v); return o == 0 ? 150 : _accessor.readBuffer(of: Int16.self, at: o) }
+  public var hp: Int16 { let o = _accessor.offset(VTOFFSET.hp.v); return o == 0 ? 100 : _accessor.readBuffer(of: Int16.self, at: o) }
+  public var name: String? { let o = _accessor.offset(VTOFFSET.name.v); return o == 0 ? nil : _accessor.string(at: o) }
+  public var nameSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.name.v) }
+  public var hasInventory: Bool { let o = _accessor.offset(VTOFFSET.inventory.v); return o == 0 ? false : true }
+  public var inventoryCount: Int32 { let o = _accessor.offset(VTOFFSET.inventory.v); return o == 0 ? 0 : _accessor.vector(count: o) }
+  public func inventory(at index: Int32) -> UInt8 { let o = _accessor.offset(VTOFFSET.inventory.v); return o == 0 ? 0 : _accessor.directRead(of: UInt8.self, offset: _accessor.vector(at: o) + index * 1) }
+  public var inventory: [UInt8] { return _accessor.getVector(at: VTOFFSET.inventory.v) ?? [] }
+  public func withUnsafePointerToInventory<T>(_ body: (UnsafeRawBufferPointer) throws -> T) rethrows -> T? { return try _accessor.withUnsafePointerToSlice(at: VTOFFSET.inventory.v, body: body) }
+  public var color: bpio_Color { let o = _accessor.offset(VTOFFSET.color.v); return o == 0 ? .blue : bpio_Color(rawValue: _accessor.readBuffer(of: Int8.self, at: o)) ?? .blue }
+  public var hasWeapons: Bool { let o = _accessor.offset(VTOFFSET.weapons.v); return o == 0 ? false : true }
+  public var weaponsCount: Int32 { let o = _accessor.offset(VTOFFSET.weapons.v); return o == 0 ? 0 : _accessor.vector(count: o) }
+  public func weapons(at index: Int32) -> bpio_Weapon? { let o = _accessor.offset(VTOFFSET.weapons.v); return o == 0 ? nil : bpio_Weapon(_accessor.bb, o: _accessor.indirect(_accessor.vector(at: o) + index * 4)) }
+  public var equippedType: bpio_Equipment { let o = _accessor.offset(VTOFFSET.equippedType.v); return o == 0 ? .none_ : bpio_Equipment(rawValue: _accessor.readBuffer(of: UInt8.self, at: o)) ?? .none_ }
+  public func equipped<T: FlatbuffersInitializable>(type: T.Type) -> T? { let o = _accessor.offset(VTOFFSET.equipped.v); return o == 0 ? nil : _accessor.union(o) }
+  public var hasPath: Bool { let o = _accessor.offset(VTOFFSET.path.v); return o == 0 ? false : true }
+  public var pathCount: Int32 { let o = _accessor.offset(VTOFFSET.path.v); return o == 0 ? 0 : _accessor.vector(count: o) }
+  public func path(at index: Int32) -> bpio_Vec3? { let o = _accessor.offset(VTOFFSET.path.v); return o == 0 ? nil : _accessor.directRead(of: bpio_Vec3.self, offset: _accessor.vector(at: o) + index * 12) }
+  public func mutablePath(at index: Int32) -> bpio_Vec3_Mutable? { let o = _accessor.offset(VTOFFSET.path.v); return o == 0 ? nil : bpio_Vec3_Mutable(_accessor.bb, o: _accessor.vector(at: o) + index * 12) }
+  public func withUnsafePointerToPath<T>(_ body: (UnsafeRawBufferPointer) throws -> T) rethrows -> T? { return try _accessor.withUnsafePointerToSlice(at: VTOFFSET.path.v, body: body) }
+  public static func startMonster(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 11) }
+  public static func add(pos: bpio_Vec3?, _ fbb: inout FlatBufferBuilder) { guard let pos = pos else { return }; fbb.create(struct: pos, position: VTOFFSET.pos.p) }
+  public static func add(mana: Int16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: mana, def: 150, at: VTOFFSET.mana.p) }
+  public static func add(hp: Int16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: hp, def: 100, at: VTOFFSET.hp.p) }
+  public static func add(name: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: name, at: VTOFFSET.name.p) }
+  public static func addVectorOf(inventory: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: inventory, at: VTOFFSET.inventory.p) }
+  public static func add(color: bpio_Color, _ fbb: inout FlatBufferBuilder) { fbb.add(element: color.rawValue, def: 2, at: VTOFFSET.color.p) }
+  public static func addVectorOf(weapons: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: weapons, at: VTOFFSET.weapons.p) }
+  public static func add(equippedType: bpio_Equipment, _ fbb: inout FlatBufferBuilder) { fbb.add(element: equippedType.rawValue, def: 0, at: VTOFFSET.equippedType.p) }
+  public static func add(equipped: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: equipped, at: VTOFFSET.equipped.p) }
+  public static func addVectorOf(path: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: path, at: VTOFFSET.path.p) }
+  public static func startVectorOfPath(_ size: Int, in builder: inout FlatBufferBuilder) {
+    builder.startVector(size * MemoryLayout<bpio_Vec3>.size, elementSize: MemoryLayout<bpio_Vec3>.alignment)
+  }
+  public static func endMonster(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
+  public static func createMonster(
+    _ fbb: inout FlatBufferBuilder,
+    pos: bpio_Vec3? = nil,
+    mana: Int16 = 150,
+    hp: Int16 = 100,
+    nameOffset name: Offset = Offset(),
+    inventoryVectorOffset inventory: Offset = Offset(),
+    color: bpio_Color = .blue,
+    weaponsVectorOffset weapons: Offset = Offset(),
+    equippedType: bpio_Equipment = .none_,
+    equippedOffset equipped: Offset = Offset(),
+    pathVectorOffset path: Offset = Offset()
+  ) -> Offset {
+    let __start = bpio_Monster.startMonster(&fbb)
+    bpio_Monster.add(pos: pos, &fbb)
+    bpio_Monster.add(mana: mana, &fbb)
+    bpio_Monster.add(hp: hp, &fbb)
+    bpio_Monster.add(name: name, &fbb)
+    bpio_Monster.addVectorOf(inventory: inventory, &fbb)
+    bpio_Monster.add(color: color, &fbb)
+    bpio_Monster.addVectorOf(weapons: weapons, &fbb)
+    bpio_Monster.add(equippedType: equippedType, &fbb)
+    bpio_Monster.add(equipped: equipped, &fbb)
+    bpio_Monster.addVectorOf(path: path, &fbb)
+    return bpio_Monster.endMonster(&fbb, start: __start)
+  }
+
+  public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
+    var _v = try verifier.visitTable(at: position)
+    try _v.visit(field: VTOFFSET.pos.p, fieldName: "pos", required: false, type: bpio_Vec3.self)
+    try _v.visit(field: VTOFFSET.mana.p, fieldName: "mana", required: false, type: Int16.self)
+    try _v.visit(field: VTOFFSET.hp.p, fieldName: "hp", required: false, type: Int16.self)
+    try _v.visit(field: VTOFFSET.name.p, fieldName: "name", required: false, type: ForwardOffset<String>.self)
+    try _v.visit(field: VTOFFSET.inventory.p, fieldName: "inventory", required: false, type: ForwardOffset<Vector<UInt8, UInt8>>.self)
+    try _v.visit(field: VTOFFSET.color.p, fieldName: "color", required: false, type: bpio_Color.self)
+    try _v.visit(field: VTOFFSET.weapons.p, fieldName: "weapons", required: false, type: ForwardOffset<Vector<ForwardOffset<bpio_Weapon>, bpio_Weapon>>.self)
+    try _v.visit(unionKey: VTOFFSET.equippedType.p, unionField: VTOFFSET.equipped.p, unionKeyName: "equippedType", fieldName: "equipped", required: false, completion: { (verifier, key: bpio_Equipment, pos) in
+      switch key {
+      case .none_:
+        break // NOTE - SWIFT doesnt support none
+      case .weapon:
+        try ForwardOffset<bpio_Weapon>.verify(&verifier, at: pos, of: bpio_Weapon.self)
+      }
+    })
+    try _v.visit(field: VTOFFSET.path.p, fieldName: "path", required: false, type: ForwardOffset<Vector<bpio_Vec3, bpio_Vec3>>.self)
+    _v.finish()
+  }
+}
+
+public struct bpio_Weapon: FlatBufferObject, Verifiable {
+
+  static func validateVersion() { FlatBuffersVersion_25_2_10() }
+  public var __buffer: ByteBuffer! { return _accessor.bb }
+  private var _accessor: Table
+
+  private init(_ t: Table) { _accessor = t }
+  public init(_ bb: ByteBuffer, o: Int32) { _accessor = Table(bb: bb, position: o) }
+
+  private enum VTOFFSET: VOffset {
+    case name = 4
+    case damage = 6
+    var v: Int32 { Int32(self.rawValue) }
+    var p: VOffset { self.rawValue }
+  }
+
+  public var name: String? { let o = _accessor.offset(VTOFFSET.name.v); return o == 0 ? nil : _accessor.string(at: o) }
+  public var nameSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.name.v) }
+  public var damage: Int16 { let o = _accessor.offset(VTOFFSET.damage.v); return o == 0 ? 0 : _accessor.readBuffer(of: Int16.self, at: o) }
+  public static func startWeapon(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 2) }
+  public static func add(name: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: name, at: VTOFFSET.name.p) }
+  public static func add(damage: Int16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: damage, def: 0, at: VTOFFSET.damage.p) }
+  public static func endWeapon(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
+  public static func createWeapon(
+    _ fbb: inout FlatBufferBuilder,
+    nameOffset name: Offset = Offset(),
+    damage: Int16 = 0
+  ) -> Offset {
+    let __start = bpio_Weapon.startWeapon(&fbb)
+    bpio_Weapon.add(name: name, &fbb)
+    bpio_Weapon.add(damage: damage, &fbb)
+    return bpio_Weapon.endWeapon(&fbb, start: __start)
+  }
+
+  public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
+    var _v = try verifier.visitTable(at: position)
+    try _v.visit(field: VTOFFSET.name.p, fieldName: "name", required: false, type: ForwardOffset<String>.self)
+    try _v.visit(field: VTOFFSET.damage.p, fieldName: "damage", required: false, type: Int16.self)
     _v.finish()
   }
 }
@@ -755,6 +989,42 @@ public struct bpio_DataResponse: FlatBufferObject, Verifiable {
   }
 }
 
+public struct bpio_ErrorResponse: FlatBufferObject, Verifiable {
+
+  static func validateVersion() { FlatBuffersVersion_25_2_10() }
+  public var __buffer: ByteBuffer! { return _accessor.bb }
+  private var _accessor: Table
+
+  private init(_ t: Table) { _accessor = t }
+  public init(_ bb: ByteBuffer, o: Int32) { _accessor = Table(bb: bb, position: o) }
+
+  private enum VTOFFSET: VOffset {
+    case error = 4
+    var v: Int32 { Int32(self.rawValue) }
+    var p: VOffset { self.rawValue }
+  }
+
+  public var error: String? { let o = _accessor.offset(VTOFFSET.error.v); return o == 0 ? nil : _accessor.string(at: o) }
+  public var errorSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.error.v) }
+  public static func startErrorResponse(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 1) }
+  public static func add(error: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: error, at: VTOFFSET.error.p) }
+  public static func endErrorResponse(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
+  public static func createErrorResponse(
+    _ fbb: inout FlatBufferBuilder,
+    errorOffset error: Offset = Offset()
+  ) -> Offset {
+    let __start = bpio_ErrorResponse.startErrorResponse(&fbb)
+    bpio_ErrorResponse.add(error: error, &fbb)
+    return bpio_ErrorResponse.endErrorResponse(&fbb, start: __start)
+  }
+
+  public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
+    var _v = try verifier.visitTable(at: position)
+    try _v.visit(field: VTOFFSET.error.p, fieldName: "error", required: false, type: ForwardOffset<String>.self)
+    _v.finish()
+  }
+}
+
 public struct bpio_RequestPacket: FlatBufferObject, Verifiable {
 
   static func validateVersion() { FlatBuffersVersion_25_2_10() }
@@ -806,6 +1076,8 @@ public struct bpio_RequestPacket: FlatBufferObject, Verifiable {
       switch key {
       case .none_:
         break // NOTE - SWIFT doesnt support none
+      case .monster:
+        try ForwardOffset<bpio_Monster>.verify(&verifier, at: pos, of: bpio_Monster.self)
       case .statusrequest:
         try ForwardOffset<bpio_StatusRequest>.verify(&verifier, at: pos, of: bpio_StatusRequest.self)
       case .configurationrequest:
@@ -864,10 +1136,14 @@ public struct bpio_ResponsePacket: FlatBufferObject, Verifiable {
       switch key {
       case .none_:
         break // NOTE - SWIFT doesnt support none
-      case .statusresponse:
-        try ForwardOffset<bpio_StatusResponse>.verify(&verifier, at: pos, of: bpio_StatusResponse.self)
+      case .errorresponse:
+        try ForwardOffset<bpio_ErrorResponse>.verify(&verifier, at: pos, of: bpio_ErrorResponse.self)
+      case .monster:
+        try ForwardOffset<bpio_Monster>.verify(&verifier, at: pos, of: bpio_Monster.self)
       case .configurationresponse:
         try ForwardOffset<bpio_ConfigurationResponse>.verify(&verifier, at: pos, of: bpio_ConfigurationResponse.self)
+      case .statusresponse:
+        try ForwardOffset<bpio_StatusResponse>.verify(&verifier, at: pos, of: bpio_StatusResponse.self)
       case .dataresponse:
         try ForwardOffset<bpio_DataResponse>.verify(&verifier, at: pos, of: bpio_DataResponse.self)
       }

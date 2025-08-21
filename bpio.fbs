@@ -6,6 +6,34 @@ table StatusRequest{
   query:[StatusRequestTypes]; // List of status queries to perform.
 }
 
+enum Color:byte { Red = 0, Green, Blue = 2 }
+
+union Equipment { Weapon } // Optionally add more tables.
+
+struct Vec3 {
+  x:float;
+  y:float;
+  z:float;
+}
+
+table Monster {
+  pos:Vec3;
+  mana:short = 150;
+  hp:short = 100;
+  name:string;
+  friendly:bool = false (deprecated);
+  inventory:[ubyte];
+  color:Color = Blue;
+  weapons:[Weapon];
+  equipped:Equipment;
+  path:[Vec3];
+}
+
+table Weapon {
+  name:string;
+  damage:short;
+}
+
 // returns the status queries requested in StatusRequest
 // if query is empty, then all queries are performed
 table StatusResponse {
@@ -108,11 +136,11 @@ table DataResponse {
   data_read:[ubyte]; // Data read from device
 }
 
-//table ErrorResponse {
-//  error:string; // Error message if any.
-//}
+table ErrorResponse {
+  error:string; // Error message if any.
+}
 
-union RequestPacketContents { StatusRequest, ConfigurationRequest, DataRequest}
+union RequestPacketContents { Monster, StatusRequest, ConfigurationRequest, DataRequest}
 
 table RequestPacket {
   version_major:uint8;
@@ -121,7 +149,7 @@ table RequestPacket {
   contents:RequestPacketContents;
 }
 
-union ResponsePacketContents {StatusResponse, ConfigurationResponse, DataResponse} // ErrorResponse,
+union ResponsePacketContents {ErrorResponse, Monster, ConfigurationResponse, StatusResponse, DataResponse} // ErrorResponse,
 
 table ResponsePacket{
   //version_major:uint8;

@@ -2,11 +2,15 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
 
+export { Color } from './bpio/color.js';
 export { ConfigurationRequest } from './bpio/configuration-request.js';
 export { ConfigurationResponse } from './bpio/configuration-response.js';
 export { DataRequest } from './bpio/data-request.js';
 export { DataResponse } from './bpio/data-response.js';
+export { Equipment } from './bpio/equipment.js';
+export { ErrorResponse } from './bpio/error-response.js';
 export { ModeConfiguration } from './bpio/mode-configuration.js';
+export { Monster } from './bpio/monster.js';
 export { RequestPacket } from './bpio/request-packet.js';
 export { RequestPacketContents } from './bpio/request-packet-contents.js';
 export { ResponsePacket } from './bpio/response-packet.js';
@@ -14,3 +18,5 @@ export { ResponsePacketContents } from './bpio/response-packet-contents.js';
 export { StatusRequest } from './bpio/status-request.js';
 export { StatusRequestTypes } from './bpio/status-request-types.js';
 export { StatusResponse } from './bpio/status-response.js';
+export { Vec3 } from './bpio/vec3.js';
+export { Weapon } from './bpio/weapon.js';

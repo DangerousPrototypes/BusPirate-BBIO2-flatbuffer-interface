@@ -4,22 +4,25 @@
 
 import { ConfigurationRequest } from '../bpio/configuration-request.js';
 import { DataRequest } from '../bpio/data-request.js';
+import { Monster } from '../bpio/monster.js';
 import { StatusRequest } from '../bpio/status-request.js';
 
 
 export enum RequestPacketContents {
   NONE = 0,
-  StatusRequest = 1,
-  ConfigurationRequest = 2,
-  DataRequest = 3
+  Monster = 1,
+  StatusRequest = 2,
+  ConfigurationRequest = 3,
+  DataRequest = 4
 }
 
 export function unionToRequestPacketContents(
   type: RequestPacketContents,
-  accessor: (obj:ConfigurationRequest|DataRequest|StatusRequest) => ConfigurationRequest|DataRequest|StatusRequest|null
-): ConfigurationRequest|DataRequest|StatusRequest|null {
+  accessor: (obj:ConfigurationRequest|DataRequest|Monster|StatusRequest) => ConfigurationRequest|DataRequest|Monster|StatusRequest|null
+): ConfigurationRequest|DataRequest|Monster|StatusRequest|null {
   switch(RequestPacketContents[type]) {
     case 'NONE': return null; 
+    case 'Monster': return accessor(new Monster())! as Monster;
     case 'StatusRequest': return accessor(new StatusRequest())! as StatusRequest;
     case 'ConfigurationRequest': return accessor(new ConfigurationRequest())! as ConfigurationRequest;
     case 'DataRequest': return accessor(new DataRequest())! as DataRequest;
@@ -29,11 +32,12 @@ export function unionToRequestPacketContents(
 
 export function unionListToRequestPacketContents(
   type: RequestPacketContents, 
-  accessor: (index: number, obj:ConfigurationRequest|DataRequest|StatusRequest) => ConfigurationRequest|DataRequest|StatusRequest|null, 
+  accessor: (index: number, obj:ConfigurationRequest|DataRequest|Monster|StatusRequest) => ConfigurationRequest|DataRequest|Monster|StatusRequest|null, 
   index: number
-): ConfigurationRequest|DataRequest|StatusRequest|null {
+): ConfigurationRequest|DataRequest|Monster|StatusRequest|null {
   switch(RequestPacketContents[type]) {
     case 'NONE': return null; 
+    case 'Monster': return accessor(index, new Monster())! as Monster;
     case 'StatusRequest': return accessor(index, new StatusRequest())! as StatusRequest;
     case 'ConfigurationRequest': return accessor(index, new ConfigurationRequest())! as ConfigurationRequest;
     case 'DataRequest': return accessor(index, new DataRequest())! as DataRequest;

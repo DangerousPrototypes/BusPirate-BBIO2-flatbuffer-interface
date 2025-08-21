@@ -6,8 +6,10 @@ package bpio
 class ResponsePacketContents private constructor() {
     companion object {
         const val NONE: UByte = 0u
-        const val StatusResponse: UByte = 1u
-        const val ConfigurationResponse: UByte = 2u
-        const val DataResponse: UByte = 3u
+        const val ErrorResponse: UByte = 1u
+        const val Monster: UByte = 2u
+        const val ConfigurationResponse: UByte = 3u
+        const val StatusResponse: UByte = 4u
+        const val DataResponse: UByte = 5u
     }
 }

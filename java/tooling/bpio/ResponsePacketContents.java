@@ -6,11 +6,13 @@ package bpio;
 public final class ResponsePacketContents {
   private ResponsePacketContents() { }
   public static final byte NONE = 0;
-  public static final byte StatusResponse = 1;
-  public static final byte ConfigurationResponse = 2;
-  public static final byte DataResponse = 3;
+  public static final byte ErrorResponse = 1;
+  public static final byte Monster = 2;
+  public static final byte ConfigurationResponse = 3;
+  public static final byte StatusResponse = 4;
+  public static final byte DataResponse = 5;
 
-  public static final String[] names = { "NONE", "StatusResponse", "ConfigurationResponse", "DataResponse", };
+  public static final String[] names = { "NONE", "ErrorResponse", "Monster", "ConfigurationResponse", "StatusResponse", "DataResponse", };
 
   public static String name(int e) { return names[e]; }
 }

@@ -23,6 +23,7 @@ public struct RequestPacket : IFlatbufferObject
   public ushort MinimumVersionMinor { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
   public bpio.RequestPacketContents ContentsType { get { int o = __p.__offset(8); return o != 0 ? (bpio.RequestPacketContents)__p.bb.Get(o + __p.bb_pos) : bpio.RequestPacketContents.NONE; } }
   public TTable? Contents<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(10); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
+  public bpio.Monster ContentsAsMonster() { return Contents<bpio.Monster>().Value; }
   public bpio.StatusRequest ContentsAsStatusRequest() { return Contents<bpio.StatusRequest>().Value; }
   public bpio.ConfigurationRequest ContentsAsConfigurationRequest() { return Contents<bpio.ConfigurationRequest>().Value; }
   public bpio.DataRequest ContentsAsDataRequest() { return Contents<bpio.DataRequest>().Value; }

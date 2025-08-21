@@ -29,8 +29,10 @@ public struct ResponsePacket : IFlatbufferObject
   public byte[] GetErrorArray() { return __p.__vector_as_array<byte>(4); }
   public bpio.ResponsePacketContents ContentsType { get { int o = __p.__offset(6); return o != 0 ? (bpio.ResponsePacketContents)__p.bb.Get(o + __p.bb_pos) : bpio.ResponsePacketContents.NONE; } }
   public TTable? Contents<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(8); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
-  public bpio.StatusResponse ContentsAsStatusResponse() { return Contents<bpio.StatusResponse>().Value; }
+  public bpio.ErrorResponse ContentsAsErrorResponse() { return Contents<bpio.ErrorResponse>().Value; }
+  public bpio.Monster ContentsAsMonster() { return Contents<bpio.Monster>().Value; }
   public bpio.ConfigurationResponse ContentsAsConfigurationResponse() { return Contents<bpio.ConfigurationResponse>().Value; }
+  public bpio.StatusResponse ContentsAsStatusResponse() { return Contents<bpio.StatusResponse>().Value; }
   public bpio.DataResponse ContentsAsDataResponse() { return Contents<bpio.DataResponse>().Value; }
 
   public static Offset<bpio.ResponsePacket> CreateResponsePacket(FlatBufferBuilder builder,

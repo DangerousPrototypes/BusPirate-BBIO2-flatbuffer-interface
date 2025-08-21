@@ -4,24 +4,30 @@
 
 import { ConfigurationResponse } from '../bpio/configuration-response.js';
 import { DataResponse } from '../bpio/data-response.js';
+import { ErrorResponse } from '../bpio/error-response.js';
+import { Monster } from '../bpio/monster.js';
 import { StatusResponse } from '../bpio/status-response.js';
 
 
 export enum ResponsePacketContents {
   NONE = 0,
-  StatusResponse = 1,
-  ConfigurationResponse = 2,
-  DataResponse = 3
+  ErrorResponse = 1,
+  Monster = 2,
+  ConfigurationResponse = 3,
+  StatusResponse = 4,
+  DataResponse = 5
 }
 
 export function unionToResponsePacketContents(
   type: ResponsePacketContents,
-  accessor: (obj:ConfigurationResponse|DataResponse|StatusResponse) => ConfigurationResponse|DataResponse|StatusResponse|null
-): ConfigurationResponse|DataResponse|StatusResponse|null {
+  accessor: (obj:ConfigurationResponse|DataResponse|ErrorResponse|Monster|StatusResponse) => ConfigurationResponse|DataResponse|ErrorResponse|Monster|StatusResponse|null
+): ConfigurationResponse|DataResponse|ErrorResponse|Monster|StatusResponse|null {
   switch(ResponsePacketContents[type]) {
     case 'NONE': return null; 
-    case 'StatusResponse': return accessor(new StatusResponse())! as StatusResponse;
+    case 'ErrorResponse': return accessor(new ErrorResponse())! as ErrorResponse;
+    case 'Monster': return accessor(new Monster())! as Monster;
     case 'ConfigurationResponse': return accessor(new ConfigurationResponse())! as ConfigurationResponse;
+    case 'StatusResponse': return accessor(new StatusResponse())! as StatusResponse;
     case 'DataResponse': return accessor(new DataResponse())! as DataResponse;
     default: return null;
   }
@@ -29,13 +35,15 @@ export function unionToResponsePacketContents(
 
 export function unionListToResponsePacketContents(
   type: ResponsePacketContents, 
-  accessor: (index: number, obj:ConfigurationResponse|DataResponse|StatusResponse) => ConfigurationResponse|DataResponse|StatusResponse|null, 
+  accessor: (index: number, obj:ConfigurationResponse|DataResponse|ErrorResponse|Monster|StatusResponse) => ConfigurationResponse|DataResponse|ErrorResponse|Monster|StatusResponse|null, 
   index: number
-): ConfigurationResponse|DataResponse|StatusResponse|null {
+): ConfigurationResponse|DataResponse|ErrorResponse|Monster|StatusResponse|null {
   switch(ResponsePacketContents[type]) {
     case 'NONE': return null; 
-    case 'StatusResponse': return accessor(index, new StatusResponse())! as StatusResponse;
+    case 'ErrorResponse': return accessor(index, new ErrorResponse())! as ErrorResponse;
+    case 'Monster': return accessor(index, new Monster())! as Monster;
     case 'ConfigurationResponse': return accessor(index, new ConfigurationResponse())! as ConfigurationResponse;
+    case 'StatusResponse': return accessor(index, new StatusResponse())! as StatusResponse;
     case 'DataResponse': return accessor(index, new DataResponse())! as DataResponse;
     default: return null;
   }

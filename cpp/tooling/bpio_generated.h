@@ -18,6 +18,14 @@ namespace bpio {
 struct StatusRequest;
 struct StatusRequestBuilder;
 
+struct Vec3;
+
+struct Monster;
+struct MonsterBuilder;
+
+struct Weapon;
+struct WeaponBuilder;
+
 struct StatusResponse;
 struct StatusResponseBuilder;
 
@@ -35,6 +43,9 @@ struct DataRequestBuilder;
 
 struct DataResponse;
 struct DataResponseBuilder;
+
+struct ErrorResponse;
+struct ErrorResponseBuilder;
 
 struct RequestPacket;
 struct RequestPacketBuilder;
@@ -93,18 +104,94 @@ inline const char *EnumNameStatusRequestTypes(StatusRequestTypes e) {
   return EnumNamesStatusRequestTypes()[index];
 }
 
+enum Color : int8_t {
+  Color_Red = 0,
+  Color_Green = 1,
+  Color_Blue = 2,
+  Color_MIN = Color_Red,
+  Color_MAX = Color_Blue
+};
+
+inline const Color (&EnumValuesColor())[3] {
+  static const Color values[] = {
+    Color_Red,
+    Color_Green,
+    Color_Blue
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesColor() {
+  static const char * const names[4] = {
+    "Red",
+    "Green",
+    "Blue",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameColor(Color e) {
+  if (::flatbuffers::IsOutRange(e, Color_Red, Color_Blue)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesColor()[index];
+}
+
+enum Equipment : uint8_t {
+  Equipment_NONE = 0,
+  Equipment_Weapon = 1,
+  Equipment_MIN = Equipment_NONE,
+  Equipment_MAX = Equipment_Weapon
+};
+
+inline const Equipment (&EnumValuesEquipment())[2] {
+  static const Equipment values[] = {
+    Equipment_NONE,
+    Equipment_Weapon
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesEquipment() {
+  static const char * const names[3] = {
+    "NONE",
+    "Weapon",
+    nullptr
+  };
+  return names;
+}
+
+inline const char *EnumNameEquipment(Equipment e) {
+  if (::flatbuffers::IsOutRange(e, Equipment_NONE, Equipment_Weapon)) return "";
+  const size_t index = static_cast<size_t>(e);
+  return EnumNamesEquipment()[index];
+}
+
+template<typename T> struct EquipmentTraits {
+  static const Equipment enum_value = Equipment_NONE;
+};
+
+template<> struct EquipmentTraits<bpio::Weapon> {
+  static const Equipment enum_value = Equipment_Weapon;
+};
+
+bool VerifyEquipment(::flatbuffers::Verifier &verifier, const void *obj, Equipment type);
+bool VerifyEquipmentVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<uint8_t> *types);
+
 enum RequestPacketContents : uint8_t {
   RequestPacketContents_NONE = 0,
-  RequestPacketContents_StatusRequest = 1,
-  RequestPacketContents_ConfigurationRequest = 2,
-  RequestPacketContents_DataRequest = 3,
+  RequestPacketContents_Monster = 1,
+  RequestPacketContents_StatusRequest = 2,
+  RequestPacketContents_ConfigurationRequest = 3,
+  RequestPacketContents_DataRequest = 4,
   RequestPacketContents_MIN = RequestPacketContents_NONE,
   RequestPacketContents_MAX = RequestPacketContents_DataRequest
 };
 
-inline const RequestPacketContents (&EnumValuesRequestPacketContents())[4] {
+inline const RequestPacketContents (&EnumValuesRequestPacketContents())[5] {
   static const RequestPacketContents values[] = {
     RequestPacketContents_NONE,
+    RequestPacketContents_Monster,
     RequestPacketContents_StatusRequest,
     RequestPacketContents_ConfigurationRequest,
     RequestPacketContents_DataRequest
@@ -113,8 +200,9 @@ inline const RequestPacketContents (&EnumValuesRequestPacketContents())[4] {
 }
 
 inline const char * const *EnumNamesRequestPacketContents() {
-  static const char * const names[5] = {
+  static const char * const names[6] = {
     "NONE",
+    "Monster",
     "StatusRequest",
     "ConfigurationRequest",
     "DataRequest",
@@ -131,6 +219,10 @@ inline const char *EnumNameRequestPacketContents(RequestPacketContents e) {
 
 template<typename T> struct RequestPacketContentsTraits {
   static const RequestPacketContents enum_value = RequestPacketContents_NONE;
+};
+
+template<> struct RequestPacketContentsTraits<bpio::Monster> {
+  static const RequestPacketContents enum_value = RequestPacketContents_Monster;
 };
 
 template<> struct RequestPacketContentsTraits<bpio::StatusRequest> {
@@ -150,28 +242,34 @@ bool VerifyRequestPacketContentsVector(::flatbuffers::Verifier &verifier, const 
 
 enum ResponsePacketContents : uint8_t {
   ResponsePacketContents_NONE = 0,
-  ResponsePacketContents_StatusResponse = 1,
-  ResponsePacketContents_ConfigurationResponse = 2,
-  ResponsePacketContents_DataResponse = 3,
+  ResponsePacketContents_ErrorResponse = 1,
+  ResponsePacketContents_Monster = 2,
+  ResponsePacketContents_ConfigurationResponse = 3,
+  ResponsePacketContents_StatusResponse = 4,
+  ResponsePacketContents_DataResponse = 5,
   ResponsePacketContents_MIN = ResponsePacketContents_NONE,
   ResponsePacketContents_MAX = ResponsePacketContents_DataResponse
 };
 
-inline const ResponsePacketContents (&EnumValuesResponsePacketContents())[4] {
+inline const ResponsePacketContents (&EnumValuesResponsePacketContents())[6] {
   static const ResponsePacketContents values[] = {
     ResponsePacketContents_NONE,
-    ResponsePacketContents_StatusResponse,
+    ResponsePacketContents_ErrorResponse,
+    ResponsePacketContents_Monster,
     ResponsePacketContents_ConfigurationResponse,
+    ResponsePacketContents_StatusResponse,
     ResponsePacketContents_DataResponse
   };
   return values;
 }
 
 inline const char * const *EnumNamesResponsePacketContents() {
-  static const char * const names[5] = {
+  static const char * const names[7] = {
     "NONE",
-    "StatusResponse",
+    "ErrorResponse",
+    "Monster",
     "ConfigurationResponse",
+    "StatusResponse",
     "DataResponse",
     nullptr
   };
@@ -188,12 +286,20 @@ template<typename T> struct ResponsePacketContentsTraits {
   static const ResponsePacketContents enum_value = ResponsePacketContents_NONE;
 };
 
-template<> struct ResponsePacketContentsTraits<bpio::StatusResponse> {
-  static const ResponsePacketContents enum_value = ResponsePacketContents_StatusResponse;
+template<> struct ResponsePacketContentsTraits<bpio::ErrorResponse> {
+  static const ResponsePacketContents enum_value = ResponsePacketContents_ErrorResponse;
+};
+
+template<> struct ResponsePacketContentsTraits<bpio::Monster> {
+  static const ResponsePacketContents enum_value = ResponsePacketContents_Monster;
 };
 
 template<> struct ResponsePacketContentsTraits<bpio::ConfigurationResponse> {
   static const ResponsePacketContents enum_value = ResponsePacketContents_ConfigurationResponse;
+};
+
+template<> struct ResponsePacketContentsTraits<bpio::StatusResponse> {
+  static const ResponsePacketContents enum_value = ResponsePacketContents_StatusResponse;
 };
 
 template<> struct ResponsePacketContentsTraits<bpio::DataResponse> {
@@ -202,6 +308,35 @@ template<> struct ResponsePacketContentsTraits<bpio::DataResponse> {
 
 bool VerifyResponsePacketContents(::flatbuffers::Verifier &verifier, const void *obj, ResponsePacketContents type);
 bool VerifyResponsePacketContentsVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<uint8_t> *types);
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(4) Vec3 FLATBUFFERS_FINAL_CLASS {
+ private:
+  float x_;
+  float y_;
+  float z_;
+
+ public:
+  Vec3()
+      : x_(0),
+        y_(0),
+        z_(0) {
+  }
+  Vec3(float _x, float _y, float _z)
+      : x_(::flatbuffers::EndianScalar(_x)),
+        y_(::flatbuffers::EndianScalar(_y)),
+        z_(::flatbuffers::EndianScalar(_z)) {
+  }
+  float x() const {
+    return ::flatbuffers::EndianScalar(x_);
+  }
+  float y() const {
+    return ::flatbuffers::EndianScalar(y_);
+  }
+  float z() const {
+    return ::flatbuffers::EndianScalar(z_);
+  }
+};
+FLATBUFFERS_STRUCT_END(Vec3, 12);
 
 struct StatusRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef StatusRequestBuilder Builder;
@@ -252,6 +387,244 @@ inline ::flatbuffers::Offset<StatusRequest> CreateStatusRequestDirect(
   return bpio::CreateStatusRequest(
       _fbb,
       query__);
+}
+
+struct Monster FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
+  typedef MonsterBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_POS = 4,
+    VT_MANA = 6,
+    VT_HP = 8,
+    VT_NAME = 10,
+    VT_INVENTORY = 14,
+    VT_COLOR = 16,
+    VT_WEAPONS = 18,
+    VT_EQUIPPED_TYPE = 20,
+    VT_EQUIPPED = 22,
+    VT_PATH = 24
+  };
+  const bpio::Vec3 *pos() const {
+    return GetStruct<const bpio::Vec3 *>(VT_POS);
+  }
+  int16_t mana() const {
+    return GetField<int16_t>(VT_MANA, 150);
+  }
+  int16_t hp() const {
+    return GetField<int16_t>(VT_HP, 100);
+  }
+  const ::flatbuffers::String *name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NAME);
+  }
+  const ::flatbuffers::Vector<uint8_t> *inventory() const {
+    return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_INVENTORY);
+  }
+  bpio::Color color() const {
+    return static_cast<bpio::Color>(GetField<int8_t>(VT_COLOR, 2));
+  }
+  const ::flatbuffers::Vector<::flatbuffers::Offset<bpio::Weapon>> *weapons() const {
+    return GetPointer<const ::flatbuffers::Vector<::flatbuffers::Offset<bpio::Weapon>> *>(VT_WEAPONS);
+  }
+  bpio::Equipment equipped_type() const {
+    return static_cast<bpio::Equipment>(GetField<uint8_t>(VT_EQUIPPED_TYPE, 0));
+  }
+  const void *equipped() const {
+    return GetPointer<const void *>(VT_EQUIPPED);
+  }
+  template<typename T> const T *equipped_as() const;
+  const bpio::Weapon *equipped_as_Weapon() const {
+    return equipped_type() == bpio::Equipment_Weapon ? static_cast<const bpio::Weapon *>(equipped()) : nullptr;
+  }
+  const ::flatbuffers::Vector<const bpio::Vec3 *> *path() const {
+    return GetPointer<const ::flatbuffers::Vector<const bpio::Vec3 *> *>(VT_PATH);
+  }
+  bool Verify(::flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<bpio::Vec3>(verifier, VT_POS, 4) &&
+           VerifyField<int16_t>(verifier, VT_MANA, 2) &&
+           VerifyField<int16_t>(verifier, VT_HP, 2) &&
+           VerifyOffset(verifier, VT_NAME) &&
+           verifier.VerifyString(name()) &&
+           VerifyOffset(verifier, VT_INVENTORY) &&
+           verifier.VerifyVector(inventory()) &&
+           VerifyField<int8_t>(verifier, VT_COLOR, 1) &&
+           VerifyOffset(verifier, VT_WEAPONS) &&
+           verifier.VerifyVector(weapons()) &&
+           verifier.VerifyVectorOfTables(weapons()) &&
+           VerifyField<uint8_t>(verifier, VT_EQUIPPED_TYPE, 1) &&
+           VerifyOffset(verifier, VT_EQUIPPED) &&
+           VerifyEquipment(verifier, equipped(), equipped_type()) &&
+           VerifyOffset(verifier, VT_PATH) &&
+           verifier.VerifyVector(path()) &&
+           verifier.EndTable();
+  }
+};
+
+template<> inline const bpio::Weapon *Monster::equipped_as<bpio::Weapon>() const {
+  return equipped_as_Weapon();
+}
+
+struct MonsterBuilder {
+  typedef Monster Table;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_pos(const bpio::Vec3 *pos) {
+    fbb_.AddStruct(Monster::VT_POS, pos);
+  }
+  void add_mana(int16_t mana) {
+    fbb_.AddElement<int16_t>(Monster::VT_MANA, mana, 150);
+  }
+  void add_hp(int16_t hp) {
+    fbb_.AddElement<int16_t>(Monster::VT_HP, hp, 100);
+  }
+  void add_name(::flatbuffers::Offset<::flatbuffers::String> name) {
+    fbb_.AddOffset(Monster::VT_NAME, name);
+  }
+  void add_inventory(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> inventory) {
+    fbb_.AddOffset(Monster::VT_INVENTORY, inventory);
+  }
+  void add_color(bpio::Color color) {
+    fbb_.AddElement<int8_t>(Monster::VT_COLOR, static_cast<int8_t>(color), 2);
+  }
+  void add_weapons(::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<bpio::Weapon>>> weapons) {
+    fbb_.AddOffset(Monster::VT_WEAPONS, weapons);
+  }
+  void add_equipped_type(bpio::Equipment equipped_type) {
+    fbb_.AddElement<uint8_t>(Monster::VT_EQUIPPED_TYPE, static_cast<uint8_t>(equipped_type), 0);
+  }
+  void add_equipped(::flatbuffers::Offset<void> equipped) {
+    fbb_.AddOffset(Monster::VT_EQUIPPED, equipped);
+  }
+  void add_path(::flatbuffers::Offset<::flatbuffers::Vector<const bpio::Vec3 *>> path) {
+    fbb_.AddOffset(Monster::VT_PATH, path);
+  }
+  explicit MonsterBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ::flatbuffers::Offset<Monster> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = ::flatbuffers::Offset<Monster>(end);
+    return o;
+  }
+};
+
+inline ::flatbuffers::Offset<Monster> CreateMonster(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const bpio::Vec3 *pos = nullptr,
+    int16_t mana = 150,
+    int16_t hp = 100,
+    ::flatbuffers::Offset<::flatbuffers::String> name = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> inventory = 0,
+    bpio::Color color = bpio::Color_Blue,
+    ::flatbuffers::Offset<::flatbuffers::Vector<::flatbuffers::Offset<bpio::Weapon>>> weapons = 0,
+    bpio::Equipment equipped_type = bpio::Equipment_NONE,
+    ::flatbuffers::Offset<void> equipped = 0,
+    ::flatbuffers::Offset<::flatbuffers::Vector<const bpio::Vec3 *>> path = 0) {
+  MonsterBuilder builder_(_fbb);
+  builder_.add_path(path);
+  builder_.add_equipped(equipped);
+  builder_.add_weapons(weapons);
+  builder_.add_inventory(inventory);
+  builder_.add_name(name);
+  builder_.add_pos(pos);
+  builder_.add_hp(hp);
+  builder_.add_mana(mana);
+  builder_.add_equipped_type(equipped_type);
+  builder_.add_color(color);
+  return builder_.Finish();
+}
+
+inline ::flatbuffers::Offset<Monster> CreateMonsterDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const bpio::Vec3 *pos = nullptr,
+    int16_t mana = 150,
+    int16_t hp = 100,
+    const char *name = nullptr,
+    const std::vector<uint8_t> *inventory = nullptr,
+    bpio::Color color = bpio::Color_Blue,
+    const std::vector<::flatbuffers::Offset<bpio::Weapon>> *weapons = nullptr,
+    bpio::Equipment equipped_type = bpio::Equipment_NONE,
+    ::flatbuffers::Offset<void> equipped = 0,
+    const std::vector<bpio::Vec3> *path = nullptr) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
+  auto inventory__ = inventory ? _fbb.CreateVector<uint8_t>(*inventory) : 0;
+  auto weapons__ = weapons ? _fbb.CreateVector<::flatbuffers::Offset<bpio::Weapon>>(*weapons) : 0;
+  auto path__ = path ? _fbb.CreateVectorOfStructs<bpio::Vec3>(*path) : 0;
+  return bpio::CreateMonster(
+      _fbb,
+      pos,
+      mana,
+      hp,
+      name__,
+      inventory__,
+      color,
+      weapons__,
+      equipped_type,
+      equipped,
+      path__);
+}
+
+struct Weapon FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
+  typedef WeaponBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_NAME = 4,
+    VT_DAMAGE = 6
+  };
+  const ::flatbuffers::String *name() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_NAME);
+  }
+  int16_t damage() const {
+    return GetField<int16_t>(VT_DAMAGE, 0);
+  }
+  bool Verify(::flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_NAME) &&
+           verifier.VerifyString(name()) &&
+           VerifyField<int16_t>(verifier, VT_DAMAGE, 2) &&
+           verifier.EndTable();
+  }
+};
+
+struct WeaponBuilder {
+  typedef Weapon Table;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_name(::flatbuffers::Offset<::flatbuffers::String> name) {
+    fbb_.AddOffset(Weapon::VT_NAME, name);
+  }
+  void add_damage(int16_t damage) {
+    fbb_.AddElement<int16_t>(Weapon::VT_DAMAGE, damage, 0);
+  }
+  explicit WeaponBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ::flatbuffers::Offset<Weapon> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = ::flatbuffers::Offset<Weapon>(end);
+    return o;
+  }
+};
+
+inline ::flatbuffers::Offset<Weapon> CreateWeapon(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> name = 0,
+    int16_t damage = 0) {
+  WeaponBuilder builder_(_fbb);
+  builder_.add_name(name);
+  builder_.add_damage(damage);
+  return builder_.Finish();
+}
+
+inline ::flatbuffers::Offset<Weapon> CreateWeaponDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const char *name = nullptr,
+    int16_t damage = 0) {
+  auto name__ = name ? _fbb.CreateString(name) : 0;
+  return bpio::CreateWeapon(
+      _fbb,
+      name__,
+      damage);
 }
 
 struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
@@ -1327,6 +1700,57 @@ inline ::flatbuffers::Offset<DataResponse> CreateDataResponseDirect(
       data_read__);
 }
 
+struct ErrorResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
+  typedef ErrorResponseBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_ERROR = 4
+  };
+  const ::flatbuffers::String *error() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_ERROR);
+  }
+  bool Verify(::flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_ERROR) &&
+           verifier.VerifyString(error()) &&
+           verifier.EndTable();
+  }
+};
+
+struct ErrorResponseBuilder {
+  typedef ErrorResponse Table;
+  ::flatbuffers::FlatBufferBuilder &fbb_;
+  ::flatbuffers::uoffset_t start_;
+  void add_error(::flatbuffers::Offset<::flatbuffers::String> error) {
+    fbb_.AddOffset(ErrorResponse::VT_ERROR, error);
+  }
+  explicit ErrorResponseBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  ::flatbuffers::Offset<ErrorResponse> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = ::flatbuffers::Offset<ErrorResponse>(end);
+    return o;
+  }
+};
+
+inline ::flatbuffers::Offset<ErrorResponse> CreateErrorResponse(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    ::flatbuffers::Offset<::flatbuffers::String> error = 0) {
+  ErrorResponseBuilder builder_(_fbb);
+  builder_.add_error(error);
+  return builder_.Finish();
+}
+
+inline ::flatbuffers::Offset<ErrorResponse> CreateErrorResponseDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const char *error = nullptr) {
+  auto error__ = error ? _fbb.CreateString(error) : 0;
+  return bpio::CreateErrorResponse(
+      _fbb,
+      error__);
+}
+
 struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef RequestPacketBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -1348,6 +1772,9 @@ struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     return GetPointer<const void *>(VT_CONTENTS);
   }
   template<typename T> const T *contents_as() const;
+  const bpio::Monster *contents_as_Monster() const {
+    return contents_type() == bpio::RequestPacketContents_Monster ? static_cast<const bpio::Monster *>(contents()) : nullptr;
+  }
   const bpio::StatusRequest *contents_as_StatusRequest() const {
     return contents_type() == bpio::RequestPacketContents_StatusRequest ? static_cast<const bpio::StatusRequest *>(contents()) : nullptr;
   }
@@ -1367,6 +1794,10 @@ struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
            verifier.EndTable();
   }
 };
+
+template<> inline const bpio::Monster *RequestPacket::contents_as<bpio::Monster>() const {
+  return contents_as_Monster();
+}
 
 template<> inline const bpio::StatusRequest *RequestPacket::contents_as<bpio::StatusRequest>() const {
   return contents_as_StatusRequest();
@@ -1438,11 +1869,17 @@ struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     return GetPointer<const void *>(VT_CONTENTS);
   }
   template<typename T> const T *contents_as() const;
-  const bpio::StatusResponse *contents_as_StatusResponse() const {
-    return contents_type() == bpio::ResponsePacketContents_StatusResponse ? static_cast<const bpio::StatusResponse *>(contents()) : nullptr;
+  const bpio::ErrorResponse *contents_as_ErrorResponse() const {
+    return contents_type() == bpio::ResponsePacketContents_ErrorResponse ? static_cast<const bpio::ErrorResponse *>(contents()) : nullptr;
+  }
+  const bpio::Monster *contents_as_Monster() const {
+    return contents_type() == bpio::ResponsePacketContents_Monster ? static_cast<const bpio::Monster *>(contents()) : nullptr;
   }
   const bpio::ConfigurationResponse *contents_as_ConfigurationResponse() const {
     return contents_type() == bpio::ResponsePacketContents_ConfigurationResponse ? static_cast<const bpio::ConfigurationResponse *>(contents()) : nullptr;
+  }
+  const bpio::StatusResponse *contents_as_StatusResponse() const {
+    return contents_type() == bpio::ResponsePacketContents_StatusResponse ? static_cast<const bpio::StatusResponse *>(contents()) : nullptr;
   }
   const bpio::DataResponse *contents_as_DataResponse() const {
     return contents_type() == bpio::ResponsePacketContents_DataResponse ? static_cast<const bpio::DataResponse *>(contents()) : nullptr;
@@ -1458,12 +1895,20 @@ struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   }
 };
 
-template<> inline const bpio::StatusResponse *ResponsePacket::contents_as<bpio::StatusResponse>() const {
-  return contents_as_StatusResponse();
+template<> inline const bpio::ErrorResponse *ResponsePacket::contents_as<bpio::ErrorResponse>() const {
+  return contents_as_ErrorResponse();
+}
+
+template<> inline const bpio::Monster *ResponsePacket::contents_as<bpio::Monster>() const {
+  return contents_as_Monster();
 }
 
 template<> inline const bpio::ConfigurationResponse *ResponsePacket::contents_as<bpio::ConfigurationResponse>() const {
   return contents_as_ConfigurationResponse();
+}
+
+template<> inline const bpio::StatusResponse *ResponsePacket::contents_as<bpio::StatusResponse>() const {
+  return contents_as_StatusResponse();
 }
 
 template<> inline const bpio::DataResponse *ResponsePacket::contents_as<bpio::DataResponse>() const {
@@ -1519,10 +1964,39 @@ inline ::flatbuffers::Offset<ResponsePacket> CreateResponsePacketDirect(
       contents);
 }
 
+inline bool VerifyEquipment(::flatbuffers::Verifier &verifier, const void *obj, Equipment type) {
+  switch (type) {
+    case Equipment_NONE: {
+      return true;
+    }
+    case Equipment_Weapon: {
+      auto ptr = reinterpret_cast<const bpio::Weapon *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    default: return true;
+  }
+}
+
+inline bool VerifyEquipmentVector(::flatbuffers::Verifier &verifier, const ::flatbuffers::Vector<::flatbuffers::Offset<void>> *values, const ::flatbuffers::Vector<uint8_t> *types) {
+  if (!values || !types) return !values && !types;
+  if (values->size() != types->size()) return false;
+  for (::flatbuffers::uoffset_t i = 0; i < values->size(); ++i) {
+    if (!VerifyEquipment(
+        verifier,  values->Get(i), types->GetEnum<Equipment>(i))) {
+      return false;
+    }
+  }
+  return true;
+}
+
 inline bool VerifyRequestPacketContents(::flatbuffers::Verifier &verifier, const void *obj, RequestPacketContents type) {
   switch (type) {
     case RequestPacketContents_NONE: {
       return true;
+    }
+    case RequestPacketContents_Monster: {
+      auto ptr = reinterpret_cast<const bpio::Monster *>(obj);
+      return verifier.VerifyTable(ptr);
     }
     case RequestPacketContents_StatusRequest: {
       auto ptr = reinterpret_cast<const bpio::StatusRequest *>(obj);
@@ -1557,12 +2031,20 @@ inline bool VerifyResponsePacketContents(::flatbuffers::Verifier &verifier, cons
     case ResponsePacketContents_NONE: {
       return true;
     }
-    case ResponsePacketContents_StatusResponse: {
-      auto ptr = reinterpret_cast<const bpio::StatusResponse *>(obj);
+    case ResponsePacketContents_ErrorResponse: {
+      auto ptr = reinterpret_cast<const bpio::ErrorResponse *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case ResponsePacketContents_Monster: {
+      auto ptr = reinterpret_cast<const bpio::Monster *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case ResponsePacketContents_ConfigurationResponse: {
       auto ptr = reinterpret_cast<const bpio::ConfigurationResponse *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case ResponsePacketContents_StatusResponse: {
+      auto ptr = reinterpret_cast<const bpio::StatusResponse *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case ResponsePacketContents_DataResponse: {

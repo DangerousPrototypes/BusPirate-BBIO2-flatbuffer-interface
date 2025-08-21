@@ -4,6 +4,7 @@
 
 class RequestPacketContents(object):
     NONE = 0
-    StatusRequest = 1
-    ConfigurationRequest = 2
-    DataRequest = 3
+    Monster = 1
+    StatusRequest = 2
+    ConfigurationRequest = 3
+    DataRequest = 4

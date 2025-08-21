@@ -6,8 +6,9 @@ package bpio
 class RequestPacketContents private constructor() {
     companion object {
         const val NONE: UByte = 0u
-        const val StatusRequest: UByte = 1u
-        const val ConfigurationRequest: UByte = 2u
-        const val DataRequest: UByte = 3u
+        const val Monster: UByte = 1u
+        const val StatusRequest: UByte = 2u
+        const val ConfigurationRequest: UByte = 3u
+        const val DataRequest: UByte = 4u
     }
 }

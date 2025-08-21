@@ -6,11 +6,12 @@ package bpio;
 public final class RequestPacketContents {
   private RequestPacketContents() { }
   public static final byte NONE = 0;
-  public static final byte StatusRequest = 1;
-  public static final byte ConfigurationRequest = 2;
-  public static final byte DataRequest = 3;
+  public static final byte Monster = 1;
+  public static final byte StatusRequest = 2;
+  public static final byte ConfigurationRequest = 3;
+  public static final byte DataRequest = 4;
 
-  public static final String[] names = { "NONE", "StatusRequest", "ConfigurationRequest", "DataRequest", };
+  public static final String[] names = { "NONE", "Monster", "StatusRequest", "ConfigurationRequest", "DataRequest", };
 
   public static String name(int e) { return names[e]; }
 }

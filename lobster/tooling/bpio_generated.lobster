@@ -14,19 +14,37 @@ enum StatusRequestTypes:
     StatusRequestTypes_Disk = 7
     StatusRequestTypes_LED = 8
 
+enum Color:
+    Color_Red = 0
+    Color_Green = 1
+    Color_Blue = 2
+
+enum Equipment:
+    Equipment_NONE = 0
+    Equipment_Weapon = 1
+
 enum RequestPacketContents:
     RequestPacketContents_NONE = 0
-    RequestPacketContents_StatusRequest = 1
-    RequestPacketContents_ConfigurationRequest = 2
-    RequestPacketContents_DataRequest = 3
+    RequestPacketContents_Monster = 1
+    RequestPacketContents_StatusRequest = 2
+    RequestPacketContents_ConfigurationRequest = 3
+    RequestPacketContents_DataRequest = 4
 
 enum ResponsePacketContents:
     ResponsePacketContents_NONE = 0
-    ResponsePacketContents_StatusResponse = 1
-    ResponsePacketContents_ConfigurationResponse = 2
-    ResponsePacketContents_DataResponse = 3
+    ResponsePacketContents_ErrorResponse = 1
+    ResponsePacketContents_Monster = 2
+    ResponsePacketContents_ConfigurationResponse = 3
+    ResponsePacketContents_StatusResponse = 4
+    ResponsePacketContents_DataResponse = 5
 
 class StatusRequest
+
+class Vec3
+
+class Monster
+
+class Weapon
 
 class StatusResponse
 
@@ -39,6 +57,8 @@ class ConfigurationResponse
 class DataRequest
 
 class DataResponse
+
+class ErrorResponse
 
 class RequestPacket
 
@@ -69,6 +89,129 @@ def StatusRequestCreateQueryVector(b_:flatbuffers.builder, v_:[StatusRequestType
     b_.StartVector(1, v_.length, 1)
     reverse(v_) e_: b_.PrependInt8(e_)
     return b_.EndVector(v_.length)
+
+class Vec3 : flatbuffers.handle
+    def x() -> float:
+        return buf_.read_float32_le(pos_ + 0)
+    def y() -> float:
+        return buf_.read_float32_le(pos_ + 4)
+    def z() -> float:
+        return buf_.read_float32_le(pos_ + 8)
+
+def CreateVec3(b_:flatbuffers.builder, x:float, y:float, z:float):
+    b_.Prep(4, 12)
+    b_.PrependFloat32(z)
+    b_.PrependFloat32(y)
+    b_.PrependFloat32(x)
+    return b_.Offset()
+
+class Monster : flatbuffers.handle
+    def pos() -> bpio.Vec3?:
+        let o = flatbuffers.field_struct(buf_, pos_, 4)
+        return if o: bpio.Vec3 { buf_, o } else: nil
+    def mana() -> int:
+        return flatbuffers.field_int16(buf_, pos_, 6, 150)
+    def hp() -> int:
+        return flatbuffers.field_int16(buf_, pos_, 8, 100)
+    def name() -> string:
+        return flatbuffers.field_string(buf_, pos_, 10)
+    def inventory(i:int) -> int:
+        return read_uint8_le(buf_, buf_.flatbuffers.field_vector(pos_, 14) + i * 1)
+    def inventory_length() -> int:
+        return flatbuffers.field_vector_len(buf_, pos_, 14)
+    def color() -> Color:
+        return Color(flatbuffers.field_int8(buf_, pos_, 16, 2))
+    def weapons(i:int) -> bpio.Weapon:
+        return bpio.Weapon { buf_, flatbuffers.indirect(buf_, flatbuffers.field_vector(buf_, pos_, 18) + i * 4) }
+    def weapons_length() -> int:
+        return flatbuffers.field_vector_len(buf_, pos_, 18)
+    def equipped_type() -> Equipment:
+        return Equipment(flatbuffers.field_uint8(buf_, pos_, 20, 0))
+    def equipped_as_Weapon():
+        return bpio.Weapon { buf_, flatbuffers.field_table(buf_, pos_, 22) }
+    def path(i:int) -> bpio.Vec3:
+        return bpio.Vec3 { buf_, flatbuffers.field_vector(buf_, pos_, 24) + i * 12 }
+    def path_length() -> int:
+        return flatbuffers.field_vector_len(buf_, pos_, 24)
+
+def GetRootAsMonster(buf:string): return Monster { buf, flatbuffers.indirect(buf, 0) }
+
+struct MonsterBuilder:
+    b_:flatbuffers.builder
+    def start():
+        b_.StartObject(11)
+        return this
+    def add_pos(pos:flatbuffers.offset):
+        b_.PrependStructSlot(0, pos)
+        return this
+    def add_mana(mana:int):
+        b_.PrependInt16Slot(1, mana, 150)
+        return this
+    def add_hp(hp:int):
+        b_.PrependInt16Slot(2, hp, 100)
+        return this
+    def add_name(name:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(3, name)
+        return this
+    def add_inventory(inventory:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(5, inventory)
+        return this
+    def add_color(color:Color):
+        b_.PrependInt8Slot(6, color, 2)
+        return this
+    def add_weapons(weapons:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(7, weapons)
+        return this
+    def add_equipped_type(equipped_type:Equipment):
+        b_.PrependUint8Slot(8, equipped_type, 0)
+        return this
+    def add_equipped(equipped:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(9, equipped)
+        return this
+    def add_path(path:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(10, path)
+        return this
+    def end():
+        return b_.EndObject()
+
+def MonsterStartInventoryVector(b_:flatbuffers.builder, n_:int):
+    b_.StartVector(1, n_, 1)
+def MonsterCreateInventoryVector(b_:flatbuffers.builder, v_:[int]):
+    b_.StartVector(1, v_.length, 1)
+    reverse(v_) e_: b_.PrependUint8(e_)
+    return b_.EndVector(v_.length)
+
+def MonsterStartWeaponsVector(b_:flatbuffers.builder, n_:int):
+    b_.StartVector(4, n_, 4)
+def MonsterCreateWeaponsVector(b_:flatbuffers.builder, v_:[flatbuffers.offset]):
+    b_.StartVector(4, v_.length, 4)
+    reverse(v_) e_: b_.PrependUOffsetTRelative(e_)
+    return b_.EndVector(v_.length)
+
+def MonsterStartPathVector(b_:flatbuffers.builder, n_:int):
+    b_.StartVector(12, n_, 4)
+
+class Weapon : flatbuffers.handle
+    def name() -> string:
+        return flatbuffers.field_string(buf_, pos_, 4)
+    def damage() -> int:
+        return flatbuffers.field_int16(buf_, pos_, 6, 0)
+
+def GetRootAsWeapon(buf:string): return Weapon { buf, flatbuffers.indirect(buf, 0) }
+
+struct WeaponBuilder:
+    b_:flatbuffers.builder
+    def start():
+        b_.StartObject(2)
+        return this
+    def add_name(name:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(0, name)
+        return this
+    def add_damage(damage:int):
+        b_.PrependInt16Slot(1, damage, 0)
+        return this
+    def end():
+        return b_.EndObject()
 
 class StatusResponse : flatbuffers.handle
     def error() -> string:
@@ -552,6 +695,23 @@ def DataResponseCreateDataReadVector(b_:flatbuffers.builder, v_:[int]):
     reverse(v_) e_: b_.PrependUint8(e_)
     return b_.EndVector(v_.length)
 
+class ErrorResponse : flatbuffers.handle
+    def error() -> string:
+        return flatbuffers.field_string(buf_, pos_, 4)
+
+def GetRootAsErrorResponse(buf:string): return ErrorResponse { buf, flatbuffers.indirect(buf, 0) }
+
+struct ErrorResponseBuilder:
+    b_:flatbuffers.builder
+    def start():
+        b_.StartObject(1)
+        return this
+    def add_error(error:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(0, error)
+        return this
+    def end():
+        return b_.EndObject()
+
 class RequestPacket : flatbuffers.handle
     def version_major() -> int:
         return flatbuffers.field_uint8(buf_, pos_, 4, 0)
@@ -559,6 +719,8 @@ class RequestPacket : flatbuffers.handle
         return flatbuffers.field_uint16(buf_, pos_, 6, 0)
     def contents_type() -> RequestPacketContents:
         return RequestPacketContents(flatbuffers.field_uint8(buf_, pos_, 8, 0))
+    def contents_as_Monster():
+        return bpio.Monster { buf_, flatbuffers.field_table(buf_, pos_, 10) }
     def contents_as_StatusRequest():
         return bpio.StatusRequest { buf_, flatbuffers.field_table(buf_, pos_, 10) }
     def contents_as_ConfigurationRequest():
@@ -593,10 +755,14 @@ class ResponsePacket : flatbuffers.handle
         return flatbuffers.field_string(buf_, pos_, 4)
     def contents_type() -> ResponsePacketContents:
         return ResponsePacketContents(flatbuffers.field_uint8(buf_, pos_, 6, 0))
-    def contents_as_StatusResponse():
-        return bpio.StatusResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
+    def contents_as_ErrorResponse():
+        return bpio.ErrorResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
+    def contents_as_Monster():
+        return bpio.Monster { buf_, flatbuffers.field_table(buf_, pos_, 8) }
     def contents_as_ConfigurationResponse():
         return bpio.ConfigurationResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
+    def contents_as_StatusResponse():
+        return bpio.StatusResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
     def contents_as_DataResponse():
         return bpio.DataResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
 

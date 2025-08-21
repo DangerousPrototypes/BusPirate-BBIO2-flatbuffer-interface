@@ -18,11 +18,24 @@
 #define flatbuffers_extension "bin"
 #endif
 
+typedef struct bpio_Vec3 bpio_Vec3_t;
+typedef const bpio_Vec3_t *bpio_Vec3_struct_t;
+typedef bpio_Vec3_t *bpio_Vec3_mutable_struct_t;
+typedef const bpio_Vec3_t *bpio_Vec3_vec_t;
+typedef bpio_Vec3_t *bpio_Vec3_mutable_vec_t;
 
 typedef const struct bpio_StatusRequest_table *bpio_StatusRequest_table_t;
 typedef struct bpio_StatusRequest_table *bpio_StatusRequest_mutable_table_t;
 typedef const flatbuffers_uoffset_t *bpio_StatusRequest_vec_t;
 typedef flatbuffers_uoffset_t *bpio_StatusRequest_mutable_vec_t;
+typedef const struct bpio_Monster_table *bpio_Monster_table_t;
+typedef struct bpio_Monster_table *bpio_Monster_mutable_table_t;
+typedef const flatbuffers_uoffset_t *bpio_Monster_vec_t;
+typedef flatbuffers_uoffset_t *bpio_Monster_mutable_vec_t;
+typedef const struct bpio_Weapon_table *bpio_Weapon_table_t;
+typedef struct bpio_Weapon_table *bpio_Weapon_mutable_table_t;
+typedef const flatbuffers_uoffset_t *bpio_Weapon_vec_t;
+typedef flatbuffers_uoffset_t *bpio_Weapon_mutable_vec_t;
 typedef const struct bpio_StatusResponse_table *bpio_StatusResponse_table_t;
 typedef struct bpio_StatusResponse_table *bpio_StatusResponse_mutable_table_t;
 typedef const flatbuffers_uoffset_t *bpio_StatusResponse_vec_t;
@@ -47,6 +60,10 @@ typedef const struct bpio_DataResponse_table *bpio_DataResponse_table_t;
 typedef struct bpio_DataResponse_table *bpio_DataResponse_mutable_table_t;
 typedef const flatbuffers_uoffset_t *bpio_DataResponse_vec_t;
 typedef flatbuffers_uoffset_t *bpio_DataResponse_mutable_vec_t;
+typedef const struct bpio_ErrorResponse_table *bpio_ErrorResponse_table_t;
+typedef struct bpio_ErrorResponse_table *bpio_ErrorResponse_mutable_table_t;
+typedef const flatbuffers_uoffset_t *bpio_ErrorResponse_vec_t;
+typedef flatbuffers_uoffset_t *bpio_ErrorResponse_mutable_vec_t;
 typedef const struct bpio_RequestPacket_table *bpio_RequestPacket_table_t;
 typedef struct bpio_RequestPacket_table *bpio_RequestPacket_mutable_table_t;
 typedef const flatbuffers_uoffset_t *bpio_RequestPacket_vec_t;
@@ -66,6 +83,42 @@ typedef flatbuffers_uoffset_t *bpio_ResponsePacket_mutable_vec_t;
 #define bpio_StatusRequest_type_identifier "\xfa\x01\xe5\x0b"
 #ifndef bpio_StatusRequest_file_extension
 #define bpio_StatusRequest_file_extension "bin"
+#endif
+#ifndef bpio_Vec3_file_identifier
+#define bpio_Vec3_file_identifier 0
+#endif
+/* deprecated, use bpio_Vec3_file_identifier */
+#ifndef bpio_Vec3_identifier
+#define bpio_Vec3_identifier 0
+#endif
+#define bpio_Vec3_type_hash ((flatbuffers_thash_t)0x378b3804)
+#define bpio_Vec3_type_identifier "\x04\x38\x8b\x37"
+#ifndef bpio_Vec3_file_extension
+#define bpio_Vec3_file_extension "bin"
+#endif
+#ifndef bpio_Monster_file_identifier
+#define bpio_Monster_file_identifier 0
+#endif
+/* deprecated, use bpio_Monster_file_identifier */
+#ifndef bpio_Monster_identifier
+#define bpio_Monster_identifier 0
+#endif
+#define bpio_Monster_type_hash ((flatbuffers_thash_t)0x2f8095a3)
+#define bpio_Monster_type_identifier "\xa3\x95\x80\x2f"
+#ifndef bpio_Monster_file_extension
+#define bpio_Monster_file_extension "bin"
+#endif
+#ifndef bpio_Weapon_file_identifier
+#define bpio_Weapon_file_identifier 0
+#endif
+/* deprecated, use bpio_Weapon_file_identifier */
+#ifndef bpio_Weapon_identifier
+#define bpio_Weapon_identifier 0
+#endif
+#define bpio_Weapon_type_hash ((flatbuffers_thash_t)0x55b45b)
+#define bpio_Weapon_type_identifier "\x5b\xb4\x55\x00"
+#ifndef bpio_Weapon_file_extension
+#define bpio_Weapon_file_extension "bin"
 #endif
 #ifndef bpio_StatusResponse_file_identifier
 #define bpio_StatusResponse_file_identifier 0
@@ -139,6 +192,18 @@ typedef flatbuffers_uoffset_t *bpio_ResponsePacket_mutable_vec_t;
 #ifndef bpio_DataResponse_file_extension
 #define bpio_DataResponse_file_extension "bin"
 #endif
+#ifndef bpio_ErrorResponse_file_identifier
+#define bpio_ErrorResponse_file_identifier 0
+#endif
+/* deprecated, use bpio_ErrorResponse_file_identifier */
+#ifndef bpio_ErrorResponse_identifier
+#define bpio_ErrorResponse_identifier 0
+#endif
+#define bpio_ErrorResponse_type_hash ((flatbuffers_thash_t)0x52cd8820)
+#define bpio_ErrorResponse_type_identifier "\x20\x88\xcd\x52"
+#ifndef bpio_ErrorResponse_file_extension
+#define bpio_ErrorResponse_file_extension "bin"
+#endif
 #ifndef bpio_RequestPacket_file_identifier
 #define bpio_RequestPacket_file_identifier 0
 #endif
@@ -208,6 +273,52 @@ static inline int bpio_StatusRequestTypes_is_known_value(bpio_StatusRequestTypes
     }
 }
 
+typedef int8_t bpio_Color_enum_t;
+__flatbuffers_define_integer_type(bpio_Color, bpio_Color_enum_t, 8)
+#define bpio_Color_Red ((bpio_Color_enum_t)INT8_C(0))
+#define bpio_Color_Green ((bpio_Color_enum_t)INT8_C(1))
+#define bpio_Color_Blue ((bpio_Color_enum_t)INT8_C(2))
+
+static inline const char *bpio_Color_name(bpio_Color_enum_t value)
+{
+    switch (value) {
+    case bpio_Color_Red: return "Red";
+    case bpio_Color_Green: return "Green";
+    case bpio_Color_Blue: return "Blue";
+    default: return "";
+    }
+}
+
+static inline int bpio_Color_is_known_value(bpio_Color_enum_t value)
+{
+    switch (value) {
+    case bpio_Color_Red: return 1;
+    case bpio_Color_Green: return 1;
+    case bpio_Color_Blue: return 1;
+    default: return 0;
+    }
+}
+
+
+struct bpio_Vec3 {
+    alignas(4) float x;
+    alignas(4) float y;
+    alignas(4) float z;
+};
+static_assert(sizeof(bpio_Vec3_t) == 12, "struct size mismatch");
+
+static inline const bpio_Vec3_t *bpio_Vec3__const_ptr_add(const bpio_Vec3_t *p, size_t i) { return p + i; }
+static inline bpio_Vec3_t *bpio_Vec3__ptr_add(bpio_Vec3_t *p, size_t i) { return p + i; }
+static inline bpio_Vec3_struct_t bpio_Vec3_vec_at(bpio_Vec3_vec_t vec, size_t i)
+__flatbuffers_struct_vec_at(vec, i)
+static inline size_t bpio_Vec3__size(void) { return 12; }
+static inline size_t bpio_Vec3_vec_len(bpio_Vec3_vec_t vec)
+__flatbuffers_vec_len(vec)
+__flatbuffers_struct_as_root(bpio_Vec3)
+
+__flatbuffers_define_struct_scalar_field(bpio_Vec3, x, flatbuffers_float, float)
+__flatbuffers_define_struct_scalar_field(bpio_Vec3, y, flatbuffers_float, float)
+__flatbuffers_define_struct_scalar_field(bpio_Vec3, z, flatbuffers_float, float)
 
 
 struct bpio_StatusRequest_table { uint8_t unused__; };
@@ -219,6 +330,61 @@ __flatbuffers_offset_vec_at(bpio_StatusRequest_table_t, vec, i, 0)
 __flatbuffers_table_as_root(bpio_StatusRequest)
 
 __flatbuffers_define_vector_field(0, bpio_StatusRequest, query, bpio_StatusRequestTypes_vec_t, 0)
+typedef uint8_t bpio_Equipment_union_type_t;
+__flatbuffers_define_integer_type(bpio_Equipment, bpio_Equipment_union_type_t, 8)
+__flatbuffers_define_union(flatbuffers_, bpio_Equipment)
+#define bpio_Equipment_NONE ((bpio_Equipment_union_type_t)UINT8_C(0))
+#define bpio_Equipment_Weapon ((bpio_Equipment_union_type_t)UINT8_C(1))
+
+static inline const char *bpio_Equipment_type_name(bpio_Equipment_union_type_t type)
+{
+    switch (type) {
+    case bpio_Equipment_NONE: return "NONE";
+    case bpio_Equipment_Weapon: return "Weapon";
+    default: return "";
+    }
+}
+
+static inline int bpio_Equipment_is_known_type(bpio_Equipment_union_type_t type)
+{
+    switch (type) {
+    case bpio_Equipment_NONE: return 1;
+    case bpio_Equipment_Weapon: return 1;
+    default: return 0;
+    }
+}
+
+
+struct bpio_Monster_table { uint8_t unused__; };
+
+static inline size_t bpio_Monster_vec_len(bpio_Monster_vec_t vec)
+__flatbuffers_vec_len(vec)
+static inline bpio_Monster_table_t bpio_Monster_vec_at(bpio_Monster_vec_t vec, size_t i)
+__flatbuffers_offset_vec_at(bpio_Monster_table_t, vec, i, 0)
+__flatbuffers_table_as_root(bpio_Monster)
+
+__flatbuffers_define_struct_field(0, bpio_Monster, pos, bpio_Vec3_struct_t, 0)
+__flatbuffers_define_scalar_field(1, bpio_Monster, mana, flatbuffers_int16, int16_t, INT16_C(150))
+__flatbuffers_define_scalar_field(2, bpio_Monster, hp, flatbuffers_int16, int16_t, INT16_C(100))
+__flatbuffers_define_string_field(3, bpio_Monster, name, 0)
+/* Skipping deprecated field: 'bpio_Monster_friendly' */
+
+__flatbuffers_define_vector_field(5, bpio_Monster, inventory, flatbuffers_uint8_vec_t, 0)
+__flatbuffers_define_scalar_field(6, bpio_Monster, color, bpio_Color, bpio_Color_enum_t, INT8_C(2))
+__flatbuffers_define_vector_field(7, bpio_Monster, weapons, bpio_Weapon_vec_t, 0)
+__flatbuffers_define_union_field(flatbuffers_, 9, bpio_Monster, equipped, bpio_Equipment, 0)
+__flatbuffers_define_vector_field(10, bpio_Monster, path, bpio_Vec3_vec_t, 0)
+
+struct bpio_Weapon_table { uint8_t unused__; };
+
+static inline size_t bpio_Weapon_vec_len(bpio_Weapon_vec_t vec)
+__flatbuffers_vec_len(vec)
+static inline bpio_Weapon_table_t bpio_Weapon_vec_at(bpio_Weapon_vec_t vec, size_t i)
+__flatbuffers_offset_vec_at(bpio_Weapon_table_t, vec, i, 0)
+__flatbuffers_table_as_root(bpio_Weapon)
+
+__flatbuffers_define_string_field(0, bpio_Weapon, name, 0)
+__flatbuffers_define_scalar_field(1, bpio_Weapon, damage, flatbuffers_int16, int16_t, INT16_C(0))
 
 struct bpio_StatusResponse_table { uint8_t unused__; };
 
@@ -344,18 +510,30 @@ __flatbuffers_table_as_root(bpio_DataResponse)
 
 __flatbuffers_define_string_field(0, bpio_DataResponse, error, 0)
 __flatbuffers_define_vector_field(1, bpio_DataResponse, data_read, flatbuffers_uint8_vec_t, 0)
+
+struct bpio_ErrorResponse_table { uint8_t unused__; };
+
+static inline size_t bpio_ErrorResponse_vec_len(bpio_ErrorResponse_vec_t vec)
+__flatbuffers_vec_len(vec)
+static inline bpio_ErrorResponse_table_t bpio_ErrorResponse_vec_at(bpio_ErrorResponse_vec_t vec, size_t i)
+__flatbuffers_offset_vec_at(bpio_ErrorResponse_table_t, vec, i, 0)
+__flatbuffers_table_as_root(bpio_ErrorResponse)
+
+__flatbuffers_define_string_field(0, bpio_ErrorResponse, error, 0)
 typedef uint8_t bpio_RequestPacketContents_union_type_t;
 __flatbuffers_define_integer_type(bpio_RequestPacketContents, bpio_RequestPacketContents_union_type_t, 8)
 __flatbuffers_define_union(flatbuffers_, bpio_RequestPacketContents)
 #define bpio_RequestPacketContents_NONE ((bpio_RequestPacketContents_union_type_t)UINT8_C(0))
-#define bpio_RequestPacketContents_StatusRequest ((bpio_RequestPacketContents_union_type_t)UINT8_C(1))
-#define bpio_RequestPacketContents_ConfigurationRequest ((bpio_RequestPacketContents_union_type_t)UINT8_C(2))
-#define bpio_RequestPacketContents_DataRequest ((bpio_RequestPacketContents_union_type_t)UINT8_C(3))
+#define bpio_RequestPacketContents_Monster ((bpio_RequestPacketContents_union_type_t)UINT8_C(1))
+#define bpio_RequestPacketContents_StatusRequest ((bpio_RequestPacketContents_union_type_t)UINT8_C(2))
+#define bpio_RequestPacketContents_ConfigurationRequest ((bpio_RequestPacketContents_union_type_t)UINT8_C(3))
+#define bpio_RequestPacketContents_DataRequest ((bpio_RequestPacketContents_union_type_t)UINT8_C(4))
 
 static inline const char *bpio_RequestPacketContents_type_name(bpio_RequestPacketContents_union_type_t type)
 {
     switch (type) {
     case bpio_RequestPacketContents_NONE: return "NONE";
+    case bpio_RequestPacketContents_Monster: return "Monster";
     case bpio_RequestPacketContents_StatusRequest: return "StatusRequest";
     case bpio_RequestPacketContents_ConfigurationRequest: return "ConfigurationRequest";
     case bpio_RequestPacketContents_DataRequest: return "DataRequest";
@@ -367,6 +545,7 @@ static inline int bpio_RequestPacketContents_is_known_type(bpio_RequestPacketCon
 {
     switch (type) {
     case bpio_RequestPacketContents_NONE: return 1;
+    case bpio_RequestPacketContents_Monster: return 1;
     case bpio_RequestPacketContents_StatusRequest: return 1;
     case bpio_RequestPacketContents_ConfigurationRequest: return 1;
     case bpio_RequestPacketContents_DataRequest: return 1;
@@ -390,16 +569,20 @@ typedef uint8_t bpio_ResponsePacketContents_union_type_t;
 __flatbuffers_define_integer_type(bpio_ResponsePacketContents, bpio_ResponsePacketContents_union_type_t, 8)
 __flatbuffers_define_union(flatbuffers_, bpio_ResponsePacketContents)
 #define bpio_ResponsePacketContents_NONE ((bpio_ResponsePacketContents_union_type_t)UINT8_C(0))
-#define bpio_ResponsePacketContents_StatusResponse ((bpio_ResponsePacketContents_union_type_t)UINT8_C(1))
-#define bpio_ResponsePacketContents_ConfigurationResponse ((bpio_ResponsePacketContents_union_type_t)UINT8_C(2))
-#define bpio_ResponsePacketContents_DataResponse ((bpio_ResponsePacketContents_union_type_t)UINT8_C(3))
+#define bpio_ResponsePacketContents_ErrorResponse ((bpio_ResponsePacketContents_union_type_t)UINT8_C(1))
+#define bpio_ResponsePacketContents_Monster ((bpio_ResponsePacketContents_union_type_t)UINT8_C(2))
+#define bpio_ResponsePacketContents_ConfigurationResponse ((bpio_ResponsePacketContents_union_type_t)UINT8_C(3))
+#define bpio_ResponsePacketContents_StatusResponse ((bpio_ResponsePacketContents_union_type_t)UINT8_C(4))
+#define bpio_ResponsePacketContents_DataResponse ((bpio_ResponsePacketContents_union_type_t)UINT8_C(5))
 
 static inline const char *bpio_ResponsePacketContents_type_name(bpio_ResponsePacketContents_union_type_t type)
 {
     switch (type) {
     case bpio_ResponsePacketContents_NONE: return "NONE";
-    case bpio_ResponsePacketContents_StatusResponse: return "StatusResponse";
+    case bpio_ResponsePacketContents_ErrorResponse: return "ErrorResponse";
+    case bpio_ResponsePacketContents_Monster: return "Monster";
     case bpio_ResponsePacketContents_ConfigurationResponse: return "ConfigurationResponse";
+    case bpio_ResponsePacketContents_StatusResponse: return "StatusResponse";
     case bpio_ResponsePacketContents_DataResponse: return "DataResponse";
     default: return "";
     }
@@ -409,8 +592,10 @@ static inline int bpio_ResponsePacketContents_is_known_type(bpio_ResponsePacketC
 {
     switch (type) {
     case bpio_ResponsePacketContents_NONE: return 1;
-    case bpio_ResponsePacketContents_StatusResponse: return 1;
+    case bpio_ResponsePacketContents_ErrorResponse: return 1;
+    case bpio_ResponsePacketContents_Monster: return 1;
     case bpio_ResponsePacketContents_ConfigurationResponse: return 1;
+    case bpio_ResponsePacketContents_StatusResponse: return 1;
     case bpio_ResponsePacketContents_DataResponse: return 1;
     default: return 0;
     }

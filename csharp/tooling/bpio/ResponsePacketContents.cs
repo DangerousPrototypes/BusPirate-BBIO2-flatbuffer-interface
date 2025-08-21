@@ -8,9 +8,11 @@ namespace bpio
 public enum ResponsePacketContents : byte
 {
   NONE = 0,
-  StatusResponse = 1,
-  ConfigurationResponse = 2,
-  DataResponse = 3,
+  ErrorResponse = 1,
+  Monster = 2,
+  ConfigurationResponse = 3,
+  StatusResponse = 4,
+  DataResponse = 5,
 };
 
 
@@ -22,11 +24,17 @@ static public class ResponsePacketContentsVerify
     bool result = true;
     switch((ResponsePacketContents)typeId)
     {
-      case ResponsePacketContents.StatusResponse:
-        result = bpio.StatusResponseVerify.Verify(verifier, tablePos);
+      case ResponsePacketContents.ErrorResponse:
+        result = bpio.ErrorResponseVerify.Verify(verifier, tablePos);
+        break;
+      case ResponsePacketContents.Monster:
+        result = bpio.MonsterVerify.Verify(verifier, tablePos);
         break;
       case ResponsePacketContents.ConfigurationResponse:
         result = bpio.ConfigurationResponseVerify.Verify(verifier, tablePos);
+        break;
+      case ResponsePacketContents.StatusResponse:
+        result = bpio.StatusResponseVerify.Verify(verifier, tablePos);
         break;
       case ResponsePacketContents.DataResponse:
         result = bpio.DataResponseVerify.Verify(verifier, tablePos);

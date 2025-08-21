@@ -8,9 +8,10 @@ namespace bpio
 public enum RequestPacketContents : byte
 {
   NONE = 0,
-  StatusRequest = 1,
-  ConfigurationRequest = 2,
-  DataRequest = 3,
+  Monster = 1,
+  StatusRequest = 2,
+  ConfigurationRequest = 3,
+  DataRequest = 4,
 };
 
 
@@ -22,6 +23,9 @@ static public class RequestPacketContentsVerify
     bool result = true;
     switch((RequestPacketContents)typeId)
     {
+      case RequestPacketContents.Monster:
+        result = bpio.MonsterVerify.Verify(verifier, tablePos);
+        break;
       case RequestPacketContents.StatusRequest:
         result = bpio.StatusRequestVerify.Verify(verifier, tablePos);
         break;

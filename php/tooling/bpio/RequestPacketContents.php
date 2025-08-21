@@ -6,12 +6,14 @@ namespace bpio;
 class RequestPacketContents
 {
     const NONE = 0;
-    const StatusRequest = 1;
-    const ConfigurationRequest = 2;
-    const DataRequest = 3;
+    const Monster = 1;
+    const StatusRequest = 2;
+    const ConfigurationRequest = 3;
+    const DataRequest = 4;
 
     private static $names = array(
         RequestPacketContents::NONE=>"NONE",
+        RequestPacketContents::Monster=>"Monster",
         RequestPacketContents::StatusRequest=>"StatusRequest",
         RequestPacketContents::ConfigurationRequest=>"ConfigurationRequest",
         RequestPacketContents::DataRequest=>"DataRequest",
