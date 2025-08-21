@@ -22,7 +22,6 @@ import tooling.bpio.ResponsePacketContents as ResponsePacketContents
 import tooling.bpio.StatusRequest as StatusRequest
 import tooling.bpio.StatusRequestTypes as StatusRequestTypes
 import tooling.bpio.StatusResponse as StatusResponse
-import tooling.bpio.ErrorResponse as ErrorResponse
 
 class flatbuffers_docs_demo:
     def __init__(self, port, baudrate=3000000, timeout=2, debug=False):
@@ -152,8 +151,8 @@ class flatbuffers_docs_demo:
 
         # Create a RequestPacket
         RequestPacket.Start(builder)
-        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
-        RequestPacket.AddVersionMinor(builder, 0)
+        RequestPacket.AddVersionMajor(builder, 2) 
+        RequestPacket.AddMinimumVersionMinor(builder, 0) # Update to match the minimum version tooling required
         RequestPacket.AddContentsType(builder, RequestPacketContents.RequestPacketContents.StatusRequest) # Add the StatusRequest type
         RequestPacket.AddContents(builder, status_request) # Add the StatusRequest
         request_packet = RequestPacket.End(builder)
@@ -171,16 +170,14 @@ class flatbuffers_docs_demo:
 
         # Decode ResponsePacket
         resp_packet = ResponsePacket.ResponsePacket.GetRootAsResponsePacket(resp_data, 0)
-        response_contents_type = resp_packet.ContentsType()
 
         # Check for ErrorResponse
-        if response_contents_type == ResponsePacketContents.ResponsePacketContents.ErrorResponse:
-            error_resp = ErrorResponse.ErrorResponse()
-            error_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
-            print(f"Error: {error_resp.Error().decode('utf-8')}")
+        if resp_packet.Error():
+            print(f"Error: {resp_packet.Error().decode('utf-8')}")
             return False
   
         # Confirm the response type matches expected
+        response_contents_type = resp_packet.ContentsType()
         if response_contents_type != ResponsePacketContents.ResponsePacketContents.StatusResponse:
             print(f"Unexpected response type: {response_contents_type}")
             return False
@@ -202,6 +199,8 @@ class flatbuffers_docs_demo:
         # copy the status response into a dictionary
         status_dict = {
             'error': status_resp.Error().decode('utf-8') if status_resp.Error() else None,
+            'version_flatbuffers_major': status_resp.VersionFlatbuffersMajor(),
+            'version_flatbuffers_minor': status_resp.VersionFlatbuffersMinor(),
             'version_hardware_major': status_resp.VersionHardwareMajor(),
             'version_hardware_minor': status_resp.VersionHardwareMinor(),
             'version_firmware_major': status_resp.VersionFirmwareMajor(),
@@ -269,8 +268,8 @@ class flatbuffers_docs_demo:
 
         # Create a RequestPacket
         RequestPacket.Start(builder)
-        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
-        RequestPacket.AddVersionMinor(builder, 0)
+        RequestPacket.AddVersionMajor(builder, 2) 
+        RequestPacket.AddMinimumVersionMinor(builder, 0) # Update to match the minimum version tooling required
         RequestPacket.AddContentsType(builder, RequestPacketContents.RequestPacketContents.ConfigurationRequest) # Add the ConfigRequest type
         RequestPacket.AddContents(builder, config_request) # Add the ConfigRequest
         request_packet = RequestPacket.End(builder)
@@ -288,16 +287,14 @@ class flatbuffers_docs_demo:
 
         # Decode ResponsePacket
         resp_packet = ResponsePacket.ResponsePacket.GetRootAsResponsePacket(resp_data, 0)
-        response_contents_type = resp_packet.ContentsType()
 
         # Check for ErrorResponse
-        if response_contents_type == ResponsePacketContents.ResponsePacketContents.ErrorResponse:
-            error_resp = ErrorResponse.ErrorResponse()
-            error_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
-            print(f"Error: {error_resp.Error().decode('utf-8')}")
-            return False
+        if resp_packet.Error():
+            print(f"Error: {resp_packet.Error().decode('utf-8')}")
+            return False     
   
         # Confirm the response type matches expected
+        response_contents_type = resp_packet.ContentsType()
         if response_contents_type != ResponsePacketContents.ResponsePacketContents.ConfigurationResponse:
             print(f"Unexpected response type: {response_contents_type}")
             return False        
@@ -332,8 +329,8 @@ class flatbuffers_docs_demo:
 
         # Create a RequestPacket
         RequestPacket.Start(builder)
-        RequestPacket.AddVersionMajor(builder, 2)  # Update to match your protocol version
-        RequestPacket.AddVersionMinor(builder, 0)
+        RequestPacket.AddVersionMajor(builder, 2)
+        RequestPacket.AddMinimumVersionMinor(builder, 0) # Update to match the minimum version tooling required
         RequestPacket.AddContentsType(builder, RequestPacketContents.RequestPacketContents.DataRequest) # Add the DataRequest type
         RequestPacket.AddContents(builder, data_request) # Add the DataRequest
         request_packet = RequestPacket.End(builder)
@@ -351,16 +348,14 @@ class flatbuffers_docs_demo:
 
         # Decode ResponsePacket
         resp_packet = ResponsePacket.ResponsePacket.GetRootAsResponsePacket(resp_data, 0)
-        response_contents_type = resp_packet.ContentsType()
 
         # Check for ErrorResponse
-        if response_contents_type == ResponsePacketContents.ResponsePacketContents.ErrorResponse:
-            error_resp = ErrorResponse.ErrorResponse()
-            error_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
-            print(f"Error: {error_resp.Error().decode('utf-8')}")
-            return False
+        if resp_packet.Error():
+            print(f"Error: {resp_packet.Error().decode('utf-8')}")
+            return False        
   
         # Confirm the response type matches expected
+        response_contents_type = resp_packet.ContentsType()
         if response_contents_type != ResponsePacketContents.ResponsePacketContents.DataResponse:
             print(f"Unexpected response type: {response_contents_type}")
             return False     

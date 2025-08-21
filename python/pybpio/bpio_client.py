@@ -25,14 +25,14 @@ import tooling.bpio.StatusResponse as StatusResponse
 #import tooling.bpio.ErrorResponse as ErrorResponse
 
 class BPIOClient:
-    def __init__(self, port, baudrate=3000000, timeout=2, debug=False):
+    def __init__(self, port, baudrate=3000000, timeout=2, debug=False, minimum_version=0):
         self.port = port
         self.baudrate = baudrate
         self.timeout = timeout
         self.debug = debug
         self.serial_port = None
-        self.version_flatbuffers_major = 3
-        self.minimum_version_flatbuffers_minor = 1
+        self.version_flatbuffers_major = 2
+        self.minimum_version_flatbuffers_minor = minimum_version
         
         # Open serial port
         try:
@@ -166,10 +166,8 @@ class BPIOClient:
         # Decode response packet
         resp_packet = ResponsePacket.ResponsePacket.GetRootAsResponsePacket(resp_data, 0)     
 
-        #if response_contents_type == ResponsePacketContents.ResponsePacketContents.ErrorResponse:
+        # Check for ErrorResponse
         if resp_packet.Error():
-            #error_resp = ErrorResponse.ErrorResponse()
-            #error_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
             print(f"Error: {resp_packet.Error().decode('utf-8')}")
             return False
         

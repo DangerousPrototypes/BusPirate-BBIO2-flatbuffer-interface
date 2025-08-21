@@ -135,6 +135,23 @@ class BPIOBase:
             return None
         return self.client.status_request()
     
+    def get_version_flatbuffers_major(self):
+        """Get FlatBuffers version major"""
+        if not self.config_check():
+            return None
+        status_dict = self.client.status_request(
+            version=True
+        )
+        return status_dict.get('version_flatbuffers_major', None)
+    def get_version_flatbuffers_minor(self):
+        """Get FlatBuffers version minor"""
+        if not self.config_check():
+            return None
+        status_dict = self.client.status_request(
+            version=True
+        )
+        return status_dict.get('version_flatbuffers_minor', None)
+    
     def get_version_hardware_major(self):
         """Get hardware version major"""
         if not self.config_check():

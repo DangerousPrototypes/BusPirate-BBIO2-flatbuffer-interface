@@ -108,24 +108,17 @@ table DataResponse {
   data_read:[ubyte]; // Data read from device
 }
 
-//table ErrorResponse {
-//  error:string; // Error message if any.
-//}
-
 union RequestPacketContents { StatusRequest, ConfigurationRequest, DataRequest}
 
 table RequestPacket {
   version_major:uint8;
-  //version_minor:uint8;
   minimum_version_minor:uint16; // Minimum version minor for compatibility.
   contents:RequestPacketContents;
 }
 
-union ResponsePacketContents {StatusResponse, ConfigurationResponse, DataResponse} // ErrorResponse,
+union ResponsePacketContents {StatusResponse, ConfigurationResponse, DataResponse}
 
 table ResponsePacket{
-  //version_major:uint8;
-  //version_minor:uint8;
   error:string; // Error message if any.
   contents:ResponsePacketContents;
 }
