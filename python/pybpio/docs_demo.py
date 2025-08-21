@@ -187,6 +187,7 @@ class flatbuffers_docs_demo:
         status_resp.Init(resp_packet.Contents().Bytes, resp_packet.Contents().Pos)
 
         # Print hardware and firmware versions
+        print(f" Flatbuffers version: {status_resp.VersionFlatbuffersMajor()}.{status_resp.VersionFlatbuffersMinor()}")
         print(f"  Hardware version: {status_resp.VersionHardwareMajor()} REV{status_resp.VersionHardwareMinor()}")
         print(f"  Firmware version: {status_resp.VersionFirmwareMajor()}.{status_resp.VersionFirmwareMinor()}")
         print(f"  Firmware git hash: {status_resp.VersionFirmwareGitHash().decode('utf-8')}")
