@@ -20,33 +20,34 @@ public struct ResponsePacket : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public ResponsePacket __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public byte VersionMajor { get { int o = __p.__offset(4); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte VersionMinor { get { int o = __p.__offset(6); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public bpio.ResponsePacketContents ContentsType { get { int o = __p.__offset(8); return o != 0 ? (bpio.ResponsePacketContents)__p.bb.Get(o + __p.bb_pos) : bpio.ResponsePacketContents.NONE; } }
-  public TTable? Contents<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(10); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
-  public bpio.ErrorResponse ContentsAsErrorResponse() { return Contents<bpio.ErrorResponse>().Value; }
+  public string Error { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetErrorBytes() { return __p.__vector_as_span<byte>(4, 1); }
+#else
+  public ArraySegment<byte>? GetErrorBytes() { return __p.__vector_as_arraysegment(4); }
+#endif
+  public byte[] GetErrorArray() { return __p.__vector_as_array<byte>(4); }
+  public bpio.ResponsePacketContents ContentsType { get { int o = __p.__offset(6); return o != 0 ? (bpio.ResponsePacketContents)__p.bb.Get(o + __p.bb_pos) : bpio.ResponsePacketContents.NONE; } }
+  public TTable? Contents<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(8); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
   public bpio.StatusResponse ContentsAsStatusResponse() { return Contents<bpio.StatusResponse>().Value; }
   public bpio.ConfigurationResponse ContentsAsConfigurationResponse() { return Contents<bpio.ConfigurationResponse>().Value; }
   public bpio.DataResponse ContentsAsDataResponse() { return Contents<bpio.DataResponse>().Value; }
 
   public static Offset<bpio.ResponsePacket> CreateResponsePacket(FlatBufferBuilder builder,
-      byte version_major = 0,
-      byte version_minor = 0,
+      StringOffset errorOffset = default(StringOffset),
       bpio.ResponsePacketContents contents_type = bpio.ResponsePacketContents.NONE,
       int contentsOffset = 0) {
-    builder.StartTable(4);
+    builder.StartTable(3);
     ResponsePacket.AddContents(builder, contentsOffset);
+    ResponsePacket.AddError(builder, errorOffset);
     ResponsePacket.AddContentsType(builder, contents_type);
-    ResponsePacket.AddVersionMinor(builder, version_minor);
-    ResponsePacket.AddVersionMajor(builder, version_major);
     return ResponsePacket.EndResponsePacket(builder);
   }
 
-  public static void StartResponsePacket(FlatBufferBuilder builder) { builder.StartTable(4); }
-  public static void AddVersionMajor(FlatBufferBuilder builder, byte versionMajor) { builder.AddByte(0, versionMajor, 0); }
-  public static void AddVersionMinor(FlatBufferBuilder builder, byte versionMinor) { builder.AddByte(1, versionMinor, 0); }
-  public static void AddContentsType(FlatBufferBuilder builder, bpio.ResponsePacketContents contentsType) { builder.AddByte(2, (byte)contentsType, 0); }
-  public static void AddContents(FlatBufferBuilder builder, int contentsOffset) { builder.AddOffset(3, contentsOffset, 0); }
+  public static void StartResponsePacket(FlatBufferBuilder builder) { builder.StartTable(3); }
+  public static void AddError(FlatBufferBuilder builder, StringOffset errorOffset) { builder.AddOffset(0, errorOffset.Value, 0); }
+  public static void AddContentsType(FlatBufferBuilder builder, bpio.ResponsePacketContents contentsType) { builder.AddByte(1, (byte)contentsType, 0); }
+  public static void AddContents(FlatBufferBuilder builder, int contentsOffset) { builder.AddOffset(2, contentsOffset, 0); }
   public static Offset<bpio.ResponsePacket> EndResponsePacket(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<bpio.ResponsePacket>(o);
@@ -61,10 +62,9 @@ static public class ResponsePacketVerify
   static public bool Verify(Google.FlatBuffers.Verifier verifier, uint tablePos)
   {
     return verifier.VerifyTableStart(tablePos)
-      && verifier.VerifyField(tablePos, 4 /*VersionMajor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 6 /*VersionMinor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 8 /*ContentsType*/, 1 /*bpio.ResponsePacketContents*/, 1, false)
-      && verifier.VerifyUnion(tablePos, 8, 10 /*Contents*/, bpio.ResponsePacketContentsVerify.Verify, false)
+      && verifier.VerifyString(tablePos, 4 /*Error*/, false)
+      && verifier.VerifyField(tablePos, 6 /*ContentsType*/, 1 /*bpio.ResponsePacketContents*/, 1, false)
+      && verifier.VerifyUnion(tablePos, 6, 8 /*Contents*/, bpio.ResponsePacketContentsVerify.Verify, false)
       && verifier.VerifyTableEnd(tablePos);
   }
 }

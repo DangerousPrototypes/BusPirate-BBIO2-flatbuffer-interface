@@ -6,7 +6,6 @@ export { ConfigurationRequest } from './bpio/configuration-request.js';
 export { ConfigurationResponse } from './bpio/configuration-response.js';
 export { DataRequest } from './bpio/data-request.js';
 export { DataResponse } from './bpio/data-response.js';
-export { ErrorResponse } from './bpio/error-response.js';
 export { ModeConfiguration } from './bpio/mode-configuration.js';
 export { RequestPacket } from './bpio/request-packet.js';
 export { RequestPacketContents } from './bpio/request-packet-contents.js';

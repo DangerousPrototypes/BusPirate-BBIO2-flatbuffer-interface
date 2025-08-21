@@ -20,7 +20,7 @@ public struct RequestPacket : IFlatbufferObject
   public RequestPacket __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public byte VersionMajor { get { int o = __p.__offset(4); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte VersionMinor { get { int o = __p.__offset(6); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public ushort MinimumVersionMinor { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
   public bpio.RequestPacketContents ContentsType { get { int o = __p.__offset(8); return o != 0 ? (bpio.RequestPacketContents)__p.bb.Get(o + __p.bb_pos) : bpio.RequestPacketContents.NONE; } }
   public TTable? Contents<TTable>() where TTable : struct, IFlatbufferObject { int o = __p.__offset(10); return o != 0 ? (TTable?)__p.__union<TTable>(o + __p.bb_pos) : null; }
   public bpio.StatusRequest ContentsAsStatusRequest() { return Contents<bpio.StatusRequest>().Value; }
@@ -29,20 +29,20 @@ public struct RequestPacket : IFlatbufferObject
 
   public static Offset<bpio.RequestPacket> CreateRequestPacket(FlatBufferBuilder builder,
       byte version_major = 0,
-      byte version_minor = 0,
+      ushort minimum_version_minor = 0,
       bpio.RequestPacketContents contents_type = bpio.RequestPacketContents.NONE,
       int contentsOffset = 0) {
     builder.StartTable(4);
     RequestPacket.AddContents(builder, contentsOffset);
+    RequestPacket.AddMinimumVersionMinor(builder, minimum_version_minor);
     RequestPacket.AddContentsType(builder, contents_type);
-    RequestPacket.AddVersionMinor(builder, version_minor);
     RequestPacket.AddVersionMajor(builder, version_major);
     return RequestPacket.EndRequestPacket(builder);
   }
 
   public static void StartRequestPacket(FlatBufferBuilder builder) { builder.StartTable(4); }
   public static void AddVersionMajor(FlatBufferBuilder builder, byte versionMajor) { builder.AddByte(0, versionMajor, 0); }
-  public static void AddVersionMinor(FlatBufferBuilder builder, byte versionMinor) { builder.AddByte(1, versionMinor, 0); }
+  public static void AddMinimumVersionMinor(FlatBufferBuilder builder, ushort minimumVersionMinor) { builder.AddUshort(1, minimumVersionMinor, 0); }
   public static void AddContentsType(FlatBufferBuilder builder, bpio.RequestPacketContents contentsType) { builder.AddByte(2, (byte)contentsType, 0); }
   public static void AddContents(FlatBufferBuilder builder, int contentsOffset) { builder.AddOffset(3, contentsOffset, 0); }
   public static Offset<bpio.RequestPacket> EndRequestPacket(FlatBufferBuilder builder) {
@@ -58,7 +58,7 @@ static public class RequestPacketVerify
   {
     return verifier.VerifyTableStart(tablePos)
       && verifier.VerifyField(tablePos, 4 /*VersionMajor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 6 /*VersionMinor*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 6 /*MinimumVersionMinor*/, 2 /*ushort*/, 2, false)
       && verifier.VerifyField(tablePos, 8 /*ContentsType*/, 1 /*bpio.RequestPacketContents*/, 1, false)
       && verifier.VerifyUnion(tablePos, 8, 10 /*Contents*/, bpio.RequestPacketContentsVerify.Verify, false)
       && verifier.VerifyTableEnd(tablePos);

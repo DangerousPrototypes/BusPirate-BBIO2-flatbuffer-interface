@@ -28,23 +28,24 @@ class ResponsePacket : Table() {
         __init(_i, _bb)
         return this
     }
-    val versionMajor : UByte
+    val error : String?
         get() {
             val o = __offset(4)
-            return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
+            return if (o != 0) {
+                __string(o + bb_pos)
+            } else {
+                null
+            }
         }
-    val versionMinor : UByte
+    val errorAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(4, 1)
+    fun errorInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 4, 1)
+    val contentsType : UByte
         get() {
             val o = __offset(6)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
-    val contentsType : UByte
-        get() {
-            val o = __offset(8)
-            return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
-        }
     fun contents(obj: Table) : Table? {
-        val o = __offset(10); return if (o != 0) __union(obj, o + bb_pos) else null
+        val o = __offset(8); return if (o != 0) __union(obj, o + bb_pos) else null
     }
     companion object {
         fun validateVersion() = Constants.FLATBUFFERS_25_2_10()
@@ -53,19 +54,17 @@ class ResponsePacket : Table() {
             _bb.order(ByteOrder.LITTLE_ENDIAN)
             return (obj.__assign(_bb.getInt(_bb.position()) + _bb.position(), _bb))
         }
-        fun createResponsePacket(builder: FlatBufferBuilder, versionMajor: UByte, versionMinor: UByte, contentsType: UByte, contentsOffset: Int) : Int {
-            builder.startTable(4)
+        fun createResponsePacket(builder: FlatBufferBuilder, errorOffset: Int, contentsType: UByte, contentsOffset: Int) : Int {
+            builder.startTable(3)
             addContents(builder, contentsOffset)
+            addError(builder, errorOffset)
             addContentsType(builder, contentsType)
-            addVersionMinor(builder, versionMinor)
-            addVersionMajor(builder, versionMajor)
             return endResponsePacket(builder)
         }
-        fun startResponsePacket(builder: FlatBufferBuilder) = builder.startTable(4)
-        fun addVersionMajor(builder: FlatBufferBuilder, versionMajor: UByte) = builder.addByte(0, versionMajor.toByte(), 0)
-        fun addVersionMinor(builder: FlatBufferBuilder, versionMinor: UByte) = builder.addByte(1, versionMinor.toByte(), 0)
-        fun addContentsType(builder: FlatBufferBuilder, contentsType: UByte) = builder.addByte(2, contentsType.toByte(), 0)
-        fun addContents(builder: FlatBufferBuilder, contents: Int) = builder.addOffset(3, contents, 0)
+        fun startResponsePacket(builder: FlatBufferBuilder) = builder.startTable(3)
+        fun addError(builder: FlatBufferBuilder, error: Int) = builder.addOffset(0, error, 0)
+        fun addContentsType(builder: FlatBufferBuilder, contentsType: UByte) = builder.addByte(1, contentsType.toByte(), 0)
+        fun addContents(builder: FlatBufferBuilder, contents: Int) = builder.addOffset(2, contents, 0)
         fun endResponsePacket(builder: FlatBufferBuilder) : Int {
             val o = builder.endTable()
             return o

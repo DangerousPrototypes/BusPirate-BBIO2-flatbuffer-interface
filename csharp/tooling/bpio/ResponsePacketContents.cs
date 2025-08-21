@@ -8,10 +8,9 @@ namespace bpio
 public enum ResponsePacketContents : byte
 {
   NONE = 0,
-  ErrorResponse = 1,
-  StatusResponse = 2,
-  ConfigurationResponse = 3,
-  DataResponse = 4,
+  StatusResponse = 1,
+  ConfigurationResponse = 2,
+  DataResponse = 3,
 };
 
 
@@ -23,9 +22,6 @@ static public class ResponsePacketContentsVerify
     bool result = true;
     switch((ResponsePacketContents)typeId)
     {
-      case ResponsePacketContents.ErrorResponse:
-        result = bpio.ErrorResponseVerify.Verify(verifier, tablePos);
-        break;
       case ResponsePacketContents.StatusResponse:
         result = bpio.StatusResponseVerify.Verify(verifier, tablePos);
         break;

@@ -39,61 +39,48 @@ class StatusResponse : Table() {
         }
     val errorAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(4, 1)
     fun errorInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 4, 1)
-    val versionHardwareMajor : UByte
+    val versionFlatbuffersMajor : UByte
         get() {
             val o = __offset(6)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
-    val versionHardwareMinor : UByte
+    val versionFlatbuffersMinor : UShort
         get() {
             val o = __offset(8)
-            return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
+            return if(o != 0) bb.getShort(o + bb_pos).toUShort() else 0u
         }
-    val versionFirmwareMajor : UByte
+    val versionHardwareMajor : UByte
         get() {
             val o = __offset(10)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
-    val versionFirmwareMinor : UByte
+    val versionHardwareMinor : UByte
         get() {
             val o = __offset(12)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
-    val versionFirmwareGitHash : String?
+    val versionFirmwareMajor : UByte
         get() {
             val o = __offset(14)
-            return if (o != 0) {
-                __string(o + bb_pos)
-            } else {
-                null
-            }
+            return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
-    val versionFirmwareGitHashAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(14, 1)
-    fun versionFirmwareGitHashInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 14, 1)
-    val versionFirmwareDate : String?
+    val versionFirmwareMinor : UByte
         get() {
             val o = __offset(16)
+            return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
+        }
+    val versionFirmwareGitHash : String?
+        get() {
+            val o = __offset(18)
             return if (o != 0) {
                 __string(o + bb_pos)
             } else {
                 null
             }
         }
-    val versionFirmwareDateAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(16, 1)
-    fun versionFirmwareDateInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 16, 1)
-    fun modesAvailable(j: Int) : String? {
-        val o = __offset(18)
-        return if (o != 0) {
-            __string(__vector(o) + j * 4)
-        } else {
-            null
-        }
-    }
-    val modesAvailableLength : Int
-        get() {
-            val o = __offset(18); return if (o != 0) __vector_len(o) else 0
-        }
-    val modeCurrent : String?
+    val versionFirmwareGitHashAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(18, 1)
+    fun versionFirmwareGitHashInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 18, 1)
+    val versionFirmwareDate : String?
         get() {
             val o = __offset(20)
             return if (o != 0) {
@@ -102,10 +89,33 @@ class StatusResponse : Table() {
                 null
             }
         }
-    val modeCurrentAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(20, 1)
-    fun modeCurrentInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 20, 1)
-    fun modePinLabels(j: Int) : String? {
+    val versionFirmwareDateAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(20, 1)
+    fun versionFirmwareDateInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 20, 1)
+    fun modesAvailable(j: Int) : String? {
         val o = __offset(22)
+        return if (o != 0) {
+            __string(__vector(o) + j * 4)
+        } else {
+            null
+        }
+    }
+    val modesAvailableLength : Int
+        get() {
+            val o = __offset(22); return if (o != 0) __vector_len(o) else 0
+        }
+    val modeCurrent : String?
+        get() {
+            val o = __offset(24)
+            return if (o != 0) {
+                __string(o + bb_pos)
+            } else {
+                null
+            }
+        }
+    val modeCurrentAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(24, 1)
+    fun modeCurrentInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 24, 1)
+    fun modePinLabels(j: Int) : String? {
+        val o = __offset(26)
         return if (o != 0) {
             __string(__vector(o) + j * 4)
         } else {
@@ -114,65 +124,65 @@ class StatusResponse : Table() {
     }
     val modePinLabelsLength : Int
         get() {
-            val o = __offset(22); return if (o != 0) __vector_len(o) else 0
+            val o = __offset(26); return if (o != 0) __vector_len(o) else 0
         }
     val modeBitorderMsb : Boolean
         get() {
-            val o = __offset(24)
+            val o = __offset(28)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
         }
     val modeMaxPacketSize : UInt
         get() {
-            val o = __offset(26)
+            val o = __offset(30)
             return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
         }
     val modeMaxWrite : UInt
         get() {
-            val o = __offset(28)
+            val o = __offset(32)
             return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
         }
     val modeMaxRead : UInt
         get() {
-            val o = __offset(30)
+            val o = __offset(34)
             return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
         }
     val psuEnabled : Boolean
         get() {
-            val o = __offset(32)
+            val o = __offset(36)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
         }
     val psuSetMv : UInt
         get() {
-            val o = __offset(34)
+            val o = __offset(38)
             return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
         }
     val psuSetMa : UInt
         get() {
-            val o = __offset(36)
+            val o = __offset(40)
             return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
         }
     val psuMeasuredMv : UInt
         get() {
-            val o = __offset(38)
+            val o = __offset(42)
             return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
         }
     val psuMeasuredMa : UInt
         get() {
-            val o = __offset(40)
+            val o = __offset(44)
             return if(o != 0) bb.getInt(o + bb_pos).toUInt() else 0u
         }
     val psuCurrentError : Boolean
         get() {
-            val o = __offset(42)
+            val o = __offset(46)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
         }
     val pullupEnabled : Boolean
         get() {
-            val o = __offset(44)
+            val o = __offset(48)
             return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
         }
     fun adcMv(j: Int) : UInt {
-        val o = __offset(46)
+        val o = __offset(50)
         return if (o != 0) {
             bb.getInt(__vector(o) + j * 4).toUInt()
         } else {
@@ -181,33 +191,33 @@ class StatusResponse : Table() {
     }
     val adcMvLength : Int
         get() {
-            val o = __offset(46); return if (o != 0) __vector_len(o) else 0
+            val o = __offset(50); return if (o != 0) __vector_len(o) else 0
         }
-    val adcMvAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(46, 4)
-    fun adcMvInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 46, 4)
+    val adcMvAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(50, 4)
+    fun adcMvInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 50, 4)
     val ioDirection : UByte
         get() {
-            val o = __offset(48)
+            val o = __offset(52)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     val ioValue : UByte
         get() {
-            val o = __offset(50)
+            val o = __offset(54)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     val diskSizeMb : Float
         get() {
-            val o = __offset(52)
+            val o = __offset(56)
             return if(o != 0) bb.getFloat(o + bb_pos) else 0.0f
         }
     val diskUsedMb : Float
         get() {
-            val o = __offset(54)
+            val o = __offset(58)
             return if(o != 0) bb.getFloat(o + bb_pos) else 0.0f
         }
     val ledCount : UByte
         get() {
-            val o = __offset(56)
+            val o = __offset(60)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
     companion object {
@@ -217,8 +227,8 @@ class StatusResponse : Table() {
             _bb.order(ByteOrder.LITTLE_ENDIAN)
             return (obj.__assign(_bb.getInt(_bb.position()) + _bb.position(), _bb))
         }
-        fun createStatusResponse(builder: FlatBufferBuilder, errorOffset: Int, versionHardwareMajor: UByte, versionHardwareMinor: UByte, versionFirmwareMajor: UByte, versionFirmwareMinor: UByte, versionFirmwareGitHashOffset: Int, versionFirmwareDateOffset: Int, modesAvailableOffset: Int, modeCurrentOffset: Int, modePinLabelsOffset: Int, modeBitorderMsb: Boolean, modeMaxPacketSize: UInt, modeMaxWrite: UInt, modeMaxRead: UInt, psuEnabled: Boolean, psuSetMv: UInt, psuSetMa: UInt, psuMeasuredMv: UInt, psuMeasuredMa: UInt, psuCurrentError: Boolean, pullupEnabled: Boolean, adcMvOffset: Int, ioDirection: UByte, ioValue: UByte, diskSizeMb: Float, diskUsedMb: Float, ledCount: UByte) : Int {
-            builder.startTable(27)
+        fun createStatusResponse(builder: FlatBufferBuilder, errorOffset: Int, versionFlatbuffersMajor: UByte, versionFlatbuffersMinor: UShort, versionHardwareMajor: UByte, versionHardwareMinor: UByte, versionFirmwareMajor: UByte, versionFirmwareMinor: UByte, versionFirmwareGitHashOffset: Int, versionFirmwareDateOffset: Int, modesAvailableOffset: Int, modeCurrentOffset: Int, modePinLabelsOffset: Int, modeBitorderMsb: Boolean, modeMaxPacketSize: UInt, modeMaxWrite: UInt, modeMaxRead: UInt, psuEnabled: Boolean, psuSetMv: UInt, psuSetMa: UInt, psuMeasuredMv: UInt, psuMeasuredMa: UInt, psuCurrentError: Boolean, pullupEnabled: Boolean, adcMvOffset: Int, ioDirection: UByte, ioValue: UByte, diskSizeMb: Float, diskUsedMb: Float, ledCount: UByte) : Int {
+            builder.startTable(29)
             addDiskUsedMb(builder, diskUsedMb)
             addDiskSizeMb(builder, diskSizeMb)
             addAdcMv(builder, adcMvOffset)
@@ -235,6 +245,7 @@ class StatusResponse : Table() {
             addVersionFirmwareDate(builder, versionFirmwareDateOffset)
             addVersionFirmwareGitHash(builder, versionFirmwareGitHashOffset)
             addError(builder, errorOffset)
+            addVersionFlatbuffersMinor(builder, versionFlatbuffersMinor)
             addLedCount(builder, ledCount)
             addIoValue(builder, ioValue)
             addIoDirection(builder, ioDirection)
@@ -246,17 +257,20 @@ class StatusResponse : Table() {
             addVersionFirmwareMajor(builder, versionFirmwareMajor)
             addVersionHardwareMinor(builder, versionHardwareMinor)
             addVersionHardwareMajor(builder, versionHardwareMajor)
+            addVersionFlatbuffersMajor(builder, versionFlatbuffersMajor)
             return endStatusResponse(builder)
         }
-        fun startStatusResponse(builder: FlatBufferBuilder) = builder.startTable(27)
+        fun startStatusResponse(builder: FlatBufferBuilder) = builder.startTable(29)
         fun addError(builder: FlatBufferBuilder, error: Int) = builder.addOffset(0, error, 0)
-        fun addVersionHardwareMajor(builder: FlatBufferBuilder, versionHardwareMajor: UByte) = builder.addByte(1, versionHardwareMajor.toByte(), 0)
-        fun addVersionHardwareMinor(builder: FlatBufferBuilder, versionHardwareMinor: UByte) = builder.addByte(2, versionHardwareMinor.toByte(), 0)
-        fun addVersionFirmwareMajor(builder: FlatBufferBuilder, versionFirmwareMajor: UByte) = builder.addByte(3, versionFirmwareMajor.toByte(), 0)
-        fun addVersionFirmwareMinor(builder: FlatBufferBuilder, versionFirmwareMinor: UByte) = builder.addByte(4, versionFirmwareMinor.toByte(), 0)
-        fun addVersionFirmwareGitHash(builder: FlatBufferBuilder, versionFirmwareGitHash: Int) = builder.addOffset(5, versionFirmwareGitHash, 0)
-        fun addVersionFirmwareDate(builder: FlatBufferBuilder, versionFirmwareDate: Int) = builder.addOffset(6, versionFirmwareDate, 0)
-        fun addModesAvailable(builder: FlatBufferBuilder, modesAvailable: Int) = builder.addOffset(7, modesAvailable, 0)
+        fun addVersionFlatbuffersMajor(builder: FlatBufferBuilder, versionFlatbuffersMajor: UByte) = builder.addByte(1, versionFlatbuffersMajor.toByte(), 0)
+        fun addVersionFlatbuffersMinor(builder: FlatBufferBuilder, versionFlatbuffersMinor: UShort) = builder.addShort(2, versionFlatbuffersMinor.toShort(), 0)
+        fun addVersionHardwareMajor(builder: FlatBufferBuilder, versionHardwareMajor: UByte) = builder.addByte(3, versionHardwareMajor.toByte(), 0)
+        fun addVersionHardwareMinor(builder: FlatBufferBuilder, versionHardwareMinor: UByte) = builder.addByte(4, versionHardwareMinor.toByte(), 0)
+        fun addVersionFirmwareMajor(builder: FlatBufferBuilder, versionFirmwareMajor: UByte) = builder.addByte(5, versionFirmwareMajor.toByte(), 0)
+        fun addVersionFirmwareMinor(builder: FlatBufferBuilder, versionFirmwareMinor: UByte) = builder.addByte(6, versionFirmwareMinor.toByte(), 0)
+        fun addVersionFirmwareGitHash(builder: FlatBufferBuilder, versionFirmwareGitHash: Int) = builder.addOffset(7, versionFirmwareGitHash, 0)
+        fun addVersionFirmwareDate(builder: FlatBufferBuilder, versionFirmwareDate: Int) = builder.addOffset(8, versionFirmwareDate, 0)
+        fun addModesAvailable(builder: FlatBufferBuilder, modesAvailable: Int) = builder.addOffset(9, modesAvailable, 0)
         fun createModesAvailableVector(builder: FlatBufferBuilder, data: IntArray) : Int {
             builder.startVector(4, data.size, 4)
             for (i in data.size - 1 downTo 0) {
@@ -265,8 +279,8 @@ class StatusResponse : Table() {
             return builder.endVector()
         }
         fun startModesAvailableVector(builder: FlatBufferBuilder, numElems: Int) = builder.startVector(4, numElems, 4)
-        fun addModeCurrent(builder: FlatBufferBuilder, modeCurrent: Int) = builder.addOffset(8, modeCurrent, 0)
-        fun addModePinLabels(builder: FlatBufferBuilder, modePinLabels: Int) = builder.addOffset(9, modePinLabels, 0)
+        fun addModeCurrent(builder: FlatBufferBuilder, modeCurrent: Int) = builder.addOffset(10, modeCurrent, 0)
+        fun addModePinLabels(builder: FlatBufferBuilder, modePinLabels: Int) = builder.addOffset(11, modePinLabels, 0)
         fun createModePinLabelsVector(builder: FlatBufferBuilder, data: IntArray) : Int {
             builder.startVector(4, data.size, 4)
             for (i in data.size - 1 downTo 0) {
@@ -275,18 +289,18 @@ class StatusResponse : Table() {
             return builder.endVector()
         }
         fun startModePinLabelsVector(builder: FlatBufferBuilder, numElems: Int) = builder.startVector(4, numElems, 4)
-        fun addModeBitorderMsb(builder: FlatBufferBuilder, modeBitorderMsb: Boolean) = builder.addBoolean(10, modeBitorderMsb, false)
-        fun addModeMaxPacketSize(builder: FlatBufferBuilder, modeMaxPacketSize: UInt) = builder.addInt(11, modeMaxPacketSize.toInt(), 0)
-        fun addModeMaxWrite(builder: FlatBufferBuilder, modeMaxWrite: UInt) = builder.addInt(12, modeMaxWrite.toInt(), 0)
-        fun addModeMaxRead(builder: FlatBufferBuilder, modeMaxRead: UInt) = builder.addInt(13, modeMaxRead.toInt(), 0)
-        fun addPsuEnabled(builder: FlatBufferBuilder, psuEnabled: Boolean) = builder.addBoolean(14, psuEnabled, false)
-        fun addPsuSetMv(builder: FlatBufferBuilder, psuSetMv: UInt) = builder.addInt(15, psuSetMv.toInt(), 0)
-        fun addPsuSetMa(builder: FlatBufferBuilder, psuSetMa: UInt) = builder.addInt(16, psuSetMa.toInt(), 0)
-        fun addPsuMeasuredMv(builder: FlatBufferBuilder, psuMeasuredMv: UInt) = builder.addInt(17, psuMeasuredMv.toInt(), 0)
-        fun addPsuMeasuredMa(builder: FlatBufferBuilder, psuMeasuredMa: UInt) = builder.addInt(18, psuMeasuredMa.toInt(), 0)
-        fun addPsuCurrentError(builder: FlatBufferBuilder, psuCurrentError: Boolean) = builder.addBoolean(19, psuCurrentError, false)
-        fun addPullupEnabled(builder: FlatBufferBuilder, pullupEnabled: Boolean) = builder.addBoolean(20, pullupEnabled, false)
-        fun addAdcMv(builder: FlatBufferBuilder, adcMv: Int) = builder.addOffset(21, adcMv, 0)
+        fun addModeBitorderMsb(builder: FlatBufferBuilder, modeBitorderMsb: Boolean) = builder.addBoolean(12, modeBitorderMsb, false)
+        fun addModeMaxPacketSize(builder: FlatBufferBuilder, modeMaxPacketSize: UInt) = builder.addInt(13, modeMaxPacketSize.toInt(), 0)
+        fun addModeMaxWrite(builder: FlatBufferBuilder, modeMaxWrite: UInt) = builder.addInt(14, modeMaxWrite.toInt(), 0)
+        fun addModeMaxRead(builder: FlatBufferBuilder, modeMaxRead: UInt) = builder.addInt(15, modeMaxRead.toInt(), 0)
+        fun addPsuEnabled(builder: FlatBufferBuilder, psuEnabled: Boolean) = builder.addBoolean(16, psuEnabled, false)
+        fun addPsuSetMv(builder: FlatBufferBuilder, psuSetMv: UInt) = builder.addInt(17, psuSetMv.toInt(), 0)
+        fun addPsuSetMa(builder: FlatBufferBuilder, psuSetMa: UInt) = builder.addInt(18, psuSetMa.toInt(), 0)
+        fun addPsuMeasuredMv(builder: FlatBufferBuilder, psuMeasuredMv: UInt) = builder.addInt(19, psuMeasuredMv.toInt(), 0)
+        fun addPsuMeasuredMa(builder: FlatBufferBuilder, psuMeasuredMa: UInt) = builder.addInt(20, psuMeasuredMa.toInt(), 0)
+        fun addPsuCurrentError(builder: FlatBufferBuilder, psuCurrentError: Boolean) = builder.addBoolean(21, psuCurrentError, false)
+        fun addPullupEnabled(builder: FlatBufferBuilder, pullupEnabled: Boolean) = builder.addBoolean(22, pullupEnabled, false)
+        fun addAdcMv(builder: FlatBufferBuilder, adcMv: Int) = builder.addOffset(23, adcMv, 0)
         @kotlin.ExperimentalUnsignedTypes
         fun createAdcMvVector(builder: FlatBufferBuilder, data: UIntArray) : Int {
             builder.startVector(4, data.size, 4)
@@ -296,11 +310,11 @@ class StatusResponse : Table() {
             return builder.endVector()
         }
         fun startAdcMvVector(builder: FlatBufferBuilder, numElems: Int) = builder.startVector(4, numElems, 4)
-        fun addIoDirection(builder: FlatBufferBuilder, ioDirection: UByte) = builder.addByte(22, ioDirection.toByte(), 0)
-        fun addIoValue(builder: FlatBufferBuilder, ioValue: UByte) = builder.addByte(23, ioValue.toByte(), 0)
-        fun addDiskSizeMb(builder: FlatBufferBuilder, diskSizeMb: Float) = builder.addFloat(24, diskSizeMb, 0.0)
-        fun addDiskUsedMb(builder: FlatBufferBuilder, diskUsedMb: Float) = builder.addFloat(25, diskUsedMb, 0.0)
-        fun addLedCount(builder: FlatBufferBuilder, ledCount: UByte) = builder.addByte(26, ledCount.toByte(), 0)
+        fun addIoDirection(builder: FlatBufferBuilder, ioDirection: UByte) = builder.addByte(24, ioDirection.toByte(), 0)
+        fun addIoValue(builder: FlatBufferBuilder, ioValue: UByte) = builder.addByte(25, ioValue.toByte(), 0)
+        fun addDiskSizeMb(builder: FlatBufferBuilder, diskSizeMb: Float) = builder.addFloat(26, diskSizeMb, 0.0)
+        fun addDiskUsedMb(builder: FlatBufferBuilder, diskUsedMb: Float) = builder.addFloat(27, diskUsedMb, 0.0)
+        fun addLedCount(builder: FlatBufferBuilder, ledCount: UByte) = builder.addByte(28, ledCount.toByte(), 0)
         fun endStatusResponse(builder: FlatBufferBuilder) : Int {
             val o = builder.endTable()
             return o

@@ -22,10 +22,9 @@ enum RequestPacketContents:
 
 enum ResponsePacketContents:
     ResponsePacketContents_NONE = 0
-    ResponsePacketContents_ErrorResponse = 1
-    ResponsePacketContents_StatusResponse = 2
-    ResponsePacketContents_ConfigurationResponse = 3
-    ResponsePacketContents_DataResponse = 4
+    ResponsePacketContents_StatusResponse = 1
+    ResponsePacketContents_ConfigurationResponse = 2
+    ResponsePacketContents_DataResponse = 3
 
 class StatusRequest
 
@@ -40,8 +39,6 @@ class ConfigurationResponse
 class DataRequest
 
 class DataResponse
-
-class ErrorResponse
 
 class RequestPacket
 
@@ -76,152 +73,162 @@ def StatusRequestCreateQueryVector(b_:flatbuffers.builder, v_:[StatusRequestType
 class StatusResponse : flatbuffers.handle
     def error() -> string:
         return flatbuffers.field_string(buf_, pos_, 4)
-    def version_hardware_major() -> int:
+    def version_flatbuffers_major() -> int:
         return flatbuffers.field_uint8(buf_, pos_, 6, 0)
-    def version_hardware_minor() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 8, 0)
-    def version_firmware_major() -> int:
+    def version_flatbuffers_minor() -> int:
+        return flatbuffers.field_uint16(buf_, pos_, 8, 0)
+    def version_hardware_major() -> int:
         return flatbuffers.field_uint8(buf_, pos_, 10, 0)
-    def version_firmware_minor() -> int:
+    def version_hardware_minor() -> int:
         return flatbuffers.field_uint8(buf_, pos_, 12, 0)
+    def version_firmware_major() -> int:
+        return flatbuffers.field_uint8(buf_, pos_, 14, 0)
+    def version_firmware_minor() -> int:
+        return flatbuffers.field_uint8(buf_, pos_, 16, 0)
     def version_firmware_git_hash() -> string:
-        return flatbuffers.field_string(buf_, pos_, 14)
+        return flatbuffers.field_string(buf_, pos_, 18)
     def version_firmware_date() -> string:
-        return flatbuffers.field_string(buf_, pos_, 16)
-    def modes_available(i:int) -> string:
-        return flatbuffers.string(buf_, buf_.flatbuffers.field_vector(pos_, 18) + i * 4)
-    def modes_available_length() -> int:
-        return flatbuffers.field_vector_len(buf_, pos_, 18)
-    def mode_current() -> string:
         return flatbuffers.field_string(buf_, pos_, 20)
-    def mode_pin_labels(i:int) -> string:
+    def modes_available(i:int) -> string:
         return flatbuffers.string(buf_, buf_.flatbuffers.field_vector(pos_, 22) + i * 4)
-    def mode_pin_labels_length() -> int:
+    def modes_available_length() -> int:
         return flatbuffers.field_vector_len(buf_, pos_, 22)
+    def mode_current() -> string:
+        return flatbuffers.field_string(buf_, pos_, 24)
+    def mode_pin_labels(i:int) -> string:
+        return flatbuffers.string(buf_, buf_.flatbuffers.field_vector(pos_, 26) + i * 4)
+    def mode_pin_labels_length() -> int:
+        return flatbuffers.field_vector_len(buf_, pos_, 26)
     def mode_bitorder_msb() -> bool:
-        return bool(flatbuffers.field_int8(buf_, pos_, 24, 0))
+        return bool(flatbuffers.field_int8(buf_, pos_, 28, 0))
     def mode_max_packet_size() -> int:
-        return flatbuffers.field_uint32(buf_, pos_, 26, 0)
-    def mode_max_write() -> int:
-        return flatbuffers.field_uint32(buf_, pos_, 28, 0)
-    def mode_max_read() -> int:
         return flatbuffers.field_uint32(buf_, pos_, 30, 0)
-    def psu_enabled() -> bool:
-        return bool(flatbuffers.field_int8(buf_, pos_, 32, 0))
-    def psu_set_mv() -> int:
+    def mode_max_write() -> int:
+        return flatbuffers.field_uint32(buf_, pos_, 32, 0)
+    def mode_max_read() -> int:
         return flatbuffers.field_uint32(buf_, pos_, 34, 0)
-    def psu_set_ma() -> int:
-        return flatbuffers.field_uint32(buf_, pos_, 36, 0)
-    def psu_measured_mv() -> int:
+    def psu_enabled() -> bool:
+        return bool(flatbuffers.field_int8(buf_, pos_, 36, 0))
+    def psu_set_mv() -> int:
         return flatbuffers.field_uint32(buf_, pos_, 38, 0)
-    def psu_measured_ma() -> int:
+    def psu_set_ma() -> int:
         return flatbuffers.field_uint32(buf_, pos_, 40, 0)
+    def psu_measured_mv() -> int:
+        return flatbuffers.field_uint32(buf_, pos_, 42, 0)
+    def psu_measured_ma() -> int:
+        return flatbuffers.field_uint32(buf_, pos_, 44, 0)
     def psu_current_error() -> bool:
-        return bool(flatbuffers.field_int8(buf_, pos_, 42, 0))
+        return bool(flatbuffers.field_int8(buf_, pos_, 46, 0))
     def pullup_enabled() -> bool:
-        return bool(flatbuffers.field_int8(buf_, pos_, 44, 0))
+        return bool(flatbuffers.field_int8(buf_, pos_, 48, 0))
     def adc_mv(i:int) -> int:
-        return read_uint32_le(buf_, buf_.flatbuffers.field_vector(pos_, 46) + i * 4)
+        return read_uint32_le(buf_, buf_.flatbuffers.field_vector(pos_, 50) + i * 4)
     def adc_mv_length() -> int:
-        return flatbuffers.field_vector_len(buf_, pos_, 46)
+        return flatbuffers.field_vector_len(buf_, pos_, 50)
     def io_direction() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 48, 0)
+        return flatbuffers.field_uint8(buf_, pos_, 52, 0)
     def io_value() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 50, 0)
+        return flatbuffers.field_uint8(buf_, pos_, 54, 0)
     def disk_size_mb() -> float:
-        return flatbuffers.field_float32(buf_, pos_, 52, 0.0)
+        return flatbuffers.field_float32(buf_, pos_, 56, 0.0)
     def disk_used_mb() -> float:
-        return flatbuffers.field_float32(buf_, pos_, 54, 0.0)
+        return flatbuffers.field_float32(buf_, pos_, 58, 0.0)
     def led_count() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 56, 0)
+        return flatbuffers.field_uint8(buf_, pos_, 60, 0)
 
 def GetRootAsStatusResponse(buf:string): return StatusResponse { buf, flatbuffers.indirect(buf, 0) }
 
 struct StatusResponseBuilder:
     b_:flatbuffers.builder
     def start():
-        b_.StartObject(27)
+        b_.StartObject(29)
         return this
     def add_error(error:flatbuffers.offset):
         b_.PrependUOffsetTRelativeSlot(0, error)
         return this
+    def add_version_flatbuffers_major(version_flatbuffers_major:int):
+        b_.PrependUint8Slot(1, version_flatbuffers_major, 0)
+        return this
+    def add_version_flatbuffers_minor(version_flatbuffers_minor:int):
+        b_.PrependUint16Slot(2, version_flatbuffers_minor, 0)
+        return this
     def add_version_hardware_major(version_hardware_major:int):
-        b_.PrependUint8Slot(1, version_hardware_major, 0)
+        b_.PrependUint8Slot(3, version_hardware_major, 0)
         return this
     def add_version_hardware_minor(version_hardware_minor:int):
-        b_.PrependUint8Slot(2, version_hardware_minor, 0)
+        b_.PrependUint8Slot(4, version_hardware_minor, 0)
         return this
     def add_version_firmware_major(version_firmware_major:int):
-        b_.PrependUint8Slot(3, version_firmware_major, 0)
+        b_.PrependUint8Slot(5, version_firmware_major, 0)
         return this
     def add_version_firmware_minor(version_firmware_minor:int):
-        b_.PrependUint8Slot(4, version_firmware_minor, 0)
+        b_.PrependUint8Slot(6, version_firmware_minor, 0)
         return this
     def add_version_firmware_git_hash(version_firmware_git_hash:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(5, version_firmware_git_hash)
+        b_.PrependUOffsetTRelativeSlot(7, version_firmware_git_hash)
         return this
     def add_version_firmware_date(version_firmware_date:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(6, version_firmware_date)
+        b_.PrependUOffsetTRelativeSlot(8, version_firmware_date)
         return this
     def add_modes_available(modes_available:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(7, modes_available)
+        b_.PrependUOffsetTRelativeSlot(9, modes_available)
         return this
     def add_mode_current(mode_current:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(8, mode_current)
+        b_.PrependUOffsetTRelativeSlot(10, mode_current)
         return this
     def add_mode_pin_labels(mode_pin_labels:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(9, mode_pin_labels)
+        b_.PrependUOffsetTRelativeSlot(11, mode_pin_labels)
         return this
     def add_mode_bitorder_msb(mode_bitorder_msb:bool):
-        b_.PrependBoolSlot(10, mode_bitorder_msb, 0)
+        b_.PrependBoolSlot(12, mode_bitorder_msb, 0)
         return this
     def add_mode_max_packet_size(mode_max_packet_size:int):
-        b_.PrependUint32Slot(11, mode_max_packet_size, 0)
+        b_.PrependUint32Slot(13, mode_max_packet_size, 0)
         return this
     def add_mode_max_write(mode_max_write:int):
-        b_.PrependUint32Slot(12, mode_max_write, 0)
+        b_.PrependUint32Slot(14, mode_max_write, 0)
         return this
     def add_mode_max_read(mode_max_read:int):
-        b_.PrependUint32Slot(13, mode_max_read, 0)
+        b_.PrependUint32Slot(15, mode_max_read, 0)
         return this
     def add_psu_enabled(psu_enabled:bool):
-        b_.PrependBoolSlot(14, psu_enabled, 0)
+        b_.PrependBoolSlot(16, psu_enabled, 0)
         return this
     def add_psu_set_mv(psu_set_mv:int):
-        b_.PrependUint32Slot(15, psu_set_mv, 0)
+        b_.PrependUint32Slot(17, psu_set_mv, 0)
         return this
     def add_psu_set_ma(psu_set_ma:int):
-        b_.PrependUint32Slot(16, psu_set_ma, 0)
+        b_.PrependUint32Slot(18, psu_set_ma, 0)
         return this
     def add_psu_measured_mv(psu_measured_mv:int):
-        b_.PrependUint32Slot(17, psu_measured_mv, 0)
+        b_.PrependUint32Slot(19, psu_measured_mv, 0)
         return this
     def add_psu_measured_ma(psu_measured_ma:int):
-        b_.PrependUint32Slot(18, psu_measured_ma, 0)
+        b_.PrependUint32Slot(20, psu_measured_ma, 0)
         return this
     def add_psu_current_error(psu_current_error:bool):
-        b_.PrependBoolSlot(19, psu_current_error, 0)
+        b_.PrependBoolSlot(21, psu_current_error, 0)
         return this
     def add_pullup_enabled(pullup_enabled:bool):
-        b_.PrependBoolSlot(20, pullup_enabled, 0)
+        b_.PrependBoolSlot(22, pullup_enabled, 0)
         return this
     def add_adc_mv(adc_mv:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(21, adc_mv)
+        b_.PrependUOffsetTRelativeSlot(23, adc_mv)
         return this
     def add_io_direction(io_direction:int):
-        b_.PrependUint8Slot(22, io_direction, 0)
+        b_.PrependUint8Slot(24, io_direction, 0)
         return this
     def add_io_value(io_value:int):
-        b_.PrependUint8Slot(23, io_value, 0)
+        b_.PrependUint8Slot(25, io_value, 0)
         return this
     def add_disk_size_mb(disk_size_mb:float):
-        b_.PrependFloat32Slot(24, disk_size_mb, 0.0)
+        b_.PrependFloat32Slot(26, disk_size_mb, 0.0)
         return this
     def add_disk_used_mb(disk_used_mb:float):
-        b_.PrependFloat32Slot(25, disk_used_mb, 0.0)
+        b_.PrependFloat32Slot(27, disk_used_mb, 0.0)
         return this
     def add_led_count(led_count:int):
-        b_.PrependUint8Slot(26, led_count, 0)
+        b_.PrependUint8Slot(28, led_count, 0)
         return this
     def end():
         return b_.EndObject()
@@ -545,28 +552,11 @@ def DataResponseCreateDataReadVector(b_:flatbuffers.builder, v_:[int]):
     reverse(v_) e_: b_.PrependUint8(e_)
     return b_.EndVector(v_.length)
 
-class ErrorResponse : flatbuffers.handle
-    def error() -> string:
-        return flatbuffers.field_string(buf_, pos_, 4)
-
-def GetRootAsErrorResponse(buf:string): return ErrorResponse { buf, flatbuffers.indirect(buf, 0) }
-
-struct ErrorResponseBuilder:
-    b_:flatbuffers.builder
-    def start():
-        b_.StartObject(1)
-        return this
-    def add_error(error:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(0, error)
-        return this
-    def end():
-        return b_.EndObject()
-
 class RequestPacket : flatbuffers.handle
     def version_major() -> int:
         return flatbuffers.field_uint8(buf_, pos_, 4, 0)
-    def version_minor() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 6, 0)
+    def minimum_version_minor() -> int:
+        return flatbuffers.field_uint16(buf_, pos_, 6, 0)
     def contents_type() -> RequestPacketContents:
         return RequestPacketContents(flatbuffers.field_uint8(buf_, pos_, 8, 0))
     def contents_as_StatusRequest():
@@ -586,8 +576,8 @@ struct RequestPacketBuilder:
     def add_version_major(version_major:int):
         b_.PrependUint8Slot(0, version_major, 0)
         return this
-    def add_version_minor(version_minor:int):
-        b_.PrependUint8Slot(1, version_minor, 0)
+    def add_minimum_version_minor(minimum_version_minor:int):
+        b_.PrependUint16Slot(1, minimum_version_minor, 0)
         return this
     def add_contents_type(contents_type:RequestPacketContents):
         b_.PrependUint8Slot(2, contents_type, 0)
@@ -599,39 +589,32 @@ struct RequestPacketBuilder:
         return b_.EndObject()
 
 class ResponsePacket : flatbuffers.handle
-    def version_major() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 4, 0)
-    def version_minor() -> int:
-        return flatbuffers.field_uint8(buf_, pos_, 6, 0)
+    def error() -> string:
+        return flatbuffers.field_string(buf_, pos_, 4)
     def contents_type() -> ResponsePacketContents:
-        return ResponsePacketContents(flatbuffers.field_uint8(buf_, pos_, 8, 0))
-    def contents_as_ErrorResponse():
-        return bpio.ErrorResponse { buf_, flatbuffers.field_table(buf_, pos_, 10) }
+        return ResponsePacketContents(flatbuffers.field_uint8(buf_, pos_, 6, 0))
     def contents_as_StatusResponse():
-        return bpio.StatusResponse { buf_, flatbuffers.field_table(buf_, pos_, 10) }
+        return bpio.StatusResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
     def contents_as_ConfigurationResponse():
-        return bpio.ConfigurationResponse { buf_, flatbuffers.field_table(buf_, pos_, 10) }
+        return bpio.ConfigurationResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
     def contents_as_DataResponse():
-        return bpio.DataResponse { buf_, flatbuffers.field_table(buf_, pos_, 10) }
+        return bpio.DataResponse { buf_, flatbuffers.field_table(buf_, pos_, 8) }
 
 def GetRootAsResponsePacket(buf:string): return ResponsePacket { buf, flatbuffers.indirect(buf, 0) }
 
 struct ResponsePacketBuilder:
     b_:flatbuffers.builder
     def start():
-        b_.StartObject(4)
+        b_.StartObject(3)
         return this
-    def add_version_major(version_major:int):
-        b_.PrependUint8Slot(0, version_major, 0)
-        return this
-    def add_version_minor(version_minor:int):
-        b_.PrependUint8Slot(1, version_minor, 0)
+    def add_error(error:flatbuffers.offset):
+        b_.PrependUOffsetTRelativeSlot(0, error)
         return this
     def add_contents_type(contents_type:ResponsePacketContents):
-        b_.PrependUint8Slot(2, contents_type, 0)
+        b_.PrependUint8Slot(1, contents_type, 0)
         return this
     def add_contents(contents:flatbuffers.offset):
-        b_.PrependUOffsetTRelativeSlot(3, contents)
+        b_.PrependUOffsetTRelativeSlot(2, contents)
         return this
     def end():
         return b_.EndObject()

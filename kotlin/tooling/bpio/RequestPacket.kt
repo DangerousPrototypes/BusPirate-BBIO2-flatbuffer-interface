@@ -33,10 +33,10 @@ class RequestPacket : Table() {
             val o = __offset(4)
             return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
         }
-    val versionMinor : UByte
+    val minimumVersionMinor : UShort
         get() {
             val o = __offset(6)
-            return if(o != 0) bb.get(o + bb_pos).toUByte() else 0u
+            return if(o != 0) bb.getShort(o + bb_pos).toUShort() else 0u
         }
     val contentsType : UByte
         get() {
@@ -53,17 +53,17 @@ class RequestPacket : Table() {
             _bb.order(ByteOrder.LITTLE_ENDIAN)
             return (obj.__assign(_bb.getInt(_bb.position()) + _bb.position(), _bb))
         }
-        fun createRequestPacket(builder: FlatBufferBuilder, versionMajor: UByte, versionMinor: UByte, contentsType: UByte, contentsOffset: Int) : Int {
+        fun createRequestPacket(builder: FlatBufferBuilder, versionMajor: UByte, minimumVersionMinor: UShort, contentsType: UByte, contentsOffset: Int) : Int {
             builder.startTable(4)
             addContents(builder, contentsOffset)
+            addMinimumVersionMinor(builder, minimumVersionMinor)
             addContentsType(builder, contentsType)
-            addVersionMinor(builder, versionMinor)
             addVersionMajor(builder, versionMajor)
             return endRequestPacket(builder)
         }
         fun startRequestPacket(builder: FlatBufferBuilder) = builder.startTable(4)
         fun addVersionMajor(builder: FlatBufferBuilder, versionMajor: UByte) = builder.addByte(0, versionMajor.toByte(), 0)
-        fun addVersionMinor(builder: FlatBufferBuilder, versionMinor: UByte) = builder.addByte(1, versionMinor.toByte(), 0)
+        fun addMinimumVersionMinor(builder: FlatBufferBuilder, minimumVersionMinor: UShort) = builder.addShort(1, minimumVersionMinor.toShort(), 0)
         fun addContentsType(builder: FlatBufferBuilder, contentsType: UByte) = builder.addByte(2, contentsType.toByte(), 0)
         fun addContents(builder: FlatBufferBuilder, contents: Int) = builder.addOffset(3, contents, 0)
         fun endRequestPacket(builder: FlatBufferBuilder) : Int {

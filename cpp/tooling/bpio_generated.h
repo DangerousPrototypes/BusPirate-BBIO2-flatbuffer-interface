@@ -36,9 +36,6 @@ struct DataRequestBuilder;
 struct DataResponse;
 struct DataResponseBuilder;
 
-struct ErrorResponse;
-struct ErrorResponseBuilder;
-
 struct RequestPacket;
 struct RequestPacketBuilder;
 
@@ -153,18 +150,16 @@ bool VerifyRequestPacketContentsVector(::flatbuffers::Verifier &verifier, const 
 
 enum ResponsePacketContents : uint8_t {
   ResponsePacketContents_NONE = 0,
-  ResponsePacketContents_ErrorResponse = 1,
-  ResponsePacketContents_StatusResponse = 2,
-  ResponsePacketContents_ConfigurationResponse = 3,
-  ResponsePacketContents_DataResponse = 4,
+  ResponsePacketContents_StatusResponse = 1,
+  ResponsePacketContents_ConfigurationResponse = 2,
+  ResponsePacketContents_DataResponse = 3,
   ResponsePacketContents_MIN = ResponsePacketContents_NONE,
   ResponsePacketContents_MAX = ResponsePacketContents_DataResponse
 };
 
-inline const ResponsePacketContents (&EnumValuesResponsePacketContents())[5] {
+inline const ResponsePacketContents (&EnumValuesResponsePacketContents())[4] {
   static const ResponsePacketContents values[] = {
     ResponsePacketContents_NONE,
-    ResponsePacketContents_ErrorResponse,
     ResponsePacketContents_StatusResponse,
     ResponsePacketContents_ConfigurationResponse,
     ResponsePacketContents_DataResponse
@@ -173,9 +168,8 @@ inline const ResponsePacketContents (&EnumValuesResponsePacketContents())[5] {
 }
 
 inline const char * const *EnumNamesResponsePacketContents() {
-  static const char * const names[6] = {
+  static const char * const names[5] = {
     "NONE",
-    "ErrorResponse",
     "StatusResponse",
     "ConfigurationResponse",
     "DataResponse",
@@ -192,10 +186,6 @@ inline const char *EnumNameResponsePacketContents(ResponsePacketContents e) {
 
 template<typename T> struct ResponsePacketContentsTraits {
   static const ResponsePacketContents enum_value = ResponsePacketContents_NONE;
-};
-
-template<> struct ResponsePacketContentsTraits<bpio::ErrorResponse> {
-  static const ResponsePacketContents enum_value = ResponsePacketContents_ErrorResponse;
 };
 
 template<> struct ResponsePacketContentsTraits<bpio::StatusResponse> {
@@ -268,35 +258,43 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef StatusResponseBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ERROR = 4,
-    VT_VERSION_HARDWARE_MAJOR = 6,
-    VT_VERSION_HARDWARE_MINOR = 8,
-    VT_VERSION_FIRMWARE_MAJOR = 10,
-    VT_VERSION_FIRMWARE_MINOR = 12,
-    VT_VERSION_FIRMWARE_GIT_HASH = 14,
-    VT_VERSION_FIRMWARE_DATE = 16,
-    VT_MODES_AVAILABLE = 18,
-    VT_MODE_CURRENT = 20,
-    VT_MODE_PIN_LABELS = 22,
-    VT_MODE_BITORDER_MSB = 24,
-    VT_MODE_MAX_PACKET_SIZE = 26,
-    VT_MODE_MAX_WRITE = 28,
-    VT_MODE_MAX_READ = 30,
-    VT_PSU_ENABLED = 32,
-    VT_PSU_SET_MV = 34,
-    VT_PSU_SET_MA = 36,
-    VT_PSU_MEASURED_MV = 38,
-    VT_PSU_MEASURED_MA = 40,
-    VT_PSU_CURRENT_ERROR = 42,
-    VT_PULLUP_ENABLED = 44,
-    VT_ADC_MV = 46,
-    VT_IO_DIRECTION = 48,
-    VT_IO_VALUE = 50,
-    VT_DISK_SIZE_MB = 52,
-    VT_DISK_USED_MB = 54,
-    VT_LED_COUNT = 56
+    VT_VERSION_FLATBUFFERS_MAJOR = 6,
+    VT_VERSION_FLATBUFFERS_MINOR = 8,
+    VT_VERSION_HARDWARE_MAJOR = 10,
+    VT_VERSION_HARDWARE_MINOR = 12,
+    VT_VERSION_FIRMWARE_MAJOR = 14,
+    VT_VERSION_FIRMWARE_MINOR = 16,
+    VT_VERSION_FIRMWARE_GIT_HASH = 18,
+    VT_VERSION_FIRMWARE_DATE = 20,
+    VT_MODES_AVAILABLE = 22,
+    VT_MODE_CURRENT = 24,
+    VT_MODE_PIN_LABELS = 26,
+    VT_MODE_BITORDER_MSB = 28,
+    VT_MODE_MAX_PACKET_SIZE = 30,
+    VT_MODE_MAX_WRITE = 32,
+    VT_MODE_MAX_READ = 34,
+    VT_PSU_ENABLED = 36,
+    VT_PSU_SET_MV = 38,
+    VT_PSU_SET_MA = 40,
+    VT_PSU_MEASURED_MV = 42,
+    VT_PSU_MEASURED_MA = 44,
+    VT_PSU_CURRENT_ERROR = 46,
+    VT_PULLUP_ENABLED = 48,
+    VT_ADC_MV = 50,
+    VT_IO_DIRECTION = 52,
+    VT_IO_VALUE = 54,
+    VT_DISK_SIZE_MB = 56,
+    VT_DISK_USED_MB = 58,
+    VT_LED_COUNT = 60
   };
   const ::flatbuffers::String *error() const {
     return GetPointer<const ::flatbuffers::String *>(VT_ERROR);
+  }
+  uint8_t version_flatbuffers_major() const {
+    return GetField<uint8_t>(VT_VERSION_FLATBUFFERS_MAJOR, 0);
+  }
+  uint16_t version_flatbuffers_minor() const {
+    return GetField<uint16_t>(VT_VERSION_FLATBUFFERS_MINOR, 0);
   }
   uint8_t version_hardware_major() const {
     return GetField<uint8_t>(VT_VERSION_HARDWARE_MAJOR, 0);
@@ -380,6 +378,8 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_ERROR) &&
            verifier.VerifyString(error()) &&
+           VerifyField<uint8_t>(verifier, VT_VERSION_FLATBUFFERS_MAJOR, 1) &&
+           VerifyField<uint16_t>(verifier, VT_VERSION_FLATBUFFERS_MINOR, 2) &&
            VerifyField<uint8_t>(verifier, VT_VERSION_HARDWARE_MAJOR, 1) &&
            VerifyField<uint8_t>(verifier, VT_VERSION_HARDWARE_MINOR, 1) &&
            VerifyField<uint8_t>(verifier, VT_VERSION_FIRMWARE_MAJOR, 1) &&
@@ -424,6 +424,12 @@ struct StatusResponseBuilder {
   ::flatbuffers::uoffset_t start_;
   void add_error(::flatbuffers::Offset<::flatbuffers::String> error) {
     fbb_.AddOffset(StatusResponse::VT_ERROR, error);
+  }
+  void add_version_flatbuffers_major(uint8_t version_flatbuffers_major) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_VERSION_FLATBUFFERS_MAJOR, version_flatbuffers_major, 0);
+  }
+  void add_version_flatbuffers_minor(uint16_t version_flatbuffers_minor) {
+    fbb_.AddElement<uint16_t>(StatusResponse::VT_VERSION_FLATBUFFERS_MINOR, version_flatbuffers_minor, 0);
   }
   void add_version_hardware_major(uint8_t version_hardware_major) {
     fbb_.AddElement<uint8_t>(StatusResponse::VT_VERSION_HARDWARE_MAJOR, version_hardware_major, 0);
@@ -517,6 +523,8 @@ struct StatusResponseBuilder {
 inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     ::flatbuffers::Offset<::flatbuffers::String> error = 0,
+    uint8_t version_flatbuffers_major = 0,
+    uint16_t version_flatbuffers_minor = 0,
     uint8_t version_hardware_major = 0,
     uint8_t version_hardware_minor = 0,
     uint8_t version_firmware_major = 0,
@@ -560,6 +568,7 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
   builder_.add_version_firmware_date(version_firmware_date);
   builder_.add_version_firmware_git_hash(version_firmware_git_hash);
   builder_.add_error(error);
+  builder_.add_version_flatbuffers_minor(version_flatbuffers_minor);
   builder_.add_led_count(led_count);
   builder_.add_io_value(io_value);
   builder_.add_io_direction(io_direction);
@@ -571,12 +580,15 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
   builder_.add_version_firmware_major(version_firmware_major);
   builder_.add_version_hardware_minor(version_hardware_minor);
   builder_.add_version_hardware_major(version_hardware_major);
+  builder_.add_version_flatbuffers_major(version_flatbuffers_major);
   return builder_.Finish();
 }
 
 inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *error = nullptr,
+    uint8_t version_flatbuffers_major = 0,
+    uint16_t version_flatbuffers_minor = 0,
     uint8_t version_hardware_major = 0,
     uint8_t version_hardware_minor = 0,
     uint8_t version_firmware_major = 0,
@@ -613,6 +625,8 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
   return bpio::CreateStatusResponse(
       _fbb,
       error__,
+      version_flatbuffers_major,
+      version_flatbuffers_minor,
       version_hardware_major,
       version_hardware_minor,
       version_firmware_major,
@@ -1313,70 +1327,19 @@ inline ::flatbuffers::Offset<DataResponse> CreateDataResponseDirect(
       data_read__);
 }
 
-struct ErrorResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
-  typedef ErrorResponseBuilder Builder;
-  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_ERROR = 4
-  };
-  const ::flatbuffers::String *error() const {
-    return GetPointer<const ::flatbuffers::String *>(VT_ERROR);
-  }
-  bool Verify(::flatbuffers::Verifier &verifier) const {
-    return VerifyTableStart(verifier) &&
-           VerifyOffset(verifier, VT_ERROR) &&
-           verifier.VerifyString(error()) &&
-           verifier.EndTable();
-  }
-};
-
-struct ErrorResponseBuilder {
-  typedef ErrorResponse Table;
-  ::flatbuffers::FlatBufferBuilder &fbb_;
-  ::flatbuffers::uoffset_t start_;
-  void add_error(::flatbuffers::Offset<::flatbuffers::String> error) {
-    fbb_.AddOffset(ErrorResponse::VT_ERROR, error);
-  }
-  explicit ErrorResponseBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
-        : fbb_(_fbb) {
-    start_ = fbb_.StartTable();
-  }
-  ::flatbuffers::Offset<ErrorResponse> Finish() {
-    const auto end = fbb_.EndTable(start_);
-    auto o = ::flatbuffers::Offset<ErrorResponse>(end);
-    return o;
-  }
-};
-
-inline ::flatbuffers::Offset<ErrorResponse> CreateErrorResponse(
-    ::flatbuffers::FlatBufferBuilder &_fbb,
-    ::flatbuffers::Offset<::flatbuffers::String> error = 0) {
-  ErrorResponseBuilder builder_(_fbb);
-  builder_.add_error(error);
-  return builder_.Finish();
-}
-
-inline ::flatbuffers::Offset<ErrorResponse> CreateErrorResponseDirect(
-    ::flatbuffers::FlatBufferBuilder &_fbb,
-    const char *error = nullptr) {
-  auto error__ = error ? _fbb.CreateString(error) : 0;
-  return bpio::CreateErrorResponse(
-      _fbb,
-      error__);
-}
-
 struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef RequestPacketBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_VERSION_MAJOR = 4,
-    VT_VERSION_MINOR = 6,
+    VT_MINIMUM_VERSION_MINOR = 6,
     VT_CONTENTS_TYPE = 8,
     VT_CONTENTS = 10
   };
   uint8_t version_major() const {
     return GetField<uint8_t>(VT_VERSION_MAJOR, 0);
   }
-  uint8_t version_minor() const {
-    return GetField<uint8_t>(VT_VERSION_MINOR, 0);
+  uint16_t minimum_version_minor() const {
+    return GetField<uint16_t>(VT_MINIMUM_VERSION_MINOR, 0);
   }
   bpio::RequestPacketContents contents_type() const {
     return static_cast<bpio::RequestPacketContents>(GetField<uint8_t>(VT_CONTENTS_TYPE, 0));
@@ -1397,7 +1360,7 @@ struct RequestPacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_VERSION_MAJOR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_VERSION_MINOR, 1) &&
+           VerifyField<uint16_t>(verifier, VT_MINIMUM_VERSION_MINOR, 2) &&
            VerifyField<uint8_t>(verifier, VT_CONTENTS_TYPE, 1) &&
            VerifyOffset(verifier, VT_CONTENTS) &&
            VerifyRequestPacketContents(verifier, contents(), contents_type()) &&
@@ -1424,8 +1387,8 @@ struct RequestPacketBuilder {
   void add_version_major(uint8_t version_major) {
     fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MAJOR, version_major, 0);
   }
-  void add_version_minor(uint8_t version_minor) {
-    fbb_.AddElement<uint8_t>(RequestPacket::VT_VERSION_MINOR, version_minor, 0);
+  void add_minimum_version_minor(uint16_t minimum_version_minor) {
+    fbb_.AddElement<uint16_t>(RequestPacket::VT_MINIMUM_VERSION_MINOR, minimum_version_minor, 0);
   }
   void add_contents_type(bpio::RequestPacketContents contents_type) {
     fbb_.AddElement<uint8_t>(RequestPacket::VT_CONTENTS_TYPE, static_cast<uint8_t>(contents_type), 0);
@@ -1447,13 +1410,13 @@ struct RequestPacketBuilder {
 inline ::flatbuffers::Offset<RequestPacket> CreateRequestPacket(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     uint8_t version_major = 0,
-    uint8_t version_minor = 0,
+    uint16_t minimum_version_minor = 0,
     bpio::RequestPacketContents contents_type = bpio::RequestPacketContents_NONE,
     ::flatbuffers::Offset<void> contents = 0) {
   RequestPacketBuilder builder_(_fbb);
   builder_.add_contents(contents);
+  builder_.add_minimum_version_minor(minimum_version_minor);
   builder_.add_contents_type(contents_type);
-  builder_.add_version_minor(version_minor);
   builder_.add_version_major(version_major);
   return builder_.Finish();
 }
@@ -1461,16 +1424,12 @@ inline ::flatbuffers::Offset<RequestPacket> CreateRequestPacket(
 struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef ResponsePacketBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_VERSION_MAJOR = 4,
-    VT_VERSION_MINOR = 6,
-    VT_CONTENTS_TYPE = 8,
-    VT_CONTENTS = 10
+    VT_ERROR = 4,
+    VT_CONTENTS_TYPE = 6,
+    VT_CONTENTS = 8
   };
-  uint8_t version_major() const {
-    return GetField<uint8_t>(VT_VERSION_MAJOR, 0);
-  }
-  uint8_t version_minor() const {
-    return GetField<uint8_t>(VT_VERSION_MINOR, 0);
+  const ::flatbuffers::String *error() const {
+    return GetPointer<const ::flatbuffers::String *>(VT_ERROR);
   }
   bpio::ResponsePacketContents contents_type() const {
     return static_cast<bpio::ResponsePacketContents>(GetField<uint8_t>(VT_CONTENTS_TYPE, 0));
@@ -1479,9 +1438,6 @@ struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
     return GetPointer<const void *>(VT_CONTENTS);
   }
   template<typename T> const T *contents_as() const;
-  const bpio::ErrorResponse *contents_as_ErrorResponse() const {
-    return contents_type() == bpio::ResponsePacketContents_ErrorResponse ? static_cast<const bpio::ErrorResponse *>(contents()) : nullptr;
-  }
   const bpio::StatusResponse *contents_as_StatusResponse() const {
     return contents_type() == bpio::ResponsePacketContents_StatusResponse ? static_cast<const bpio::StatusResponse *>(contents()) : nullptr;
   }
@@ -1493,18 +1449,14 @@ struct ResponsePacket FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint8_t>(verifier, VT_VERSION_MAJOR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_VERSION_MINOR, 1) &&
+           VerifyOffset(verifier, VT_ERROR) &&
+           verifier.VerifyString(error()) &&
            VerifyField<uint8_t>(verifier, VT_CONTENTS_TYPE, 1) &&
            VerifyOffset(verifier, VT_CONTENTS) &&
            VerifyResponsePacketContents(verifier, contents(), contents_type()) &&
            verifier.EndTable();
   }
 };
-
-template<> inline const bpio::ErrorResponse *ResponsePacket::contents_as<bpio::ErrorResponse>() const {
-  return contents_as_ErrorResponse();
-}
 
 template<> inline const bpio::StatusResponse *ResponsePacket::contents_as<bpio::StatusResponse>() const {
   return contents_as_StatusResponse();
@@ -1522,11 +1474,8 @@ struct ResponsePacketBuilder {
   typedef ResponsePacket Table;
   ::flatbuffers::FlatBufferBuilder &fbb_;
   ::flatbuffers::uoffset_t start_;
-  void add_version_major(uint8_t version_major) {
-    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MAJOR, version_major, 0);
-  }
-  void add_version_minor(uint8_t version_minor) {
-    fbb_.AddElement<uint8_t>(ResponsePacket::VT_VERSION_MINOR, version_minor, 0);
+  void add_error(::flatbuffers::Offset<::flatbuffers::String> error) {
+    fbb_.AddOffset(ResponsePacket::VT_ERROR, error);
   }
   void add_contents_type(bpio::ResponsePacketContents contents_type) {
     fbb_.AddElement<uint8_t>(ResponsePacket::VT_CONTENTS_TYPE, static_cast<uint8_t>(contents_type), 0);
@@ -1547,16 +1496,27 @@ struct ResponsePacketBuilder {
 
 inline ::flatbuffers::Offset<ResponsePacket> CreateResponsePacket(
     ::flatbuffers::FlatBufferBuilder &_fbb,
-    uint8_t version_major = 0,
-    uint8_t version_minor = 0,
+    ::flatbuffers::Offset<::flatbuffers::String> error = 0,
     bpio::ResponsePacketContents contents_type = bpio::ResponsePacketContents_NONE,
     ::flatbuffers::Offset<void> contents = 0) {
   ResponsePacketBuilder builder_(_fbb);
   builder_.add_contents(contents);
+  builder_.add_error(error);
   builder_.add_contents_type(contents_type);
-  builder_.add_version_minor(version_minor);
-  builder_.add_version_major(version_major);
   return builder_.Finish();
+}
+
+inline ::flatbuffers::Offset<ResponsePacket> CreateResponsePacketDirect(
+    ::flatbuffers::FlatBufferBuilder &_fbb,
+    const char *error = nullptr,
+    bpio::ResponsePacketContents contents_type = bpio::ResponsePacketContents_NONE,
+    ::flatbuffers::Offset<void> contents = 0) {
+  auto error__ = error ? _fbb.CreateString(error) : 0;
+  return bpio::CreateResponsePacket(
+      _fbb,
+      error__,
+      contents_type,
+      contents);
 }
 
 inline bool VerifyRequestPacketContents(::flatbuffers::Verifier &verifier, const void *obj, RequestPacketContents type) {
@@ -1596,10 +1556,6 @@ inline bool VerifyResponsePacketContents(::flatbuffers::Verifier &verifier, cons
   switch (type) {
     case ResponsePacketContents_NONE: {
       return true;
-    }
-    case ResponsePacketContents_ErrorResponse: {
-      auto ptr = reinterpret_cast<const bpio::ErrorResponse *>(obj);
-      return verifier.VerifyTable(ptr);
     }
     case ResponsePacketContents_StatusResponse: {
       auto ptr = reinterpret_cast<const bpio::StatusResponse *>(obj);

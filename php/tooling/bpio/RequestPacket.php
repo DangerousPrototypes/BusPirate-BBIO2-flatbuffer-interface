@@ -42,12 +42,12 @@ class RequestPacket extends Table
     }
 
     /**
-     * @return byte
+     * @return ushort
      */
-    public function getVersionMinor()
+    public function getMinimumVersionMinor()
     {
         $o = $this->__offset(6);
-        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
+        return $o != 0 ? $this->bb->getUshort($o + $this->bb_pos) : 0;
     }
 
     /**
@@ -81,11 +81,11 @@ class RequestPacket extends Table
      * @param FlatBufferBuilder $builder
      * @return RequestPacket
      */
-    public static function createRequestPacket(FlatBufferBuilder $builder, $version_major, $version_minor, $contents_type, $contents)
+    public static function createRequestPacket(FlatBufferBuilder $builder, $version_major, $minimum_version_minor, $contents_type, $contents)
     {
         $builder->startObject(4);
         self::addVersionMajor($builder, $version_major);
-        self::addVersionMinor($builder, $version_minor);
+        self::addMinimumVersionMinor($builder, $minimum_version_minor);
         self::addContentsType($builder, $contents_type);
         self::addContents($builder, $contents);
         $o = $builder->endObject();
@@ -104,12 +104,12 @@ class RequestPacket extends Table
 
     /**
      * @param FlatBufferBuilder $builder
-     * @param byte
+     * @param ushort
      * @return void
      */
-    public static function addVersionMinor(FlatBufferBuilder $builder, $versionMinor)
+    public static function addMinimumVersionMinor(FlatBufferBuilder $builder, $minimumVersionMinor)
     {
-        $builder->addByteX(1, $versionMinor, 0);
+        $builder->addUshortX(1, $minimumVersionMinor, 0);
     }
 
     /**

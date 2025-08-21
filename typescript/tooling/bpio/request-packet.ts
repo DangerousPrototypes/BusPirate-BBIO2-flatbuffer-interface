@@ -30,9 +30,9 @@ versionMajor():number {
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
-versionMinor():number {
+minimumVersionMinor():number {
   const offset = this.bb!.__offset(this.bb_pos, 6);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
+  return offset ? this.bb!.readUint16(this.bb_pos + offset) : 0;
 }
 
 contentsType():RequestPacketContents {
@@ -53,8 +53,8 @@ static addVersionMajor(builder:flatbuffers.Builder, versionMajor:number) {
   builder.addFieldInt8(0, versionMajor, 0);
 }
 
-static addVersionMinor(builder:flatbuffers.Builder, versionMinor:number) {
-  builder.addFieldInt8(1, versionMinor, 0);
+static addMinimumVersionMinor(builder:flatbuffers.Builder, minimumVersionMinor:number) {
+  builder.addFieldInt16(1, minimumVersionMinor, 0);
 }
 
 static addContentsType(builder:flatbuffers.Builder, contentsType:RequestPacketContents) {
@@ -70,10 +70,10 @@ static endRequestPacket(builder:flatbuffers.Builder):flatbuffers.Offset {
   return offset;
 }
 
-static createRequestPacket(builder:flatbuffers.Builder, versionMajor:number, versionMinor:number, contentsType:RequestPacketContents, contentsOffset:flatbuffers.Offset):flatbuffers.Offset {
+static createRequestPacket(builder:flatbuffers.Builder, versionMajor:number, minimumVersionMinor:number, contentsType:RequestPacketContents, contentsOffset:flatbuffers.Offset):flatbuffers.Offset {
   RequestPacket.startRequestPacket(builder);
   RequestPacket.addVersionMajor(builder, versionMajor);
-  RequestPacket.addVersionMinor(builder, versionMinor);
+  RequestPacket.addMinimumVersionMinor(builder, minimumVersionMinor);
   RequestPacket.addContentsType(builder, contentsType);
   RequestPacket.addContents(builder, contentsOffset);
   return RequestPacket.endRequestPacket(builder);

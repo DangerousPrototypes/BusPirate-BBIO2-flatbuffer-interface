@@ -41,25 +41,25 @@ class StatusResponse extends Table
     /**
      * @return byte
      */
-    public function getVersionHardwareMajor()
+    public function getVersionFlatbuffersMajor()
     {
         $o = $this->__offset(6);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
     /**
-     * @return byte
+     * @return ushort
      */
-    public function getVersionHardwareMinor()
+    public function getVersionFlatbuffersMinor()
     {
         $o = $this->__offset(8);
-        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
+        return $o != 0 ? $this->bb->getUshort($o + $this->bb_pos) : 0;
     }
 
     /**
      * @return byte
      */
-    public function getVersionFirmwareMajor()
+    public function getVersionHardwareMajor()
     {
         $o = $this->__offset(10);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
@@ -68,44 +68,37 @@ class StatusResponse extends Table
     /**
      * @return byte
      */
-    public function getVersionFirmwareMinor()
+    public function getVersionHardwareMinor()
     {
         $o = $this->__offset(12);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
-    public function getVersionFirmwareGitHash()
+    /**
+     * @return byte
+     */
+    public function getVersionFirmwareMajor()
     {
         $o = $this->__offset(14);
+        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
+    }
+
+    /**
+     * @return byte
+     */
+    public function getVersionFirmwareMinor()
+    {
+        $o = $this->__offset(16);
+        return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
+    }
+
+    public function getVersionFirmwareGitHash()
+    {
+        $o = $this->__offset(18);
         return $o != 0 ? $this->__string($o + $this->bb_pos) : null;
     }
 
     public function getVersionFirmwareDate()
-    {
-        $o = $this->__offset(16);
-        return $o != 0 ? $this->__string($o + $this->bb_pos) : null;
-    }
-
-    /**
-     * @param int offset
-     * @return string
-     */
-    public function getModesAvailable($j)
-    {
-        $o = $this->__offset(18);
-        return $o != 0 ? $this->__string($this->__vector($o) + $j * 4) : 0;
-    }
-
-    /**
-     * @return int
-     */
-    public function getModesAvailableLength()
-    {
-        $o = $this->__offset(18);
-        return $o != 0 ? $this->__vector_len($o) : 0;
-    }
-
-    public function getModeCurrent()
     {
         $o = $this->__offset(20);
         return $o != 0 ? $this->__string($o + $this->bb_pos) : null;
@@ -115,7 +108,7 @@ class StatusResponse extends Table
      * @param int offset
      * @return string
      */
-    public function getModePinLabels($j)
+    public function getModesAvailable($j)
     {
         $o = $this->__offset(22);
         return $o != 0 ? $this->__string($this->__vector($o) + $j * 4) : 0;
@@ -124,9 +117,34 @@ class StatusResponse extends Table
     /**
      * @return int
      */
-    public function getModePinLabelsLength()
+    public function getModesAvailableLength()
     {
         $o = $this->__offset(22);
+        return $o != 0 ? $this->__vector_len($o) : 0;
+    }
+
+    public function getModeCurrent()
+    {
+        $o = $this->__offset(24);
+        return $o != 0 ? $this->__string($o + $this->bb_pos) : null;
+    }
+
+    /**
+     * @param int offset
+     * @return string
+     */
+    public function getModePinLabels($j)
+    {
+        $o = $this->__offset(26);
+        return $o != 0 ? $this->__string($this->__vector($o) + $j * 4) : 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function getModePinLabelsLength()
+    {
+        $o = $this->__offset(26);
         return $o != 0 ? $this->__vector_len($o) : 0;
     }
 
@@ -135,7 +153,7 @@ class StatusResponse extends Table
      */
     public function getModeBitorderMsb()
     {
-        $o = $this->__offset(24);
+        $o = $this->__offset(28);
         return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
     }
 
@@ -144,7 +162,7 @@ class StatusResponse extends Table
      */
     public function getModeMaxPacketSize()
     {
-        $o = $this->__offset(26);
+        $o = $this->__offset(30);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -153,7 +171,7 @@ class StatusResponse extends Table
      */
     public function getModeMaxWrite()
     {
-        $o = $this->__offset(28);
+        $o = $this->__offset(32);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -162,7 +180,7 @@ class StatusResponse extends Table
      */
     public function getModeMaxRead()
     {
-        $o = $this->__offset(30);
+        $o = $this->__offset(34);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -171,7 +189,7 @@ class StatusResponse extends Table
      */
     public function getPsuEnabled()
     {
-        $o = $this->__offset(32);
+        $o = $this->__offset(36);
         return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
     }
 
@@ -180,7 +198,7 @@ class StatusResponse extends Table
      */
     public function getPsuSetMv()
     {
-        $o = $this->__offset(34);
+        $o = $this->__offset(38);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -189,7 +207,7 @@ class StatusResponse extends Table
      */
     public function getPsuSetMa()
     {
-        $o = $this->__offset(36);
+        $o = $this->__offset(40);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -198,7 +216,7 @@ class StatusResponse extends Table
      */
     public function getPsuMeasuredMv()
     {
-        $o = $this->__offset(38);
+        $o = $this->__offset(42);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -207,7 +225,7 @@ class StatusResponse extends Table
      */
     public function getPsuMeasuredMa()
     {
-        $o = $this->__offset(40);
+        $o = $this->__offset(44);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -216,7 +234,7 @@ class StatusResponse extends Table
      */
     public function getPsuCurrentError()
     {
-        $o = $this->__offset(42);
+        $o = $this->__offset(46);
         return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
     }
 
@@ -225,7 +243,7 @@ class StatusResponse extends Table
      */
     public function getPullupEnabled()
     {
-        $o = $this->__offset(44);
+        $o = $this->__offset(48);
         return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
     }
 
@@ -235,7 +253,7 @@ class StatusResponse extends Table
      */
     public function getAdcMv($j)
     {
-        $o = $this->__offset(46);
+        $o = $this->__offset(50);
         return $o != 0 ? $this->bb->getUint($this->__vector($o) + $j * 4) : 0;
     }
 
@@ -244,7 +262,7 @@ class StatusResponse extends Table
      */
     public function getAdcMvLength()
     {
-        $o = $this->__offset(46);
+        $o = $this->__offset(50);
         return $o != 0 ? $this->__vector_len($o) : 0;
     }
 
@@ -253,7 +271,7 @@ class StatusResponse extends Table
      */
     public function getIoDirection()
     {
-        $o = $this->__offset(48);
+        $o = $this->__offset(52);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -262,7 +280,7 @@ class StatusResponse extends Table
      */
     public function getIoValue()
     {
-        $o = $this->__offset(50);
+        $o = $this->__offset(54);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -271,7 +289,7 @@ class StatusResponse extends Table
      */
     public function getDiskSizeMb()
     {
-        $o = $this->__offset(52);
+        $o = $this->__offset(56);
         return $o != 0 ? $this->bb->getFloat($o + $this->bb_pos) : 0.0;
     }
 
@@ -280,7 +298,7 @@ class StatusResponse extends Table
      */
     public function getDiskUsedMb()
     {
-        $o = $this->__offset(54);
+        $o = $this->__offset(58);
         return $o != 0 ? $this->bb->getFloat($o + $this->bb_pos) : 0.0;
     }
 
@@ -289,7 +307,7 @@ class StatusResponse extends Table
      */
     public function getLedCount()
     {
-        $o = $this->__offset(56);
+        $o = $this->__offset(60);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -299,17 +317,19 @@ class StatusResponse extends Table
      */
     public static function startStatusResponse(FlatBufferBuilder $builder)
     {
-        $builder->StartObject(27);
+        $builder->StartObject(29);
     }
 
     /**
      * @param FlatBufferBuilder $builder
      * @return StatusResponse
      */
-    public static function createStatusResponse(FlatBufferBuilder $builder, $error, $version_hardware_major, $version_hardware_minor, $version_firmware_major, $version_firmware_minor, $version_firmware_git_hash, $version_firmware_date, $modes_available, $mode_current, $mode_pin_labels, $mode_bitorder_msb, $mode_max_packet_size, $mode_max_write, $mode_max_read, $psu_enabled, $psu_set_mv, $psu_set_ma, $psu_measured_mv, $psu_measured_ma, $psu_current_error, $pullup_enabled, $adc_mv, $io_direction, $io_value, $disk_size_mb, $disk_used_mb, $led_count)
+    public static function createStatusResponse(FlatBufferBuilder $builder, $error, $version_flatbuffers_major, $version_flatbuffers_minor, $version_hardware_major, $version_hardware_minor, $version_firmware_major, $version_firmware_minor, $version_firmware_git_hash, $version_firmware_date, $modes_available, $mode_current, $mode_pin_labels, $mode_bitorder_msb, $mode_max_packet_size, $mode_max_write, $mode_max_read, $psu_enabled, $psu_set_mv, $psu_set_ma, $psu_measured_mv, $psu_measured_ma, $psu_current_error, $pullup_enabled, $adc_mv, $io_direction, $io_value, $disk_size_mb, $disk_used_mb, $led_count)
     {
-        $builder->startObject(27);
+        $builder->startObject(29);
         self::addError($builder, $error);
+        self::addVersionFlatbuffersMajor($builder, $version_flatbuffers_major);
+        self::addVersionFlatbuffersMinor($builder, $version_flatbuffers_minor);
         self::addVersionHardwareMajor($builder, $version_hardware_major);
         self::addVersionHardwareMinor($builder, $version_hardware_minor);
         self::addVersionFirmwareMajor($builder, $version_firmware_major);
@@ -355,9 +375,29 @@ class StatusResponse extends Table
      * @param byte
      * @return void
      */
+    public static function addVersionFlatbuffersMajor(FlatBufferBuilder $builder, $versionFlatbuffersMajor)
+    {
+        $builder->addByteX(1, $versionFlatbuffersMajor, 0);
+    }
+
+    /**
+     * @param FlatBufferBuilder $builder
+     * @param ushort
+     * @return void
+     */
+    public static function addVersionFlatbuffersMinor(FlatBufferBuilder $builder, $versionFlatbuffersMinor)
+    {
+        $builder->addUshortX(2, $versionFlatbuffersMinor, 0);
+    }
+
+    /**
+     * @param FlatBufferBuilder $builder
+     * @param byte
+     * @return void
+     */
     public static function addVersionHardwareMajor(FlatBufferBuilder $builder, $versionHardwareMajor)
     {
-        $builder->addByteX(1, $versionHardwareMajor, 0);
+        $builder->addByteX(3, $versionHardwareMajor, 0);
     }
 
     /**
@@ -367,7 +407,7 @@ class StatusResponse extends Table
      */
     public static function addVersionHardwareMinor(FlatBufferBuilder $builder, $versionHardwareMinor)
     {
-        $builder->addByteX(2, $versionHardwareMinor, 0);
+        $builder->addByteX(4, $versionHardwareMinor, 0);
     }
 
     /**
@@ -377,7 +417,7 @@ class StatusResponse extends Table
      */
     public static function addVersionFirmwareMajor(FlatBufferBuilder $builder, $versionFirmwareMajor)
     {
-        $builder->addByteX(3, $versionFirmwareMajor, 0);
+        $builder->addByteX(5, $versionFirmwareMajor, 0);
     }
 
     /**
@@ -387,7 +427,7 @@ class StatusResponse extends Table
      */
     public static function addVersionFirmwareMinor(FlatBufferBuilder $builder, $versionFirmwareMinor)
     {
-        $builder->addByteX(4, $versionFirmwareMinor, 0);
+        $builder->addByteX(6, $versionFirmwareMinor, 0);
     }
 
     /**
@@ -397,7 +437,7 @@ class StatusResponse extends Table
      */
     public static function addVersionFirmwareGitHash(FlatBufferBuilder $builder, $versionFirmwareGitHash)
     {
-        $builder->addOffsetX(5, $versionFirmwareGitHash, 0);
+        $builder->addOffsetX(7, $versionFirmwareGitHash, 0);
     }
 
     /**
@@ -407,7 +447,7 @@ class StatusResponse extends Table
      */
     public static function addVersionFirmwareDate(FlatBufferBuilder $builder, $versionFirmwareDate)
     {
-        $builder->addOffsetX(6, $versionFirmwareDate, 0);
+        $builder->addOffsetX(8, $versionFirmwareDate, 0);
     }
 
     /**
@@ -417,7 +457,7 @@ class StatusResponse extends Table
      */
     public static function addModesAvailable(FlatBufferBuilder $builder, $modesAvailable)
     {
-        $builder->addOffsetX(7, $modesAvailable, 0);
+        $builder->addOffsetX(9, $modesAvailable, 0);
     }
 
     /**
@@ -451,7 +491,7 @@ class StatusResponse extends Table
      */
     public static function addModeCurrent(FlatBufferBuilder $builder, $modeCurrent)
     {
-        $builder->addOffsetX(8, $modeCurrent, 0);
+        $builder->addOffsetX(10, $modeCurrent, 0);
     }
 
     /**
@@ -461,7 +501,7 @@ class StatusResponse extends Table
      */
     public static function addModePinLabels(FlatBufferBuilder $builder, $modePinLabels)
     {
-        $builder->addOffsetX(9, $modePinLabels, 0);
+        $builder->addOffsetX(11, $modePinLabels, 0);
     }
 
     /**
@@ -495,7 +535,7 @@ class StatusResponse extends Table
      */
     public static function addModeBitorderMsb(FlatBufferBuilder $builder, $modeBitorderMsb)
     {
-        $builder->addBoolX(10, $modeBitorderMsb, false);
+        $builder->addBoolX(12, $modeBitorderMsb, false);
     }
 
     /**
@@ -505,7 +545,7 @@ class StatusResponse extends Table
      */
     public static function addModeMaxPacketSize(FlatBufferBuilder $builder, $modeMaxPacketSize)
     {
-        $builder->addUintX(11, $modeMaxPacketSize, 0);
+        $builder->addUintX(13, $modeMaxPacketSize, 0);
     }
 
     /**
@@ -515,7 +555,7 @@ class StatusResponse extends Table
      */
     public static function addModeMaxWrite(FlatBufferBuilder $builder, $modeMaxWrite)
     {
-        $builder->addUintX(12, $modeMaxWrite, 0);
+        $builder->addUintX(14, $modeMaxWrite, 0);
     }
 
     /**
@@ -525,7 +565,7 @@ class StatusResponse extends Table
      */
     public static function addModeMaxRead(FlatBufferBuilder $builder, $modeMaxRead)
     {
-        $builder->addUintX(13, $modeMaxRead, 0);
+        $builder->addUintX(15, $modeMaxRead, 0);
     }
 
     /**
@@ -535,7 +575,7 @@ class StatusResponse extends Table
      */
     public static function addPsuEnabled(FlatBufferBuilder $builder, $psuEnabled)
     {
-        $builder->addBoolX(14, $psuEnabled, false);
+        $builder->addBoolX(16, $psuEnabled, false);
     }
 
     /**
@@ -545,7 +585,7 @@ class StatusResponse extends Table
      */
     public static function addPsuSetMv(FlatBufferBuilder $builder, $psuSetMv)
     {
-        $builder->addUintX(15, $psuSetMv, 0);
+        $builder->addUintX(17, $psuSetMv, 0);
     }
 
     /**
@@ -555,7 +595,7 @@ class StatusResponse extends Table
      */
     public static function addPsuSetMa(FlatBufferBuilder $builder, $psuSetMa)
     {
-        $builder->addUintX(16, $psuSetMa, 0);
+        $builder->addUintX(18, $psuSetMa, 0);
     }
 
     /**
@@ -565,7 +605,7 @@ class StatusResponse extends Table
      */
     public static function addPsuMeasuredMv(FlatBufferBuilder $builder, $psuMeasuredMv)
     {
-        $builder->addUintX(17, $psuMeasuredMv, 0);
+        $builder->addUintX(19, $psuMeasuredMv, 0);
     }
 
     /**
@@ -575,7 +615,7 @@ class StatusResponse extends Table
      */
     public static function addPsuMeasuredMa(FlatBufferBuilder $builder, $psuMeasuredMa)
     {
-        $builder->addUintX(18, $psuMeasuredMa, 0);
+        $builder->addUintX(20, $psuMeasuredMa, 0);
     }
 
     /**
@@ -585,7 +625,7 @@ class StatusResponse extends Table
      */
     public static function addPsuCurrentError(FlatBufferBuilder $builder, $psuCurrentError)
     {
-        $builder->addBoolX(19, $psuCurrentError, false);
+        $builder->addBoolX(21, $psuCurrentError, false);
     }
 
     /**
@@ -595,7 +635,7 @@ class StatusResponse extends Table
      */
     public static function addPullupEnabled(FlatBufferBuilder $builder, $pullupEnabled)
     {
-        $builder->addBoolX(20, $pullupEnabled, false);
+        $builder->addBoolX(22, $pullupEnabled, false);
     }
 
     /**
@@ -605,7 +645,7 @@ class StatusResponse extends Table
      */
     public static function addAdcMv(FlatBufferBuilder $builder, $adcMv)
     {
-        $builder->addOffsetX(21, $adcMv, 0);
+        $builder->addOffsetX(23, $adcMv, 0);
     }
 
     /**
@@ -639,7 +679,7 @@ class StatusResponse extends Table
      */
     public static function addIoDirection(FlatBufferBuilder $builder, $ioDirection)
     {
-        $builder->addByteX(22, $ioDirection, 0);
+        $builder->addByteX(24, $ioDirection, 0);
     }
 
     /**
@@ -649,7 +689,7 @@ class StatusResponse extends Table
      */
     public static function addIoValue(FlatBufferBuilder $builder, $ioValue)
     {
-        $builder->addByteX(23, $ioValue, 0);
+        $builder->addByteX(25, $ioValue, 0);
     }
 
     /**
@@ -659,7 +699,7 @@ class StatusResponse extends Table
      */
     public static function addDiskSizeMb(FlatBufferBuilder $builder, $diskSizeMb)
     {
-        $builder->addFloatX(24, $diskSizeMb, 0.0);
+        $builder->addFloatX(26, $diskSizeMb, 0.0);
     }
 
     /**
@@ -669,7 +709,7 @@ class StatusResponse extends Table
      */
     public static function addDiskUsedMb(FlatBufferBuilder $builder, $diskUsedMb)
     {
-        $builder->addFloatX(25, $diskUsedMb, 0.0);
+        $builder->addFloatX(27, $diskUsedMb, 0.0);
     }
 
     /**
@@ -679,7 +719,7 @@ class StatusResponse extends Table
      */
     public static function addLedCount(FlatBufferBuilder $builder, $ledCount)
     {
-        $builder->addByteX(26, $ledCount, 0);
+        $builder->addByteX(28, $ledCount, 0);
     }
 
     /**

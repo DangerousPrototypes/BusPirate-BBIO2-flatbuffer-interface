@@ -29,200 +29,218 @@ error(optionalEncoding?:any):string|Uint8Array|null {
   return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
-versionHardwareMajor():number {
+versionFlatbuffersMajor():number {
   const offset = this.bb!.__offset(this.bb_pos, 6);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
-versionHardwareMinor():number {
+versionFlatbuffersMinor():number {
   const offset = this.bb!.__offset(this.bb_pos, 8);
-  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
+  return offset ? this.bb!.readUint16(this.bb_pos + offset) : 0;
 }
 
-versionFirmwareMajor():number {
+versionHardwareMajor():number {
   const offset = this.bb!.__offset(this.bb_pos, 10);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
-versionFirmwareMinor():number {
+versionHardwareMinor():number {
   const offset = this.bb!.__offset(this.bb_pos, 12);
+  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
+}
+
+versionFirmwareMajor():number {
+  const offset = this.bb!.__offset(this.bb_pos, 14);
+  return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
+}
+
+versionFirmwareMinor():number {
+  const offset = this.bb!.__offset(this.bb_pos, 16);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 versionFirmwareGitHash():string|null
 versionFirmwareGitHash(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
 versionFirmwareGitHash(optionalEncoding?:any):string|Uint8Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 14);
+  const offset = this.bb!.__offset(this.bb_pos, 18);
   return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
 versionFirmwareDate():string|null
 versionFirmwareDate(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
 versionFirmwareDate(optionalEncoding?:any):string|Uint8Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 16);
+  const offset = this.bb!.__offset(this.bb_pos, 20);
   return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
 modesAvailable(index: number):string
 modesAvailable(index: number,optionalEncoding:flatbuffers.Encoding):string|Uint8Array
 modesAvailable(index: number,optionalEncoding?:any):string|Uint8Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 18);
+  const offset = this.bb!.__offset(this.bb_pos, 22);
   return offset ? this.bb!.__string(this.bb!.__vector(this.bb_pos + offset) + index * 4, optionalEncoding) : null;
 }
 
 modesAvailableLength():number {
-  const offset = this.bb!.__offset(this.bb_pos, 18);
+  const offset = this.bb!.__offset(this.bb_pos, 22);
   return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
 }
 
 modeCurrent():string|null
 modeCurrent(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
 modeCurrent(optionalEncoding?:any):string|Uint8Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 20);
+  const offset = this.bb!.__offset(this.bb_pos, 24);
   return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
 }
 
 modePinLabels(index: number):string
 modePinLabels(index: number,optionalEncoding:flatbuffers.Encoding):string|Uint8Array
 modePinLabels(index: number,optionalEncoding?:any):string|Uint8Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 22);
+  const offset = this.bb!.__offset(this.bb_pos, 26);
   return offset ? this.bb!.__string(this.bb!.__vector(this.bb_pos + offset) + index * 4, optionalEncoding) : null;
 }
 
 modePinLabelsLength():number {
-  const offset = this.bb!.__offset(this.bb_pos, 22);
+  const offset = this.bb!.__offset(this.bb_pos, 26);
   return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
 }
 
 modeBitorderMsb():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 24);
+  const offset = this.bb!.__offset(this.bb_pos, 28);
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
 modeMaxPacketSize():number {
-  const offset = this.bb!.__offset(this.bb_pos, 26);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
-
-modeMaxWrite():number {
-  const offset = this.bb!.__offset(this.bb_pos, 28);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
-}
-
-modeMaxRead():number {
   const offset = this.bb!.__offset(this.bb_pos, 30);
   return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
-psuEnabled():boolean {
+modeMaxWrite():number {
   const offset = this.bb!.__offset(this.bb_pos, 32);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
+  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
-psuSetMv():number {
+modeMaxRead():number {
   const offset = this.bb!.__offset(this.bb_pos, 34);
   return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
-psuSetMa():number {
+psuEnabled():boolean {
   const offset = this.bb!.__offset(this.bb_pos, 36);
-  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
-psuMeasuredMv():number {
+psuSetMv():number {
   const offset = this.bb!.__offset(this.bb_pos, 38);
   return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
-psuMeasuredMa():number {
+psuSetMa():number {
   const offset = this.bb!.__offset(this.bb_pos, 40);
   return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
-psuCurrentError():boolean {
+psuMeasuredMv():number {
   const offset = this.bb!.__offset(this.bb_pos, 42);
+  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+}
+
+psuMeasuredMa():number {
+  const offset = this.bb!.__offset(this.bb_pos, 44);
+  return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
+}
+
+psuCurrentError():boolean {
+  const offset = this.bb!.__offset(this.bb_pos, 46);
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
 pullupEnabled():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 44);
+  const offset = this.bb!.__offset(this.bb_pos, 48);
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
 adcMv(index: number):number|null {
-  const offset = this.bb!.__offset(this.bb_pos, 46);
+  const offset = this.bb!.__offset(this.bb_pos, 50);
   return offset ? this.bb!.readUint32(this.bb!.__vector(this.bb_pos + offset) + index * 4) : 0;
 }
 
 adcMvLength():number {
-  const offset = this.bb!.__offset(this.bb_pos, 46);
+  const offset = this.bb!.__offset(this.bb_pos, 50);
   return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
 }
 
 adcMvArray():Uint32Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 46);
+  const offset = this.bb!.__offset(this.bb_pos, 50);
   return offset ? new Uint32Array(this.bb!.bytes().buffer, this.bb!.bytes().byteOffset + this.bb!.__vector(this.bb_pos + offset), this.bb!.__vector_len(this.bb_pos + offset)) : null;
 }
 
 ioDirection():number {
-  const offset = this.bb!.__offset(this.bb_pos, 48);
+  const offset = this.bb!.__offset(this.bb_pos, 52);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 ioValue():number {
-  const offset = this.bb!.__offset(this.bb_pos, 50);
+  const offset = this.bb!.__offset(this.bb_pos, 54);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 diskSizeMb():number {
-  const offset = this.bb!.__offset(this.bb_pos, 52);
+  const offset = this.bb!.__offset(this.bb_pos, 56);
   return offset ? this.bb!.readFloat32(this.bb_pos + offset) : 0.0;
 }
 
 diskUsedMb():number {
-  const offset = this.bb!.__offset(this.bb_pos, 54);
+  const offset = this.bb!.__offset(this.bb_pos, 58);
   return offset ? this.bb!.readFloat32(this.bb_pos + offset) : 0.0;
 }
 
 ledCount():number {
-  const offset = this.bb!.__offset(this.bb_pos, 56);
+  const offset = this.bb!.__offset(this.bb_pos, 60);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 static startStatusResponse(builder:flatbuffers.Builder) {
-  builder.startObject(27);
+  builder.startObject(29);
 }
 
 static addError(builder:flatbuffers.Builder, errorOffset:flatbuffers.Offset) {
   builder.addFieldOffset(0, errorOffset, 0);
 }
 
+static addVersionFlatbuffersMajor(builder:flatbuffers.Builder, versionFlatbuffersMajor:number) {
+  builder.addFieldInt8(1, versionFlatbuffersMajor, 0);
+}
+
+static addVersionFlatbuffersMinor(builder:flatbuffers.Builder, versionFlatbuffersMinor:number) {
+  builder.addFieldInt16(2, versionFlatbuffersMinor, 0);
+}
+
 static addVersionHardwareMajor(builder:flatbuffers.Builder, versionHardwareMajor:number) {
-  builder.addFieldInt8(1, versionHardwareMajor, 0);
+  builder.addFieldInt8(3, versionHardwareMajor, 0);
 }
 
 static addVersionHardwareMinor(builder:flatbuffers.Builder, versionHardwareMinor:number) {
-  builder.addFieldInt8(2, versionHardwareMinor, 0);
+  builder.addFieldInt8(4, versionHardwareMinor, 0);
 }
 
 static addVersionFirmwareMajor(builder:flatbuffers.Builder, versionFirmwareMajor:number) {
-  builder.addFieldInt8(3, versionFirmwareMajor, 0);
+  builder.addFieldInt8(5, versionFirmwareMajor, 0);
 }
 
 static addVersionFirmwareMinor(builder:flatbuffers.Builder, versionFirmwareMinor:number) {
-  builder.addFieldInt8(4, versionFirmwareMinor, 0);
+  builder.addFieldInt8(6, versionFirmwareMinor, 0);
 }
 
 static addVersionFirmwareGitHash(builder:flatbuffers.Builder, versionFirmwareGitHashOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(5, versionFirmwareGitHashOffset, 0);
+  builder.addFieldOffset(7, versionFirmwareGitHashOffset, 0);
 }
 
 static addVersionFirmwareDate(builder:flatbuffers.Builder, versionFirmwareDateOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(6, versionFirmwareDateOffset, 0);
+  builder.addFieldOffset(8, versionFirmwareDateOffset, 0);
 }
 
 static addModesAvailable(builder:flatbuffers.Builder, modesAvailableOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(7, modesAvailableOffset, 0);
+  builder.addFieldOffset(9, modesAvailableOffset, 0);
 }
 
 static createModesAvailableVector(builder:flatbuffers.Builder, data:flatbuffers.Offset[]):flatbuffers.Offset {
@@ -238,11 +256,11 @@ static startModesAvailableVector(builder:flatbuffers.Builder, numElems:number) {
 }
 
 static addModeCurrent(builder:flatbuffers.Builder, modeCurrentOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(8, modeCurrentOffset, 0);
+  builder.addFieldOffset(10, modeCurrentOffset, 0);
 }
 
 static addModePinLabels(builder:flatbuffers.Builder, modePinLabelsOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(9, modePinLabelsOffset, 0);
+  builder.addFieldOffset(11, modePinLabelsOffset, 0);
 }
 
 static createModePinLabelsVector(builder:flatbuffers.Builder, data:flatbuffers.Offset[]):flatbuffers.Offset {
@@ -258,51 +276,51 @@ static startModePinLabelsVector(builder:flatbuffers.Builder, numElems:number) {
 }
 
 static addModeBitorderMsb(builder:flatbuffers.Builder, modeBitorderMsb:boolean) {
-  builder.addFieldInt8(10, +modeBitorderMsb, +false);
+  builder.addFieldInt8(12, +modeBitorderMsb, +false);
 }
 
 static addModeMaxPacketSize(builder:flatbuffers.Builder, modeMaxPacketSize:number) {
-  builder.addFieldInt32(11, modeMaxPacketSize, 0);
+  builder.addFieldInt32(13, modeMaxPacketSize, 0);
 }
 
 static addModeMaxWrite(builder:flatbuffers.Builder, modeMaxWrite:number) {
-  builder.addFieldInt32(12, modeMaxWrite, 0);
+  builder.addFieldInt32(14, modeMaxWrite, 0);
 }
 
 static addModeMaxRead(builder:flatbuffers.Builder, modeMaxRead:number) {
-  builder.addFieldInt32(13, modeMaxRead, 0);
+  builder.addFieldInt32(15, modeMaxRead, 0);
 }
 
 static addPsuEnabled(builder:flatbuffers.Builder, psuEnabled:boolean) {
-  builder.addFieldInt8(14, +psuEnabled, +false);
+  builder.addFieldInt8(16, +psuEnabled, +false);
 }
 
 static addPsuSetMv(builder:flatbuffers.Builder, psuSetMv:number) {
-  builder.addFieldInt32(15, psuSetMv, 0);
+  builder.addFieldInt32(17, psuSetMv, 0);
 }
 
 static addPsuSetMa(builder:flatbuffers.Builder, psuSetMa:number) {
-  builder.addFieldInt32(16, psuSetMa, 0);
+  builder.addFieldInt32(18, psuSetMa, 0);
 }
 
 static addPsuMeasuredMv(builder:flatbuffers.Builder, psuMeasuredMv:number) {
-  builder.addFieldInt32(17, psuMeasuredMv, 0);
+  builder.addFieldInt32(19, psuMeasuredMv, 0);
 }
 
 static addPsuMeasuredMa(builder:flatbuffers.Builder, psuMeasuredMa:number) {
-  builder.addFieldInt32(18, psuMeasuredMa, 0);
+  builder.addFieldInt32(20, psuMeasuredMa, 0);
 }
 
 static addPsuCurrentError(builder:flatbuffers.Builder, psuCurrentError:boolean) {
-  builder.addFieldInt8(19, +psuCurrentError, +false);
+  builder.addFieldInt8(21, +psuCurrentError, +false);
 }
 
 static addPullupEnabled(builder:flatbuffers.Builder, pullupEnabled:boolean) {
-  builder.addFieldInt8(20, +pullupEnabled, +false);
+  builder.addFieldInt8(22, +pullupEnabled, +false);
 }
 
 static addAdcMv(builder:flatbuffers.Builder, adcMvOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(21, adcMvOffset, 0);
+  builder.addFieldOffset(23, adcMvOffset, 0);
 }
 
 static createAdcMvVector(builder:flatbuffers.Builder, data:number[]|Uint32Array):flatbuffers.Offset;
@@ -323,23 +341,23 @@ static startAdcMvVector(builder:flatbuffers.Builder, numElems:number) {
 }
 
 static addIoDirection(builder:flatbuffers.Builder, ioDirection:number) {
-  builder.addFieldInt8(22, ioDirection, 0);
+  builder.addFieldInt8(24, ioDirection, 0);
 }
 
 static addIoValue(builder:flatbuffers.Builder, ioValue:number) {
-  builder.addFieldInt8(23, ioValue, 0);
+  builder.addFieldInt8(25, ioValue, 0);
 }
 
 static addDiskSizeMb(builder:flatbuffers.Builder, diskSizeMb:number) {
-  builder.addFieldFloat32(24, diskSizeMb, 0.0);
+  builder.addFieldFloat32(26, diskSizeMb, 0.0);
 }
 
 static addDiskUsedMb(builder:flatbuffers.Builder, diskUsedMb:number) {
-  builder.addFieldFloat32(25, diskUsedMb, 0.0);
+  builder.addFieldFloat32(27, diskUsedMb, 0.0);
 }
 
 static addLedCount(builder:flatbuffers.Builder, ledCount:number) {
-  builder.addFieldInt8(26, ledCount, 0);
+  builder.addFieldInt8(28, ledCount, 0);
 }
 
 static endStatusResponse(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -347,9 +365,11 @@ static endStatusResponse(builder:flatbuffers.Builder):flatbuffers.Offset {
   return offset;
 }
 
-static createStatusResponse(builder:flatbuffers.Builder, errorOffset:flatbuffers.Offset, versionHardwareMajor:number, versionHardwareMinor:number, versionFirmwareMajor:number, versionFirmwareMinor:number, versionFirmwareGitHashOffset:flatbuffers.Offset, versionFirmwareDateOffset:flatbuffers.Offset, modesAvailableOffset:flatbuffers.Offset, modeCurrentOffset:flatbuffers.Offset, modePinLabelsOffset:flatbuffers.Offset, modeBitorderMsb:boolean, modeMaxPacketSize:number, modeMaxWrite:number, modeMaxRead:number, psuEnabled:boolean, psuSetMv:number, psuSetMa:number, psuMeasuredMv:number, psuMeasuredMa:number, psuCurrentError:boolean, pullupEnabled:boolean, adcMvOffset:flatbuffers.Offset, ioDirection:number, ioValue:number, diskSizeMb:number, diskUsedMb:number, ledCount:number):flatbuffers.Offset {
+static createStatusResponse(builder:flatbuffers.Builder, errorOffset:flatbuffers.Offset, versionFlatbuffersMajor:number, versionFlatbuffersMinor:number, versionHardwareMajor:number, versionHardwareMinor:number, versionFirmwareMajor:number, versionFirmwareMinor:number, versionFirmwareGitHashOffset:flatbuffers.Offset, versionFirmwareDateOffset:flatbuffers.Offset, modesAvailableOffset:flatbuffers.Offset, modeCurrentOffset:flatbuffers.Offset, modePinLabelsOffset:flatbuffers.Offset, modeBitorderMsb:boolean, modeMaxPacketSize:number, modeMaxWrite:number, modeMaxRead:number, psuEnabled:boolean, psuSetMv:number, psuSetMa:number, psuMeasuredMv:number, psuMeasuredMa:number, psuCurrentError:boolean, pullupEnabled:boolean, adcMvOffset:flatbuffers.Offset, ioDirection:number, ioValue:number, diskSizeMb:number, diskUsedMb:number, ledCount:number):flatbuffers.Offset {
   StatusResponse.startStatusResponse(builder);
   StatusResponse.addError(builder, errorOffset);
+  StatusResponse.addVersionFlatbuffersMajor(builder, versionFlatbuffersMajor);
+  StatusResponse.addVersionFlatbuffersMinor(builder, versionFlatbuffersMinor);
   StatusResponse.addVersionHardwareMajor(builder, versionHardwareMajor);
   StatusResponse.addVersionHardwareMinor(builder, versionHardwareMinor);
   StatusResponse.addVersionFirmwareMajor(builder, versionFirmwareMajor);
