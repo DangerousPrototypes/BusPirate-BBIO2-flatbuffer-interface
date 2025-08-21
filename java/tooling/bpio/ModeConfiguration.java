@@ -33,13 +33,9 @@ public final class ModeConfiguration extends Table {
   public int stopBits() { int o = __offset(10); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 1; }
   public boolean flowControl() { int o = __offset(12); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
   public boolean signalInversion() { int o = __offset(14); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean clockStretch() { int o = __offset(16); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean clockPolarity() { int o = __offset(18); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean clockPhase() { int o = __offset(20); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean chipSelectIdle() { int o = __offset(22); return o != 0 ? 0!=bb.get(o + bb_pos) : true; }
-  public int submode() { int o = __offset(24); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public long txModulation() { int o = __offset(26); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public int rxSensor() { int o = __offset(28); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int submode() { int o = __offset(16); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public long txModulation() { int o = __offset(18); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
+  public int rxSensor() { int o = __offset(20); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
 
   public static int createModeConfiguration(FlatBufferBuilder builder,
       long speed,
@@ -48,22 +44,14 @@ public final class ModeConfiguration extends Table {
       int stopBits,
       boolean flowControl,
       boolean signalInversion,
-      boolean clockStretch,
-      boolean clockPolarity,
-      boolean clockPhase,
-      boolean chipSelectIdle,
       int submode,
       long txModulation,
       int rxSensor) {
-    builder.startTable(13);
+    builder.startTable(9);
     ModeConfiguration.addTxModulation(builder, txModulation);
     ModeConfiguration.addSpeed(builder, speed);
     ModeConfiguration.addRxSensor(builder, rxSensor);
     ModeConfiguration.addSubmode(builder, submode);
-    ModeConfiguration.addChipSelectIdle(builder, chipSelectIdle);
-    ModeConfiguration.addClockPhase(builder, clockPhase);
-    ModeConfiguration.addClockPolarity(builder, clockPolarity);
-    ModeConfiguration.addClockStretch(builder, clockStretch);
     ModeConfiguration.addSignalInversion(builder, signalInversion);
     ModeConfiguration.addFlowControl(builder, flowControl);
     ModeConfiguration.addStopBits(builder, stopBits);
@@ -72,20 +60,16 @@ public final class ModeConfiguration extends Table {
     return ModeConfiguration.endModeConfiguration(builder);
   }
 
-  public static void startModeConfiguration(FlatBufferBuilder builder) { builder.startTable(13); }
+  public static void startModeConfiguration(FlatBufferBuilder builder) { builder.startTable(9); }
   public static void addSpeed(FlatBufferBuilder builder, long speed) { builder.addInt(0, (int) speed, (int) 20000L); }
   public static void addDataBits(FlatBufferBuilder builder, int dataBits) { builder.addByte(1, (byte) dataBits, (byte) 8); }
   public static void addParity(FlatBufferBuilder builder, boolean parity) { builder.addBoolean(2, parity, false); }
   public static void addStopBits(FlatBufferBuilder builder, int stopBits) { builder.addByte(3, (byte) stopBits, (byte) 1); }
   public static void addFlowControl(FlatBufferBuilder builder, boolean flowControl) { builder.addBoolean(4, flowControl, false); }
   public static void addSignalInversion(FlatBufferBuilder builder, boolean signalInversion) { builder.addBoolean(5, signalInversion, false); }
-  public static void addClockStretch(FlatBufferBuilder builder, boolean clockStretch) { builder.addBoolean(6, clockStretch, false); }
-  public static void addClockPolarity(FlatBufferBuilder builder, boolean clockPolarity) { builder.addBoolean(7, clockPolarity, false); }
-  public static void addClockPhase(FlatBufferBuilder builder, boolean clockPhase) { builder.addBoolean(8, clockPhase, false); }
-  public static void addChipSelectIdle(FlatBufferBuilder builder, boolean chipSelectIdle) { builder.addBoolean(9, chipSelectIdle, true); }
-  public static void addSubmode(FlatBufferBuilder builder, int submode) { builder.addByte(10, (byte) submode, (byte) 0); }
-  public static void addTxModulation(FlatBufferBuilder builder, long txModulation) { builder.addInt(11, (int) txModulation, (int) 0L); }
-  public static void addRxSensor(FlatBufferBuilder builder, int rxSensor) { builder.addByte(12, (byte) rxSensor, (byte) 0); }
+  public static void addSubmode(FlatBufferBuilder builder, int submode) { builder.addByte(6, (byte) submode, (byte) 0); }
+  public static void addTxModulation(FlatBufferBuilder builder, long txModulation) { builder.addInt(7, (int) txModulation, (int) 0L); }
+  public static void addRxSensor(FlatBufferBuilder builder, int rxSensor) { builder.addByte(8, (byte) rxSensor, (byte) 0); }
   public static int endModeConfiguration(FlatBufferBuilder builder) {
     int o = builder.endTable();
     return o;

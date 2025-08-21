@@ -26,64 +26,77 @@ public struct StatusResponse : IFlatbufferObject
   public ArraySegment<byte>? GetErrorBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
   public byte[] GetErrorArray() { return __p.__vector_as_array<byte>(4); }
-  public byte VersionFlatbuffersMajor { get { int o = __p.__offset(6); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public ushort VersionFlatbuffersMinor { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
-  public byte VersionHardwareMajor { get { int o = __p.__offset(10); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte VersionHardwareMinor { get { int o = __p.__offset(12); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte VersionFirmwareMajor { get { int o = __p.__offset(14); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte VersionFirmwareMinor { get { int o = __p.__offset(16); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public string VersionFirmwareGitHash { get { int o = __p.__offset(18); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public bool PsuEnabled { get { int o = __p.__offset(6); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public uint PsuSetMv { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public uint PsuSetMa { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public uint PsuMeasuredMv { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public uint PsuMeasuredMa { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public bool PsuCurrentError { get { int o = __p.__offset(16); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public bool PullupEnabled { get { int o = __p.__offset(18); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public uint AdcMv(int j) { int o = __p.__offset(20); return o != 0 ? __p.bb.GetUint(__p.__vector(o) + j * 4) : (uint)0; }
+  public int AdcMvLength { get { int o = __p.__offset(20); return o != 0 ? __p.__vector_len(o) : 0; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetVersionFirmwareGitHashBytes() { return __p.__vector_as_span<byte>(18, 1); }
+  public Span<uint> GetAdcMvBytes() { return __p.__vector_as_span<uint>(20, 4); }
 #else
-  public ArraySegment<byte>? GetVersionFirmwareGitHashBytes() { return __p.__vector_as_arraysegment(18); }
+  public ArraySegment<byte>? GetAdcMvBytes() { return __p.__vector_as_arraysegment(20); }
 #endif
-  public byte[] GetVersionFirmwareGitHashArray() { return __p.__vector_as_array<byte>(18); }
-  public string VersionFirmwareDate { get { int o = __p.__offset(20); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public uint[] GetAdcMvArray() { return __p.__vector_as_array<uint>(20); }
+  public byte IoDirection { get { int o = __p.__offset(22); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte IoValue { get { int o = __p.__offset(24); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public float DiskSizeMb { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float DiskUsedMb { get { int o = __p.__offset(28); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public byte LedCount { get { int o = __p.__offset(30); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte VersionFlatbuffersMajor { get { int o = __p.__offset(32); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public ushort VersionFlatbuffersMinor { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
+  public byte VersionHardwareMajor { get { int o = __p.__offset(36); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte VersionHardwareMinor { get { int o = __p.__offset(38); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte VersionFirmwareMajor { get { int o = __p.__offset(40); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte VersionFirmwareMinor { get { int o = __p.__offset(42); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public string VersionFirmwareGitHash { get { int o = __p.__offset(44); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetVersionFirmwareDateBytes() { return __p.__vector_as_span<byte>(20, 1); }
+  public Span<byte> GetVersionFirmwareGitHashBytes() { return __p.__vector_as_span<byte>(44, 1); }
 #else
-  public ArraySegment<byte>? GetVersionFirmwareDateBytes() { return __p.__vector_as_arraysegment(20); }
+  public ArraySegment<byte>? GetVersionFirmwareGitHashBytes() { return __p.__vector_as_arraysegment(44); }
 #endif
-  public byte[] GetVersionFirmwareDateArray() { return __p.__vector_as_array<byte>(20); }
-  public string ModesAvailable(int j) { int o = __p.__offset(22); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
-  public int ModesAvailableLength { get { int o = __p.__offset(22); return o != 0 ? __p.__vector_len(o) : 0; } }
-  public string ModeCurrent { get { int o = __p.__offset(24); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetVersionFirmwareGitHashArray() { return __p.__vector_as_array<byte>(44); }
+  public string VersionFirmwareDate { get { int o = __p.__offset(46); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetModeCurrentBytes() { return __p.__vector_as_span<byte>(24, 1); }
+  public Span<byte> GetVersionFirmwareDateBytes() { return __p.__vector_as_span<byte>(46, 1); }
 #else
-  public ArraySegment<byte>? GetModeCurrentBytes() { return __p.__vector_as_arraysegment(24); }
+  public ArraySegment<byte>? GetVersionFirmwareDateBytes() { return __p.__vector_as_arraysegment(46); }
 #endif
-  public byte[] GetModeCurrentArray() { return __p.__vector_as_array<byte>(24); }
-  public string ModePinLabels(int j) { int o = __p.__offset(26); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
-  public int ModePinLabelsLength { get { int o = __p.__offset(26); return o != 0 ? __p.__vector_len(o) : 0; } }
-  public bool ModeBitorderMsb { get { int o = __p.__offset(28); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public uint ModeMaxPacketSize { get { int o = __p.__offset(30); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public uint ModeMaxWrite { get { int o = __p.__offset(32); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public uint ModeMaxRead { get { int o = __p.__offset(34); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public bool PsuEnabled { get { int o = __p.__offset(36); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public uint PsuSetMv { get { int o = __p.__offset(38); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public uint PsuSetMa { get { int o = __p.__offset(40); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public uint PsuMeasuredMv { get { int o = __p.__offset(42); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public uint PsuMeasuredMa { get { int o = __p.__offset(44); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public bool PsuCurrentError { get { int o = __p.__offset(46); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool PullupEnabled { get { int o = __p.__offset(48); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public uint AdcMv(int j) { int o = __p.__offset(50); return o != 0 ? __p.bb.GetUint(__p.__vector(o) + j * 4) : (uint)0; }
-  public int AdcMvLength { get { int o = __p.__offset(50); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public byte[] GetVersionFirmwareDateArray() { return __p.__vector_as_array<byte>(46); }
+  public string ModesAvailable(int j) { int o = __p.__offset(48); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
+  public int ModesAvailableLength { get { int o = __p.__offset(48); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public string ModeCurrent { get { int o = __p.__offset(50); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<uint> GetAdcMvBytes() { return __p.__vector_as_span<uint>(50, 4); }
+  public Span<byte> GetModeCurrentBytes() { return __p.__vector_as_span<byte>(50, 1); }
 #else
-  public ArraySegment<byte>? GetAdcMvBytes() { return __p.__vector_as_arraysegment(50); }
+  public ArraySegment<byte>? GetModeCurrentBytes() { return __p.__vector_as_arraysegment(50); }
 #endif
-  public uint[] GetAdcMvArray() { return __p.__vector_as_array<uint>(50); }
-  public byte IoDirection { get { int o = __p.__offset(52); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public byte IoValue { get { int o = __p.__offset(54); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public float DiskSizeMb { get { int o = __p.__offset(56); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float DiskUsedMb { get { int o = __p.__offset(58); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public byte LedCount { get { int o = __p.__offset(60); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte[] GetModeCurrentArray() { return __p.__vector_as_array<byte>(50); }
+  public string ModePinLabels(int j) { int o = __p.__offset(52); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
+  public int ModePinLabelsLength { get { int o = __p.__offset(52); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public bool ModeBitorderMsb { get { int o = __p.__offset(54); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public uint ModeMaxPacketSize { get { int o = __p.__offset(56); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public uint ModeMaxWrite { get { int o = __p.__offset(58); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public uint ModeMaxRead { get { int o = __p.__offset(60); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
 
   public static Offset<bpio.StatusResponse> CreateStatusResponse(FlatBufferBuilder builder,
       StringOffset errorOffset = default(StringOffset),
+      bool psu_enabled = false,
+      uint psu_set_mv = 0,
+      uint psu_set_ma = 0,
+      uint psu_measured_mv = 0,
+      uint psu_measured_ma = 0,
+      bool psu_current_error = false,
+      bool pullup_enabled = false,
+      VectorOffset adc_mvOffset = default(VectorOffset),
+      byte io_direction = 0,
+      byte io_value = 0,
+      float disk_size_mb = 0.0f,
+      float disk_used_mb = 0.0f,
+      byte led_count = 0,
       byte version_flatbuffers_major = 0,
       ushort version_flatbuffers_minor = 0,
       byte version_hardware_major = 0,
@@ -98,28 +111,8 @@ public struct StatusResponse : IFlatbufferObject
       bool mode_bitorder_msb = false,
       uint mode_max_packet_size = 0,
       uint mode_max_write = 0,
-      uint mode_max_read = 0,
-      bool psu_enabled = false,
-      uint psu_set_mv = 0,
-      uint psu_set_ma = 0,
-      uint psu_measured_mv = 0,
-      uint psu_measured_ma = 0,
-      bool psu_current_error = false,
-      bool pullup_enabled = false,
-      VectorOffset adc_mvOffset = default(VectorOffset),
-      byte io_direction = 0,
-      byte io_value = 0,
-      float disk_size_mb = 0.0f,
-      float disk_used_mb = 0.0f,
-      byte led_count = 0) {
+      uint mode_max_read = 0) {
     builder.StartTable(29);
-    StatusResponse.AddDiskUsedMb(builder, disk_used_mb);
-    StatusResponse.AddDiskSizeMb(builder, disk_size_mb);
-    StatusResponse.AddAdcMv(builder, adc_mvOffset);
-    StatusResponse.AddPsuMeasuredMa(builder, psu_measured_ma);
-    StatusResponse.AddPsuMeasuredMv(builder, psu_measured_mv);
-    StatusResponse.AddPsuSetMa(builder, psu_set_ma);
-    StatusResponse.AddPsuSetMv(builder, psu_set_mv);
     StatusResponse.AddModeMaxRead(builder, mode_max_read);
     StatusResponse.AddModeMaxWrite(builder, mode_max_write);
     StatusResponse.AddModeMaxPacketSize(builder, mode_max_packet_size);
@@ -128,68 +121,75 @@ public struct StatusResponse : IFlatbufferObject
     StatusResponse.AddModesAvailable(builder, modes_availableOffset);
     StatusResponse.AddVersionFirmwareDate(builder, version_firmware_dateOffset);
     StatusResponse.AddVersionFirmwareGitHash(builder, version_firmware_git_hashOffset);
+    StatusResponse.AddDiskUsedMb(builder, disk_used_mb);
+    StatusResponse.AddDiskSizeMb(builder, disk_size_mb);
+    StatusResponse.AddAdcMv(builder, adc_mvOffset);
+    StatusResponse.AddPsuMeasuredMa(builder, psu_measured_ma);
+    StatusResponse.AddPsuMeasuredMv(builder, psu_measured_mv);
+    StatusResponse.AddPsuSetMa(builder, psu_set_ma);
+    StatusResponse.AddPsuSetMv(builder, psu_set_mv);
     StatusResponse.AddError(builder, errorOffset);
     StatusResponse.AddVersionFlatbuffersMinor(builder, version_flatbuffers_minor);
-    StatusResponse.AddLedCount(builder, led_count);
-    StatusResponse.AddIoValue(builder, io_value);
-    StatusResponse.AddIoDirection(builder, io_direction);
-    StatusResponse.AddPullupEnabled(builder, pullup_enabled);
-    StatusResponse.AddPsuCurrentError(builder, psu_current_error);
-    StatusResponse.AddPsuEnabled(builder, psu_enabled);
     StatusResponse.AddModeBitorderMsb(builder, mode_bitorder_msb);
     StatusResponse.AddVersionFirmwareMinor(builder, version_firmware_minor);
     StatusResponse.AddVersionFirmwareMajor(builder, version_firmware_major);
     StatusResponse.AddVersionHardwareMinor(builder, version_hardware_minor);
     StatusResponse.AddVersionHardwareMajor(builder, version_hardware_major);
     StatusResponse.AddVersionFlatbuffersMajor(builder, version_flatbuffers_major);
+    StatusResponse.AddLedCount(builder, led_count);
+    StatusResponse.AddIoValue(builder, io_value);
+    StatusResponse.AddIoDirection(builder, io_direction);
+    StatusResponse.AddPullupEnabled(builder, pullup_enabled);
+    StatusResponse.AddPsuCurrentError(builder, psu_current_error);
+    StatusResponse.AddPsuEnabled(builder, psu_enabled);
     return StatusResponse.EndStatusResponse(builder);
   }
 
   public static void StartStatusResponse(FlatBufferBuilder builder) { builder.StartTable(29); }
   public static void AddError(FlatBufferBuilder builder, StringOffset errorOffset) { builder.AddOffset(0, errorOffset.Value, 0); }
-  public static void AddVersionFlatbuffersMajor(FlatBufferBuilder builder, byte versionFlatbuffersMajor) { builder.AddByte(1, versionFlatbuffersMajor, 0); }
-  public static void AddVersionFlatbuffersMinor(FlatBufferBuilder builder, ushort versionFlatbuffersMinor) { builder.AddUshort(2, versionFlatbuffersMinor, 0); }
-  public static void AddVersionHardwareMajor(FlatBufferBuilder builder, byte versionHardwareMajor) { builder.AddByte(3, versionHardwareMajor, 0); }
-  public static void AddVersionHardwareMinor(FlatBufferBuilder builder, byte versionHardwareMinor) { builder.AddByte(4, versionHardwareMinor, 0); }
-  public static void AddVersionFirmwareMajor(FlatBufferBuilder builder, byte versionFirmwareMajor) { builder.AddByte(5, versionFirmwareMajor, 0); }
-  public static void AddVersionFirmwareMinor(FlatBufferBuilder builder, byte versionFirmwareMinor) { builder.AddByte(6, versionFirmwareMinor, 0); }
-  public static void AddVersionFirmwareGitHash(FlatBufferBuilder builder, StringOffset versionFirmwareGitHashOffset) { builder.AddOffset(7, versionFirmwareGitHashOffset.Value, 0); }
-  public static void AddVersionFirmwareDate(FlatBufferBuilder builder, StringOffset versionFirmwareDateOffset) { builder.AddOffset(8, versionFirmwareDateOffset.Value, 0); }
-  public static void AddModesAvailable(FlatBufferBuilder builder, VectorOffset modesAvailableOffset) { builder.AddOffset(9, modesAvailableOffset.Value, 0); }
-  public static VectorOffset CreateModesAvailableVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
-  public static VectorOffset CreateModesAvailableVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateModesAvailableVectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateModesAvailableVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
-  public static void StartModesAvailableVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddModeCurrent(FlatBufferBuilder builder, StringOffset modeCurrentOffset) { builder.AddOffset(10, modeCurrentOffset.Value, 0); }
-  public static void AddModePinLabels(FlatBufferBuilder builder, VectorOffset modePinLabelsOffset) { builder.AddOffset(11, modePinLabelsOffset.Value, 0); }
-  public static VectorOffset CreateModePinLabelsVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
-  public static VectorOffset CreateModePinLabelsVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateModePinLabelsVectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateModePinLabelsVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
-  public static void StartModePinLabelsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddModeBitorderMsb(FlatBufferBuilder builder, bool modeBitorderMsb) { builder.AddBool(12, modeBitorderMsb, false); }
-  public static void AddModeMaxPacketSize(FlatBufferBuilder builder, uint modeMaxPacketSize) { builder.AddUint(13, modeMaxPacketSize, 0); }
-  public static void AddModeMaxWrite(FlatBufferBuilder builder, uint modeMaxWrite) { builder.AddUint(14, modeMaxWrite, 0); }
-  public static void AddModeMaxRead(FlatBufferBuilder builder, uint modeMaxRead) { builder.AddUint(15, modeMaxRead, 0); }
-  public static void AddPsuEnabled(FlatBufferBuilder builder, bool psuEnabled) { builder.AddBool(16, psuEnabled, false); }
-  public static void AddPsuSetMv(FlatBufferBuilder builder, uint psuSetMv) { builder.AddUint(17, psuSetMv, 0); }
-  public static void AddPsuSetMa(FlatBufferBuilder builder, uint psuSetMa) { builder.AddUint(18, psuSetMa, 0); }
-  public static void AddPsuMeasuredMv(FlatBufferBuilder builder, uint psuMeasuredMv) { builder.AddUint(19, psuMeasuredMv, 0); }
-  public static void AddPsuMeasuredMa(FlatBufferBuilder builder, uint psuMeasuredMa) { builder.AddUint(20, psuMeasuredMa, 0); }
-  public static void AddPsuCurrentError(FlatBufferBuilder builder, bool psuCurrentError) { builder.AddBool(21, psuCurrentError, false); }
-  public static void AddPullupEnabled(FlatBufferBuilder builder, bool pullupEnabled) { builder.AddBool(22, pullupEnabled, false); }
-  public static void AddAdcMv(FlatBufferBuilder builder, VectorOffset adcMvOffset) { builder.AddOffset(23, adcMvOffset.Value, 0); }
+  public static void AddPsuEnabled(FlatBufferBuilder builder, bool psuEnabled) { builder.AddBool(1, psuEnabled, false); }
+  public static void AddPsuSetMv(FlatBufferBuilder builder, uint psuSetMv) { builder.AddUint(2, psuSetMv, 0); }
+  public static void AddPsuSetMa(FlatBufferBuilder builder, uint psuSetMa) { builder.AddUint(3, psuSetMa, 0); }
+  public static void AddPsuMeasuredMv(FlatBufferBuilder builder, uint psuMeasuredMv) { builder.AddUint(4, psuMeasuredMv, 0); }
+  public static void AddPsuMeasuredMa(FlatBufferBuilder builder, uint psuMeasuredMa) { builder.AddUint(5, psuMeasuredMa, 0); }
+  public static void AddPsuCurrentError(FlatBufferBuilder builder, bool psuCurrentError) { builder.AddBool(6, psuCurrentError, false); }
+  public static void AddPullupEnabled(FlatBufferBuilder builder, bool pullupEnabled) { builder.AddBool(7, pullupEnabled, false); }
+  public static void AddAdcMv(FlatBufferBuilder builder, VectorOffset adcMvOffset) { builder.AddOffset(8, adcMvOffset.Value, 0); }
   public static VectorOffset CreateAdcMvVector(FlatBufferBuilder builder, uint[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddUint(data[i]); return builder.EndVector(); }
   public static VectorOffset CreateAdcMvVectorBlock(FlatBufferBuilder builder, uint[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateAdcMvVectorBlock(FlatBufferBuilder builder, ArraySegment<uint> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateAdcMvVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<uint>(dataPtr, sizeInBytes); return builder.EndVector(); }
   public static void StartAdcMvVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddIoDirection(FlatBufferBuilder builder, byte ioDirection) { builder.AddByte(24, ioDirection, 0); }
-  public static void AddIoValue(FlatBufferBuilder builder, byte ioValue) { builder.AddByte(25, ioValue, 0); }
-  public static void AddDiskSizeMb(FlatBufferBuilder builder, float diskSizeMb) { builder.AddFloat(26, diskSizeMb, 0.0f); }
-  public static void AddDiskUsedMb(FlatBufferBuilder builder, float diskUsedMb) { builder.AddFloat(27, diskUsedMb, 0.0f); }
-  public static void AddLedCount(FlatBufferBuilder builder, byte ledCount) { builder.AddByte(28, ledCount, 0); }
+  public static void AddIoDirection(FlatBufferBuilder builder, byte ioDirection) { builder.AddByte(9, ioDirection, 0); }
+  public static void AddIoValue(FlatBufferBuilder builder, byte ioValue) { builder.AddByte(10, ioValue, 0); }
+  public static void AddDiskSizeMb(FlatBufferBuilder builder, float diskSizeMb) { builder.AddFloat(11, diskSizeMb, 0.0f); }
+  public static void AddDiskUsedMb(FlatBufferBuilder builder, float diskUsedMb) { builder.AddFloat(12, diskUsedMb, 0.0f); }
+  public static void AddLedCount(FlatBufferBuilder builder, byte ledCount) { builder.AddByte(13, ledCount, 0); }
+  public static void AddVersionFlatbuffersMajor(FlatBufferBuilder builder, byte versionFlatbuffersMajor) { builder.AddByte(14, versionFlatbuffersMajor, 0); }
+  public static void AddVersionFlatbuffersMinor(FlatBufferBuilder builder, ushort versionFlatbuffersMinor) { builder.AddUshort(15, versionFlatbuffersMinor, 0); }
+  public static void AddVersionHardwareMajor(FlatBufferBuilder builder, byte versionHardwareMajor) { builder.AddByte(16, versionHardwareMajor, 0); }
+  public static void AddVersionHardwareMinor(FlatBufferBuilder builder, byte versionHardwareMinor) { builder.AddByte(17, versionHardwareMinor, 0); }
+  public static void AddVersionFirmwareMajor(FlatBufferBuilder builder, byte versionFirmwareMajor) { builder.AddByte(18, versionFirmwareMajor, 0); }
+  public static void AddVersionFirmwareMinor(FlatBufferBuilder builder, byte versionFirmwareMinor) { builder.AddByte(19, versionFirmwareMinor, 0); }
+  public static void AddVersionFirmwareGitHash(FlatBufferBuilder builder, StringOffset versionFirmwareGitHashOffset) { builder.AddOffset(20, versionFirmwareGitHashOffset.Value, 0); }
+  public static void AddVersionFirmwareDate(FlatBufferBuilder builder, StringOffset versionFirmwareDateOffset) { builder.AddOffset(21, versionFirmwareDateOffset.Value, 0); }
+  public static void AddModesAvailable(FlatBufferBuilder builder, VectorOffset modesAvailableOffset) { builder.AddOffset(22, modesAvailableOffset.Value, 0); }
+  public static VectorOffset CreateModesAvailableVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateModesAvailableVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateModesAvailableVectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateModesAvailableVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
+  public static void StartModesAvailableVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddModeCurrent(FlatBufferBuilder builder, StringOffset modeCurrentOffset) { builder.AddOffset(23, modeCurrentOffset.Value, 0); }
+  public static void AddModePinLabels(FlatBufferBuilder builder, VectorOffset modePinLabelsOffset) { builder.AddOffset(24, modePinLabelsOffset.Value, 0); }
+  public static VectorOffset CreateModePinLabelsVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateModePinLabelsVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateModePinLabelsVectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateModePinLabelsVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
+  public static void StartModePinLabelsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddModeBitorderMsb(FlatBufferBuilder builder, bool modeBitorderMsb) { builder.AddBool(25, modeBitorderMsb, false); }
+  public static void AddModeMaxPacketSize(FlatBufferBuilder builder, uint modeMaxPacketSize) { builder.AddUint(26, modeMaxPacketSize, 0); }
+  public static void AddModeMaxWrite(FlatBufferBuilder builder, uint modeMaxWrite) { builder.AddUint(27, modeMaxWrite, 0); }
+  public static void AddModeMaxRead(FlatBufferBuilder builder, uint modeMaxRead) { builder.AddUint(28, modeMaxRead, 0); }
   public static Offset<bpio.StatusResponse> EndStatusResponse(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<bpio.StatusResponse>(o);
@@ -203,34 +203,34 @@ static public class StatusResponseVerify
   {
     return verifier.VerifyTableStart(tablePos)
       && verifier.VerifyString(tablePos, 4 /*Error*/, false)
-      && verifier.VerifyField(tablePos, 6 /*VersionFlatbuffersMajor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 8 /*VersionFlatbuffersMinor*/, 2 /*ushort*/, 2, false)
-      && verifier.VerifyField(tablePos, 10 /*VersionHardwareMajor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 12 /*VersionHardwareMinor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 14 /*VersionFirmwareMajor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 16 /*VersionFirmwareMinor*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyString(tablePos, 18 /*VersionFirmwareGitHash*/, false)
-      && verifier.VerifyString(tablePos, 20 /*VersionFirmwareDate*/, false)
-      && verifier.VerifyVectorOfStrings(tablePos, 22 /*ModesAvailable*/, false)
-      && verifier.VerifyString(tablePos, 24 /*ModeCurrent*/, false)
-      && verifier.VerifyVectorOfStrings(tablePos, 26 /*ModePinLabels*/, false)
-      && verifier.VerifyField(tablePos, 28 /*ModeBitorderMsb*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 30 /*ModeMaxPacketSize*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 32 /*ModeMaxWrite*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 34 /*ModeMaxRead*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 36 /*PsuEnabled*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 38 /*PsuSetMv*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 40 /*PsuSetMa*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 42 /*PsuMeasuredMv*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 44 /*PsuMeasuredMa*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 46 /*PsuCurrentError*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 48 /*PullupEnabled*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyVectorOfData(tablePos, 50 /*AdcMv*/, 4 /*uint*/, false)
-      && verifier.VerifyField(tablePos, 52 /*IoDirection*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 54 /*IoValue*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 56 /*DiskSizeMb*/, 4 /*float*/, 4, false)
-      && verifier.VerifyField(tablePos, 58 /*DiskUsedMb*/, 4 /*float*/, 4, false)
-      && verifier.VerifyField(tablePos, 60 /*LedCount*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 6 /*PsuEnabled*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyField(tablePos, 8 /*PsuSetMv*/, 4 /*uint*/, 4, false)
+      && verifier.VerifyField(tablePos, 10 /*PsuSetMa*/, 4 /*uint*/, 4, false)
+      && verifier.VerifyField(tablePos, 12 /*PsuMeasuredMv*/, 4 /*uint*/, 4, false)
+      && verifier.VerifyField(tablePos, 14 /*PsuMeasuredMa*/, 4 /*uint*/, 4, false)
+      && verifier.VerifyField(tablePos, 16 /*PsuCurrentError*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyField(tablePos, 18 /*PullupEnabled*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyVectorOfData(tablePos, 20 /*AdcMv*/, 4 /*uint*/, false)
+      && verifier.VerifyField(tablePos, 22 /*IoDirection*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 24 /*IoValue*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 26 /*DiskSizeMb*/, 4 /*float*/, 4, false)
+      && verifier.VerifyField(tablePos, 28 /*DiskUsedMb*/, 4 /*float*/, 4, false)
+      && verifier.VerifyField(tablePos, 30 /*LedCount*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 32 /*VersionFlatbuffersMajor*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 34 /*VersionFlatbuffersMinor*/, 2 /*ushort*/, 2, false)
+      && verifier.VerifyField(tablePos, 36 /*VersionHardwareMajor*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 38 /*VersionHardwareMinor*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 40 /*VersionFirmwareMajor*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 42 /*VersionFirmwareMinor*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyString(tablePos, 44 /*VersionFirmwareGitHash*/, false)
+      && verifier.VerifyString(tablePos, 46 /*VersionFirmwareDate*/, false)
+      && verifier.VerifyVectorOfStrings(tablePos, 48 /*ModesAvailable*/, false)
+      && verifier.VerifyString(tablePos, 50 /*ModeCurrent*/, false)
+      && verifier.VerifyVectorOfStrings(tablePos, 52 /*ModePinLabels*/, false)
+      && verifier.VerifyField(tablePos, 54 /*ModeBitorderMsb*/, 1 /*bool*/, 1, false)
+      && verifier.VerifyField(tablePos, 56 /*ModeMaxPacketSize*/, 4 /*uint*/, 4, false)
+      && verifier.VerifyField(tablePos, 58 /*ModeMaxWrite*/, 4 /*uint*/, 4, false)
+      && verifier.VerifyField(tablePos, 60 /*ModeMaxRead*/, 4 /*uint*/, 4, false)
       && verifier.VerifyTableEnd(tablePos);
   }
 }

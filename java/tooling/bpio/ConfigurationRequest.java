@@ -44,19 +44,6 @@ public final class ConfigurationRequest extends Table {
   public int ioDirection() { int o = __offset(26); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
   public int ioValueMask() { int o = __offset(28); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
   public int ioValue() { int o = __offset(30); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public boolean ledResume() { int o = __offset(32); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public long ledColor(int j) { int o = __offset(34); return o != 0 ? (long)bb.getInt(__vector(o) + j * 4) & 0xFFFFFFFFL : 0; }
-  public int ledColorLength() { int o = __offset(34); return o != 0 ? __vector_len(o) : 0; }
-  public IntVector ledColorVector() { return ledColorVector(new IntVector()); }
-  public IntVector ledColorVector(IntVector obj) { int o = __offset(34); return o != 0 ? obj.__assign(__vector(o), bb) : null; }
-  public ByteBuffer ledColorAsByteBuffer() { return __vector_as_bytebuffer(34, 4); }
-  public ByteBuffer ledColorInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 34, 4); }
-  public String printString() { int o = __offset(36); return o != 0 ? __string(o + bb_pos) : null; }
-  public ByteBuffer printStringAsByteBuffer() { return __vector_as_bytebuffer(36, 1); }
-  public ByteBuffer printStringInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 36, 1); }
-  public boolean hardwareBootloader() { int o = __offset(38); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean hardwareReset() { int o = __offset(40); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean hardwareSelftest() { int o = __offset(42); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
 
   public static int createConfigurationRequest(FlatBufferBuilder builder,
       int modeOffset,
@@ -72,24 +59,12 @@ public final class ConfigurationRequest extends Table {
       int ioDirectionMask,
       int ioDirection,
       int ioValueMask,
-      int ioValue,
-      boolean ledResume,
-      int ledColorOffset,
-      int printStringOffset,
-      boolean hardwareBootloader,
-      boolean hardwareReset,
-      boolean hardwareSelftest) {
-    builder.startTable(20);
-    ConfigurationRequest.addPrintString(builder, printStringOffset);
-    ConfigurationRequest.addLedColor(builder, ledColorOffset);
+      int ioValue) {
+    builder.startTable(14);
     ConfigurationRequest.addPsuSetMv(builder, psuSetMv);
     ConfigurationRequest.addModeConfiguration(builder, modeConfigurationOffset);
     ConfigurationRequest.addMode(builder, modeOffset);
     ConfigurationRequest.addPsuSetMa(builder, psuSetMa);
-    ConfigurationRequest.addHardwareSelftest(builder, hardwareSelftest);
-    ConfigurationRequest.addHardwareReset(builder, hardwareReset);
-    ConfigurationRequest.addHardwareBootloader(builder, hardwareBootloader);
-    ConfigurationRequest.addLedResume(builder, ledResume);
     ConfigurationRequest.addIoValue(builder, ioValue);
     ConfigurationRequest.addIoValueMask(builder, ioValueMask);
     ConfigurationRequest.addIoDirection(builder, ioDirection);
@@ -103,7 +78,7 @@ public final class ConfigurationRequest extends Table {
     return ConfigurationRequest.endConfigurationRequest(builder);
   }
 
-  public static void startConfigurationRequest(FlatBufferBuilder builder) { builder.startTable(20); }
+  public static void startConfigurationRequest(FlatBufferBuilder builder) { builder.startTable(14); }
   public static void addMode(FlatBufferBuilder builder, int modeOffset) { builder.addOffset(0, modeOffset, 0); }
   public static void addModeConfiguration(FlatBufferBuilder builder, int modeConfigurationOffset) { builder.addOffset(1, modeConfigurationOffset, 0); }
   public static void addModeBitorderMsb(FlatBufferBuilder builder, boolean modeBitorderMsb) { builder.addBoolean(2, modeBitorderMsb, false); }
@@ -118,14 +93,6 @@ public final class ConfigurationRequest extends Table {
   public static void addIoDirection(FlatBufferBuilder builder, int ioDirection) { builder.addByte(11, (byte) ioDirection, (byte) 0); }
   public static void addIoValueMask(FlatBufferBuilder builder, int ioValueMask) { builder.addByte(12, (byte) ioValueMask, (byte) 0); }
   public static void addIoValue(FlatBufferBuilder builder, int ioValue) { builder.addByte(13, (byte) ioValue, (byte) 0); }
-  public static void addLedResume(FlatBufferBuilder builder, boolean ledResume) { builder.addBoolean(14, ledResume, false); }
-  public static void addLedColor(FlatBufferBuilder builder, int ledColorOffset) { builder.addOffset(15, ledColorOffset, 0); }
-  public static int createLedColorVector(FlatBufferBuilder builder, long[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addInt((int) data[i]); return builder.endVector(); }
-  public static void startLedColorVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
-  public static void addPrintString(FlatBufferBuilder builder, int printStringOffset) { builder.addOffset(16, printStringOffset, 0); }
-  public static void addHardwareBootloader(FlatBufferBuilder builder, boolean hardwareBootloader) { builder.addBoolean(17, hardwareBootloader, false); }
-  public static void addHardwareReset(FlatBufferBuilder builder, boolean hardwareReset) { builder.addBoolean(18, hardwareReset, false); }
-  public static void addHardwareSelftest(FlatBufferBuilder builder, boolean hardwareSelftest) { builder.addBoolean(19, hardwareSelftest, false); }
   public static int endConfigurationRequest(FlatBufferBuilder builder) {
     int o = builder.endTable();
     return o;

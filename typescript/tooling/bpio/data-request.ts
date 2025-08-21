@@ -47,23 +47,8 @@ dataWriteArray():Uint8Array|null {
   return offset ? new Uint8Array(this.bb!.bytes().buffer, this.bb!.bytes().byteOffset + this.bb!.__vector(this.bb_pos + offset), this.bb!.__vector_len(this.bb_pos + offset)) : null;
 }
 
-bytesRead():number {
-  const offset = this.bb!.__offset(this.bb_pos, 10);
-  return offset ? this.bb!.readUint16(this.bb_pos + offset) : 0;
-}
-
-stopMain():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 12);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
-stopAlt():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 14);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
 static startDataRequest(builder:flatbuffers.Builder) {
-  builder.startObject(6);
+  builder.startObject(3);
 }
 
 static addStartMain(builder:flatbuffers.Builder, startMain:boolean) {
@@ -90,31 +75,16 @@ static startDataWriteVector(builder:flatbuffers.Builder, numElems:number) {
   builder.startVector(1, numElems, 1);
 }
 
-static addBytesRead(builder:flatbuffers.Builder, bytesRead:number) {
-  builder.addFieldInt16(3, bytesRead, 0);
-}
-
-static addStopMain(builder:flatbuffers.Builder, stopMain:boolean) {
-  builder.addFieldInt8(4, +stopMain, +false);
-}
-
-static addStopAlt(builder:flatbuffers.Builder, stopAlt:boolean) {
-  builder.addFieldInt8(5, +stopAlt, +false);
-}
-
 static endDataRequest(builder:flatbuffers.Builder):flatbuffers.Offset {
   const offset = builder.endObject();
   return offset;
 }
 
-static createDataRequest(builder:flatbuffers.Builder, startMain:boolean, startAlt:boolean, dataWriteOffset:flatbuffers.Offset, bytesRead:number, stopMain:boolean, stopAlt:boolean):flatbuffers.Offset {
+static createDataRequest(builder:flatbuffers.Builder, startMain:boolean, startAlt:boolean, dataWriteOffset:flatbuffers.Offset):flatbuffers.Offset {
   DataRequest.startDataRequest(builder);
   DataRequest.addStartMain(builder, startMain);
   DataRequest.addStartAlt(builder, startAlt);
   DataRequest.addDataWrite(builder, dataWriteOffset);
-  DataRequest.addBytesRead(builder, bytesRead);
-  DataRequest.addStopMain(builder, stopMain);
-  DataRequest.addStopAlt(builder, stopAlt);
   return DataRequest.endDataRequest(builder);
 }
 }

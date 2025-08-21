@@ -113,56 +113,8 @@ func (rcv *ModeConfiguration) MutateSignalInversion(n bool) bool {
 	return rcv._tab.MutateBoolSlot(14, n)
 }
 
-func (rcv *ModeConfiguration) ClockStretch() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(16))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *ModeConfiguration) MutateClockStretch(n bool) bool {
-	return rcv._tab.MutateBoolSlot(16, n)
-}
-
-func (rcv *ModeConfiguration) ClockPolarity() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(18))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *ModeConfiguration) MutateClockPolarity(n bool) bool {
-	return rcv._tab.MutateBoolSlot(18, n)
-}
-
-func (rcv *ModeConfiguration) ClockPhase() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(20))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *ModeConfiguration) MutateClockPhase(n bool) bool {
-	return rcv._tab.MutateBoolSlot(20, n)
-}
-
-func (rcv *ModeConfiguration) ChipSelectIdle() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(22))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return true
-}
-
-func (rcv *ModeConfiguration) MutateChipSelectIdle(n bool) bool {
-	return rcv._tab.MutateBoolSlot(22, n)
-}
-
 func (rcv *ModeConfiguration) Submode() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(24))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(16))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -170,11 +122,11 @@ func (rcv *ModeConfiguration) Submode() byte {
 }
 
 func (rcv *ModeConfiguration) MutateSubmode(n byte) bool {
-	return rcv._tab.MutateByteSlot(24, n)
+	return rcv._tab.MutateByteSlot(16, n)
 }
 
 func (rcv *ModeConfiguration) TxModulation() uint32 {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(26))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(18))
 	if o != 0 {
 		return rcv._tab.GetUint32(o + rcv._tab.Pos)
 	}
@@ -182,11 +134,11 @@ func (rcv *ModeConfiguration) TxModulation() uint32 {
 }
 
 func (rcv *ModeConfiguration) MutateTxModulation(n uint32) bool {
-	return rcv._tab.MutateUint32Slot(26, n)
+	return rcv._tab.MutateUint32Slot(18, n)
 }
 
 func (rcv *ModeConfiguration) RxSensor() byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(28))
+	o := flatbuffers.UOffsetT(rcv._tab.Offset(20))
 	if o != 0 {
 		return rcv._tab.GetByte(o + rcv._tab.Pos)
 	}
@@ -194,11 +146,11 @@ func (rcv *ModeConfiguration) RxSensor() byte {
 }
 
 func (rcv *ModeConfiguration) MutateRxSensor(n byte) bool {
-	return rcv._tab.MutateByteSlot(28, n)
+	return rcv._tab.MutateByteSlot(20, n)
 }
 
 func ModeConfigurationStart(builder *flatbuffers.Builder) {
-	builder.StartObject(13)
+	builder.StartObject(9)
 }
 func ModeConfigurationAddSpeed(builder *flatbuffers.Builder, speed uint32) {
 	builder.PrependUint32Slot(0, speed, 20000)
@@ -218,26 +170,14 @@ func ModeConfigurationAddFlowControl(builder *flatbuffers.Builder, flowControl b
 func ModeConfigurationAddSignalInversion(builder *flatbuffers.Builder, signalInversion bool) {
 	builder.PrependBoolSlot(5, signalInversion, false)
 }
-func ModeConfigurationAddClockStretch(builder *flatbuffers.Builder, clockStretch bool) {
-	builder.PrependBoolSlot(6, clockStretch, false)
-}
-func ModeConfigurationAddClockPolarity(builder *flatbuffers.Builder, clockPolarity bool) {
-	builder.PrependBoolSlot(7, clockPolarity, false)
-}
-func ModeConfigurationAddClockPhase(builder *flatbuffers.Builder, clockPhase bool) {
-	builder.PrependBoolSlot(8, clockPhase, false)
-}
-func ModeConfigurationAddChipSelectIdle(builder *flatbuffers.Builder, chipSelectIdle bool) {
-	builder.PrependBoolSlot(9, chipSelectIdle, true)
-}
 func ModeConfigurationAddSubmode(builder *flatbuffers.Builder, submode byte) {
-	builder.PrependByteSlot(10, submode, 0)
+	builder.PrependByteSlot(6, submode, 0)
 }
 func ModeConfigurationAddTxModulation(builder *flatbuffers.Builder, txModulation uint32) {
-	builder.PrependUint32Slot(11, txModulation, 0)
+	builder.PrependUint32Slot(7, txModulation, 0)
 }
 func ModeConfigurationAddRxSensor(builder *flatbuffers.Builder, rxSensor byte) {
-	builder.PrependByteSlot(12, rxSensor, 0)
+	builder.PrependByteSlot(8, rxSensor, 0)
 }
 func ModeConfigurationEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()

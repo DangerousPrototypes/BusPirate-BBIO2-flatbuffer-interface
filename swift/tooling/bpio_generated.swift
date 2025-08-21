@@ -347,40 +347,57 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
 
   private enum VTOFFSET: VOffset {
     case error = 4
-    case versionFlatbuffersMajor = 6
-    case versionFlatbuffersMinor = 8
-    case versionHardwareMajor = 10
-    case versionHardwareMinor = 12
-    case versionFirmwareMajor = 14
-    case versionFirmwareMinor = 16
-    case versionFirmwareGitHash = 18
-    case versionFirmwareDate = 20
-    case modesAvailable = 22
-    case modeCurrent = 24
-    case modePinLabels = 26
-    case modeBitorderMsb = 28
-    case modeMaxPacketSize = 30
-    case modeMaxWrite = 32
-    case modeMaxRead = 34
-    case psuEnabled = 36
-    case psuSetMv = 38
-    case psuSetMa = 40
-    case psuMeasuredMv = 42
-    case psuMeasuredMa = 44
-    case psuCurrentError = 46
-    case pullupEnabled = 48
-    case adcMv = 50
-    case ioDirection = 52
-    case ioValue = 54
-    case diskSizeMb = 56
-    case diskUsedMb = 58
-    case ledCount = 60
+    case psuEnabled = 6
+    case psuSetMv = 8
+    case psuSetMa = 10
+    case psuMeasuredMv = 12
+    case psuMeasuredMa = 14
+    case psuCurrentError = 16
+    case pullupEnabled = 18
+    case adcMv = 20
+    case ioDirection = 22
+    case ioValue = 24
+    case diskSizeMb = 26
+    case diskUsedMb = 28
+    case ledCount = 30
+    case versionFlatbuffersMajor = 32
+    case versionFlatbuffersMinor = 34
+    case versionHardwareMajor = 36
+    case versionHardwareMinor = 38
+    case versionFirmwareMajor = 40
+    case versionFirmwareMinor = 42
+    case versionFirmwareGitHash = 44
+    case versionFirmwareDate = 46
+    case modesAvailable = 48
+    case modeCurrent = 50
+    case modePinLabels = 52
+    case modeBitorderMsb = 54
+    case modeMaxPacketSize = 56
+    case modeMaxWrite = 58
+    case modeMaxRead = 60
     var v: Int32 { Int32(self.rawValue) }
     var p: VOffset { self.rawValue }
   }
 
   public var error: String? { let o = _accessor.offset(VTOFFSET.error.v); return o == 0 ? nil : _accessor.string(at: o) }
   public var errorSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.error.v) }
+  public var psuEnabled: Bool { let o = _accessor.offset(VTOFFSET.psuEnabled.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
+  public var psuSetMv: UInt32 { let o = _accessor.offset(VTOFFSET.psuSetMv.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
+  public var psuSetMa: UInt32 { let o = _accessor.offset(VTOFFSET.psuSetMa.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
+  public var psuMeasuredMv: UInt32 { let o = _accessor.offset(VTOFFSET.psuMeasuredMv.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
+  public var psuMeasuredMa: UInt32 { let o = _accessor.offset(VTOFFSET.psuMeasuredMa.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
+  public var psuCurrentError: Bool { let o = _accessor.offset(VTOFFSET.psuCurrentError.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
+  public var pullupEnabled: Bool { let o = _accessor.offset(VTOFFSET.pullupEnabled.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
+  public var hasAdcMv: Bool { let o = _accessor.offset(VTOFFSET.adcMv.v); return o == 0 ? false : true }
+  public var adcMvCount: Int32 { let o = _accessor.offset(VTOFFSET.adcMv.v); return o == 0 ? 0 : _accessor.vector(count: o) }
+  public func adcMv(at index: Int32) -> UInt32 { let o = _accessor.offset(VTOFFSET.adcMv.v); return o == 0 ? 0 : _accessor.directRead(of: UInt32.self, offset: _accessor.vector(at: o) + index * 4) }
+  public var adcMv: [UInt32] { return _accessor.getVector(at: VTOFFSET.adcMv.v) ?? [] }
+  public func withUnsafePointerToAdcMv<T>(_ body: (UnsafeRawBufferPointer) throws -> T) rethrows -> T? { return try _accessor.withUnsafePointerToSlice(at: VTOFFSET.adcMv.v, body: body) }
+  public var ioDirection: UInt8 { let o = _accessor.offset(VTOFFSET.ioDirection.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
+  public var ioValue: UInt8 { let o = _accessor.offset(VTOFFSET.ioValue.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
+  public var diskSizeMb: Float32 { let o = _accessor.offset(VTOFFSET.diskSizeMb.v); return o == 0 ? 0.0 : _accessor.readBuffer(of: Float32.self, at: o) }
+  public var diskUsedMb: Float32 { let o = _accessor.offset(VTOFFSET.diskUsedMb.v); return o == 0 ? 0.0 : _accessor.readBuffer(of: Float32.self, at: o) }
+  public var ledCount: UInt8 { let o = _accessor.offset(VTOFFSET.ledCount.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var versionFlatbuffersMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionFlatbuffersMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var versionFlatbuffersMinor: UInt16 { let o = _accessor.offset(VTOFFSET.versionFlatbuffersMinor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt16.self, at: o) }
   public var versionHardwareMajor: UInt8 { let o = _accessor.offset(VTOFFSET.versionHardwareMajor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
@@ -403,41 +420,8 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
   public var modeMaxPacketSize: UInt32 { let o = _accessor.offset(VTOFFSET.modeMaxPacketSize.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
   public var modeMaxWrite: UInt32 { let o = _accessor.offset(VTOFFSET.modeMaxWrite.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
   public var modeMaxRead: UInt32 { let o = _accessor.offset(VTOFFSET.modeMaxRead.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
-  public var psuEnabled: Bool { let o = _accessor.offset(VTOFFSET.psuEnabled.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var psuSetMv: UInt32 { let o = _accessor.offset(VTOFFSET.psuSetMv.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
-  public var psuSetMa: UInt32 { let o = _accessor.offset(VTOFFSET.psuSetMa.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
-  public var psuMeasuredMv: UInt32 { let o = _accessor.offset(VTOFFSET.psuMeasuredMv.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
-  public var psuMeasuredMa: UInt32 { let o = _accessor.offset(VTOFFSET.psuMeasuredMa.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
-  public var psuCurrentError: Bool { let o = _accessor.offset(VTOFFSET.psuCurrentError.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var pullupEnabled: Bool { let o = _accessor.offset(VTOFFSET.pullupEnabled.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var hasAdcMv: Bool { let o = _accessor.offset(VTOFFSET.adcMv.v); return o == 0 ? false : true }
-  public var adcMvCount: Int32 { let o = _accessor.offset(VTOFFSET.adcMv.v); return o == 0 ? 0 : _accessor.vector(count: o) }
-  public func adcMv(at index: Int32) -> UInt32 { let o = _accessor.offset(VTOFFSET.adcMv.v); return o == 0 ? 0 : _accessor.directRead(of: UInt32.self, offset: _accessor.vector(at: o) + index * 4) }
-  public var adcMv: [UInt32] { return _accessor.getVector(at: VTOFFSET.adcMv.v) ?? [] }
-  public func withUnsafePointerToAdcMv<T>(_ body: (UnsafeRawBufferPointer) throws -> T) rethrows -> T? { return try _accessor.withUnsafePointerToSlice(at: VTOFFSET.adcMv.v, body: body) }
-  public var ioDirection: UInt8 { let o = _accessor.offset(VTOFFSET.ioDirection.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
-  public var ioValue: UInt8 { let o = _accessor.offset(VTOFFSET.ioValue.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
-  public var diskSizeMb: Float32 { let o = _accessor.offset(VTOFFSET.diskSizeMb.v); return o == 0 ? 0.0 : _accessor.readBuffer(of: Float32.self, at: o) }
-  public var diskUsedMb: Float32 { let o = _accessor.offset(VTOFFSET.diskUsedMb.v); return o == 0 ? 0.0 : _accessor.readBuffer(of: Float32.self, at: o) }
-  public var ledCount: UInt8 { let o = _accessor.offset(VTOFFSET.ledCount.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public static func startStatusResponse(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 29) }
   public static func add(error: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: error, at: VTOFFSET.error.p) }
-  public static func add(versionFlatbuffersMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFlatbuffersMajor, def: 0, at: VTOFFSET.versionFlatbuffersMajor.p) }
-  public static func add(versionFlatbuffersMinor: UInt16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFlatbuffersMinor, def: 0, at: VTOFFSET.versionFlatbuffersMinor.p) }
-  public static func add(versionHardwareMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionHardwareMajor, def: 0, at: VTOFFSET.versionHardwareMajor.p) }
-  public static func add(versionHardwareMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionHardwareMinor, def: 0, at: VTOFFSET.versionHardwareMinor.p) }
-  public static func add(versionFirmwareMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFirmwareMajor, def: 0, at: VTOFFSET.versionFirmwareMajor.p) }
-  public static func add(versionFirmwareMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFirmwareMinor, def: 0, at: VTOFFSET.versionFirmwareMinor.p) }
-  public static func add(versionFirmwareGitHash: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: versionFirmwareGitHash, at: VTOFFSET.versionFirmwareGitHash.p) }
-  public static func add(versionFirmwareDate: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: versionFirmwareDate, at: VTOFFSET.versionFirmwareDate.p) }
-  public static func addVectorOf(modesAvailable: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: modesAvailable, at: VTOFFSET.modesAvailable.p) }
-  public static func add(modeCurrent: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: modeCurrent, at: VTOFFSET.modeCurrent.p) }
-  public static func addVectorOf(modePinLabels: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: modePinLabels, at: VTOFFSET.modePinLabels.p) }
-  public static func add(modeBitorderMsb: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeBitorderMsb, def: false,
-   at: VTOFFSET.modeBitorderMsb.p) }
-  public static func add(modeMaxPacketSize: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeMaxPacketSize, def: 0, at: VTOFFSET.modeMaxPacketSize.p) }
-  public static func add(modeMaxWrite: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeMaxWrite, def: 0, at: VTOFFSET.modeMaxWrite.p) }
-  public static func add(modeMaxRead: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeMaxRead, def: 0, at: VTOFFSET.modeMaxRead.p) }
   public static func add(psuEnabled: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: psuEnabled, def: false,
    at: VTOFFSET.psuEnabled.p) }
   public static func add(psuSetMv: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: psuSetMv, def: 0, at: VTOFFSET.psuSetMv.p) }
@@ -454,10 +438,39 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
   public static func add(diskSizeMb: Float32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: diskSizeMb, def: 0.0, at: VTOFFSET.diskSizeMb.p) }
   public static func add(diskUsedMb: Float32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: diskUsedMb, def: 0.0, at: VTOFFSET.diskUsedMb.p) }
   public static func add(ledCount: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: ledCount, def: 0, at: VTOFFSET.ledCount.p) }
+  public static func add(versionFlatbuffersMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFlatbuffersMajor, def: 0, at: VTOFFSET.versionFlatbuffersMajor.p) }
+  public static func add(versionFlatbuffersMinor: UInt16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFlatbuffersMinor, def: 0, at: VTOFFSET.versionFlatbuffersMinor.p) }
+  public static func add(versionHardwareMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionHardwareMajor, def: 0, at: VTOFFSET.versionHardwareMajor.p) }
+  public static func add(versionHardwareMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionHardwareMinor, def: 0, at: VTOFFSET.versionHardwareMinor.p) }
+  public static func add(versionFirmwareMajor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFirmwareMajor, def: 0, at: VTOFFSET.versionFirmwareMajor.p) }
+  public static func add(versionFirmwareMinor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: versionFirmwareMinor, def: 0, at: VTOFFSET.versionFirmwareMinor.p) }
+  public static func add(versionFirmwareGitHash: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: versionFirmwareGitHash, at: VTOFFSET.versionFirmwareGitHash.p) }
+  public static func add(versionFirmwareDate: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: versionFirmwareDate, at: VTOFFSET.versionFirmwareDate.p) }
+  public static func addVectorOf(modesAvailable: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: modesAvailable, at: VTOFFSET.modesAvailable.p) }
+  public static func add(modeCurrent: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: modeCurrent, at: VTOFFSET.modeCurrent.p) }
+  public static func addVectorOf(modePinLabels: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: modePinLabels, at: VTOFFSET.modePinLabels.p) }
+  public static func add(modeBitorderMsb: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeBitorderMsb, def: false,
+   at: VTOFFSET.modeBitorderMsb.p) }
+  public static func add(modeMaxPacketSize: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeMaxPacketSize, def: 0, at: VTOFFSET.modeMaxPacketSize.p) }
+  public static func add(modeMaxWrite: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeMaxWrite, def: 0, at: VTOFFSET.modeMaxWrite.p) }
+  public static func add(modeMaxRead: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeMaxRead, def: 0, at: VTOFFSET.modeMaxRead.p) }
   public static func endStatusResponse(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
   public static func createStatusResponse(
     _ fbb: inout FlatBufferBuilder,
     errorOffset error: Offset = Offset(),
+    psuEnabled: Bool = false,
+    psuSetMv: UInt32 = 0,
+    psuSetMa: UInt32 = 0,
+    psuMeasuredMv: UInt32 = 0,
+    psuMeasuredMa: UInt32 = 0,
+    psuCurrentError: Bool = false,
+    pullupEnabled: Bool = false,
+    adcMvVectorOffset adcMv: Offset = Offset(),
+    ioDirection: UInt8 = 0,
+    ioValue: UInt8 = 0,
+    diskSizeMb: Float32 = 0.0,
+    diskUsedMb: Float32 = 0.0,
+    ledCount: UInt8 = 0,
     versionFlatbuffersMajor: UInt8 = 0,
     versionFlatbuffersMinor: UInt16 = 0,
     versionHardwareMajor: UInt8 = 0,
@@ -472,23 +485,23 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
     modeBitorderMsb: Bool = false,
     modeMaxPacketSize: UInt32 = 0,
     modeMaxWrite: UInt32 = 0,
-    modeMaxRead: UInt32 = 0,
-    psuEnabled: Bool = false,
-    psuSetMv: UInt32 = 0,
-    psuSetMa: UInt32 = 0,
-    psuMeasuredMv: UInt32 = 0,
-    psuMeasuredMa: UInt32 = 0,
-    psuCurrentError: Bool = false,
-    pullupEnabled: Bool = false,
-    adcMvVectorOffset adcMv: Offset = Offset(),
-    ioDirection: UInt8 = 0,
-    ioValue: UInt8 = 0,
-    diskSizeMb: Float32 = 0.0,
-    diskUsedMb: Float32 = 0.0,
-    ledCount: UInt8 = 0
+    modeMaxRead: UInt32 = 0
   ) -> Offset {
     let __start = bpio_StatusResponse.startStatusResponse(&fbb)
     bpio_StatusResponse.add(error: error, &fbb)
+    bpio_StatusResponse.add(psuEnabled: psuEnabled, &fbb)
+    bpio_StatusResponse.add(psuSetMv: psuSetMv, &fbb)
+    bpio_StatusResponse.add(psuSetMa: psuSetMa, &fbb)
+    bpio_StatusResponse.add(psuMeasuredMv: psuMeasuredMv, &fbb)
+    bpio_StatusResponse.add(psuMeasuredMa: psuMeasuredMa, &fbb)
+    bpio_StatusResponse.add(psuCurrentError: psuCurrentError, &fbb)
+    bpio_StatusResponse.add(pullupEnabled: pullupEnabled, &fbb)
+    bpio_StatusResponse.addVectorOf(adcMv: adcMv, &fbb)
+    bpio_StatusResponse.add(ioDirection: ioDirection, &fbb)
+    bpio_StatusResponse.add(ioValue: ioValue, &fbb)
+    bpio_StatusResponse.add(diskSizeMb: diskSizeMb, &fbb)
+    bpio_StatusResponse.add(diskUsedMb: diskUsedMb, &fbb)
+    bpio_StatusResponse.add(ledCount: ledCount, &fbb)
     bpio_StatusResponse.add(versionFlatbuffersMajor: versionFlatbuffersMajor, &fbb)
     bpio_StatusResponse.add(versionFlatbuffersMinor: versionFlatbuffersMinor, &fbb)
     bpio_StatusResponse.add(versionHardwareMajor: versionHardwareMajor, &fbb)
@@ -504,25 +517,25 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
     bpio_StatusResponse.add(modeMaxPacketSize: modeMaxPacketSize, &fbb)
     bpio_StatusResponse.add(modeMaxWrite: modeMaxWrite, &fbb)
     bpio_StatusResponse.add(modeMaxRead: modeMaxRead, &fbb)
-    bpio_StatusResponse.add(psuEnabled: psuEnabled, &fbb)
-    bpio_StatusResponse.add(psuSetMv: psuSetMv, &fbb)
-    bpio_StatusResponse.add(psuSetMa: psuSetMa, &fbb)
-    bpio_StatusResponse.add(psuMeasuredMv: psuMeasuredMv, &fbb)
-    bpio_StatusResponse.add(psuMeasuredMa: psuMeasuredMa, &fbb)
-    bpio_StatusResponse.add(psuCurrentError: psuCurrentError, &fbb)
-    bpio_StatusResponse.add(pullupEnabled: pullupEnabled, &fbb)
-    bpio_StatusResponse.addVectorOf(adcMv: adcMv, &fbb)
-    bpio_StatusResponse.add(ioDirection: ioDirection, &fbb)
-    bpio_StatusResponse.add(ioValue: ioValue, &fbb)
-    bpio_StatusResponse.add(diskSizeMb: diskSizeMb, &fbb)
-    bpio_StatusResponse.add(diskUsedMb: diskUsedMb, &fbb)
-    bpio_StatusResponse.add(ledCount: ledCount, &fbb)
     return bpio_StatusResponse.endStatusResponse(&fbb, start: __start)
   }
 
   public static func verify<T>(_ verifier: inout Verifier, at position: Int, of type: T.Type) throws where T: Verifiable {
     var _v = try verifier.visitTable(at: position)
     try _v.visit(field: VTOFFSET.error.p, fieldName: "error", required: false, type: ForwardOffset<String>.self)
+    try _v.visit(field: VTOFFSET.psuEnabled.p, fieldName: "psuEnabled", required: false, type: Bool.self)
+    try _v.visit(field: VTOFFSET.psuSetMv.p, fieldName: "psuSetMv", required: false, type: UInt32.self)
+    try _v.visit(field: VTOFFSET.psuSetMa.p, fieldName: "psuSetMa", required: false, type: UInt32.self)
+    try _v.visit(field: VTOFFSET.psuMeasuredMv.p, fieldName: "psuMeasuredMv", required: false, type: UInt32.self)
+    try _v.visit(field: VTOFFSET.psuMeasuredMa.p, fieldName: "psuMeasuredMa", required: false, type: UInt32.self)
+    try _v.visit(field: VTOFFSET.psuCurrentError.p, fieldName: "psuCurrentError", required: false, type: Bool.self)
+    try _v.visit(field: VTOFFSET.pullupEnabled.p, fieldName: "pullupEnabled", required: false, type: Bool.self)
+    try _v.visit(field: VTOFFSET.adcMv.p, fieldName: "adcMv", required: false, type: ForwardOffset<Vector<UInt32, UInt32>>.self)
+    try _v.visit(field: VTOFFSET.ioDirection.p, fieldName: "ioDirection", required: false, type: UInt8.self)
+    try _v.visit(field: VTOFFSET.ioValue.p, fieldName: "ioValue", required: false, type: UInt8.self)
+    try _v.visit(field: VTOFFSET.diskSizeMb.p, fieldName: "diskSizeMb", required: false, type: Float32.self)
+    try _v.visit(field: VTOFFSET.diskUsedMb.p, fieldName: "diskUsedMb", required: false, type: Float32.self)
+    try _v.visit(field: VTOFFSET.ledCount.p, fieldName: "ledCount", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.versionFlatbuffersMajor.p, fieldName: "versionFlatbuffersMajor", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.versionFlatbuffersMinor.p, fieldName: "versionFlatbuffersMinor", required: false, type: UInt16.self)
     try _v.visit(field: VTOFFSET.versionHardwareMajor.p, fieldName: "versionHardwareMajor", required: false, type: UInt8.self)
@@ -538,19 +551,6 @@ public struct bpio_StatusResponse: FlatBufferObject, Verifiable {
     try _v.visit(field: VTOFFSET.modeMaxPacketSize.p, fieldName: "modeMaxPacketSize", required: false, type: UInt32.self)
     try _v.visit(field: VTOFFSET.modeMaxWrite.p, fieldName: "modeMaxWrite", required: false, type: UInt32.self)
     try _v.visit(field: VTOFFSET.modeMaxRead.p, fieldName: "modeMaxRead", required: false, type: UInt32.self)
-    try _v.visit(field: VTOFFSET.psuEnabled.p, fieldName: "psuEnabled", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.psuSetMv.p, fieldName: "psuSetMv", required: false, type: UInt32.self)
-    try _v.visit(field: VTOFFSET.psuSetMa.p, fieldName: "psuSetMa", required: false, type: UInt32.self)
-    try _v.visit(field: VTOFFSET.psuMeasuredMv.p, fieldName: "psuMeasuredMv", required: false, type: UInt32.self)
-    try _v.visit(field: VTOFFSET.psuMeasuredMa.p, fieldName: "psuMeasuredMa", required: false, type: UInt32.self)
-    try _v.visit(field: VTOFFSET.psuCurrentError.p, fieldName: "psuCurrentError", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.pullupEnabled.p, fieldName: "pullupEnabled", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.adcMv.p, fieldName: "adcMv", required: false, type: ForwardOffset<Vector<UInt32, UInt32>>.self)
-    try _v.visit(field: VTOFFSET.ioDirection.p, fieldName: "ioDirection", required: false, type: UInt8.self)
-    try _v.visit(field: VTOFFSET.ioValue.p, fieldName: "ioValue", required: false, type: UInt8.self)
-    try _v.visit(field: VTOFFSET.diskSizeMb.p, fieldName: "diskSizeMb", required: false, type: Float32.self)
-    try _v.visit(field: VTOFFSET.diskUsedMb.p, fieldName: "diskUsedMb", required: false, type: Float32.self)
-    try _v.visit(field: VTOFFSET.ledCount.p, fieldName: "ledCount", required: false, type: UInt8.self)
     _v.finish()
   }
 }
@@ -571,13 +571,9 @@ public struct bpio_ModeConfiguration: FlatBufferObject, Verifiable {
     case stopBits = 10
     case flowControl = 12
     case signalInversion = 14
-    case clockStretch = 16
-    case clockPolarity = 18
-    case clockPhase = 20
-    case chipSelectIdle = 22
-    case submode = 24
-    case txModulation = 26
-    case rxSensor = 28
+    case submode = 16
+    case txModulation = 18
+    case rxSensor = 20
     var v: Int32 { Int32(self.rawValue) }
     var p: VOffset { self.rawValue }
   }
@@ -588,14 +584,10 @@ public struct bpio_ModeConfiguration: FlatBufferObject, Verifiable {
   public var stopBits: UInt8 { let o = _accessor.offset(VTOFFSET.stopBits.v); return o == 0 ? 1 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var flowControl: Bool { let o = _accessor.offset(VTOFFSET.flowControl.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
   public var signalInversion: Bool { let o = _accessor.offset(VTOFFSET.signalInversion.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var clockStretch: Bool { let o = _accessor.offset(VTOFFSET.clockStretch.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var clockPolarity: Bool { let o = _accessor.offset(VTOFFSET.clockPolarity.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var clockPhase: Bool { let o = _accessor.offset(VTOFFSET.clockPhase.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var chipSelectIdle: Bool { let o = _accessor.offset(VTOFFSET.chipSelectIdle.v); return o == 0 ? true : _accessor.readBuffer(of: Bool.self, at: o) }
   public var submode: UInt8 { let o = _accessor.offset(VTOFFSET.submode.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var txModulation: UInt32 { let o = _accessor.offset(VTOFFSET.txModulation.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt32.self, at: o) }
   public var rxSensor: UInt8 { let o = _accessor.offset(VTOFFSET.rxSensor.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
-  public static func startModeConfiguration(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 13) }
+  public static func startModeConfiguration(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 9) }
   public static func add(speed: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: speed, def: 20000, at: VTOFFSET.speed.p) }
   public static func add(dataBits: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: dataBits, def: 8, at: VTOFFSET.dataBits.p) }
   public static func add(parity: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: parity, def: false,
@@ -605,14 +597,6 @@ public struct bpio_ModeConfiguration: FlatBufferObject, Verifiable {
    at: VTOFFSET.flowControl.p) }
   public static func add(signalInversion: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: signalInversion, def: false,
    at: VTOFFSET.signalInversion.p) }
-  public static func add(clockStretch: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: clockStretch, def: false,
-   at: VTOFFSET.clockStretch.p) }
-  public static func add(clockPolarity: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: clockPolarity, def: false,
-   at: VTOFFSET.clockPolarity.p) }
-  public static func add(clockPhase: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: clockPhase, def: false,
-   at: VTOFFSET.clockPhase.p) }
-  public static func add(chipSelectIdle: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: chipSelectIdle, def: true,
-   at: VTOFFSET.chipSelectIdle.p) }
   public static func add(submode: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: submode, def: 0, at: VTOFFSET.submode.p) }
   public static func add(txModulation: UInt32, _ fbb: inout FlatBufferBuilder) { fbb.add(element: txModulation, def: 0, at: VTOFFSET.txModulation.p) }
   public static func add(rxSensor: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: rxSensor, def: 0, at: VTOFFSET.rxSensor.p) }
@@ -625,10 +609,6 @@ public struct bpio_ModeConfiguration: FlatBufferObject, Verifiable {
     stopBits: UInt8 = 1,
     flowControl: Bool = false,
     signalInversion: Bool = false,
-    clockStretch: Bool = false,
-    clockPolarity: Bool = false,
-    clockPhase: Bool = false,
-    chipSelectIdle: Bool = true,
     submode: UInt8 = 0,
     txModulation: UInt32 = 0,
     rxSensor: UInt8 = 0
@@ -640,10 +620,6 @@ public struct bpio_ModeConfiguration: FlatBufferObject, Verifiable {
     bpio_ModeConfiguration.add(stopBits: stopBits, &fbb)
     bpio_ModeConfiguration.add(flowControl: flowControl, &fbb)
     bpio_ModeConfiguration.add(signalInversion: signalInversion, &fbb)
-    bpio_ModeConfiguration.add(clockStretch: clockStretch, &fbb)
-    bpio_ModeConfiguration.add(clockPolarity: clockPolarity, &fbb)
-    bpio_ModeConfiguration.add(clockPhase: clockPhase, &fbb)
-    bpio_ModeConfiguration.add(chipSelectIdle: chipSelectIdle, &fbb)
     bpio_ModeConfiguration.add(submode: submode, &fbb)
     bpio_ModeConfiguration.add(txModulation: txModulation, &fbb)
     bpio_ModeConfiguration.add(rxSensor: rxSensor, &fbb)
@@ -658,10 +634,6 @@ public struct bpio_ModeConfiguration: FlatBufferObject, Verifiable {
     try _v.visit(field: VTOFFSET.stopBits.p, fieldName: "stopBits", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.flowControl.p, fieldName: "flowControl", required: false, type: Bool.self)
     try _v.visit(field: VTOFFSET.signalInversion.p, fieldName: "signalInversion", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.clockStretch.p, fieldName: "clockStretch", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.clockPolarity.p, fieldName: "clockPolarity", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.clockPhase.p, fieldName: "clockPhase", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.chipSelectIdle.p, fieldName: "chipSelectIdle", required: false, type: Bool.self)
     try _v.visit(field: VTOFFSET.submode.p, fieldName: "submode", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.txModulation.p, fieldName: "txModulation", required: false, type: UInt32.self)
     try _v.visit(field: VTOFFSET.rxSensor.p, fieldName: "rxSensor", required: false, type: UInt8.self)
@@ -693,12 +665,6 @@ public struct bpio_ConfigurationRequest: FlatBufferObject, Verifiable {
     case ioDirection = 26
     case ioValueMask = 28
     case ioValue = 30
-    case ledResume = 32
-    case ledColor = 34
-    case printString = 36
-    case hardwareBootloader = 38
-    case hardwareReset = 40
-    case hardwareSelftest = 42
     var v: Int32 { Int32(self.rawValue) }
     var p: VOffset { self.rawValue }
   }
@@ -718,18 +684,7 @@ public struct bpio_ConfigurationRequest: FlatBufferObject, Verifiable {
   public var ioDirection: UInt8 { let o = _accessor.offset(VTOFFSET.ioDirection.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var ioValueMask: UInt8 { let o = _accessor.offset(VTOFFSET.ioValueMask.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
   public var ioValue: UInt8 { let o = _accessor.offset(VTOFFSET.ioValue.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt8.self, at: o) }
-  public var ledResume: Bool { let o = _accessor.offset(VTOFFSET.ledResume.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var hasLedColor: Bool { let o = _accessor.offset(VTOFFSET.ledColor.v); return o == 0 ? false : true }
-  public var ledColorCount: Int32 { let o = _accessor.offset(VTOFFSET.ledColor.v); return o == 0 ? 0 : _accessor.vector(count: o) }
-  public func ledColor(at index: Int32) -> UInt32 { let o = _accessor.offset(VTOFFSET.ledColor.v); return o == 0 ? 0 : _accessor.directRead(of: UInt32.self, offset: _accessor.vector(at: o) + index * 4) }
-  public var ledColor: [UInt32] { return _accessor.getVector(at: VTOFFSET.ledColor.v) ?? [] }
-  public func withUnsafePointerToLedColor<T>(_ body: (UnsafeRawBufferPointer) throws -> T) rethrows -> T? { return try _accessor.withUnsafePointerToSlice(at: VTOFFSET.ledColor.v, body: body) }
-  public var printString: String? { let o = _accessor.offset(VTOFFSET.printString.v); return o == 0 ? nil : _accessor.string(at: o) }
-  public var printStringSegmentArray: [UInt8]? { return _accessor.getVector(at: VTOFFSET.printString.v) }
-  public var hardwareBootloader: Bool { let o = _accessor.offset(VTOFFSET.hardwareBootloader.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var hardwareReset: Bool { let o = _accessor.offset(VTOFFSET.hardwareReset.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var hardwareSelftest: Bool { let o = _accessor.offset(VTOFFSET.hardwareSelftest.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public static func startConfigurationRequest(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 20) }
+  public static func startConfigurationRequest(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 14) }
   public static func add(mode: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: mode, at: VTOFFSET.mode.p) }
   public static func add(modeConfiguration: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: modeConfiguration, at: VTOFFSET.modeConfiguration.p) }
   public static func add(modeBitorderMsb: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: modeBitorderMsb, def: false,
@@ -750,16 +705,6 @@ public struct bpio_ConfigurationRequest: FlatBufferObject, Verifiable {
   public static func add(ioDirection: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: ioDirection, def: 0, at: VTOFFSET.ioDirection.p) }
   public static func add(ioValueMask: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: ioValueMask, def: 0, at: VTOFFSET.ioValueMask.p) }
   public static func add(ioValue: UInt8, _ fbb: inout FlatBufferBuilder) { fbb.add(element: ioValue, def: 0, at: VTOFFSET.ioValue.p) }
-  public static func add(ledResume: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: ledResume, def: false,
-   at: VTOFFSET.ledResume.p) }
-  public static func addVectorOf(ledColor: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: ledColor, at: VTOFFSET.ledColor.p) }
-  public static func add(printString: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: printString, at: VTOFFSET.printString.p) }
-  public static func add(hardwareBootloader: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: hardwareBootloader, def: false,
-   at: VTOFFSET.hardwareBootloader.p) }
-  public static func add(hardwareReset: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: hardwareReset, def: false,
-   at: VTOFFSET.hardwareReset.p) }
-  public static func add(hardwareSelftest: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: hardwareSelftest, def: false,
-   at: VTOFFSET.hardwareSelftest.p) }
   public static func endConfigurationRequest(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
   public static func createConfigurationRequest(
     _ fbb: inout FlatBufferBuilder,
@@ -776,13 +721,7 @@ public struct bpio_ConfigurationRequest: FlatBufferObject, Verifiable {
     ioDirectionMask: UInt8 = 0,
     ioDirection: UInt8 = 0,
     ioValueMask: UInt8 = 0,
-    ioValue: UInt8 = 0,
-    ledResume: Bool = false,
-    ledColorVectorOffset ledColor: Offset = Offset(),
-    printStringOffset printString: Offset = Offset(),
-    hardwareBootloader: Bool = false,
-    hardwareReset: Bool = false,
-    hardwareSelftest: Bool = false
+    ioValue: UInt8 = 0
   ) -> Offset {
     let __start = bpio_ConfigurationRequest.startConfigurationRequest(&fbb)
     bpio_ConfigurationRequest.add(mode: mode, &fbb)
@@ -799,12 +738,6 @@ public struct bpio_ConfigurationRequest: FlatBufferObject, Verifiable {
     bpio_ConfigurationRequest.add(ioDirection: ioDirection, &fbb)
     bpio_ConfigurationRequest.add(ioValueMask: ioValueMask, &fbb)
     bpio_ConfigurationRequest.add(ioValue: ioValue, &fbb)
-    bpio_ConfigurationRequest.add(ledResume: ledResume, &fbb)
-    bpio_ConfigurationRequest.addVectorOf(ledColor: ledColor, &fbb)
-    bpio_ConfigurationRequest.add(printString: printString, &fbb)
-    bpio_ConfigurationRequest.add(hardwareBootloader: hardwareBootloader, &fbb)
-    bpio_ConfigurationRequest.add(hardwareReset: hardwareReset, &fbb)
-    bpio_ConfigurationRequest.add(hardwareSelftest: hardwareSelftest, &fbb)
     return bpio_ConfigurationRequest.endConfigurationRequest(&fbb, start: __start)
   }
 
@@ -824,12 +757,6 @@ public struct bpio_ConfigurationRequest: FlatBufferObject, Verifiable {
     try _v.visit(field: VTOFFSET.ioDirection.p, fieldName: "ioDirection", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.ioValueMask.p, fieldName: "ioValueMask", required: false, type: UInt8.self)
     try _v.visit(field: VTOFFSET.ioValue.p, fieldName: "ioValue", required: false, type: UInt8.self)
-    try _v.visit(field: VTOFFSET.ledResume.p, fieldName: "ledResume", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.ledColor.p, fieldName: "ledColor", required: false, type: ForwardOffset<Vector<UInt32, UInt32>>.self)
-    try _v.visit(field: VTOFFSET.printString.p, fieldName: "printString", required: false, type: ForwardOffset<String>.self)
-    try _v.visit(field: VTOFFSET.hardwareBootloader.p, fieldName: "hardwareBootloader", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.hardwareReset.p, fieldName: "hardwareReset", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.hardwareSelftest.p, fieldName: "hardwareSelftest", required: false, type: Bool.self)
     _v.finish()
   }
 }
@@ -883,9 +810,6 @@ public struct bpio_DataRequest: FlatBufferObject, Verifiable {
     case startMain = 4
     case startAlt = 6
     case dataWrite = 8
-    case bytesRead = 10
-    case stopMain = 12
-    case stopAlt = 14
     var v: Int32 { Int32(self.rawValue) }
     var p: VOffset { self.rawValue }
   }
@@ -897,37 +821,23 @@ public struct bpio_DataRequest: FlatBufferObject, Verifiable {
   public func dataWrite(at index: Int32) -> UInt8 { let o = _accessor.offset(VTOFFSET.dataWrite.v); return o == 0 ? 0 : _accessor.directRead(of: UInt8.self, offset: _accessor.vector(at: o) + index * 1) }
   public var dataWrite: [UInt8] { return _accessor.getVector(at: VTOFFSET.dataWrite.v) ?? [] }
   public func withUnsafePointerToDataWrite<T>(_ body: (UnsafeRawBufferPointer) throws -> T) rethrows -> T? { return try _accessor.withUnsafePointerToSlice(at: VTOFFSET.dataWrite.v, body: body) }
-  public var bytesRead: UInt16 { let o = _accessor.offset(VTOFFSET.bytesRead.v); return o == 0 ? 0 : _accessor.readBuffer(of: UInt16.self, at: o) }
-  public var stopMain: Bool { let o = _accessor.offset(VTOFFSET.stopMain.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public var stopAlt: Bool { let o = _accessor.offset(VTOFFSET.stopAlt.v); return o == 0 ? false : _accessor.readBuffer(of: Bool.self, at: o) }
-  public static func startDataRequest(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 6) }
+  public static func startDataRequest(_ fbb: inout FlatBufferBuilder) -> UOffset { fbb.startTable(with: 3) }
   public static func add(startMain: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: startMain, def: false,
    at: VTOFFSET.startMain.p) }
   public static func add(startAlt: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: startAlt, def: false,
    at: VTOFFSET.startAlt.p) }
   public static func addVectorOf(dataWrite: Offset, _ fbb: inout FlatBufferBuilder) { fbb.add(offset: dataWrite, at: VTOFFSET.dataWrite.p) }
-  public static func add(bytesRead: UInt16, _ fbb: inout FlatBufferBuilder) { fbb.add(element: bytesRead, def: 0, at: VTOFFSET.bytesRead.p) }
-  public static func add(stopMain: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: stopMain, def: false,
-   at: VTOFFSET.stopMain.p) }
-  public static func add(stopAlt: Bool, _ fbb: inout FlatBufferBuilder) { fbb.add(element: stopAlt, def: false,
-   at: VTOFFSET.stopAlt.p) }
   public static func endDataRequest(_ fbb: inout FlatBufferBuilder, start: UOffset) -> Offset { let end = Offset(offset: fbb.endTable(at: start)); return end }
   public static func createDataRequest(
     _ fbb: inout FlatBufferBuilder,
     startMain: Bool = false,
     startAlt: Bool = false,
-    dataWriteVectorOffset dataWrite: Offset = Offset(),
-    bytesRead: UInt16 = 0,
-    stopMain: Bool = false,
-    stopAlt: Bool = false
+    dataWriteVectorOffset dataWrite: Offset = Offset()
   ) -> Offset {
     let __start = bpio_DataRequest.startDataRequest(&fbb)
     bpio_DataRequest.add(startMain: startMain, &fbb)
     bpio_DataRequest.add(startAlt: startAlt, &fbb)
     bpio_DataRequest.addVectorOf(dataWrite: dataWrite, &fbb)
-    bpio_DataRequest.add(bytesRead: bytesRead, &fbb)
-    bpio_DataRequest.add(stopMain: stopMain, &fbb)
-    bpio_DataRequest.add(stopAlt: stopAlt, &fbb)
     return bpio_DataRequest.endDataRequest(&fbb, start: __start)
   }
 
@@ -936,9 +846,6 @@ public struct bpio_DataRequest: FlatBufferObject, Verifiable {
     try _v.visit(field: VTOFFSET.startMain.p, fieldName: "startMain", required: false, type: Bool.self)
     try _v.visit(field: VTOFFSET.startAlt.p, fieldName: "startAlt", required: false, type: Bool.self)
     try _v.visit(field: VTOFFSET.dataWrite.p, fieldName: "dataWrite", required: false, type: ForwardOffset<Vector<UInt8, UInt8>>.self)
-    try _v.visit(field: VTOFFSET.bytesRead.p, fieldName: "bytesRead", required: false, type: UInt16.self)
-    try _v.visit(field: VTOFFSET.stopMain.p, fieldName: "stopMain", required: false, type: Bool.self)
-    try _v.visit(field: VTOFFSET.stopAlt.p, fieldName: "stopAlt", required: false, type: Bool.self)
     _v.finish()
   }
 }

@@ -206,90 +206,8 @@ func (rcv *ConfigurationRequest) MutateIoValue(n byte) bool {
 	return rcv._tab.MutateByteSlot(30, n)
 }
 
-func (rcv *ConfigurationRequest) LedResume() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(32))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *ConfigurationRequest) MutateLedResume(n bool) bool {
-	return rcv._tab.MutateBoolSlot(32, n)
-}
-
-func (rcv *ConfigurationRequest) LedColor(j int) uint32 {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
-	if o != 0 {
-		a := rcv._tab.Vector(o)
-		return rcv._tab.GetUint32(a + flatbuffers.UOffsetT(j*4))
-	}
-	return 0
-}
-
-func (rcv *ConfigurationRequest) LedColorLength() int {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
-	if o != 0 {
-		return rcv._tab.VectorLen(o)
-	}
-	return 0
-}
-
-func (rcv *ConfigurationRequest) MutateLedColor(j int, n uint32) bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(34))
-	if o != 0 {
-		a := rcv._tab.Vector(o)
-		return rcv._tab.MutateUint32(a+flatbuffers.UOffsetT(j*4), n)
-	}
-	return false
-}
-
-func (rcv *ConfigurationRequest) PrintString() []byte {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(36))
-	if o != 0 {
-		return rcv._tab.ByteVector(o + rcv._tab.Pos)
-	}
-	return nil
-}
-
-func (rcv *ConfigurationRequest) HardwareBootloader() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(38))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *ConfigurationRequest) MutateHardwareBootloader(n bool) bool {
-	return rcv._tab.MutateBoolSlot(38, n)
-}
-
-func (rcv *ConfigurationRequest) HardwareReset() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(40))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *ConfigurationRequest) MutateHardwareReset(n bool) bool {
-	return rcv._tab.MutateBoolSlot(40, n)
-}
-
-func (rcv *ConfigurationRequest) HardwareSelftest() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(42))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *ConfigurationRequest) MutateHardwareSelftest(n bool) bool {
-	return rcv._tab.MutateBoolSlot(42, n)
-}
-
 func ConfigurationRequestStart(builder *flatbuffers.Builder) {
-	builder.StartObject(20)
+	builder.StartObject(14)
 }
 func ConfigurationRequestAddMode(builder *flatbuffers.Builder, mode flatbuffers.UOffsetT) {
 	builder.PrependUOffsetTSlot(0, flatbuffers.UOffsetT(mode), 0)
@@ -332,27 +250,6 @@ func ConfigurationRequestAddIoValueMask(builder *flatbuffers.Builder, ioValueMas
 }
 func ConfigurationRequestAddIoValue(builder *flatbuffers.Builder, ioValue byte) {
 	builder.PrependByteSlot(13, ioValue, 0)
-}
-func ConfigurationRequestAddLedResume(builder *flatbuffers.Builder, ledResume bool) {
-	builder.PrependBoolSlot(14, ledResume, false)
-}
-func ConfigurationRequestAddLedColor(builder *flatbuffers.Builder, ledColor flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(15, flatbuffers.UOffsetT(ledColor), 0)
-}
-func ConfigurationRequestStartLedColorVector(builder *flatbuffers.Builder, numElems int) flatbuffers.UOffsetT {
-	return builder.StartVector(4, numElems, 4)
-}
-func ConfigurationRequestAddPrintString(builder *flatbuffers.Builder, printString flatbuffers.UOffsetT) {
-	builder.PrependUOffsetTSlot(16, flatbuffers.UOffsetT(printString), 0)
-}
-func ConfigurationRequestAddHardwareBootloader(builder *flatbuffers.Builder, hardwareBootloader bool) {
-	builder.PrependBoolSlot(17, hardwareBootloader, false)
-}
-func ConfigurationRequestAddHardwareReset(builder *flatbuffers.Builder, hardwareReset bool) {
-	builder.PrependBoolSlot(18, hardwareReset, false)
-}
-func ConfigurationRequestAddHardwareSelftest(builder *flatbuffers.Builder, hardwareSelftest bool) {
-	builder.PrependBoolSlot(19, hardwareSelftest, false)
 }
 func ConfigurationRequestEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()

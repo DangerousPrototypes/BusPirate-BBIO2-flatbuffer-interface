@@ -39,25 +39,6 @@ public struct ConfigurationRequest : IFlatbufferObject
   public byte IoDirection { get { int o = __p.__offset(26); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
   public byte IoValueMask { get { int o = __p.__offset(28); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
   public byte IoValue { get { int o = __p.__offset(30); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public bool LedResume { get { int o = __p.__offset(32); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public uint LedColor(int j) { int o = __p.__offset(34); return o != 0 ? __p.bb.GetUint(__p.__vector(o) + j * 4) : (uint)0; }
-  public int LedColorLength { get { int o = __p.__offset(34); return o != 0 ? __p.__vector_len(o) : 0; } }
-#if ENABLE_SPAN_T
-  public Span<uint> GetLedColorBytes() { return __p.__vector_as_span<uint>(34, 4); }
-#else
-  public ArraySegment<byte>? GetLedColorBytes() { return __p.__vector_as_arraysegment(34); }
-#endif
-  public uint[] GetLedColorArray() { return __p.__vector_as_array<uint>(34); }
-  public string PrintString { get { int o = __p.__offset(36); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
-#if ENABLE_SPAN_T
-  public Span<byte> GetPrintStringBytes() { return __p.__vector_as_span<byte>(36, 1); }
-#else
-  public ArraySegment<byte>? GetPrintStringBytes() { return __p.__vector_as_arraysegment(36); }
-#endif
-  public byte[] GetPrintStringArray() { return __p.__vector_as_array<byte>(36); }
-  public bool HardwareBootloader { get { int o = __p.__offset(38); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool HardwareReset { get { int o = __p.__offset(40); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool HardwareSelftest { get { int o = __p.__offset(42); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
   public static Offset<bpio.ConfigurationRequest> CreateConfigurationRequest(FlatBufferBuilder builder,
       StringOffset modeOffset = default(StringOffset),
@@ -73,24 +54,12 @@ public struct ConfigurationRequest : IFlatbufferObject
       byte io_direction_mask = 0,
       byte io_direction = 0,
       byte io_value_mask = 0,
-      byte io_value = 0,
-      bool led_resume = false,
-      VectorOffset led_colorOffset = default(VectorOffset),
-      StringOffset print_stringOffset = default(StringOffset),
-      bool hardware_bootloader = false,
-      bool hardware_reset = false,
-      bool hardware_selftest = false) {
-    builder.StartTable(20);
-    ConfigurationRequest.AddPrintString(builder, print_stringOffset);
-    ConfigurationRequest.AddLedColor(builder, led_colorOffset);
+      byte io_value = 0) {
+    builder.StartTable(14);
     ConfigurationRequest.AddPsuSetMv(builder, psu_set_mv);
     ConfigurationRequest.AddModeConfiguration(builder, mode_configurationOffset);
     ConfigurationRequest.AddMode(builder, modeOffset);
     ConfigurationRequest.AddPsuSetMa(builder, psu_set_ma);
-    ConfigurationRequest.AddHardwareSelftest(builder, hardware_selftest);
-    ConfigurationRequest.AddHardwareReset(builder, hardware_reset);
-    ConfigurationRequest.AddHardwareBootloader(builder, hardware_bootloader);
-    ConfigurationRequest.AddLedResume(builder, led_resume);
     ConfigurationRequest.AddIoValue(builder, io_value);
     ConfigurationRequest.AddIoValueMask(builder, io_value_mask);
     ConfigurationRequest.AddIoDirection(builder, io_direction);
@@ -104,7 +73,7 @@ public struct ConfigurationRequest : IFlatbufferObject
     return ConfigurationRequest.EndConfigurationRequest(builder);
   }
 
-  public static void StartConfigurationRequest(FlatBufferBuilder builder) { builder.StartTable(20); }
+  public static void StartConfigurationRequest(FlatBufferBuilder builder) { builder.StartTable(14); }
   public static void AddMode(FlatBufferBuilder builder, StringOffset modeOffset) { builder.AddOffset(0, modeOffset.Value, 0); }
   public static void AddModeConfiguration(FlatBufferBuilder builder, Offset<bpio.ModeConfiguration> modeConfigurationOffset) { builder.AddOffset(1, modeConfigurationOffset.Value, 0); }
   public static void AddModeBitorderMsb(FlatBufferBuilder builder, bool modeBitorderMsb) { builder.AddBool(2, modeBitorderMsb, false); }
@@ -119,17 +88,6 @@ public struct ConfigurationRequest : IFlatbufferObject
   public static void AddIoDirection(FlatBufferBuilder builder, byte ioDirection) { builder.AddByte(11, ioDirection, 0); }
   public static void AddIoValueMask(FlatBufferBuilder builder, byte ioValueMask) { builder.AddByte(12, ioValueMask, 0); }
   public static void AddIoValue(FlatBufferBuilder builder, byte ioValue) { builder.AddByte(13, ioValue, 0); }
-  public static void AddLedResume(FlatBufferBuilder builder, bool ledResume) { builder.AddBool(14, ledResume, false); }
-  public static void AddLedColor(FlatBufferBuilder builder, VectorOffset ledColorOffset) { builder.AddOffset(15, ledColorOffset.Value, 0); }
-  public static VectorOffset CreateLedColorVector(FlatBufferBuilder builder, uint[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddUint(data[i]); return builder.EndVector(); }
-  public static VectorOffset CreateLedColorVectorBlock(FlatBufferBuilder builder, uint[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateLedColorVectorBlock(FlatBufferBuilder builder, ArraySegment<uint> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateLedColorVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<uint>(dataPtr, sizeInBytes); return builder.EndVector(); }
-  public static void StartLedColorVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddPrintString(FlatBufferBuilder builder, StringOffset printStringOffset) { builder.AddOffset(16, printStringOffset.Value, 0); }
-  public static void AddHardwareBootloader(FlatBufferBuilder builder, bool hardwareBootloader) { builder.AddBool(17, hardwareBootloader, false); }
-  public static void AddHardwareReset(FlatBufferBuilder builder, bool hardwareReset) { builder.AddBool(18, hardwareReset, false); }
-  public static void AddHardwareSelftest(FlatBufferBuilder builder, bool hardwareSelftest) { builder.AddBool(19, hardwareSelftest, false); }
   public static Offset<bpio.ConfigurationRequest> EndConfigurationRequest(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<bpio.ConfigurationRequest>(o);
@@ -156,12 +114,6 @@ static public class ConfigurationRequestVerify
       && verifier.VerifyField(tablePos, 26 /*IoDirection*/, 1 /*byte*/, 1, false)
       && verifier.VerifyField(tablePos, 28 /*IoValueMask*/, 1 /*byte*/, 1, false)
       && verifier.VerifyField(tablePos, 30 /*IoValue*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 32 /*LedResume*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyVectorOfData(tablePos, 34 /*LedColor*/, 4 /*uint*/, false)
-      && verifier.VerifyString(tablePos, 36 /*PrintString*/, false)
-      && verifier.VerifyField(tablePos, 38 /*HardwareBootloader*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 40 /*HardwareReset*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 42 /*HardwareSelftest*/, 1 /*bool*/, 1, false)
       && verifier.VerifyTableEnd(tablePos);
   }
 }

@@ -67,56 +67,28 @@ class ModeConfiguration(object):
         return False
 
     # ModeConfiguration
-    def ClockStretch(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(16))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
-    # ModeConfiguration
-    def ClockPolarity(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(18))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
-    # ModeConfiguration
-    def ClockPhase(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(20))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
-    # ModeConfiguration
-    def ChipSelectIdle(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(22))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return True
-
-    # ModeConfiguration
     def Submode(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(24))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(16))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
     # ModeConfiguration
     def TxModulation(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(26))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(18))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint32Flags, o + self._tab.Pos)
         return 0
 
     # ModeConfiguration
     def RxSensor(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(28))
+        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(20))
         if o != 0:
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
 def ModeConfigurationStart(builder):
-    builder.StartObject(13)
+    builder.StartObject(9)
 
 def Start(builder):
     ModeConfigurationStart(builder)
@@ -157,44 +129,20 @@ def ModeConfigurationAddSignalInversion(builder, signalInversion):
 def AddSignalInversion(builder, signalInversion):
     ModeConfigurationAddSignalInversion(builder, signalInversion)
 
-def ModeConfigurationAddClockStretch(builder, clockStretch):
-    builder.PrependBoolSlot(6, clockStretch, 0)
-
-def AddClockStretch(builder, clockStretch):
-    ModeConfigurationAddClockStretch(builder, clockStretch)
-
-def ModeConfigurationAddClockPolarity(builder, clockPolarity):
-    builder.PrependBoolSlot(7, clockPolarity, 0)
-
-def AddClockPolarity(builder, clockPolarity):
-    ModeConfigurationAddClockPolarity(builder, clockPolarity)
-
-def ModeConfigurationAddClockPhase(builder, clockPhase):
-    builder.PrependBoolSlot(8, clockPhase, 0)
-
-def AddClockPhase(builder, clockPhase):
-    ModeConfigurationAddClockPhase(builder, clockPhase)
-
-def ModeConfigurationAddChipSelectIdle(builder, chipSelectIdle):
-    builder.PrependBoolSlot(9, chipSelectIdle, 1)
-
-def AddChipSelectIdle(builder, chipSelectIdle):
-    ModeConfigurationAddChipSelectIdle(builder, chipSelectIdle)
-
 def ModeConfigurationAddSubmode(builder, submode):
-    builder.PrependUint8Slot(10, submode, 0)
+    builder.PrependUint8Slot(6, submode, 0)
 
 def AddSubmode(builder, submode):
     ModeConfigurationAddSubmode(builder, submode)
 
 def ModeConfigurationAddTxModulation(builder, txModulation):
-    builder.PrependUint32Slot(11, txModulation, 0)
+    builder.PrependUint32Slot(7, txModulation, 0)
 
 def AddTxModulation(builder, txModulation):
     ModeConfigurationAddTxModulation(builder, txModulation)
 
 def ModeConfigurationAddRxSensor(builder, rxSensor):
-    builder.PrependUint8Slot(12, rxSensor, 0)
+    builder.PrependUint8Slot(8, rxSensor, 0)
 
 def AddRxSensor(builder, rxSensor):
     ModeConfigurationAddRxSensor(builder, rxSensor)

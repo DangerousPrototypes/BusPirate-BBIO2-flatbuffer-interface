@@ -78,54 +78,24 @@ class DataRequest extends Table
     }
 
     /**
-     * @return ushort
-     */
-    public function getBytesRead()
-    {
-        $o = $this->__offset(10);
-        return $o != 0 ? $this->bb->getUshort($o + $this->bb_pos) : 0;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getStopMain()
-    {
-        $o = $this->__offset(12);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getStopAlt()
-    {
-        $o = $this->__offset(14);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
      * @param FlatBufferBuilder $builder
      * @return void
      */
     public static function startDataRequest(FlatBufferBuilder $builder)
     {
-        $builder->StartObject(6);
+        $builder->StartObject(3);
     }
 
     /**
      * @param FlatBufferBuilder $builder
      * @return DataRequest
      */
-    public static function createDataRequest(FlatBufferBuilder $builder, $start_main, $start_alt, $data_write, $bytes_read, $stop_main, $stop_alt)
+    public static function createDataRequest(FlatBufferBuilder $builder, $start_main, $start_alt, $data_write)
     {
-        $builder->startObject(6);
+        $builder->startObject(3);
         self::addStartMain($builder, $start_main);
         self::addStartAlt($builder, $start_alt);
         self::addDataWrite($builder, $data_write);
-        self::addBytesRead($builder, $bytes_read);
-        self::addStopMain($builder, $stop_main);
-        self::addStopAlt($builder, $stop_alt);
         $o = $builder->endObject();
         return $o;
     }
@@ -182,36 +152,6 @@ class DataRequest extends Table
     public static function startDataWriteVector(FlatBufferBuilder $builder, $numElems)
     {
         $builder->startVector(1, $numElems, 1);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param ushort
-     * @return void
-     */
-    public static function addBytesRead(FlatBufferBuilder $builder, $bytesRead)
-    {
-        $builder->addUshortX(3, $bytesRead, 0);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addStopMain(FlatBufferBuilder $builder, $stopMain)
-    {
-        $builder->addBoolX(4, $stopMain, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addStopAlt(FlatBufferBuilder $builder, $stopAlt)
-    {
-        $builder->addBoolX(5, $stopAlt, false);
     }
 
     /**

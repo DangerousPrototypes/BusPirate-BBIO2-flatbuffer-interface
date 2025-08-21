@@ -52,43 +52,23 @@ signalInversion():boolean {
   return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
 }
 
-clockStretch():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 16);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
-clockPolarity():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 18);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
-clockPhase():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 20);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
-chipSelectIdle():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 22);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : true;
-}
-
 submode():number {
-  const offset = this.bb!.__offset(this.bb_pos, 24);
+  const offset = this.bb!.__offset(this.bb_pos, 16);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 txModulation():number {
-  const offset = this.bb!.__offset(this.bb_pos, 26);
+  const offset = this.bb!.__offset(this.bb_pos, 18);
   return offset ? this.bb!.readUint32(this.bb_pos + offset) : 0;
 }
 
 rxSensor():number {
-  const offset = this.bb!.__offset(this.bb_pos, 28);
+  const offset = this.bb!.__offset(this.bb_pos, 20);
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
 static startModeConfiguration(builder:flatbuffers.Builder) {
-  builder.startObject(13);
+  builder.startObject(9);
 }
 
 static addSpeed(builder:flatbuffers.Builder, speed:number) {
@@ -115,32 +95,16 @@ static addSignalInversion(builder:flatbuffers.Builder, signalInversion:boolean) 
   builder.addFieldInt8(5, +signalInversion, +false);
 }
 
-static addClockStretch(builder:flatbuffers.Builder, clockStretch:boolean) {
-  builder.addFieldInt8(6, +clockStretch, +false);
-}
-
-static addClockPolarity(builder:flatbuffers.Builder, clockPolarity:boolean) {
-  builder.addFieldInt8(7, +clockPolarity, +false);
-}
-
-static addClockPhase(builder:flatbuffers.Builder, clockPhase:boolean) {
-  builder.addFieldInt8(8, +clockPhase, +false);
-}
-
-static addChipSelectIdle(builder:flatbuffers.Builder, chipSelectIdle:boolean) {
-  builder.addFieldInt8(9, +chipSelectIdle, +true);
-}
-
 static addSubmode(builder:flatbuffers.Builder, submode:number) {
-  builder.addFieldInt8(10, submode, 0);
+  builder.addFieldInt8(6, submode, 0);
 }
 
 static addTxModulation(builder:flatbuffers.Builder, txModulation:number) {
-  builder.addFieldInt32(11, txModulation, 0);
+  builder.addFieldInt32(7, txModulation, 0);
 }
 
 static addRxSensor(builder:flatbuffers.Builder, rxSensor:number) {
-  builder.addFieldInt8(12, rxSensor, 0);
+  builder.addFieldInt8(8, rxSensor, 0);
 }
 
 static endModeConfiguration(builder:flatbuffers.Builder):flatbuffers.Offset {
@@ -148,7 +112,7 @@ static endModeConfiguration(builder:flatbuffers.Builder):flatbuffers.Offset {
   return offset;
 }
 
-static createModeConfiguration(builder:flatbuffers.Builder, speed:number, dataBits:number, parity:boolean, stopBits:number, flowControl:boolean, signalInversion:boolean, clockStretch:boolean, clockPolarity:boolean, clockPhase:boolean, chipSelectIdle:boolean, submode:number, txModulation:number, rxSensor:number):flatbuffers.Offset {
+static createModeConfiguration(builder:flatbuffers.Builder, speed:number, dataBits:number, parity:boolean, stopBits:number, flowControl:boolean, signalInversion:boolean, submode:number, txModulation:number, rxSensor:number):flatbuffers.Offset {
   ModeConfiguration.startModeConfiguration(builder);
   ModeConfiguration.addSpeed(builder, speed);
   ModeConfiguration.addDataBits(builder, dataBits);
@@ -156,10 +120,6 @@ static createModeConfiguration(builder:flatbuffers.Builder, speed:number, dataBi
   ModeConfiguration.addStopBits(builder, stopBits);
   ModeConfiguration.addFlowControl(builder, flowControl);
   ModeConfiguration.addSignalInversion(builder, signalInversion);
-  ModeConfiguration.addClockStretch(builder, clockStretch);
-  ModeConfiguration.addClockPolarity(builder, clockPolarity);
-  ModeConfiguration.addClockPhase(builder, clockPhase);
-  ModeConfiguration.addChipSelectIdle(builder, chipSelectIdle);
   ModeConfiguration.addSubmode(builder, submode);
   ModeConfiguration.addTxModulation(builder, txModulation);
   ModeConfiguration.addRxSensor(builder, rxSensor);

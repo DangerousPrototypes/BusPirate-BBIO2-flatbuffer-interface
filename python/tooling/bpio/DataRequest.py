@@ -65,29 +65,8 @@ class DataRequest(object):
         o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(8))
         return o == 0
 
-    # DataRequest
-    def BytesRead(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(10))
-        if o != 0:
-            return self._tab.Get(flatbuffers.number_types.Uint16Flags, o + self._tab.Pos)
-        return 0
-
-    # DataRequest
-    def StopMain(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(12))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
-    # DataRequest
-    def StopAlt(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(14))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
 def DataRequestStart(builder):
-    builder.StartObject(6)
+    builder.StartObject(3)
 
 def Start(builder):
     DataRequestStart(builder)
@@ -115,24 +94,6 @@ def DataRequestStartDataWriteVector(builder, numElems):
 
 def StartDataWriteVector(builder, numElems):
     return DataRequestStartDataWriteVector(builder, numElems)
-
-def DataRequestAddBytesRead(builder, bytesRead):
-    builder.PrependUint16Slot(3, bytesRead, 0)
-
-def AddBytesRead(builder, bytesRead):
-    DataRequestAddBytesRead(builder, bytesRead)
-
-def DataRequestAddStopMain(builder, stopMain):
-    builder.PrependBoolSlot(4, stopMain, 0)
-
-def AddStopMain(builder, stopMain):
-    DataRequestAddStopMain(builder, stopMain)
-
-def DataRequestAddStopAlt(builder, stopAlt):
-    builder.PrependBoolSlot(5, stopAlt, 0)
-
-def AddStopAlt(builder, stopAlt):
-    DataRequestAddStopAlt(builder, stopAlt)
 
 def DataRequestEnd(builder):
     return builder.EndObject()

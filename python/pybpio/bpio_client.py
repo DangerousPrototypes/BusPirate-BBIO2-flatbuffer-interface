@@ -22,7 +22,7 @@ import tooling.bpio.ResponsePacketContents as ResponsePacketContents
 import tooling.bpio.StatusRequest as StatusRequest
 import tooling.bpio.StatusRequestTypes as StatusRequestTypes
 import tooling.bpio.StatusResponse as StatusResponse
-#import tooling.bpio.ErrorResponse as ErrorResponse
+import tooling.bpio.ErrorResponse as ErrorResponse
 
 class BPIOClient:
     def __init__(self, port, baudrate=3000000, timeout=2, debug=False):

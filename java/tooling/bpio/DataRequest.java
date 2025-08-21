@@ -35,37 +35,25 @@ public final class DataRequest extends Table {
   public ByteVector dataWriteVector(ByteVector obj) { int o = __offset(8); return o != 0 ? obj.__assign(__vector(o), bb) : null; }
   public ByteBuffer dataWriteAsByteBuffer() { return __vector_as_bytebuffer(8, 1); }
   public ByteBuffer dataWriteInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 8, 1); }
-  public int bytesRead() { int o = __offset(10); return o != 0 ? bb.getShort(o + bb_pos) & 0xFFFF : 0; }
-  public boolean stopMain() { int o = __offset(12); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean stopAlt() { int o = __offset(14); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
 
   public static int createDataRequest(FlatBufferBuilder builder,
       boolean startMain,
       boolean startAlt,
-      int dataWriteOffset,
-      int bytesRead,
-      boolean stopMain,
-      boolean stopAlt) {
-    builder.startTable(6);
+      int dataWriteOffset) {
+    builder.startTable(3);
     DataRequest.addDataWrite(builder, dataWriteOffset);
-    DataRequest.addBytesRead(builder, bytesRead);
-    DataRequest.addStopAlt(builder, stopAlt);
-    DataRequest.addStopMain(builder, stopMain);
     DataRequest.addStartAlt(builder, startAlt);
     DataRequest.addStartMain(builder, startMain);
     return DataRequest.endDataRequest(builder);
   }
 
-  public static void startDataRequest(FlatBufferBuilder builder) { builder.startTable(6); }
+  public static void startDataRequest(FlatBufferBuilder builder) { builder.startTable(3); }
   public static void addStartMain(FlatBufferBuilder builder, boolean startMain) { builder.addBoolean(0, startMain, false); }
   public static void addStartAlt(FlatBufferBuilder builder, boolean startAlt) { builder.addBoolean(1, startAlt, false); }
   public static void addDataWrite(FlatBufferBuilder builder, int dataWriteOffset) { builder.addOffset(2, dataWriteOffset, 0); }
   public static int createDataWriteVector(FlatBufferBuilder builder, byte[] data) { return builder.createByteVector(data); }
   public static int createDataWriteVector(FlatBufferBuilder builder, ByteBuffer data) { return builder.createByteVector(data); }
   public static void startDataWriteVector(FlatBufferBuilder builder, int numElems) { builder.startVector(1, numElems, 1); }
-  public static void addBytesRead(FlatBufferBuilder builder, int bytesRead) { builder.addShort(3, (short) bytesRead, (short) 0); }
-  public static void addStopMain(FlatBufferBuilder builder, boolean stopMain) { builder.addBoolean(4, stopMain, false); }
-  public static void addStopAlt(FlatBufferBuilder builder, boolean stopAlt) { builder.addBoolean(5, stopAlt, false); }
   public static int endDataRequest(FlatBufferBuilder builder) {
     int o = builder.endTable();
     return o;

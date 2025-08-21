@@ -87,47 +87,11 @@ class ModeConfiguration extends Table
     }
 
     /**
-     * @return bool
-     */
-    public function getClockStretch()
-    {
-        $o = $this->__offset(16);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getClockPolarity()
-    {
-        $o = $this->__offset(18);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getClockPhase()
-    {
-        $o = $this->__offset(20);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getChipSelectIdle()
-    {
-        $o = $this->__offset(22);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : true;
-    }
-
-    /**
      * @return byte
      */
     public function getSubmode()
     {
-        $o = $this->__offset(24);
+        $o = $this->__offset(16);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -136,7 +100,7 @@ class ModeConfiguration extends Table
      */
     public function getTxModulation()
     {
-        $o = $this->__offset(26);
+        $o = $this->__offset(18);
         return $o != 0 ? $this->bb->getUint($o + $this->bb_pos) : 0;
     }
 
@@ -145,7 +109,7 @@ class ModeConfiguration extends Table
      */
     public function getRxSensor()
     {
-        $o = $this->__offset(28);
+        $o = $this->__offset(20);
         return $o != 0 ? $this->bb->getByte($o + $this->bb_pos) : 0;
     }
 
@@ -155,26 +119,22 @@ class ModeConfiguration extends Table
      */
     public static function startModeConfiguration(FlatBufferBuilder $builder)
     {
-        $builder->StartObject(13);
+        $builder->StartObject(9);
     }
 
     /**
      * @param FlatBufferBuilder $builder
      * @return ModeConfiguration
      */
-    public static function createModeConfiguration(FlatBufferBuilder $builder, $speed, $data_bits, $parity, $stop_bits, $flow_control, $signal_inversion, $clock_stretch, $clock_polarity, $clock_phase, $chip_select_idle, $submode, $tx_modulation, $rx_sensor)
+    public static function createModeConfiguration(FlatBufferBuilder $builder, $speed, $data_bits, $parity, $stop_bits, $flow_control, $signal_inversion, $submode, $tx_modulation, $rx_sensor)
     {
-        $builder->startObject(13);
+        $builder->startObject(9);
         self::addSpeed($builder, $speed);
         self::addDataBits($builder, $data_bits);
         self::addParity($builder, $parity);
         self::addStopBits($builder, $stop_bits);
         self::addFlowControl($builder, $flow_control);
         self::addSignalInversion($builder, $signal_inversion);
-        self::addClockStretch($builder, $clock_stretch);
-        self::addClockPolarity($builder, $clock_polarity);
-        self::addClockPhase($builder, $clock_phase);
-        self::addChipSelectIdle($builder, $chip_select_idle);
         self::addSubmode($builder, $submode);
         self::addTxModulation($builder, $tx_modulation);
         self::addRxSensor($builder, $rx_sensor);
@@ -244,52 +204,12 @@ class ModeConfiguration extends Table
 
     /**
      * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addClockStretch(FlatBufferBuilder $builder, $clockStretch)
-    {
-        $builder->addBoolX(6, $clockStretch, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addClockPolarity(FlatBufferBuilder $builder, $clockPolarity)
-    {
-        $builder->addBoolX(7, $clockPolarity, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addClockPhase(FlatBufferBuilder $builder, $clockPhase)
-    {
-        $builder->addBoolX(8, $clockPhase, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addChipSelectIdle(FlatBufferBuilder $builder, $chipSelectIdle)
-    {
-        $builder->addBoolX(9, $chipSelectIdle, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
      * @param byte
      * @return void
      */
     public static function addSubmode(FlatBufferBuilder $builder, $submode)
     {
-        $builder->addByteX(10, $submode, 0);
+        $builder->addByteX(6, $submode, 0);
     }
 
     /**
@@ -299,7 +219,7 @@ class ModeConfiguration extends Table
      */
     public static function addTxModulation(FlatBufferBuilder $builder, $txModulation)
     {
-        $builder->addUintX(11, $txModulation, 0);
+        $builder->addUintX(7, $txModulation, 0);
     }
 
     /**
@@ -309,7 +229,7 @@ class ModeConfiguration extends Table
      */
     public static function addRxSensor(FlatBufferBuilder $builder, $rxSensor)
     {
-        $builder->addByteX(12, $rxSensor, 0);
+        $builder->addByteX(8, $rxSensor, 0);
     }
 
     /**

@@ -1178,34 +1178,34 @@ impl<'a> flatbuffers::Follow<'a> for StatusResponse<'a> {
 
 impl<'a> StatusResponse<'a> {
   pub const VT_ERROR: flatbuffers::VOffsetT = 4;
-  pub const VT_VERSION_FLATBUFFERS_MAJOR: flatbuffers::VOffsetT = 6;
-  pub const VT_VERSION_FLATBUFFERS_MINOR: flatbuffers::VOffsetT = 8;
-  pub const VT_VERSION_HARDWARE_MAJOR: flatbuffers::VOffsetT = 10;
-  pub const VT_VERSION_HARDWARE_MINOR: flatbuffers::VOffsetT = 12;
-  pub const VT_VERSION_FIRMWARE_MAJOR: flatbuffers::VOffsetT = 14;
-  pub const VT_VERSION_FIRMWARE_MINOR: flatbuffers::VOffsetT = 16;
-  pub const VT_VERSION_FIRMWARE_GIT_HASH: flatbuffers::VOffsetT = 18;
-  pub const VT_VERSION_FIRMWARE_DATE: flatbuffers::VOffsetT = 20;
-  pub const VT_MODES_AVAILABLE: flatbuffers::VOffsetT = 22;
-  pub const VT_MODE_CURRENT: flatbuffers::VOffsetT = 24;
-  pub const VT_MODE_PIN_LABELS: flatbuffers::VOffsetT = 26;
-  pub const VT_MODE_BITORDER_MSB: flatbuffers::VOffsetT = 28;
-  pub const VT_MODE_MAX_PACKET_SIZE: flatbuffers::VOffsetT = 30;
-  pub const VT_MODE_MAX_WRITE: flatbuffers::VOffsetT = 32;
-  pub const VT_MODE_MAX_READ: flatbuffers::VOffsetT = 34;
-  pub const VT_PSU_ENABLED: flatbuffers::VOffsetT = 36;
-  pub const VT_PSU_SET_MV: flatbuffers::VOffsetT = 38;
-  pub const VT_PSU_SET_MA: flatbuffers::VOffsetT = 40;
-  pub const VT_PSU_MEASURED_MV: flatbuffers::VOffsetT = 42;
-  pub const VT_PSU_MEASURED_MA: flatbuffers::VOffsetT = 44;
-  pub const VT_PSU_CURRENT_ERROR: flatbuffers::VOffsetT = 46;
-  pub const VT_PULLUP_ENABLED: flatbuffers::VOffsetT = 48;
-  pub const VT_ADC_MV: flatbuffers::VOffsetT = 50;
-  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 52;
-  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 54;
-  pub const VT_DISK_SIZE_MB: flatbuffers::VOffsetT = 56;
-  pub const VT_DISK_USED_MB: flatbuffers::VOffsetT = 58;
-  pub const VT_LED_COUNT: flatbuffers::VOffsetT = 60;
+  pub const VT_PSU_ENABLED: flatbuffers::VOffsetT = 6;
+  pub const VT_PSU_SET_MV: flatbuffers::VOffsetT = 8;
+  pub const VT_PSU_SET_MA: flatbuffers::VOffsetT = 10;
+  pub const VT_PSU_MEASURED_MV: flatbuffers::VOffsetT = 12;
+  pub const VT_PSU_MEASURED_MA: flatbuffers::VOffsetT = 14;
+  pub const VT_PSU_CURRENT_ERROR: flatbuffers::VOffsetT = 16;
+  pub const VT_PULLUP_ENABLED: flatbuffers::VOffsetT = 18;
+  pub const VT_ADC_MV: flatbuffers::VOffsetT = 20;
+  pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 22;
+  pub const VT_IO_VALUE: flatbuffers::VOffsetT = 24;
+  pub const VT_DISK_SIZE_MB: flatbuffers::VOffsetT = 26;
+  pub const VT_DISK_USED_MB: flatbuffers::VOffsetT = 28;
+  pub const VT_LED_COUNT: flatbuffers::VOffsetT = 30;
+  pub const VT_VERSION_FLATBUFFERS_MAJOR: flatbuffers::VOffsetT = 32;
+  pub const VT_VERSION_FLATBUFFERS_MINOR: flatbuffers::VOffsetT = 34;
+  pub const VT_VERSION_HARDWARE_MAJOR: flatbuffers::VOffsetT = 36;
+  pub const VT_VERSION_HARDWARE_MINOR: flatbuffers::VOffsetT = 38;
+  pub const VT_VERSION_FIRMWARE_MAJOR: flatbuffers::VOffsetT = 40;
+  pub const VT_VERSION_FIRMWARE_MINOR: flatbuffers::VOffsetT = 42;
+  pub const VT_VERSION_FIRMWARE_GIT_HASH: flatbuffers::VOffsetT = 44;
+  pub const VT_VERSION_FIRMWARE_DATE: flatbuffers::VOffsetT = 46;
+  pub const VT_MODES_AVAILABLE: flatbuffers::VOffsetT = 48;
+  pub const VT_MODE_CURRENT: flatbuffers::VOffsetT = 50;
+  pub const VT_MODE_PIN_LABELS: flatbuffers::VOffsetT = 52;
+  pub const VT_MODE_BITORDER_MSB: flatbuffers::VOffsetT = 54;
+  pub const VT_MODE_MAX_PACKET_SIZE: flatbuffers::VOffsetT = 56;
+  pub const VT_MODE_MAX_WRITE: flatbuffers::VOffsetT = 58;
+  pub const VT_MODE_MAX_READ: flatbuffers::VOffsetT = 60;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -1217,13 +1217,6 @@ impl<'a> StatusResponse<'a> {
     args: &'args StatusResponseArgs<'args>
   ) -> flatbuffers::WIPOffset<StatusResponse<'bldr>> {
     let mut builder = StatusResponseBuilder::new(_fbb);
-    builder.add_disk_used_mb(args.disk_used_mb);
-    builder.add_disk_size_mb(args.disk_size_mb);
-    if let Some(x) = args.adc_mv { builder.add_adc_mv(x); }
-    builder.add_psu_measured_ma(args.psu_measured_ma);
-    builder.add_psu_measured_mv(args.psu_measured_mv);
-    builder.add_psu_set_ma(args.psu_set_ma);
-    builder.add_psu_set_mv(args.psu_set_mv);
     builder.add_mode_max_read(args.mode_max_read);
     builder.add_mode_max_write(args.mode_max_write);
     builder.add_mode_max_packet_size(args.mode_max_packet_size);
@@ -1232,20 +1225,27 @@ impl<'a> StatusResponse<'a> {
     if let Some(x) = args.modes_available { builder.add_modes_available(x); }
     if let Some(x) = args.version_firmware_date { builder.add_version_firmware_date(x); }
     if let Some(x) = args.version_firmware_git_hash { builder.add_version_firmware_git_hash(x); }
+    builder.add_disk_used_mb(args.disk_used_mb);
+    builder.add_disk_size_mb(args.disk_size_mb);
+    if let Some(x) = args.adc_mv { builder.add_adc_mv(x); }
+    builder.add_psu_measured_ma(args.psu_measured_ma);
+    builder.add_psu_measured_mv(args.psu_measured_mv);
+    builder.add_psu_set_ma(args.psu_set_ma);
+    builder.add_psu_set_mv(args.psu_set_mv);
     if let Some(x) = args.error { builder.add_error(x); }
     builder.add_version_flatbuffers_minor(args.version_flatbuffers_minor);
-    builder.add_led_count(args.led_count);
-    builder.add_io_value(args.io_value);
-    builder.add_io_direction(args.io_direction);
-    builder.add_pullup_enabled(args.pullup_enabled);
-    builder.add_psu_current_error(args.psu_current_error);
-    builder.add_psu_enabled(args.psu_enabled);
     builder.add_mode_bitorder_msb(args.mode_bitorder_msb);
     builder.add_version_firmware_minor(args.version_firmware_minor);
     builder.add_version_firmware_major(args.version_firmware_major);
     builder.add_version_hardware_minor(args.version_hardware_minor);
     builder.add_version_hardware_major(args.version_hardware_major);
     builder.add_version_flatbuffers_major(args.version_flatbuffers_major);
+    builder.add_led_count(args.led_count);
+    builder.add_io_value(args.io_value);
+    builder.add_io_direction(args.io_direction);
+    builder.add_pullup_enabled(args.pullup_enabled);
+    builder.add_psu_current_error(args.psu_current_error);
+    builder.add_psu_enabled(args.psu_enabled);
     builder.finish()
   }
 
@@ -1256,6 +1256,97 @@ impl<'a> StatusResponse<'a> {
     // Created from valid Table for this object
     // which contains a valid value in this slot
     unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(StatusResponse::VT_ERROR, None)}
+  }
+  #[inline]
+  pub fn psu_enabled(&self) -> bool {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<bool>(StatusResponse::VT_PSU_ENABLED, Some(false)).unwrap()}
+  }
+  #[inline]
+  pub fn psu_set_mv(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_SET_MV, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn psu_set_ma(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_SET_MA, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn psu_measured_mv(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_MEASURED_MV, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn psu_measured_ma(&self) -> u32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_MEASURED_MA, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn psu_current_error(&self) -> bool {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<bool>(StatusResponse::VT_PSU_CURRENT_ERROR, Some(false)).unwrap()}
+  }
+  #[inline]
+  pub fn pullup_enabled(&self) -> bool {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<bool>(StatusResponse::VT_PULLUP_ENABLED, Some(false)).unwrap()}
+  }
+  #[inline]
+  pub fn adc_mv(&self) -> Option<flatbuffers::Vector<'a, u32>> {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(StatusResponse::VT_ADC_MV, None)}
+  }
+  #[inline]
+  pub fn io_direction(&self) -> u8 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_IO_DIRECTION, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn io_value(&self) -> u8 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_IO_VALUE, Some(0)).unwrap()}
+  }
+  #[inline]
+  pub fn disk_size_mb(&self) -> f32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<f32>(StatusResponse::VT_DISK_SIZE_MB, Some(0.0)).unwrap()}
+  }
+  #[inline]
+  pub fn disk_used_mb(&self) -> f32 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<f32>(StatusResponse::VT_DISK_USED_MB, Some(0.0)).unwrap()}
+  }
+  #[inline]
+  pub fn led_count(&self) -> u8 {
+    // Safety:
+    // Created from valid Table for this object
+    // which contains a valid value in this slot
+    unsafe { self._tab.get::<u8>(StatusResponse::VT_LED_COUNT, Some(0)).unwrap()}
   }
   #[inline]
   pub fn version_flatbuffers_major(&self) -> u8 {
@@ -1362,97 +1453,6 @@ impl<'a> StatusResponse<'a> {
     // which contains a valid value in this slot
     unsafe { self._tab.get::<u32>(StatusResponse::VT_MODE_MAX_READ, Some(0)).unwrap()}
   }
-  #[inline]
-  pub fn psu_enabled(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(StatusResponse::VT_PSU_ENABLED, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn psu_set_mv(&self) -> u32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_SET_MV, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn psu_set_ma(&self) -> u32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_SET_MA, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn psu_measured_mv(&self) -> u32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_MEASURED_MV, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn psu_measured_ma(&self) -> u32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u32>(StatusResponse::VT_PSU_MEASURED_MA, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn psu_current_error(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(StatusResponse::VT_PSU_CURRENT_ERROR, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn pullup_enabled(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(StatusResponse::VT_PULLUP_ENABLED, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn adc_mv(&self) -> Option<flatbuffers::Vector<'a, u32>> {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(StatusResponse::VT_ADC_MV, None)}
-  }
-  #[inline]
-  pub fn io_direction(&self) -> u8 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(StatusResponse::VT_IO_DIRECTION, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn io_value(&self) -> u8 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(StatusResponse::VT_IO_VALUE, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn disk_size_mb(&self) -> f32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<f32>(StatusResponse::VT_DISK_SIZE_MB, Some(0.0)).unwrap()}
-  }
-  #[inline]
-  pub fn disk_used_mb(&self) -> f32 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<f32>(StatusResponse::VT_DISK_USED_MB, Some(0.0)).unwrap()}
-  }
-  #[inline]
-  pub fn led_count(&self) -> u8 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u8>(StatusResponse::VT_LED_COUNT, Some(0)).unwrap()}
-  }
 }
 
 impl flatbuffers::Verifiable for StatusResponse<'_> {
@@ -1463,6 +1463,19 @@ impl flatbuffers::Verifiable for StatusResponse<'_> {
     use self::flatbuffers::Verifiable;
     v.visit_table(pos)?
      .visit_field::<flatbuffers::ForwardsUOffset<&str>>("error", Self::VT_ERROR, false)?
+     .visit_field::<bool>("psu_enabled", Self::VT_PSU_ENABLED, false)?
+     .visit_field::<u32>("psu_set_mv", Self::VT_PSU_SET_MV, false)?
+     .visit_field::<u32>("psu_set_ma", Self::VT_PSU_SET_MA, false)?
+     .visit_field::<u32>("psu_measured_mv", Self::VT_PSU_MEASURED_MV, false)?
+     .visit_field::<u32>("psu_measured_ma", Self::VT_PSU_MEASURED_MA, false)?
+     .visit_field::<bool>("psu_current_error", Self::VT_PSU_CURRENT_ERROR, false)?
+     .visit_field::<bool>("pullup_enabled", Self::VT_PULLUP_ENABLED, false)?
+     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("adc_mv", Self::VT_ADC_MV, false)?
+     .visit_field::<u8>("io_direction", Self::VT_IO_DIRECTION, false)?
+     .visit_field::<u8>("io_value", Self::VT_IO_VALUE, false)?
+     .visit_field::<f32>("disk_size_mb", Self::VT_DISK_SIZE_MB, false)?
+     .visit_field::<f32>("disk_used_mb", Self::VT_DISK_USED_MB, false)?
+     .visit_field::<u8>("led_count", Self::VT_LED_COUNT, false)?
      .visit_field::<u8>("version_flatbuffers_major", Self::VT_VERSION_FLATBUFFERS_MAJOR, false)?
      .visit_field::<u16>("version_flatbuffers_minor", Self::VT_VERSION_FLATBUFFERS_MINOR, false)?
      .visit_field::<u8>("version_hardware_major", Self::VT_VERSION_HARDWARE_MAJOR, false)?
@@ -1478,25 +1491,25 @@ impl flatbuffers::Verifiable for StatusResponse<'_> {
      .visit_field::<u32>("mode_max_packet_size", Self::VT_MODE_MAX_PACKET_SIZE, false)?
      .visit_field::<u32>("mode_max_write", Self::VT_MODE_MAX_WRITE, false)?
      .visit_field::<u32>("mode_max_read", Self::VT_MODE_MAX_READ, false)?
-     .visit_field::<bool>("psu_enabled", Self::VT_PSU_ENABLED, false)?
-     .visit_field::<u32>("psu_set_mv", Self::VT_PSU_SET_MV, false)?
-     .visit_field::<u32>("psu_set_ma", Self::VT_PSU_SET_MA, false)?
-     .visit_field::<u32>("psu_measured_mv", Self::VT_PSU_MEASURED_MV, false)?
-     .visit_field::<u32>("psu_measured_ma", Self::VT_PSU_MEASURED_MA, false)?
-     .visit_field::<bool>("psu_current_error", Self::VT_PSU_CURRENT_ERROR, false)?
-     .visit_field::<bool>("pullup_enabled", Self::VT_PULLUP_ENABLED, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("adc_mv", Self::VT_ADC_MV, false)?
-     .visit_field::<u8>("io_direction", Self::VT_IO_DIRECTION, false)?
-     .visit_field::<u8>("io_value", Self::VT_IO_VALUE, false)?
-     .visit_field::<f32>("disk_size_mb", Self::VT_DISK_SIZE_MB, false)?
-     .visit_field::<f32>("disk_used_mb", Self::VT_DISK_USED_MB, false)?
-     .visit_field::<u8>("led_count", Self::VT_LED_COUNT, false)?
      .finish();
     Ok(())
   }
 }
 pub struct StatusResponseArgs<'a> {
     pub error: Option<flatbuffers::WIPOffset<&'a str>>,
+    pub psu_enabled: bool,
+    pub psu_set_mv: u32,
+    pub psu_set_ma: u32,
+    pub psu_measured_mv: u32,
+    pub psu_measured_ma: u32,
+    pub psu_current_error: bool,
+    pub pullup_enabled: bool,
+    pub adc_mv: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
+    pub io_direction: u8,
+    pub io_value: u8,
+    pub disk_size_mb: f32,
+    pub disk_used_mb: f32,
+    pub led_count: u8,
     pub version_flatbuffers_major: u8,
     pub version_flatbuffers_minor: u16,
     pub version_hardware_major: u8,
@@ -1512,25 +1525,25 @@ pub struct StatusResponseArgs<'a> {
     pub mode_max_packet_size: u32,
     pub mode_max_write: u32,
     pub mode_max_read: u32,
-    pub psu_enabled: bool,
-    pub psu_set_mv: u32,
-    pub psu_set_ma: u32,
-    pub psu_measured_mv: u32,
-    pub psu_measured_ma: u32,
-    pub psu_current_error: bool,
-    pub pullup_enabled: bool,
-    pub adc_mv: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
-    pub io_direction: u8,
-    pub io_value: u8,
-    pub disk_size_mb: f32,
-    pub disk_used_mb: f32,
-    pub led_count: u8,
 }
 impl<'a> Default for StatusResponseArgs<'a> {
   #[inline]
   fn default() -> Self {
     StatusResponseArgs {
       error: None,
+      psu_enabled: false,
+      psu_set_mv: 0,
+      psu_set_ma: 0,
+      psu_measured_mv: 0,
+      psu_measured_ma: 0,
+      psu_current_error: false,
+      pullup_enabled: false,
+      adc_mv: None,
+      io_direction: 0,
+      io_value: 0,
+      disk_size_mb: 0.0,
+      disk_used_mb: 0.0,
+      led_count: 0,
       version_flatbuffers_major: 0,
       version_flatbuffers_minor: 0,
       version_hardware_major: 0,
@@ -1546,19 +1559,6 @@ impl<'a> Default for StatusResponseArgs<'a> {
       mode_max_packet_size: 0,
       mode_max_write: 0,
       mode_max_read: 0,
-      psu_enabled: false,
-      psu_set_mv: 0,
-      psu_set_ma: 0,
-      psu_measured_mv: 0,
-      psu_measured_ma: 0,
-      psu_current_error: false,
-      pullup_enabled: false,
-      adc_mv: None,
-      io_direction: 0,
-      io_value: 0,
-      disk_size_mb: 0.0,
-      disk_used_mb: 0.0,
-      led_count: 0,
     }
   }
 }
@@ -1571,6 +1571,58 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> StatusResponseBuilder<'a, 'b, A
   #[inline]
   pub fn add_error(&mut self, error: flatbuffers::WIPOffset<&'b  str>) {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_ERROR, error);
+  }
+  #[inline]
+  pub fn add_psu_enabled(&mut self, psu_enabled: bool) {
+    self.fbb_.push_slot::<bool>(StatusResponse::VT_PSU_ENABLED, psu_enabled, false);
+  }
+  #[inline]
+  pub fn add_psu_set_mv(&mut self, psu_set_mv: u32) {
+    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_SET_MV, psu_set_mv, 0);
+  }
+  #[inline]
+  pub fn add_psu_set_ma(&mut self, psu_set_ma: u32) {
+    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_SET_MA, psu_set_ma, 0);
+  }
+  #[inline]
+  pub fn add_psu_measured_mv(&mut self, psu_measured_mv: u32) {
+    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_MEASURED_MV, psu_measured_mv, 0);
+  }
+  #[inline]
+  pub fn add_psu_measured_ma(&mut self, psu_measured_ma: u32) {
+    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_MEASURED_MA, psu_measured_ma, 0);
+  }
+  #[inline]
+  pub fn add_psu_current_error(&mut self, psu_current_error: bool) {
+    self.fbb_.push_slot::<bool>(StatusResponse::VT_PSU_CURRENT_ERROR, psu_current_error, false);
+  }
+  #[inline]
+  pub fn add_pullup_enabled(&mut self, pullup_enabled: bool) {
+    self.fbb_.push_slot::<bool>(StatusResponse::VT_PULLUP_ENABLED, pullup_enabled, false);
+  }
+  #[inline]
+  pub fn add_adc_mv(&mut self, adc_mv: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
+    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_ADC_MV, adc_mv);
+  }
+  #[inline]
+  pub fn add_io_direction(&mut self, io_direction: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_IO_DIRECTION, io_direction, 0);
+  }
+  #[inline]
+  pub fn add_io_value(&mut self, io_value: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_IO_VALUE, io_value, 0);
+  }
+  #[inline]
+  pub fn add_disk_size_mb(&mut self, disk_size_mb: f32) {
+    self.fbb_.push_slot::<f32>(StatusResponse::VT_DISK_SIZE_MB, disk_size_mb, 0.0);
+  }
+  #[inline]
+  pub fn add_disk_used_mb(&mut self, disk_used_mb: f32) {
+    self.fbb_.push_slot::<f32>(StatusResponse::VT_DISK_USED_MB, disk_used_mb, 0.0);
+  }
+  #[inline]
+  pub fn add_led_count(&mut self, led_count: u8) {
+    self.fbb_.push_slot::<u8>(StatusResponse::VT_LED_COUNT, led_count, 0);
   }
   #[inline]
   pub fn add_version_flatbuffers_major(&mut self, version_flatbuffers_major: u8) {
@@ -1633,58 +1685,6 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> StatusResponseBuilder<'a, 'b, A
     self.fbb_.push_slot::<u32>(StatusResponse::VT_MODE_MAX_READ, mode_max_read, 0);
   }
   #[inline]
-  pub fn add_psu_enabled(&mut self, psu_enabled: bool) {
-    self.fbb_.push_slot::<bool>(StatusResponse::VT_PSU_ENABLED, psu_enabled, false);
-  }
-  #[inline]
-  pub fn add_psu_set_mv(&mut self, psu_set_mv: u32) {
-    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_SET_MV, psu_set_mv, 0);
-  }
-  #[inline]
-  pub fn add_psu_set_ma(&mut self, psu_set_ma: u32) {
-    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_SET_MA, psu_set_ma, 0);
-  }
-  #[inline]
-  pub fn add_psu_measured_mv(&mut self, psu_measured_mv: u32) {
-    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_MEASURED_MV, psu_measured_mv, 0);
-  }
-  #[inline]
-  pub fn add_psu_measured_ma(&mut self, psu_measured_ma: u32) {
-    self.fbb_.push_slot::<u32>(StatusResponse::VT_PSU_MEASURED_MA, psu_measured_ma, 0);
-  }
-  #[inline]
-  pub fn add_psu_current_error(&mut self, psu_current_error: bool) {
-    self.fbb_.push_slot::<bool>(StatusResponse::VT_PSU_CURRENT_ERROR, psu_current_error, false);
-  }
-  #[inline]
-  pub fn add_pullup_enabled(&mut self, pullup_enabled: bool) {
-    self.fbb_.push_slot::<bool>(StatusResponse::VT_PULLUP_ENABLED, pullup_enabled, false);
-  }
-  #[inline]
-  pub fn add_adc_mv(&mut self, adc_mv: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(StatusResponse::VT_ADC_MV, adc_mv);
-  }
-  #[inline]
-  pub fn add_io_direction(&mut self, io_direction: u8) {
-    self.fbb_.push_slot::<u8>(StatusResponse::VT_IO_DIRECTION, io_direction, 0);
-  }
-  #[inline]
-  pub fn add_io_value(&mut self, io_value: u8) {
-    self.fbb_.push_slot::<u8>(StatusResponse::VT_IO_VALUE, io_value, 0);
-  }
-  #[inline]
-  pub fn add_disk_size_mb(&mut self, disk_size_mb: f32) {
-    self.fbb_.push_slot::<f32>(StatusResponse::VT_DISK_SIZE_MB, disk_size_mb, 0.0);
-  }
-  #[inline]
-  pub fn add_disk_used_mb(&mut self, disk_used_mb: f32) {
-    self.fbb_.push_slot::<f32>(StatusResponse::VT_DISK_USED_MB, disk_used_mb, 0.0);
-  }
-  #[inline]
-  pub fn add_led_count(&mut self, led_count: u8) {
-    self.fbb_.push_slot::<u8>(StatusResponse::VT_LED_COUNT, led_count, 0);
-  }
-  #[inline]
   pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> StatusResponseBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     StatusResponseBuilder {
@@ -1703,6 +1703,19 @@ impl core::fmt::Debug for StatusResponse<'_> {
   fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
     let mut ds = f.debug_struct("StatusResponse");
       ds.field("error", &self.error());
+      ds.field("psu_enabled", &self.psu_enabled());
+      ds.field("psu_set_mv", &self.psu_set_mv());
+      ds.field("psu_set_ma", &self.psu_set_ma());
+      ds.field("psu_measured_mv", &self.psu_measured_mv());
+      ds.field("psu_measured_ma", &self.psu_measured_ma());
+      ds.field("psu_current_error", &self.psu_current_error());
+      ds.field("pullup_enabled", &self.pullup_enabled());
+      ds.field("adc_mv", &self.adc_mv());
+      ds.field("io_direction", &self.io_direction());
+      ds.field("io_value", &self.io_value());
+      ds.field("disk_size_mb", &self.disk_size_mb());
+      ds.field("disk_used_mb", &self.disk_used_mb());
+      ds.field("led_count", &self.led_count());
       ds.field("version_flatbuffers_major", &self.version_flatbuffers_major());
       ds.field("version_flatbuffers_minor", &self.version_flatbuffers_minor());
       ds.field("version_hardware_major", &self.version_hardware_major());
@@ -1718,19 +1731,6 @@ impl core::fmt::Debug for StatusResponse<'_> {
       ds.field("mode_max_packet_size", &self.mode_max_packet_size());
       ds.field("mode_max_write", &self.mode_max_write());
       ds.field("mode_max_read", &self.mode_max_read());
-      ds.field("psu_enabled", &self.psu_enabled());
-      ds.field("psu_set_mv", &self.psu_set_mv());
-      ds.field("psu_set_ma", &self.psu_set_ma());
-      ds.field("psu_measured_mv", &self.psu_measured_mv());
-      ds.field("psu_measured_ma", &self.psu_measured_ma());
-      ds.field("psu_current_error", &self.psu_current_error());
-      ds.field("pullup_enabled", &self.pullup_enabled());
-      ds.field("adc_mv", &self.adc_mv());
-      ds.field("io_direction", &self.io_direction());
-      ds.field("io_value", &self.io_value());
-      ds.field("disk_size_mb", &self.disk_size_mb());
-      ds.field("disk_used_mb", &self.disk_used_mb());
-      ds.field("led_count", &self.led_count());
       ds.finish()
   }
 }
@@ -1756,13 +1756,9 @@ impl<'a> ModeConfiguration<'a> {
   pub const VT_STOP_BITS: flatbuffers::VOffsetT = 10;
   pub const VT_FLOW_CONTROL: flatbuffers::VOffsetT = 12;
   pub const VT_SIGNAL_INVERSION: flatbuffers::VOffsetT = 14;
-  pub const VT_CLOCK_STRETCH: flatbuffers::VOffsetT = 16;
-  pub const VT_CLOCK_POLARITY: flatbuffers::VOffsetT = 18;
-  pub const VT_CLOCK_PHASE: flatbuffers::VOffsetT = 20;
-  pub const VT_CHIP_SELECT_IDLE: flatbuffers::VOffsetT = 22;
-  pub const VT_SUBMODE: flatbuffers::VOffsetT = 24;
-  pub const VT_TX_MODULATION: flatbuffers::VOffsetT = 26;
-  pub const VT_RX_SENSOR: flatbuffers::VOffsetT = 28;
+  pub const VT_SUBMODE: flatbuffers::VOffsetT = 16;
+  pub const VT_TX_MODULATION: flatbuffers::VOffsetT = 18;
+  pub const VT_RX_SENSOR: flatbuffers::VOffsetT = 20;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -1778,10 +1774,6 @@ impl<'a> ModeConfiguration<'a> {
     builder.add_speed(args.speed);
     builder.add_rx_sensor(args.rx_sensor);
     builder.add_submode(args.submode);
-    builder.add_chip_select_idle(args.chip_select_idle);
-    builder.add_clock_phase(args.clock_phase);
-    builder.add_clock_polarity(args.clock_polarity);
-    builder.add_clock_stretch(args.clock_stretch);
     builder.add_signal_inversion(args.signal_inversion);
     builder.add_flow_control(args.flow_control);
     builder.add_stop_bits(args.stop_bits);
@@ -1834,34 +1826,6 @@ impl<'a> ModeConfiguration<'a> {
     unsafe { self._tab.get::<bool>(ModeConfiguration::VT_SIGNAL_INVERSION, Some(false)).unwrap()}
   }
   #[inline]
-  pub fn clock_stretch(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ModeConfiguration::VT_CLOCK_STRETCH, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn clock_polarity(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ModeConfiguration::VT_CLOCK_POLARITY, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn clock_phase(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ModeConfiguration::VT_CLOCK_PHASE, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn chip_select_idle(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ModeConfiguration::VT_CHIP_SELECT_IDLE, Some(true)).unwrap()}
-  }
-  #[inline]
   pub fn submode(&self) -> u8 {
     // Safety:
     // Created from valid Table for this object
@@ -1897,10 +1861,6 @@ impl flatbuffers::Verifiable for ModeConfiguration<'_> {
      .visit_field::<u8>("stop_bits", Self::VT_STOP_BITS, false)?
      .visit_field::<bool>("flow_control", Self::VT_FLOW_CONTROL, false)?
      .visit_field::<bool>("signal_inversion", Self::VT_SIGNAL_INVERSION, false)?
-     .visit_field::<bool>("clock_stretch", Self::VT_CLOCK_STRETCH, false)?
-     .visit_field::<bool>("clock_polarity", Self::VT_CLOCK_POLARITY, false)?
-     .visit_field::<bool>("clock_phase", Self::VT_CLOCK_PHASE, false)?
-     .visit_field::<bool>("chip_select_idle", Self::VT_CHIP_SELECT_IDLE, false)?
      .visit_field::<u8>("submode", Self::VT_SUBMODE, false)?
      .visit_field::<u32>("tx_modulation", Self::VT_TX_MODULATION, false)?
      .visit_field::<u8>("rx_sensor", Self::VT_RX_SENSOR, false)?
@@ -1915,10 +1875,6 @@ pub struct ModeConfigurationArgs {
     pub stop_bits: u8,
     pub flow_control: bool,
     pub signal_inversion: bool,
-    pub clock_stretch: bool,
-    pub clock_polarity: bool,
-    pub clock_phase: bool,
-    pub chip_select_idle: bool,
     pub submode: u8,
     pub tx_modulation: u32,
     pub rx_sensor: u8,
@@ -1933,10 +1889,6 @@ impl<'a> Default for ModeConfigurationArgs {
       stop_bits: 1,
       flow_control: false,
       signal_inversion: false,
-      clock_stretch: false,
-      clock_polarity: false,
-      clock_phase: false,
-      chip_select_idle: true,
       submode: 0,
       tx_modulation: 0,
       rx_sensor: 0,
@@ -1974,22 +1926,6 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ModeConfigurationBuilder<'a, 'b
     self.fbb_.push_slot::<bool>(ModeConfiguration::VT_SIGNAL_INVERSION, signal_inversion, false);
   }
   #[inline]
-  pub fn add_clock_stretch(&mut self, clock_stretch: bool) {
-    self.fbb_.push_slot::<bool>(ModeConfiguration::VT_CLOCK_STRETCH, clock_stretch, false);
-  }
-  #[inline]
-  pub fn add_clock_polarity(&mut self, clock_polarity: bool) {
-    self.fbb_.push_slot::<bool>(ModeConfiguration::VT_CLOCK_POLARITY, clock_polarity, false);
-  }
-  #[inline]
-  pub fn add_clock_phase(&mut self, clock_phase: bool) {
-    self.fbb_.push_slot::<bool>(ModeConfiguration::VT_CLOCK_PHASE, clock_phase, false);
-  }
-  #[inline]
-  pub fn add_chip_select_idle(&mut self, chip_select_idle: bool) {
-    self.fbb_.push_slot::<bool>(ModeConfiguration::VT_CHIP_SELECT_IDLE, chip_select_idle, true);
-  }
-  #[inline]
   pub fn add_submode(&mut self, submode: u8) {
     self.fbb_.push_slot::<u8>(ModeConfiguration::VT_SUBMODE, submode, 0);
   }
@@ -2025,10 +1961,6 @@ impl core::fmt::Debug for ModeConfiguration<'_> {
       ds.field("stop_bits", &self.stop_bits());
       ds.field("flow_control", &self.flow_control());
       ds.field("signal_inversion", &self.signal_inversion());
-      ds.field("clock_stretch", &self.clock_stretch());
-      ds.field("clock_polarity", &self.clock_polarity());
-      ds.field("clock_phase", &self.clock_phase());
-      ds.field("chip_select_idle", &self.chip_select_idle());
       ds.field("submode", &self.submode());
       ds.field("tx_modulation", &self.tx_modulation());
       ds.field("rx_sensor", &self.rx_sensor());
@@ -2065,12 +1997,6 @@ impl<'a> ConfigurationRequest<'a> {
   pub const VT_IO_DIRECTION: flatbuffers::VOffsetT = 26;
   pub const VT_IO_VALUE_MASK: flatbuffers::VOffsetT = 28;
   pub const VT_IO_VALUE: flatbuffers::VOffsetT = 30;
-  pub const VT_LED_RESUME: flatbuffers::VOffsetT = 32;
-  pub const VT_LED_COLOR: flatbuffers::VOffsetT = 34;
-  pub const VT_PRINT_STRING: flatbuffers::VOffsetT = 36;
-  pub const VT_HARDWARE_BOOTLOADER: flatbuffers::VOffsetT = 38;
-  pub const VT_HARDWARE_RESET: flatbuffers::VOffsetT = 40;
-  pub const VT_HARDWARE_SELFTEST: flatbuffers::VOffsetT = 42;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -2082,16 +2008,10 @@ impl<'a> ConfigurationRequest<'a> {
     args: &'args ConfigurationRequestArgs<'args>
   ) -> flatbuffers::WIPOffset<ConfigurationRequest<'bldr>> {
     let mut builder = ConfigurationRequestBuilder::new(_fbb);
-    if let Some(x) = args.print_string { builder.add_print_string(x); }
-    if let Some(x) = args.led_color { builder.add_led_color(x); }
     builder.add_psu_set_mv(args.psu_set_mv);
     if let Some(x) = args.mode_configuration { builder.add_mode_configuration(x); }
     if let Some(x) = args.mode { builder.add_mode(x); }
     builder.add_psu_set_ma(args.psu_set_ma);
-    builder.add_hardware_selftest(args.hardware_selftest);
-    builder.add_hardware_reset(args.hardware_reset);
-    builder.add_hardware_bootloader(args.hardware_bootloader);
-    builder.add_led_resume(args.led_resume);
     builder.add_io_value(args.io_value);
     builder.add_io_value_mask(args.io_value_mask);
     builder.add_io_direction(args.io_direction);
@@ -2204,48 +2124,6 @@ impl<'a> ConfigurationRequest<'a> {
     // which contains a valid value in this slot
     unsafe { self._tab.get::<u8>(ConfigurationRequest::VT_IO_VALUE, Some(0)).unwrap()}
   }
-  #[inline]
-  pub fn led_resume(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ConfigurationRequest::VT_LED_RESUME, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn led_color(&self) -> Option<flatbuffers::Vector<'a, u32>> {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u32>>>(ConfigurationRequest::VT_LED_COLOR, None)}
-  }
-  #[inline]
-  pub fn print_string(&self) -> Option<&'a str> {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<&str>>(ConfigurationRequest::VT_PRINT_STRING, None)}
-  }
-  #[inline]
-  pub fn hardware_bootloader(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ConfigurationRequest::VT_HARDWARE_BOOTLOADER, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn hardware_reset(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ConfigurationRequest::VT_HARDWARE_RESET, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn hardware_selftest(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(ConfigurationRequest::VT_HARDWARE_SELFTEST, Some(false)).unwrap()}
-  }
 }
 
 impl flatbuffers::Verifiable for ConfigurationRequest<'_> {
@@ -2269,12 +2147,6 @@ impl flatbuffers::Verifiable for ConfigurationRequest<'_> {
      .visit_field::<u8>("io_direction", Self::VT_IO_DIRECTION, false)?
      .visit_field::<u8>("io_value_mask", Self::VT_IO_VALUE_MASK, false)?
      .visit_field::<u8>("io_value", Self::VT_IO_VALUE, false)?
-     .visit_field::<bool>("led_resume", Self::VT_LED_RESUME, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u32>>>("led_color", Self::VT_LED_COLOR, false)?
-     .visit_field::<flatbuffers::ForwardsUOffset<&str>>("print_string", Self::VT_PRINT_STRING, false)?
-     .visit_field::<bool>("hardware_bootloader", Self::VT_HARDWARE_BOOTLOADER, false)?
-     .visit_field::<bool>("hardware_reset", Self::VT_HARDWARE_RESET, false)?
-     .visit_field::<bool>("hardware_selftest", Self::VT_HARDWARE_SELFTEST, false)?
      .finish();
     Ok(())
   }
@@ -2294,12 +2166,6 @@ pub struct ConfigurationRequestArgs<'a> {
     pub io_direction: u8,
     pub io_value_mask: u8,
     pub io_value: u8,
-    pub led_resume: bool,
-    pub led_color: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u32>>>,
-    pub print_string: Option<flatbuffers::WIPOffset<&'a str>>,
-    pub hardware_bootloader: bool,
-    pub hardware_reset: bool,
-    pub hardware_selftest: bool,
 }
 impl<'a> Default for ConfigurationRequestArgs<'a> {
   #[inline]
@@ -2319,12 +2185,6 @@ impl<'a> Default for ConfigurationRequestArgs<'a> {
       io_direction: 0,
       io_value_mask: 0,
       io_value: 0,
-      led_resume: false,
-      led_color: None,
-      print_string: None,
-      hardware_bootloader: false,
-      hardware_reset: false,
-      hardware_selftest: false,
     }
   }
 }
@@ -2391,30 +2251,6 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> ConfigurationRequestBuilder<'a,
     self.fbb_.push_slot::<u8>(ConfigurationRequest::VT_IO_VALUE, io_value, 0);
   }
   #[inline]
-  pub fn add_led_resume(&mut self, led_resume: bool) {
-    self.fbb_.push_slot::<bool>(ConfigurationRequest::VT_LED_RESUME, led_resume, false);
-  }
-  #[inline]
-  pub fn add_led_color(&mut self, led_color: flatbuffers::WIPOffset<flatbuffers::Vector<'b , u32>>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(ConfigurationRequest::VT_LED_COLOR, led_color);
-  }
-  #[inline]
-  pub fn add_print_string(&mut self, print_string: flatbuffers::WIPOffset<&'b  str>) {
-    self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(ConfigurationRequest::VT_PRINT_STRING, print_string);
-  }
-  #[inline]
-  pub fn add_hardware_bootloader(&mut self, hardware_bootloader: bool) {
-    self.fbb_.push_slot::<bool>(ConfigurationRequest::VT_HARDWARE_BOOTLOADER, hardware_bootloader, false);
-  }
-  #[inline]
-  pub fn add_hardware_reset(&mut self, hardware_reset: bool) {
-    self.fbb_.push_slot::<bool>(ConfigurationRequest::VT_HARDWARE_RESET, hardware_reset, false);
-  }
-  #[inline]
-  pub fn add_hardware_selftest(&mut self, hardware_selftest: bool) {
-    self.fbb_.push_slot::<bool>(ConfigurationRequest::VT_HARDWARE_SELFTEST, hardware_selftest, false);
-  }
-  #[inline]
   pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> ConfigurationRequestBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     ConfigurationRequestBuilder {
@@ -2446,12 +2282,6 @@ impl core::fmt::Debug for ConfigurationRequest<'_> {
       ds.field("io_direction", &self.io_direction());
       ds.field("io_value_mask", &self.io_value_mask());
       ds.field("io_value", &self.io_value());
-      ds.field("led_resume", &self.led_resume());
-      ds.field("led_color", &self.led_color());
-      ds.field("print_string", &self.print_string());
-      ds.field("hardware_bootloader", &self.hardware_bootloader());
-      ds.field("hardware_reset", &self.hardware_reset());
-      ds.field("hardware_selftest", &self.hardware_selftest());
       ds.finish()
   }
 }
@@ -2571,9 +2401,6 @@ impl<'a> DataRequest<'a> {
   pub const VT_START_MAIN: flatbuffers::VOffsetT = 4;
   pub const VT_START_ALT: flatbuffers::VOffsetT = 6;
   pub const VT_DATA_WRITE: flatbuffers::VOffsetT = 8;
-  pub const VT_BYTES_READ: flatbuffers::VOffsetT = 10;
-  pub const VT_STOP_MAIN: flatbuffers::VOffsetT = 12;
-  pub const VT_STOP_ALT: flatbuffers::VOffsetT = 14;
 
   #[inline]
   pub unsafe fn init_from_table(table: flatbuffers::Table<'a>) -> Self {
@@ -2586,9 +2413,6 @@ impl<'a> DataRequest<'a> {
   ) -> flatbuffers::WIPOffset<DataRequest<'bldr>> {
     let mut builder = DataRequestBuilder::new(_fbb);
     if let Some(x) = args.data_write { builder.add_data_write(x); }
-    builder.add_bytes_read(args.bytes_read);
-    builder.add_stop_alt(args.stop_alt);
-    builder.add_stop_main(args.stop_main);
     builder.add_start_alt(args.start_alt);
     builder.add_start_main(args.start_main);
     builder.finish()
@@ -2616,27 +2440,6 @@ impl<'a> DataRequest<'a> {
     // which contains a valid value in this slot
     unsafe { self._tab.get::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'a, u8>>>(DataRequest::VT_DATA_WRITE, None)}
   }
-  #[inline]
-  pub fn bytes_read(&self) -> u16 {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<u16>(DataRequest::VT_BYTES_READ, Some(0)).unwrap()}
-  }
-  #[inline]
-  pub fn stop_main(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(DataRequest::VT_STOP_MAIN, Some(false)).unwrap()}
-  }
-  #[inline]
-  pub fn stop_alt(&self) -> bool {
-    // Safety:
-    // Created from valid Table for this object
-    // which contains a valid value in this slot
-    unsafe { self._tab.get::<bool>(DataRequest::VT_STOP_ALT, Some(false)).unwrap()}
-  }
 }
 
 impl flatbuffers::Verifiable for DataRequest<'_> {
@@ -2649,9 +2452,6 @@ impl flatbuffers::Verifiable for DataRequest<'_> {
      .visit_field::<bool>("start_main", Self::VT_START_MAIN, false)?
      .visit_field::<bool>("start_alt", Self::VT_START_ALT, false)?
      .visit_field::<flatbuffers::ForwardsUOffset<flatbuffers::Vector<'_, u8>>>("data_write", Self::VT_DATA_WRITE, false)?
-     .visit_field::<u16>("bytes_read", Self::VT_BYTES_READ, false)?
-     .visit_field::<bool>("stop_main", Self::VT_STOP_MAIN, false)?
-     .visit_field::<bool>("stop_alt", Self::VT_STOP_ALT, false)?
      .finish();
     Ok(())
   }
@@ -2660,9 +2460,6 @@ pub struct DataRequestArgs<'a> {
     pub start_main: bool,
     pub start_alt: bool,
     pub data_write: Option<flatbuffers::WIPOffset<flatbuffers::Vector<'a, u8>>>,
-    pub bytes_read: u16,
-    pub stop_main: bool,
-    pub stop_alt: bool,
 }
 impl<'a> Default for DataRequestArgs<'a> {
   #[inline]
@@ -2671,9 +2468,6 @@ impl<'a> Default for DataRequestArgs<'a> {
       start_main: false,
       start_alt: false,
       data_write: None,
-      bytes_read: 0,
-      stop_main: false,
-      stop_alt: false,
     }
   }
 }
@@ -2696,18 +2490,6 @@ impl<'a: 'b, 'b, A: flatbuffers::Allocator + 'a> DataRequestBuilder<'a, 'b, A> {
     self.fbb_.push_slot_always::<flatbuffers::WIPOffset<_>>(DataRequest::VT_DATA_WRITE, data_write);
   }
   #[inline]
-  pub fn add_bytes_read(&mut self, bytes_read: u16) {
-    self.fbb_.push_slot::<u16>(DataRequest::VT_BYTES_READ, bytes_read, 0);
-  }
-  #[inline]
-  pub fn add_stop_main(&mut self, stop_main: bool) {
-    self.fbb_.push_slot::<bool>(DataRequest::VT_STOP_MAIN, stop_main, false);
-  }
-  #[inline]
-  pub fn add_stop_alt(&mut self, stop_alt: bool) {
-    self.fbb_.push_slot::<bool>(DataRequest::VT_STOP_ALT, stop_alt, false);
-  }
-  #[inline]
   pub fn new(_fbb: &'b mut flatbuffers::FlatBufferBuilder<'a, A>) -> DataRequestBuilder<'a, 'b, A> {
     let start = _fbb.start_table();
     DataRequestBuilder {
@@ -2728,9 +2510,6 @@ impl core::fmt::Debug for DataRequest<'_> {
       ds.field("start_main", &self.start_main());
       ds.field("start_alt", &self.start_alt());
       ds.field("data_write", &self.data_write());
-      ds.field("bytes_read", &self.bytes_read());
-      ds.field("stop_main", &self.stop_main());
-      ds.field("stop_alt", &self.stop_alt());
       ds.finish()
   }
 }

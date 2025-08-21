@@ -97,50 +97,8 @@ ioValue():number {
   return offset ? this.bb!.readUint8(this.bb_pos + offset) : 0;
 }
 
-ledResume():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 32);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
-ledColor(index: number):number|null {
-  const offset = this.bb!.__offset(this.bb_pos, 34);
-  return offset ? this.bb!.readUint32(this.bb!.__vector(this.bb_pos + offset) + index * 4) : 0;
-}
-
-ledColorLength():number {
-  const offset = this.bb!.__offset(this.bb_pos, 34);
-  return offset ? this.bb!.__vector_len(this.bb_pos + offset) : 0;
-}
-
-ledColorArray():Uint32Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 34);
-  return offset ? new Uint32Array(this.bb!.bytes().buffer, this.bb!.bytes().byteOffset + this.bb!.__vector(this.bb_pos + offset), this.bb!.__vector_len(this.bb_pos + offset)) : null;
-}
-
-printString():string|null
-printString(optionalEncoding:flatbuffers.Encoding):string|Uint8Array|null
-printString(optionalEncoding?:any):string|Uint8Array|null {
-  const offset = this.bb!.__offset(this.bb_pos, 36);
-  return offset ? this.bb!.__string(this.bb_pos + offset, optionalEncoding) : null;
-}
-
-hardwareBootloader():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 38);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
-hardwareReset():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 40);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
-hardwareSelftest():boolean {
-  const offset = this.bb!.__offset(this.bb_pos, 42);
-  return offset ? !!this.bb!.readInt8(this.bb_pos + offset) : false;
-}
-
 static startConfigurationRequest(builder:flatbuffers.Builder) {
-  builder.startObject(20);
+  builder.startObject(14);
 }
 
 static addMode(builder:flatbuffers.Builder, modeOffset:flatbuffers.Offset) {
@@ -197,47 +155,6 @@ static addIoValueMask(builder:flatbuffers.Builder, ioValueMask:number) {
 
 static addIoValue(builder:flatbuffers.Builder, ioValue:number) {
   builder.addFieldInt8(13, ioValue, 0);
-}
-
-static addLedResume(builder:flatbuffers.Builder, ledResume:boolean) {
-  builder.addFieldInt8(14, +ledResume, +false);
-}
-
-static addLedColor(builder:flatbuffers.Builder, ledColorOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(15, ledColorOffset, 0);
-}
-
-static createLedColorVector(builder:flatbuffers.Builder, data:number[]|Uint32Array):flatbuffers.Offset;
-/**
- * @deprecated This Uint8Array overload will be removed in the future.
- */
-static createLedColorVector(builder:flatbuffers.Builder, data:number[]|Uint8Array):flatbuffers.Offset;
-static createLedColorVector(builder:flatbuffers.Builder, data:number[]|Uint32Array|Uint8Array):flatbuffers.Offset {
-  builder.startVector(4, data.length, 4);
-  for (let i = data.length - 1; i >= 0; i--) {
-    builder.addInt32(data[i]!);
-  }
-  return builder.endVector();
-}
-
-static startLedColorVector(builder:flatbuffers.Builder, numElems:number) {
-  builder.startVector(4, numElems, 4);
-}
-
-static addPrintString(builder:flatbuffers.Builder, printStringOffset:flatbuffers.Offset) {
-  builder.addFieldOffset(16, printStringOffset, 0);
-}
-
-static addHardwareBootloader(builder:flatbuffers.Builder, hardwareBootloader:boolean) {
-  builder.addFieldInt8(17, +hardwareBootloader, +false);
-}
-
-static addHardwareReset(builder:flatbuffers.Builder, hardwareReset:boolean) {
-  builder.addFieldInt8(18, +hardwareReset, +false);
-}
-
-static addHardwareSelftest(builder:flatbuffers.Builder, hardwareSelftest:boolean) {
-  builder.addFieldInt8(19, +hardwareSelftest, +false);
 }
 
 static endConfigurationRequest(builder:flatbuffers.Builder):flatbuffers.Offset {

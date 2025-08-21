@@ -126,70 +126,8 @@ class ConfigurationRequest(object):
             return self._tab.Get(flatbuffers.number_types.Uint8Flags, o + self._tab.Pos)
         return 0
 
-    # ConfigurationRequest
-    def LedResume(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(32))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
-    # ConfigurationRequest
-    def LedColor(self, j):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(34))
-        if o != 0:
-            a = self._tab.Vector(o)
-            return self._tab.Get(flatbuffers.number_types.Uint32Flags, a + flatbuffers.number_types.UOffsetTFlags.py_type(j * 4))
-        return 0
-
-    # ConfigurationRequest
-    def LedColorAsNumpy(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(34))
-        if o != 0:
-            return self._tab.GetVectorAsNumpy(flatbuffers.number_types.Uint32Flags, o)
-        return 0
-
-    # ConfigurationRequest
-    def LedColorLength(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(34))
-        if o != 0:
-            return self._tab.VectorLen(o)
-        return 0
-
-    # ConfigurationRequest
-    def LedColorIsNone(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(34))
-        return o == 0
-
-    # ConfigurationRequest
-    def PrintString(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(36))
-        if o != 0:
-            return self._tab.String(o + self._tab.Pos)
-        return None
-
-    # ConfigurationRequest
-    def HardwareBootloader(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(38))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
-    # ConfigurationRequest
-    def HardwareReset(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(40))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
-    # ConfigurationRequest
-    def HardwareSelftest(self):
-        o = flatbuffers.number_types.UOffsetTFlags.py_type(self._tab.Offset(42))
-        if o != 0:
-            return bool(self._tab.Get(flatbuffers.number_types.BoolFlags, o + self._tab.Pos))
-        return False
-
 def ConfigurationRequestStart(builder):
-    builder.StartObject(20)
+    builder.StartObject(14)
 
 def Start(builder):
     ConfigurationRequestStart(builder)
@@ -277,48 +215,6 @@ def ConfigurationRequestAddIoValue(builder, ioValue):
 
 def AddIoValue(builder, ioValue):
     ConfigurationRequestAddIoValue(builder, ioValue)
-
-def ConfigurationRequestAddLedResume(builder, ledResume):
-    builder.PrependBoolSlot(14, ledResume, 0)
-
-def AddLedResume(builder, ledResume):
-    ConfigurationRequestAddLedResume(builder, ledResume)
-
-def ConfigurationRequestAddLedColor(builder, ledColor):
-    builder.PrependUOffsetTRelativeSlot(15, flatbuffers.number_types.UOffsetTFlags.py_type(ledColor), 0)
-
-def AddLedColor(builder, ledColor):
-    ConfigurationRequestAddLedColor(builder, ledColor)
-
-def ConfigurationRequestStartLedColorVector(builder, numElems):
-    return builder.StartVector(4, numElems, 4)
-
-def StartLedColorVector(builder, numElems):
-    return ConfigurationRequestStartLedColorVector(builder, numElems)
-
-def ConfigurationRequestAddPrintString(builder, printString):
-    builder.PrependUOffsetTRelativeSlot(16, flatbuffers.number_types.UOffsetTFlags.py_type(printString), 0)
-
-def AddPrintString(builder, printString):
-    ConfigurationRequestAddPrintString(builder, printString)
-
-def ConfigurationRequestAddHardwareBootloader(builder, hardwareBootloader):
-    builder.PrependBoolSlot(17, hardwareBootloader, 0)
-
-def AddHardwareBootloader(builder, hardwareBootloader):
-    ConfigurationRequestAddHardwareBootloader(builder, hardwareBootloader)
-
-def ConfigurationRequestAddHardwareReset(builder, hardwareReset):
-    builder.PrependBoolSlot(18, hardwareReset, 0)
-
-def AddHardwareReset(builder, hardwareReset):
-    ConfigurationRequestAddHardwareReset(builder, hardwareReset)
-
-def ConfigurationRequestAddHardwareSelftest(builder, hardwareSelftest):
-    builder.PrependBoolSlot(19, hardwareSelftest, 0)
-
-def AddHardwareSelftest(builder, hardwareSelftest):
-    ConfigurationRequestAddHardwareSelftest(builder, hardwareSelftest)
 
 def ConfigurationRequestEnd(builder):
     return builder.EndObject()

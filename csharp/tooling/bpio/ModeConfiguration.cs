@@ -25,13 +25,9 @@ public struct ModeConfiguration : IFlatbufferObject
   public byte StopBits { get { int o = __p.__offset(10); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)1; } }
   public bool FlowControl { get { int o = __p.__offset(12); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
   public bool SignalInversion { get { int o = __p.__offset(14); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool ClockStretch { get { int o = __p.__offset(16); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool ClockPolarity { get { int o = __p.__offset(18); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool ClockPhase { get { int o = __p.__offset(20); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool ChipSelectIdle { get { int o = __p.__offset(22); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)true; } }
-  public byte Submode { get { int o = __p.__offset(24); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
-  public uint TxModulation { get { int o = __p.__offset(26); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public byte RxSensor { get { int o = __p.__offset(28); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public byte Submode { get { int o = __p.__offset(16); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
+  public uint TxModulation { get { int o = __p.__offset(18); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public byte RxSensor { get { int o = __p.__offset(20); return o != 0 ? __p.bb.Get(o + __p.bb_pos) : (byte)0; } }
 
   public static Offset<bpio.ModeConfiguration> CreateModeConfiguration(FlatBufferBuilder builder,
       uint speed = 20000,
@@ -40,22 +36,14 @@ public struct ModeConfiguration : IFlatbufferObject
       byte stop_bits = 1,
       bool flow_control = false,
       bool signal_inversion = false,
-      bool clock_stretch = false,
-      bool clock_polarity = false,
-      bool clock_phase = false,
-      bool chip_select_idle = true,
       byte submode = 0,
       uint tx_modulation = 0,
       byte rx_sensor = 0) {
-    builder.StartTable(13);
+    builder.StartTable(9);
     ModeConfiguration.AddTxModulation(builder, tx_modulation);
     ModeConfiguration.AddSpeed(builder, speed);
     ModeConfiguration.AddRxSensor(builder, rx_sensor);
     ModeConfiguration.AddSubmode(builder, submode);
-    ModeConfiguration.AddChipSelectIdle(builder, chip_select_idle);
-    ModeConfiguration.AddClockPhase(builder, clock_phase);
-    ModeConfiguration.AddClockPolarity(builder, clock_polarity);
-    ModeConfiguration.AddClockStretch(builder, clock_stretch);
     ModeConfiguration.AddSignalInversion(builder, signal_inversion);
     ModeConfiguration.AddFlowControl(builder, flow_control);
     ModeConfiguration.AddStopBits(builder, stop_bits);
@@ -64,20 +52,16 @@ public struct ModeConfiguration : IFlatbufferObject
     return ModeConfiguration.EndModeConfiguration(builder);
   }
 
-  public static void StartModeConfiguration(FlatBufferBuilder builder) { builder.StartTable(13); }
+  public static void StartModeConfiguration(FlatBufferBuilder builder) { builder.StartTable(9); }
   public static void AddSpeed(FlatBufferBuilder builder, uint speed) { builder.AddUint(0, speed, 20000); }
   public static void AddDataBits(FlatBufferBuilder builder, byte dataBits) { builder.AddByte(1, dataBits, 8); }
   public static void AddParity(FlatBufferBuilder builder, bool parity) { builder.AddBool(2, parity, false); }
   public static void AddStopBits(FlatBufferBuilder builder, byte stopBits) { builder.AddByte(3, stopBits, 1); }
   public static void AddFlowControl(FlatBufferBuilder builder, bool flowControl) { builder.AddBool(4, flowControl, false); }
   public static void AddSignalInversion(FlatBufferBuilder builder, bool signalInversion) { builder.AddBool(5, signalInversion, false); }
-  public static void AddClockStretch(FlatBufferBuilder builder, bool clockStretch) { builder.AddBool(6, clockStretch, false); }
-  public static void AddClockPolarity(FlatBufferBuilder builder, bool clockPolarity) { builder.AddBool(7, clockPolarity, false); }
-  public static void AddClockPhase(FlatBufferBuilder builder, bool clockPhase) { builder.AddBool(8, clockPhase, false); }
-  public static void AddChipSelectIdle(FlatBufferBuilder builder, bool chipSelectIdle) { builder.AddBool(9, chipSelectIdle, true); }
-  public static void AddSubmode(FlatBufferBuilder builder, byte submode) { builder.AddByte(10, submode, 0); }
-  public static void AddTxModulation(FlatBufferBuilder builder, uint txModulation) { builder.AddUint(11, txModulation, 0); }
-  public static void AddRxSensor(FlatBufferBuilder builder, byte rxSensor) { builder.AddByte(12, rxSensor, 0); }
+  public static void AddSubmode(FlatBufferBuilder builder, byte submode) { builder.AddByte(6, submode, 0); }
+  public static void AddTxModulation(FlatBufferBuilder builder, uint txModulation) { builder.AddUint(7, txModulation, 0); }
+  public static void AddRxSensor(FlatBufferBuilder builder, byte rxSensor) { builder.AddByte(8, rxSensor, 0); }
   public static Offset<bpio.ModeConfiguration> EndModeConfiguration(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<bpio.ModeConfiguration>(o);
@@ -96,13 +80,9 @@ static public class ModeConfigurationVerify
       && verifier.VerifyField(tablePos, 10 /*StopBits*/, 1 /*byte*/, 1, false)
       && verifier.VerifyField(tablePos, 12 /*FlowControl*/, 1 /*bool*/, 1, false)
       && verifier.VerifyField(tablePos, 14 /*SignalInversion*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 16 /*ClockStretch*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 18 /*ClockPolarity*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 20 /*ClockPhase*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 22 /*ChipSelectIdle*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 24 /*Submode*/, 1 /*byte*/, 1, false)
-      && verifier.VerifyField(tablePos, 26 /*TxModulation*/, 4 /*uint*/, 4, false)
-      && verifier.VerifyField(tablePos, 28 /*RxSensor*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 16 /*Submode*/, 1 /*byte*/, 1, false)
+      && verifier.VerifyField(tablePos, 18 /*TxModulation*/, 4 /*uint*/, 4, false)
+      && verifier.VerifyField(tablePos, 20 /*RxSensor*/, 1 /*byte*/, 1, false)
       && verifier.VerifyTableEnd(tablePos);
   }
 }

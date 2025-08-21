@@ -52,21 +52,6 @@ class DataRequest : Table() {
         }
     val dataWriteAsByteBuffer : ByteBuffer get() = __vector_as_bytebuffer(8, 1)
     fun dataWriteInByteBuffer(_bb: ByteBuffer) : ByteBuffer = __vector_in_bytebuffer(_bb, 8, 1)
-    val bytesRead : UShort
-        get() {
-            val o = __offset(10)
-            return if(o != 0) bb.getShort(o + bb_pos).toUShort() else 0u
-        }
-    val stopMain : Boolean
-        get() {
-            val o = __offset(12)
-            return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
-        }
-    val stopAlt : Boolean
-        get() {
-            val o = __offset(14)
-            return if(o != 0) 0.toByte() != bb.get(o + bb_pos) else false
-        }
     companion object {
         fun validateVersion() = Constants.FLATBUFFERS_25_2_10()
         fun getRootAsDataRequest(_bb: ByteBuffer): DataRequest = getRootAsDataRequest(_bb, DataRequest())
@@ -74,17 +59,14 @@ class DataRequest : Table() {
             _bb.order(ByteOrder.LITTLE_ENDIAN)
             return (obj.__assign(_bb.getInt(_bb.position()) + _bb.position(), _bb))
         }
-        fun createDataRequest(builder: FlatBufferBuilder, startMain: Boolean, startAlt: Boolean, dataWriteOffset: Int, bytesRead: UShort, stopMain: Boolean, stopAlt: Boolean) : Int {
-            builder.startTable(6)
+        fun createDataRequest(builder: FlatBufferBuilder, startMain: Boolean, startAlt: Boolean, dataWriteOffset: Int) : Int {
+            builder.startTable(3)
             addDataWrite(builder, dataWriteOffset)
-            addBytesRead(builder, bytesRead)
-            addStopAlt(builder, stopAlt)
-            addStopMain(builder, stopMain)
             addStartAlt(builder, startAlt)
             addStartMain(builder, startMain)
             return endDataRequest(builder)
         }
-        fun startDataRequest(builder: FlatBufferBuilder) = builder.startTable(6)
+        fun startDataRequest(builder: FlatBufferBuilder) = builder.startTable(3)
         fun addStartMain(builder: FlatBufferBuilder, startMain: Boolean) = builder.addBoolean(0, startMain, false)
         fun addStartAlt(builder: FlatBufferBuilder, startAlt: Boolean) = builder.addBoolean(1, startAlt, false)
         fun addDataWrite(builder: FlatBufferBuilder, dataWrite: Int) = builder.addOffset(2, dataWrite, 0)
@@ -97,9 +79,6 @@ class DataRequest : Table() {
             return builder.endVector()
         }
         fun startDataWriteVector(builder: FlatBufferBuilder, numElems: Int) = builder.startVector(1, numElems, 1)
-        fun addBytesRead(builder: FlatBufferBuilder, bytesRead: UShort) = builder.addShort(3, bytesRead.toShort(), 0)
-        fun addStopMain(builder: FlatBufferBuilder, stopMain: Boolean) = builder.addBoolean(4, stopMain, false)
-        fun addStopAlt(builder: FlatBufferBuilder, stopAlt: Boolean) = builder.addBoolean(5, stopAlt, false)
         fun endDataRequest(builder: FlatBufferBuilder) : Int {
             val o = builder.endTable()
             return o

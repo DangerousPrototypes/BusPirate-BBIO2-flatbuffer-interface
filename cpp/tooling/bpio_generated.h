@@ -631,37 +631,76 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   typedef StatusResponseBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ERROR = 4,
-    VT_VERSION_FLATBUFFERS_MAJOR = 6,
-    VT_VERSION_FLATBUFFERS_MINOR = 8,
-    VT_VERSION_HARDWARE_MAJOR = 10,
-    VT_VERSION_HARDWARE_MINOR = 12,
-    VT_VERSION_FIRMWARE_MAJOR = 14,
-    VT_VERSION_FIRMWARE_MINOR = 16,
-    VT_VERSION_FIRMWARE_GIT_HASH = 18,
-    VT_VERSION_FIRMWARE_DATE = 20,
-    VT_MODES_AVAILABLE = 22,
-    VT_MODE_CURRENT = 24,
-    VT_MODE_PIN_LABELS = 26,
-    VT_MODE_BITORDER_MSB = 28,
-    VT_MODE_MAX_PACKET_SIZE = 30,
-    VT_MODE_MAX_WRITE = 32,
-    VT_MODE_MAX_READ = 34,
-    VT_PSU_ENABLED = 36,
-    VT_PSU_SET_MV = 38,
-    VT_PSU_SET_MA = 40,
-    VT_PSU_MEASURED_MV = 42,
-    VT_PSU_MEASURED_MA = 44,
-    VT_PSU_CURRENT_ERROR = 46,
-    VT_PULLUP_ENABLED = 48,
-    VT_ADC_MV = 50,
-    VT_IO_DIRECTION = 52,
-    VT_IO_VALUE = 54,
-    VT_DISK_SIZE_MB = 56,
-    VT_DISK_USED_MB = 58,
-    VT_LED_COUNT = 60
+    VT_PSU_ENABLED = 6,
+    VT_PSU_SET_MV = 8,
+    VT_PSU_SET_MA = 10,
+    VT_PSU_MEASURED_MV = 12,
+    VT_PSU_MEASURED_MA = 14,
+    VT_PSU_CURRENT_ERROR = 16,
+    VT_PULLUP_ENABLED = 18,
+    VT_ADC_MV = 20,
+    VT_IO_DIRECTION = 22,
+    VT_IO_VALUE = 24,
+    VT_DISK_SIZE_MB = 26,
+    VT_DISK_USED_MB = 28,
+    VT_LED_COUNT = 30,
+    VT_VERSION_FLATBUFFERS_MAJOR = 32,
+    VT_VERSION_FLATBUFFERS_MINOR = 34,
+    VT_VERSION_HARDWARE_MAJOR = 36,
+    VT_VERSION_HARDWARE_MINOR = 38,
+    VT_VERSION_FIRMWARE_MAJOR = 40,
+    VT_VERSION_FIRMWARE_MINOR = 42,
+    VT_VERSION_FIRMWARE_GIT_HASH = 44,
+    VT_VERSION_FIRMWARE_DATE = 46,
+    VT_MODES_AVAILABLE = 48,
+    VT_MODE_CURRENT = 50,
+    VT_MODE_PIN_LABELS = 52,
+    VT_MODE_BITORDER_MSB = 54,
+    VT_MODE_MAX_PACKET_SIZE = 56,
+    VT_MODE_MAX_WRITE = 58,
+    VT_MODE_MAX_READ = 60
   };
   const ::flatbuffers::String *error() const {
     return GetPointer<const ::flatbuffers::String *>(VT_ERROR);
+  }
+  bool psu_enabled() const {
+    return GetField<uint8_t>(VT_PSU_ENABLED, 0) != 0;
+  }
+  uint32_t psu_set_mv() const {
+    return GetField<uint32_t>(VT_PSU_SET_MV, 0);
+  }
+  uint32_t psu_set_ma() const {
+    return GetField<uint32_t>(VT_PSU_SET_MA, 0);
+  }
+  uint32_t psu_measured_mv() const {
+    return GetField<uint32_t>(VT_PSU_MEASURED_MV, 0);
+  }
+  uint32_t psu_measured_ma() const {
+    return GetField<uint32_t>(VT_PSU_MEASURED_MA, 0);
+  }
+  bool psu_current_error() const {
+    return GetField<uint8_t>(VT_PSU_CURRENT_ERROR, 0) != 0;
+  }
+  bool pullup_enabled() const {
+    return GetField<uint8_t>(VT_PULLUP_ENABLED, 0) != 0;
+  }
+  const ::flatbuffers::Vector<uint32_t> *adc_mv() const {
+    return GetPointer<const ::flatbuffers::Vector<uint32_t> *>(VT_ADC_MV);
+  }
+  uint8_t io_direction() const {
+    return GetField<uint8_t>(VT_IO_DIRECTION, 0);
+  }
+  uint8_t io_value() const {
+    return GetField<uint8_t>(VT_IO_VALUE, 0);
+  }
+  float disk_size_mb() const {
+    return GetField<float>(VT_DISK_SIZE_MB, 0.0f);
+  }
+  float disk_used_mb() const {
+    return GetField<float>(VT_DISK_USED_MB, 0.0f);
+  }
+  uint8_t led_count() const {
+    return GetField<uint8_t>(VT_LED_COUNT, 0);
   }
   uint8_t version_flatbuffers_major() const {
     return GetField<uint8_t>(VT_VERSION_FLATBUFFERS_MAJOR, 0);
@@ -708,49 +747,24 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   uint32_t mode_max_read() const {
     return GetField<uint32_t>(VT_MODE_MAX_READ, 0);
   }
-  bool psu_enabled() const {
-    return GetField<uint8_t>(VT_PSU_ENABLED, 0) != 0;
-  }
-  uint32_t psu_set_mv() const {
-    return GetField<uint32_t>(VT_PSU_SET_MV, 0);
-  }
-  uint32_t psu_set_ma() const {
-    return GetField<uint32_t>(VT_PSU_SET_MA, 0);
-  }
-  uint32_t psu_measured_mv() const {
-    return GetField<uint32_t>(VT_PSU_MEASURED_MV, 0);
-  }
-  uint32_t psu_measured_ma() const {
-    return GetField<uint32_t>(VT_PSU_MEASURED_MA, 0);
-  }
-  bool psu_current_error() const {
-    return GetField<uint8_t>(VT_PSU_CURRENT_ERROR, 0) != 0;
-  }
-  bool pullup_enabled() const {
-    return GetField<uint8_t>(VT_PULLUP_ENABLED, 0) != 0;
-  }
-  const ::flatbuffers::Vector<uint32_t> *adc_mv() const {
-    return GetPointer<const ::flatbuffers::Vector<uint32_t> *>(VT_ADC_MV);
-  }
-  uint8_t io_direction() const {
-    return GetField<uint8_t>(VT_IO_DIRECTION, 0);
-  }
-  uint8_t io_value() const {
-    return GetField<uint8_t>(VT_IO_VALUE, 0);
-  }
-  float disk_size_mb() const {
-    return GetField<float>(VT_DISK_SIZE_MB, 0.0f);
-  }
-  float disk_used_mb() const {
-    return GetField<float>(VT_DISK_USED_MB, 0.0f);
-  }
-  uint8_t led_count() const {
-    return GetField<uint8_t>(VT_LED_COUNT, 0);
-  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_ERROR) &&
            verifier.VerifyString(error()) &&
+           VerifyField<uint8_t>(verifier, VT_PSU_ENABLED, 1) &&
+           VerifyField<uint32_t>(verifier, VT_PSU_SET_MV, 4) &&
+           VerifyField<uint32_t>(verifier, VT_PSU_SET_MA, 4) &&
+           VerifyField<uint32_t>(verifier, VT_PSU_MEASURED_MV, 4) &&
+           VerifyField<uint32_t>(verifier, VT_PSU_MEASURED_MA, 4) &&
+           VerifyField<uint8_t>(verifier, VT_PSU_CURRENT_ERROR, 1) &&
+           VerifyField<uint8_t>(verifier, VT_PULLUP_ENABLED, 1) &&
+           VerifyOffset(verifier, VT_ADC_MV) &&
+           verifier.VerifyVector(adc_mv()) &&
+           VerifyField<uint8_t>(verifier, VT_IO_DIRECTION, 1) &&
+           VerifyField<uint8_t>(verifier, VT_IO_VALUE, 1) &&
+           VerifyField<float>(verifier, VT_DISK_SIZE_MB, 4) &&
+           VerifyField<float>(verifier, VT_DISK_USED_MB, 4) &&
+           VerifyField<uint8_t>(verifier, VT_LED_COUNT, 1) &&
            VerifyField<uint8_t>(verifier, VT_VERSION_FLATBUFFERS_MAJOR, 1) &&
            VerifyField<uint16_t>(verifier, VT_VERSION_FLATBUFFERS_MINOR, 2) &&
            VerifyField<uint8_t>(verifier, VT_VERSION_HARDWARE_MAJOR, 1) &&
@@ -773,20 +787,6 @@ struct StatusResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
            VerifyField<uint32_t>(verifier, VT_MODE_MAX_PACKET_SIZE, 4) &&
            VerifyField<uint32_t>(verifier, VT_MODE_MAX_WRITE, 4) &&
            VerifyField<uint32_t>(verifier, VT_MODE_MAX_READ, 4) &&
-           VerifyField<uint8_t>(verifier, VT_PSU_ENABLED, 1) &&
-           VerifyField<uint32_t>(verifier, VT_PSU_SET_MV, 4) &&
-           VerifyField<uint32_t>(verifier, VT_PSU_SET_MA, 4) &&
-           VerifyField<uint32_t>(verifier, VT_PSU_MEASURED_MV, 4) &&
-           VerifyField<uint32_t>(verifier, VT_PSU_MEASURED_MA, 4) &&
-           VerifyField<uint8_t>(verifier, VT_PSU_CURRENT_ERROR, 1) &&
-           VerifyField<uint8_t>(verifier, VT_PULLUP_ENABLED, 1) &&
-           VerifyOffset(verifier, VT_ADC_MV) &&
-           verifier.VerifyVector(adc_mv()) &&
-           VerifyField<uint8_t>(verifier, VT_IO_DIRECTION, 1) &&
-           VerifyField<uint8_t>(verifier, VT_IO_VALUE, 1) &&
-           VerifyField<float>(verifier, VT_DISK_SIZE_MB, 4) &&
-           VerifyField<float>(verifier, VT_DISK_USED_MB, 4) &&
-           VerifyField<uint8_t>(verifier, VT_LED_COUNT, 1) &&
            verifier.EndTable();
   }
 };
@@ -797,6 +797,45 @@ struct StatusResponseBuilder {
   ::flatbuffers::uoffset_t start_;
   void add_error(::flatbuffers::Offset<::flatbuffers::String> error) {
     fbb_.AddOffset(StatusResponse::VT_ERROR, error);
+  }
+  void add_psu_enabled(bool psu_enabled) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_PSU_ENABLED, static_cast<uint8_t>(psu_enabled), 0);
+  }
+  void add_psu_set_mv(uint32_t psu_set_mv) {
+    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_SET_MV, psu_set_mv, 0);
+  }
+  void add_psu_set_ma(uint32_t psu_set_ma) {
+    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_SET_MA, psu_set_ma, 0);
+  }
+  void add_psu_measured_mv(uint32_t psu_measured_mv) {
+    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_MEASURED_MV, psu_measured_mv, 0);
+  }
+  void add_psu_measured_ma(uint32_t psu_measured_ma) {
+    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_MEASURED_MA, psu_measured_ma, 0);
+  }
+  void add_psu_current_error(bool psu_current_error) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_PSU_CURRENT_ERROR, static_cast<uint8_t>(psu_current_error), 0);
+  }
+  void add_pullup_enabled(bool pullup_enabled) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_PULLUP_ENABLED, static_cast<uint8_t>(pullup_enabled), 0);
+  }
+  void add_adc_mv(::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> adc_mv) {
+    fbb_.AddOffset(StatusResponse::VT_ADC_MV, adc_mv);
+  }
+  void add_io_direction(uint8_t io_direction) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_IO_DIRECTION, io_direction, 0);
+  }
+  void add_io_value(uint8_t io_value) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_IO_VALUE, io_value, 0);
+  }
+  void add_disk_size_mb(float disk_size_mb) {
+    fbb_.AddElement<float>(StatusResponse::VT_DISK_SIZE_MB, disk_size_mb, 0.0f);
+  }
+  void add_disk_used_mb(float disk_used_mb) {
+    fbb_.AddElement<float>(StatusResponse::VT_DISK_USED_MB, disk_used_mb, 0.0f);
+  }
+  void add_led_count(uint8_t led_count) {
+    fbb_.AddElement<uint8_t>(StatusResponse::VT_LED_COUNT, led_count, 0);
   }
   void add_version_flatbuffers_major(uint8_t version_flatbuffers_major) {
     fbb_.AddElement<uint8_t>(StatusResponse::VT_VERSION_FLATBUFFERS_MAJOR, version_flatbuffers_major, 0);
@@ -843,45 +882,6 @@ struct StatusResponseBuilder {
   void add_mode_max_read(uint32_t mode_max_read) {
     fbb_.AddElement<uint32_t>(StatusResponse::VT_MODE_MAX_READ, mode_max_read, 0);
   }
-  void add_psu_enabled(bool psu_enabled) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_PSU_ENABLED, static_cast<uint8_t>(psu_enabled), 0);
-  }
-  void add_psu_set_mv(uint32_t psu_set_mv) {
-    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_SET_MV, psu_set_mv, 0);
-  }
-  void add_psu_set_ma(uint32_t psu_set_ma) {
-    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_SET_MA, psu_set_ma, 0);
-  }
-  void add_psu_measured_mv(uint32_t psu_measured_mv) {
-    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_MEASURED_MV, psu_measured_mv, 0);
-  }
-  void add_psu_measured_ma(uint32_t psu_measured_ma) {
-    fbb_.AddElement<uint32_t>(StatusResponse::VT_PSU_MEASURED_MA, psu_measured_ma, 0);
-  }
-  void add_psu_current_error(bool psu_current_error) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_PSU_CURRENT_ERROR, static_cast<uint8_t>(psu_current_error), 0);
-  }
-  void add_pullup_enabled(bool pullup_enabled) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_PULLUP_ENABLED, static_cast<uint8_t>(pullup_enabled), 0);
-  }
-  void add_adc_mv(::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> adc_mv) {
-    fbb_.AddOffset(StatusResponse::VT_ADC_MV, adc_mv);
-  }
-  void add_io_direction(uint8_t io_direction) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_IO_DIRECTION, io_direction, 0);
-  }
-  void add_io_value(uint8_t io_value) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_IO_VALUE, io_value, 0);
-  }
-  void add_disk_size_mb(float disk_size_mb) {
-    fbb_.AddElement<float>(StatusResponse::VT_DISK_SIZE_MB, disk_size_mb, 0.0f);
-  }
-  void add_disk_used_mb(float disk_used_mb) {
-    fbb_.AddElement<float>(StatusResponse::VT_DISK_USED_MB, disk_used_mb, 0.0f);
-  }
-  void add_led_count(uint8_t led_count) {
-    fbb_.AddElement<uint8_t>(StatusResponse::VT_LED_COUNT, led_count, 0);
-  }
   explicit StatusResponseBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -896,6 +896,19 @@ struct StatusResponseBuilder {
 inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     ::flatbuffers::Offset<::flatbuffers::String> error = 0,
+    bool psu_enabled = false,
+    uint32_t psu_set_mv = 0,
+    uint32_t psu_set_ma = 0,
+    uint32_t psu_measured_mv = 0,
+    uint32_t psu_measured_ma = 0,
+    bool psu_current_error = false,
+    bool pullup_enabled = false,
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> adc_mv = 0,
+    uint8_t io_direction = 0,
+    uint8_t io_value = 0,
+    float disk_size_mb = 0.0f,
+    float disk_used_mb = 0.0f,
+    uint8_t led_count = 0,
     uint8_t version_flatbuffers_major = 0,
     uint16_t version_flatbuffers_minor = 0,
     uint8_t version_hardware_major = 0,
@@ -910,28 +923,8 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
     bool mode_bitorder_msb = false,
     uint32_t mode_max_packet_size = 0,
     uint32_t mode_max_write = 0,
-    uint32_t mode_max_read = 0,
-    bool psu_enabled = false,
-    uint32_t psu_set_mv = 0,
-    uint32_t psu_set_ma = 0,
-    uint32_t psu_measured_mv = 0,
-    uint32_t psu_measured_ma = 0,
-    bool psu_current_error = false,
-    bool pullup_enabled = false,
-    ::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> adc_mv = 0,
-    uint8_t io_direction = 0,
-    uint8_t io_value = 0,
-    float disk_size_mb = 0.0f,
-    float disk_used_mb = 0.0f,
-    uint8_t led_count = 0) {
+    uint32_t mode_max_read = 0) {
   StatusResponseBuilder builder_(_fbb);
-  builder_.add_disk_used_mb(disk_used_mb);
-  builder_.add_disk_size_mb(disk_size_mb);
-  builder_.add_adc_mv(adc_mv);
-  builder_.add_psu_measured_ma(psu_measured_ma);
-  builder_.add_psu_measured_mv(psu_measured_mv);
-  builder_.add_psu_set_ma(psu_set_ma);
-  builder_.add_psu_set_mv(psu_set_mv);
   builder_.add_mode_max_read(mode_max_read);
   builder_.add_mode_max_write(mode_max_write);
   builder_.add_mode_max_packet_size(mode_max_packet_size);
@@ -940,26 +933,46 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponse(
   builder_.add_modes_available(modes_available);
   builder_.add_version_firmware_date(version_firmware_date);
   builder_.add_version_firmware_git_hash(version_firmware_git_hash);
+  builder_.add_disk_used_mb(disk_used_mb);
+  builder_.add_disk_size_mb(disk_size_mb);
+  builder_.add_adc_mv(adc_mv);
+  builder_.add_psu_measured_ma(psu_measured_ma);
+  builder_.add_psu_measured_mv(psu_measured_mv);
+  builder_.add_psu_set_ma(psu_set_ma);
+  builder_.add_psu_set_mv(psu_set_mv);
   builder_.add_error(error);
   builder_.add_version_flatbuffers_minor(version_flatbuffers_minor);
-  builder_.add_led_count(led_count);
-  builder_.add_io_value(io_value);
-  builder_.add_io_direction(io_direction);
-  builder_.add_pullup_enabled(pullup_enabled);
-  builder_.add_psu_current_error(psu_current_error);
-  builder_.add_psu_enabled(psu_enabled);
   builder_.add_mode_bitorder_msb(mode_bitorder_msb);
   builder_.add_version_firmware_minor(version_firmware_minor);
   builder_.add_version_firmware_major(version_firmware_major);
   builder_.add_version_hardware_minor(version_hardware_minor);
   builder_.add_version_hardware_major(version_hardware_major);
   builder_.add_version_flatbuffers_major(version_flatbuffers_major);
+  builder_.add_led_count(led_count);
+  builder_.add_io_value(io_value);
+  builder_.add_io_direction(io_direction);
+  builder_.add_pullup_enabled(pullup_enabled);
+  builder_.add_psu_current_error(psu_current_error);
+  builder_.add_psu_enabled(psu_enabled);
   return builder_.Finish();
 }
 
 inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     const char *error = nullptr,
+    bool psu_enabled = false,
+    uint32_t psu_set_mv = 0,
+    uint32_t psu_set_ma = 0,
+    uint32_t psu_measured_mv = 0,
+    uint32_t psu_measured_ma = 0,
+    bool psu_current_error = false,
+    bool pullup_enabled = false,
+    const std::vector<uint32_t> *adc_mv = nullptr,
+    uint8_t io_direction = 0,
+    uint8_t io_value = 0,
+    float disk_size_mb = 0.0f,
+    float disk_used_mb = 0.0f,
+    uint8_t led_count = 0,
     uint8_t version_flatbuffers_major = 0,
     uint16_t version_flatbuffers_minor = 0,
     uint8_t version_hardware_major = 0,
@@ -974,30 +987,30 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
     bool mode_bitorder_msb = false,
     uint32_t mode_max_packet_size = 0,
     uint32_t mode_max_write = 0,
-    uint32_t mode_max_read = 0,
-    bool psu_enabled = false,
-    uint32_t psu_set_mv = 0,
-    uint32_t psu_set_ma = 0,
-    uint32_t psu_measured_mv = 0,
-    uint32_t psu_measured_ma = 0,
-    bool psu_current_error = false,
-    bool pullup_enabled = false,
-    const std::vector<uint32_t> *adc_mv = nullptr,
-    uint8_t io_direction = 0,
-    uint8_t io_value = 0,
-    float disk_size_mb = 0.0f,
-    float disk_used_mb = 0.0f,
-    uint8_t led_count = 0) {
+    uint32_t mode_max_read = 0) {
   auto error__ = error ? _fbb.CreateString(error) : 0;
+  auto adc_mv__ = adc_mv ? _fbb.CreateVector<uint32_t>(*adc_mv) : 0;
   auto version_firmware_git_hash__ = version_firmware_git_hash ? _fbb.CreateString(version_firmware_git_hash) : 0;
   auto version_firmware_date__ = version_firmware_date ? _fbb.CreateString(version_firmware_date) : 0;
   auto modes_available__ = modes_available ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*modes_available) : 0;
   auto mode_current__ = mode_current ? _fbb.CreateString(mode_current) : 0;
   auto mode_pin_labels__ = mode_pin_labels ? _fbb.CreateVector<::flatbuffers::Offset<::flatbuffers::String>>(*mode_pin_labels) : 0;
-  auto adc_mv__ = adc_mv ? _fbb.CreateVector<uint32_t>(*adc_mv) : 0;
   return bpio::CreateStatusResponse(
       _fbb,
       error__,
+      psu_enabled,
+      psu_set_mv,
+      psu_set_ma,
+      psu_measured_mv,
+      psu_measured_ma,
+      psu_current_error,
+      pullup_enabled,
+      adc_mv__,
+      io_direction,
+      io_value,
+      disk_size_mb,
+      disk_used_mb,
+      led_count,
       version_flatbuffers_major,
       version_flatbuffers_minor,
       version_hardware_major,
@@ -1012,20 +1025,7 @@ inline ::flatbuffers::Offset<StatusResponse> CreateStatusResponseDirect(
       mode_bitorder_msb,
       mode_max_packet_size,
       mode_max_write,
-      mode_max_read,
-      psu_enabled,
-      psu_set_mv,
-      psu_set_ma,
-      psu_measured_mv,
-      psu_measured_ma,
-      psu_current_error,
-      pullup_enabled,
-      adc_mv__,
-      io_direction,
-      io_value,
-      disk_size_mb,
-      disk_used_mb,
-      led_count);
+      mode_max_read);
 }
 
 struct ModeConfiguration FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
@@ -1037,13 +1037,9 @@ struct ModeConfiguration FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table 
     VT_STOP_BITS = 10,
     VT_FLOW_CONTROL = 12,
     VT_SIGNAL_INVERSION = 14,
-    VT_CLOCK_STRETCH = 16,
-    VT_CLOCK_POLARITY = 18,
-    VT_CLOCK_PHASE = 20,
-    VT_CHIP_SELECT_IDLE = 22,
-    VT_SUBMODE = 24,
-    VT_TX_MODULATION = 26,
-    VT_RX_SENSOR = 28
+    VT_SUBMODE = 16,
+    VT_TX_MODULATION = 18,
+    VT_RX_SENSOR = 20
   };
   uint32_t speed() const {
     return GetField<uint32_t>(VT_SPEED, 20000);
@@ -1063,18 +1059,6 @@ struct ModeConfiguration FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table 
   bool signal_inversion() const {
     return GetField<uint8_t>(VT_SIGNAL_INVERSION, 0) != 0;
   }
-  bool clock_stretch() const {
-    return GetField<uint8_t>(VT_CLOCK_STRETCH, 0) != 0;
-  }
-  bool clock_polarity() const {
-    return GetField<uint8_t>(VT_CLOCK_POLARITY, 0) != 0;
-  }
-  bool clock_phase() const {
-    return GetField<uint8_t>(VT_CLOCK_PHASE, 0) != 0;
-  }
-  bool chip_select_idle() const {
-    return GetField<uint8_t>(VT_CHIP_SELECT_IDLE, 1) != 0;
-  }
   uint8_t submode() const {
     return GetField<uint8_t>(VT_SUBMODE, 0);
   }
@@ -1092,10 +1076,6 @@ struct ModeConfiguration FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table 
            VerifyField<uint8_t>(verifier, VT_STOP_BITS, 1) &&
            VerifyField<uint8_t>(verifier, VT_FLOW_CONTROL, 1) &&
            VerifyField<uint8_t>(verifier, VT_SIGNAL_INVERSION, 1) &&
-           VerifyField<uint8_t>(verifier, VT_CLOCK_STRETCH, 1) &&
-           VerifyField<uint8_t>(verifier, VT_CLOCK_POLARITY, 1) &&
-           VerifyField<uint8_t>(verifier, VT_CLOCK_PHASE, 1) &&
-           VerifyField<uint8_t>(verifier, VT_CHIP_SELECT_IDLE, 1) &&
            VerifyField<uint8_t>(verifier, VT_SUBMODE, 1) &&
            VerifyField<uint32_t>(verifier, VT_TX_MODULATION, 4) &&
            VerifyField<uint8_t>(verifier, VT_RX_SENSOR, 1) &&
@@ -1125,18 +1105,6 @@ struct ModeConfigurationBuilder {
   void add_signal_inversion(bool signal_inversion) {
     fbb_.AddElement<uint8_t>(ModeConfiguration::VT_SIGNAL_INVERSION, static_cast<uint8_t>(signal_inversion), 0);
   }
-  void add_clock_stretch(bool clock_stretch) {
-    fbb_.AddElement<uint8_t>(ModeConfiguration::VT_CLOCK_STRETCH, static_cast<uint8_t>(clock_stretch), 0);
-  }
-  void add_clock_polarity(bool clock_polarity) {
-    fbb_.AddElement<uint8_t>(ModeConfiguration::VT_CLOCK_POLARITY, static_cast<uint8_t>(clock_polarity), 0);
-  }
-  void add_clock_phase(bool clock_phase) {
-    fbb_.AddElement<uint8_t>(ModeConfiguration::VT_CLOCK_PHASE, static_cast<uint8_t>(clock_phase), 0);
-  }
-  void add_chip_select_idle(bool chip_select_idle) {
-    fbb_.AddElement<uint8_t>(ModeConfiguration::VT_CHIP_SELECT_IDLE, static_cast<uint8_t>(chip_select_idle), 1);
-  }
   void add_submode(uint8_t submode) {
     fbb_.AddElement<uint8_t>(ModeConfiguration::VT_SUBMODE, submode, 0);
   }
@@ -1165,10 +1133,6 @@ inline ::flatbuffers::Offset<ModeConfiguration> CreateModeConfiguration(
     uint8_t stop_bits = 1,
     bool flow_control = false,
     bool signal_inversion = false,
-    bool clock_stretch = false,
-    bool clock_polarity = false,
-    bool clock_phase = false,
-    bool chip_select_idle = true,
     uint8_t submode = 0,
     uint32_t tx_modulation = 0,
     uint8_t rx_sensor = 0) {
@@ -1177,10 +1141,6 @@ inline ::flatbuffers::Offset<ModeConfiguration> CreateModeConfiguration(
   builder_.add_speed(speed);
   builder_.add_rx_sensor(rx_sensor);
   builder_.add_submode(submode);
-  builder_.add_chip_select_idle(chip_select_idle);
-  builder_.add_clock_phase(clock_phase);
-  builder_.add_clock_polarity(clock_polarity);
-  builder_.add_clock_stretch(clock_stretch);
   builder_.add_signal_inversion(signal_inversion);
   builder_.add_flow_control(flow_control);
   builder_.add_stop_bits(stop_bits);
@@ -1205,13 +1165,7 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
     VT_IO_DIRECTION_MASK = 24,
     VT_IO_DIRECTION = 26,
     VT_IO_VALUE_MASK = 28,
-    VT_IO_VALUE = 30,
-    VT_LED_RESUME = 32,
-    VT_LED_COLOR = 34,
-    VT_PRINT_STRING = 36,
-    VT_HARDWARE_BOOTLOADER = 38,
-    VT_HARDWARE_RESET = 40,
-    VT_HARDWARE_SELFTEST = 42
+    VT_IO_VALUE = 30
   };
   const ::flatbuffers::String *mode() const {
     return GetPointer<const ::flatbuffers::String *>(VT_MODE);
@@ -1255,24 +1209,6 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
   uint8_t io_value() const {
     return GetField<uint8_t>(VT_IO_VALUE, 0);
   }
-  bool led_resume() const {
-    return GetField<uint8_t>(VT_LED_RESUME, 0) != 0;
-  }
-  const ::flatbuffers::Vector<uint32_t> *led_color() const {
-    return GetPointer<const ::flatbuffers::Vector<uint32_t> *>(VT_LED_COLOR);
-  }
-  const ::flatbuffers::String *print_string() const {
-    return GetPointer<const ::flatbuffers::String *>(VT_PRINT_STRING);
-  }
-  bool hardware_bootloader() const {
-    return GetField<uint8_t>(VT_HARDWARE_BOOTLOADER, 0) != 0;
-  }
-  bool hardware_reset() const {
-    return GetField<uint8_t>(VT_HARDWARE_RESET, 0) != 0;
-  }
-  bool hardware_selftest() const {
-    return GetField<uint8_t>(VT_HARDWARE_SELFTEST, 0) != 0;
-  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_MODE) &&
@@ -1291,14 +1227,6 @@ struct ConfigurationRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Tab
            VerifyField<uint8_t>(verifier, VT_IO_DIRECTION, 1) &&
            VerifyField<uint8_t>(verifier, VT_IO_VALUE_MASK, 1) &&
            VerifyField<uint8_t>(verifier, VT_IO_VALUE, 1) &&
-           VerifyField<uint8_t>(verifier, VT_LED_RESUME, 1) &&
-           VerifyOffset(verifier, VT_LED_COLOR) &&
-           verifier.VerifyVector(led_color()) &&
-           VerifyOffset(verifier, VT_PRINT_STRING) &&
-           verifier.VerifyString(print_string()) &&
-           VerifyField<uint8_t>(verifier, VT_HARDWARE_BOOTLOADER, 1) &&
-           VerifyField<uint8_t>(verifier, VT_HARDWARE_RESET, 1) &&
-           VerifyField<uint8_t>(verifier, VT_HARDWARE_SELFTEST, 1) &&
            verifier.EndTable();
   }
 };
@@ -1349,24 +1277,6 @@ struct ConfigurationRequestBuilder {
   void add_io_value(uint8_t io_value) {
     fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_IO_VALUE, io_value, 0);
   }
-  void add_led_resume(bool led_resume) {
-    fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_LED_RESUME, static_cast<uint8_t>(led_resume), 0);
-  }
-  void add_led_color(::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> led_color) {
-    fbb_.AddOffset(ConfigurationRequest::VT_LED_COLOR, led_color);
-  }
-  void add_print_string(::flatbuffers::Offset<::flatbuffers::String> print_string) {
-    fbb_.AddOffset(ConfigurationRequest::VT_PRINT_STRING, print_string);
-  }
-  void add_hardware_bootloader(bool hardware_bootloader) {
-    fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_HARDWARE_BOOTLOADER, static_cast<uint8_t>(hardware_bootloader), 0);
-  }
-  void add_hardware_reset(bool hardware_reset) {
-    fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_HARDWARE_RESET, static_cast<uint8_t>(hardware_reset), 0);
-  }
-  void add_hardware_selftest(bool hardware_selftest) {
-    fbb_.AddElement<uint8_t>(ConfigurationRequest::VT_HARDWARE_SELFTEST, static_cast<uint8_t>(hardware_selftest), 0);
-  }
   explicit ConfigurationRequestBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -1393,24 +1303,12 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequest(
     uint8_t io_direction_mask = 0,
     uint8_t io_direction = 0,
     uint8_t io_value_mask = 0,
-    uint8_t io_value = 0,
-    bool led_resume = false,
-    ::flatbuffers::Offset<::flatbuffers::Vector<uint32_t>> led_color = 0,
-    ::flatbuffers::Offset<::flatbuffers::String> print_string = 0,
-    bool hardware_bootloader = false,
-    bool hardware_reset = false,
-    bool hardware_selftest = false) {
+    uint8_t io_value = 0) {
   ConfigurationRequestBuilder builder_(_fbb);
-  builder_.add_print_string(print_string);
-  builder_.add_led_color(led_color);
   builder_.add_psu_set_mv(psu_set_mv);
   builder_.add_mode_configuration(mode_configuration);
   builder_.add_mode(mode);
   builder_.add_psu_set_ma(psu_set_ma);
-  builder_.add_hardware_selftest(hardware_selftest);
-  builder_.add_hardware_reset(hardware_reset);
-  builder_.add_hardware_bootloader(hardware_bootloader);
-  builder_.add_led_resume(led_resume);
   builder_.add_io_value(io_value);
   builder_.add_io_value_mask(io_value_mask);
   builder_.add_io_direction(io_direction);
@@ -1439,16 +1337,8 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequestDir
     uint8_t io_direction_mask = 0,
     uint8_t io_direction = 0,
     uint8_t io_value_mask = 0,
-    uint8_t io_value = 0,
-    bool led_resume = false,
-    const std::vector<uint32_t> *led_color = nullptr,
-    const char *print_string = nullptr,
-    bool hardware_bootloader = false,
-    bool hardware_reset = false,
-    bool hardware_selftest = false) {
+    uint8_t io_value = 0) {
   auto mode__ = mode ? _fbb.CreateString(mode) : 0;
-  auto led_color__ = led_color ? _fbb.CreateVector<uint32_t>(*led_color) : 0;
-  auto print_string__ = print_string ? _fbb.CreateString(print_string) : 0;
   return bpio::CreateConfigurationRequest(
       _fbb,
       mode__,
@@ -1464,13 +1354,7 @@ inline ::flatbuffers::Offset<ConfigurationRequest> CreateConfigurationRequestDir
       io_direction_mask,
       io_direction,
       io_value_mask,
-      io_value,
-      led_resume,
-      led_color__,
-      print_string__,
-      hardware_bootloader,
-      hardware_reset,
-      hardware_selftest);
+      io_value);
 }
 
 struct ConfigurationResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
@@ -1529,10 +1413,7 @@ struct DataRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_START_MAIN = 4,
     VT_START_ALT = 6,
-    VT_DATA_WRITE = 8,
-    VT_BYTES_READ = 10,
-    VT_STOP_MAIN = 12,
-    VT_STOP_ALT = 14
+    VT_DATA_WRITE = 8
   };
   bool start_main() const {
     return GetField<uint8_t>(VT_START_MAIN, 0) != 0;
@@ -1543,24 +1424,12 @@ struct DataRequest FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {
   const ::flatbuffers::Vector<uint8_t> *data_write() const {
     return GetPointer<const ::flatbuffers::Vector<uint8_t> *>(VT_DATA_WRITE);
   }
-  uint16_t bytes_read() const {
-    return GetField<uint16_t>(VT_BYTES_READ, 0);
-  }
-  bool stop_main() const {
-    return GetField<uint8_t>(VT_STOP_MAIN, 0) != 0;
-  }
-  bool stop_alt() const {
-    return GetField<uint8_t>(VT_STOP_ALT, 0) != 0;
-  }
   bool Verify(::flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<uint8_t>(verifier, VT_START_MAIN, 1) &&
            VerifyField<uint8_t>(verifier, VT_START_ALT, 1) &&
            VerifyOffset(verifier, VT_DATA_WRITE) &&
            verifier.VerifyVector(data_write()) &&
-           VerifyField<uint16_t>(verifier, VT_BYTES_READ, 2) &&
-           VerifyField<uint8_t>(verifier, VT_STOP_MAIN, 1) &&
-           VerifyField<uint8_t>(verifier, VT_STOP_ALT, 1) &&
            verifier.EndTable();
   }
 };
@@ -1578,15 +1447,6 @@ struct DataRequestBuilder {
   void add_data_write(::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> data_write) {
     fbb_.AddOffset(DataRequest::VT_DATA_WRITE, data_write);
   }
-  void add_bytes_read(uint16_t bytes_read) {
-    fbb_.AddElement<uint16_t>(DataRequest::VT_BYTES_READ, bytes_read, 0);
-  }
-  void add_stop_main(bool stop_main) {
-    fbb_.AddElement<uint8_t>(DataRequest::VT_STOP_MAIN, static_cast<uint8_t>(stop_main), 0);
-  }
-  void add_stop_alt(bool stop_alt) {
-    fbb_.AddElement<uint8_t>(DataRequest::VT_STOP_ALT, static_cast<uint8_t>(stop_alt), 0);
-  }
   explicit DataRequestBuilder(::flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -1602,15 +1462,9 @@ inline ::flatbuffers::Offset<DataRequest> CreateDataRequest(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     bool start_main = false,
     bool start_alt = false,
-    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> data_write = 0,
-    uint16_t bytes_read = 0,
-    bool stop_main = false,
-    bool stop_alt = false) {
+    ::flatbuffers::Offset<::flatbuffers::Vector<uint8_t>> data_write = 0) {
   DataRequestBuilder builder_(_fbb);
   builder_.add_data_write(data_write);
-  builder_.add_bytes_read(bytes_read);
-  builder_.add_stop_alt(stop_alt);
-  builder_.add_stop_main(stop_main);
   builder_.add_start_alt(start_alt);
   builder_.add_start_main(start_main);
   return builder_.Finish();
@@ -1620,19 +1474,13 @@ inline ::flatbuffers::Offset<DataRequest> CreateDataRequestDirect(
     ::flatbuffers::FlatBufferBuilder &_fbb,
     bool start_main = false,
     bool start_alt = false,
-    const std::vector<uint8_t> *data_write = nullptr,
-    uint16_t bytes_read = 0,
-    bool stop_main = false,
-    bool stop_alt = false) {
+    const std::vector<uint8_t> *data_write = nullptr) {
   auto data_write__ = data_write ? _fbb.CreateVector<uint8_t>(*data_write) : 0;
   return bpio::CreateDataRequest(
       _fbb,
       start_main,
       start_alt,
-      data_write__,
-      bytes_read,
-      stop_main,
-      stop_alt);
+      data_write__);
 }
 
 struct DataResponse FLATBUFFERS_FINAL_CLASS : private ::flatbuffers::Table {

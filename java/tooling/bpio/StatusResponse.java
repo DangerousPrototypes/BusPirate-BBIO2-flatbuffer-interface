@@ -30,54 +30,67 @@ public final class StatusResponse extends Table {
   public String error() { int o = __offset(4); return o != 0 ? __string(o + bb_pos) : null; }
   public ByteBuffer errorAsByteBuffer() { return __vector_as_bytebuffer(4, 1); }
   public ByteBuffer errorInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 4, 1); }
-  public int versionFlatbuffersMajor() { int o = __offset(6); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public int versionFlatbuffersMinor() { int o = __offset(8); return o != 0 ? bb.getShort(o + bb_pos) & 0xFFFF : 0; }
-  public int versionHardwareMajor() { int o = __offset(10); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public int versionHardwareMinor() { int o = __offset(12); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public int versionFirmwareMajor() { int o = __offset(14); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public int versionFirmwareMinor() { int o = __offset(16); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public String versionFirmwareGitHash() { int o = __offset(18); return o != 0 ? __string(o + bb_pos) : null; }
-  public ByteBuffer versionFirmwareGitHashAsByteBuffer() { return __vector_as_bytebuffer(18, 1); }
-  public ByteBuffer versionFirmwareGitHashInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 18, 1); }
-  public String versionFirmwareDate() { int o = __offset(20); return o != 0 ? __string(o + bb_pos) : null; }
-  public ByteBuffer versionFirmwareDateAsByteBuffer() { return __vector_as_bytebuffer(20, 1); }
-  public ByteBuffer versionFirmwareDateInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 20, 1); }
-  public String modesAvailable(int j) { int o = __offset(22); return o != 0 ? __string(__vector(o) + j * 4) : null; }
-  public int modesAvailableLength() { int o = __offset(22); return o != 0 ? __vector_len(o) : 0; }
-  public StringVector modesAvailableVector() { return modesAvailableVector(new StringVector()); }
-  public StringVector modesAvailableVector(StringVector obj) { int o = __offset(22); return o != 0 ? obj.__assign(__vector(o), 4, bb) : null; }
-  public String modeCurrent() { int o = __offset(24); return o != 0 ? __string(o + bb_pos) : null; }
-  public ByteBuffer modeCurrentAsByteBuffer() { return __vector_as_bytebuffer(24, 1); }
-  public ByteBuffer modeCurrentInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 24, 1); }
-  public String modePinLabels(int j) { int o = __offset(26); return o != 0 ? __string(__vector(o) + j * 4) : null; }
-  public int modePinLabelsLength() { int o = __offset(26); return o != 0 ? __vector_len(o) : 0; }
-  public StringVector modePinLabelsVector() { return modePinLabelsVector(new StringVector()); }
-  public StringVector modePinLabelsVector(StringVector obj) { int o = __offset(26); return o != 0 ? obj.__assign(__vector(o), 4, bb) : null; }
-  public boolean modeBitorderMsb() { int o = __offset(28); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public long modeMaxPacketSize() { int o = __offset(30); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public long modeMaxWrite() { int o = __offset(32); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public long modeMaxRead() { int o = __offset(34); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public boolean psuEnabled() { int o = __offset(36); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public long psuSetMv() { int o = __offset(38); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public long psuSetMa() { int o = __offset(40); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public long psuMeasuredMv() { int o = __offset(42); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public long psuMeasuredMa() { int o = __offset(44); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
-  public boolean psuCurrentError() { int o = __offset(46); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public boolean pullupEnabled() { int o = __offset(48); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
-  public long adcMv(int j) { int o = __offset(50); return o != 0 ? (long)bb.getInt(__vector(o) + j * 4) & 0xFFFFFFFFL : 0; }
-  public int adcMvLength() { int o = __offset(50); return o != 0 ? __vector_len(o) : 0; }
+  public boolean psuEnabled() { int o = __offset(6); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
+  public long psuSetMv() { int o = __offset(8); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
+  public long psuSetMa() { int o = __offset(10); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
+  public long psuMeasuredMv() { int o = __offset(12); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
+  public long psuMeasuredMa() { int o = __offset(14); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
+  public boolean psuCurrentError() { int o = __offset(16); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
+  public boolean pullupEnabled() { int o = __offset(18); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
+  public long adcMv(int j) { int o = __offset(20); return o != 0 ? (long)bb.getInt(__vector(o) + j * 4) & 0xFFFFFFFFL : 0; }
+  public int adcMvLength() { int o = __offset(20); return o != 0 ? __vector_len(o) : 0; }
   public IntVector adcMvVector() { return adcMvVector(new IntVector()); }
-  public IntVector adcMvVector(IntVector obj) { int o = __offset(50); return o != 0 ? obj.__assign(__vector(o), bb) : null; }
-  public ByteBuffer adcMvAsByteBuffer() { return __vector_as_bytebuffer(50, 4); }
-  public ByteBuffer adcMvInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 50, 4); }
-  public int ioDirection() { int o = __offset(52); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public int ioValue() { int o = __offset(54); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
-  public float diskSizeMb() { int o = __offset(56); return o != 0 ? bb.getFloat(o + bb_pos) : 0.0f; }
-  public float diskUsedMb() { int o = __offset(58); return o != 0 ? bb.getFloat(o + bb_pos) : 0.0f; }
-  public int ledCount() { int o = __offset(60); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public IntVector adcMvVector(IntVector obj) { int o = __offset(20); return o != 0 ? obj.__assign(__vector(o), bb) : null; }
+  public ByteBuffer adcMvAsByteBuffer() { return __vector_as_bytebuffer(20, 4); }
+  public ByteBuffer adcMvInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 20, 4); }
+  public int ioDirection() { int o = __offset(22); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int ioValue() { int o = __offset(24); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public float diskSizeMb() { int o = __offset(26); return o != 0 ? bb.getFloat(o + bb_pos) : 0.0f; }
+  public float diskUsedMb() { int o = __offset(28); return o != 0 ? bb.getFloat(o + bb_pos) : 0.0f; }
+  public int ledCount() { int o = __offset(30); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int versionFlatbuffersMajor() { int o = __offset(32); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int versionFlatbuffersMinor() { int o = __offset(34); return o != 0 ? bb.getShort(o + bb_pos) & 0xFFFF : 0; }
+  public int versionHardwareMajor() { int o = __offset(36); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int versionHardwareMinor() { int o = __offset(38); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int versionFirmwareMajor() { int o = __offset(40); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public int versionFirmwareMinor() { int o = __offset(42); return o != 0 ? bb.get(o + bb_pos) & 0xFF : 0; }
+  public String versionFirmwareGitHash() { int o = __offset(44); return o != 0 ? __string(o + bb_pos) : null; }
+  public ByteBuffer versionFirmwareGitHashAsByteBuffer() { return __vector_as_bytebuffer(44, 1); }
+  public ByteBuffer versionFirmwareGitHashInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 44, 1); }
+  public String versionFirmwareDate() { int o = __offset(46); return o != 0 ? __string(o + bb_pos) : null; }
+  public ByteBuffer versionFirmwareDateAsByteBuffer() { return __vector_as_bytebuffer(46, 1); }
+  public ByteBuffer versionFirmwareDateInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 46, 1); }
+  public String modesAvailable(int j) { int o = __offset(48); return o != 0 ? __string(__vector(o) + j * 4) : null; }
+  public int modesAvailableLength() { int o = __offset(48); return o != 0 ? __vector_len(o) : 0; }
+  public StringVector modesAvailableVector() { return modesAvailableVector(new StringVector()); }
+  public StringVector modesAvailableVector(StringVector obj) { int o = __offset(48); return o != 0 ? obj.__assign(__vector(o), 4, bb) : null; }
+  public String modeCurrent() { int o = __offset(50); return o != 0 ? __string(o + bb_pos) : null; }
+  public ByteBuffer modeCurrentAsByteBuffer() { return __vector_as_bytebuffer(50, 1); }
+  public ByteBuffer modeCurrentInByteBuffer(ByteBuffer _bb) { return __vector_in_bytebuffer(_bb, 50, 1); }
+  public String modePinLabels(int j) { int o = __offset(52); return o != 0 ? __string(__vector(o) + j * 4) : null; }
+  public int modePinLabelsLength() { int o = __offset(52); return o != 0 ? __vector_len(o) : 0; }
+  public StringVector modePinLabelsVector() { return modePinLabelsVector(new StringVector()); }
+  public StringVector modePinLabelsVector(StringVector obj) { int o = __offset(52); return o != 0 ? obj.__assign(__vector(o), 4, bb) : null; }
+  public boolean modeBitorderMsb() { int o = __offset(54); return o != 0 ? 0!=bb.get(o + bb_pos) : false; }
+  public long modeMaxPacketSize() { int o = __offset(56); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
+  public long modeMaxWrite() { int o = __offset(58); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
+  public long modeMaxRead() { int o = __offset(60); return o != 0 ? (long)bb.getInt(o + bb_pos) & 0xFFFFFFFFL : 0L; }
 
   public static int createStatusResponse(FlatBufferBuilder builder,
       int errorOffset,
+      boolean psuEnabled,
+      long psuSetMv,
+      long psuSetMa,
+      long psuMeasuredMv,
+      long psuMeasuredMa,
+      boolean psuCurrentError,
+      boolean pullupEnabled,
+      int adcMvOffset,
+      int ioDirection,
+      int ioValue,
+      float diskSizeMb,
+      float diskUsedMb,
+      int ledCount,
       int versionFlatbuffersMajor,
       int versionFlatbuffersMinor,
       int versionHardwareMajor,
@@ -92,28 +105,8 @@ public final class StatusResponse extends Table {
       boolean modeBitorderMsb,
       long modeMaxPacketSize,
       long modeMaxWrite,
-      long modeMaxRead,
-      boolean psuEnabled,
-      long psuSetMv,
-      long psuSetMa,
-      long psuMeasuredMv,
-      long psuMeasuredMa,
-      boolean psuCurrentError,
-      boolean pullupEnabled,
-      int adcMvOffset,
-      int ioDirection,
-      int ioValue,
-      float diskSizeMb,
-      float diskUsedMb,
-      int ledCount) {
+      long modeMaxRead) {
     builder.startTable(29);
-    StatusResponse.addDiskUsedMb(builder, diskUsedMb);
-    StatusResponse.addDiskSizeMb(builder, diskSizeMb);
-    StatusResponse.addAdcMv(builder, adcMvOffset);
-    StatusResponse.addPsuMeasuredMa(builder, psuMeasuredMa);
-    StatusResponse.addPsuMeasuredMv(builder, psuMeasuredMv);
-    StatusResponse.addPsuSetMa(builder, psuSetMa);
-    StatusResponse.addPsuSetMv(builder, psuSetMv);
     StatusResponse.addModeMaxRead(builder, modeMaxRead);
     StatusResponse.addModeMaxWrite(builder, modeMaxWrite);
     StatusResponse.addModeMaxPacketSize(builder, modeMaxPacketSize);
@@ -122,59 +115,66 @@ public final class StatusResponse extends Table {
     StatusResponse.addModesAvailable(builder, modesAvailableOffset);
     StatusResponse.addVersionFirmwareDate(builder, versionFirmwareDateOffset);
     StatusResponse.addVersionFirmwareGitHash(builder, versionFirmwareGitHashOffset);
+    StatusResponse.addDiskUsedMb(builder, diskUsedMb);
+    StatusResponse.addDiskSizeMb(builder, diskSizeMb);
+    StatusResponse.addAdcMv(builder, adcMvOffset);
+    StatusResponse.addPsuMeasuredMa(builder, psuMeasuredMa);
+    StatusResponse.addPsuMeasuredMv(builder, psuMeasuredMv);
+    StatusResponse.addPsuSetMa(builder, psuSetMa);
+    StatusResponse.addPsuSetMv(builder, psuSetMv);
     StatusResponse.addError(builder, errorOffset);
     StatusResponse.addVersionFlatbuffersMinor(builder, versionFlatbuffersMinor);
-    StatusResponse.addLedCount(builder, ledCount);
-    StatusResponse.addIoValue(builder, ioValue);
-    StatusResponse.addIoDirection(builder, ioDirection);
-    StatusResponse.addPullupEnabled(builder, pullupEnabled);
-    StatusResponse.addPsuCurrentError(builder, psuCurrentError);
-    StatusResponse.addPsuEnabled(builder, psuEnabled);
     StatusResponse.addModeBitorderMsb(builder, modeBitorderMsb);
     StatusResponse.addVersionFirmwareMinor(builder, versionFirmwareMinor);
     StatusResponse.addVersionFirmwareMajor(builder, versionFirmwareMajor);
     StatusResponse.addVersionHardwareMinor(builder, versionHardwareMinor);
     StatusResponse.addVersionHardwareMajor(builder, versionHardwareMajor);
     StatusResponse.addVersionFlatbuffersMajor(builder, versionFlatbuffersMajor);
+    StatusResponse.addLedCount(builder, ledCount);
+    StatusResponse.addIoValue(builder, ioValue);
+    StatusResponse.addIoDirection(builder, ioDirection);
+    StatusResponse.addPullupEnabled(builder, pullupEnabled);
+    StatusResponse.addPsuCurrentError(builder, psuCurrentError);
+    StatusResponse.addPsuEnabled(builder, psuEnabled);
     return StatusResponse.endStatusResponse(builder);
   }
 
   public static void startStatusResponse(FlatBufferBuilder builder) { builder.startTable(29); }
   public static void addError(FlatBufferBuilder builder, int errorOffset) { builder.addOffset(0, errorOffset, 0); }
-  public static void addVersionFlatbuffersMajor(FlatBufferBuilder builder, int versionFlatbuffersMajor) { builder.addByte(1, (byte) versionFlatbuffersMajor, (byte) 0); }
-  public static void addVersionFlatbuffersMinor(FlatBufferBuilder builder, int versionFlatbuffersMinor) { builder.addShort(2, (short) versionFlatbuffersMinor, (short) 0); }
-  public static void addVersionHardwareMajor(FlatBufferBuilder builder, int versionHardwareMajor) { builder.addByte(3, (byte) versionHardwareMajor, (byte) 0); }
-  public static void addVersionHardwareMinor(FlatBufferBuilder builder, int versionHardwareMinor) { builder.addByte(4, (byte) versionHardwareMinor, (byte) 0); }
-  public static void addVersionFirmwareMajor(FlatBufferBuilder builder, int versionFirmwareMajor) { builder.addByte(5, (byte) versionFirmwareMajor, (byte) 0); }
-  public static void addVersionFirmwareMinor(FlatBufferBuilder builder, int versionFirmwareMinor) { builder.addByte(6, (byte) versionFirmwareMinor, (byte) 0); }
-  public static void addVersionFirmwareGitHash(FlatBufferBuilder builder, int versionFirmwareGitHashOffset) { builder.addOffset(7, versionFirmwareGitHashOffset, 0); }
-  public static void addVersionFirmwareDate(FlatBufferBuilder builder, int versionFirmwareDateOffset) { builder.addOffset(8, versionFirmwareDateOffset, 0); }
-  public static void addModesAvailable(FlatBufferBuilder builder, int modesAvailableOffset) { builder.addOffset(9, modesAvailableOffset, 0); }
-  public static int createModesAvailableVector(FlatBufferBuilder builder, int[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addOffset(data[i]); return builder.endVector(); }
-  public static void startModesAvailableVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
-  public static void addModeCurrent(FlatBufferBuilder builder, int modeCurrentOffset) { builder.addOffset(10, modeCurrentOffset, 0); }
-  public static void addModePinLabels(FlatBufferBuilder builder, int modePinLabelsOffset) { builder.addOffset(11, modePinLabelsOffset, 0); }
-  public static int createModePinLabelsVector(FlatBufferBuilder builder, int[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addOffset(data[i]); return builder.endVector(); }
-  public static void startModePinLabelsVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
-  public static void addModeBitorderMsb(FlatBufferBuilder builder, boolean modeBitorderMsb) { builder.addBoolean(12, modeBitorderMsb, false); }
-  public static void addModeMaxPacketSize(FlatBufferBuilder builder, long modeMaxPacketSize) { builder.addInt(13, (int) modeMaxPacketSize, (int) 0L); }
-  public static void addModeMaxWrite(FlatBufferBuilder builder, long modeMaxWrite) { builder.addInt(14, (int) modeMaxWrite, (int) 0L); }
-  public static void addModeMaxRead(FlatBufferBuilder builder, long modeMaxRead) { builder.addInt(15, (int) modeMaxRead, (int) 0L); }
-  public static void addPsuEnabled(FlatBufferBuilder builder, boolean psuEnabled) { builder.addBoolean(16, psuEnabled, false); }
-  public static void addPsuSetMv(FlatBufferBuilder builder, long psuSetMv) { builder.addInt(17, (int) psuSetMv, (int) 0L); }
-  public static void addPsuSetMa(FlatBufferBuilder builder, long psuSetMa) { builder.addInt(18, (int) psuSetMa, (int) 0L); }
-  public static void addPsuMeasuredMv(FlatBufferBuilder builder, long psuMeasuredMv) { builder.addInt(19, (int) psuMeasuredMv, (int) 0L); }
-  public static void addPsuMeasuredMa(FlatBufferBuilder builder, long psuMeasuredMa) { builder.addInt(20, (int) psuMeasuredMa, (int) 0L); }
-  public static void addPsuCurrentError(FlatBufferBuilder builder, boolean psuCurrentError) { builder.addBoolean(21, psuCurrentError, false); }
-  public static void addPullupEnabled(FlatBufferBuilder builder, boolean pullupEnabled) { builder.addBoolean(22, pullupEnabled, false); }
-  public static void addAdcMv(FlatBufferBuilder builder, int adcMvOffset) { builder.addOffset(23, adcMvOffset, 0); }
+  public static void addPsuEnabled(FlatBufferBuilder builder, boolean psuEnabled) { builder.addBoolean(1, psuEnabled, false); }
+  public static void addPsuSetMv(FlatBufferBuilder builder, long psuSetMv) { builder.addInt(2, (int) psuSetMv, (int) 0L); }
+  public static void addPsuSetMa(FlatBufferBuilder builder, long psuSetMa) { builder.addInt(3, (int) psuSetMa, (int) 0L); }
+  public static void addPsuMeasuredMv(FlatBufferBuilder builder, long psuMeasuredMv) { builder.addInt(4, (int) psuMeasuredMv, (int) 0L); }
+  public static void addPsuMeasuredMa(FlatBufferBuilder builder, long psuMeasuredMa) { builder.addInt(5, (int) psuMeasuredMa, (int) 0L); }
+  public static void addPsuCurrentError(FlatBufferBuilder builder, boolean psuCurrentError) { builder.addBoolean(6, psuCurrentError, false); }
+  public static void addPullupEnabled(FlatBufferBuilder builder, boolean pullupEnabled) { builder.addBoolean(7, pullupEnabled, false); }
+  public static void addAdcMv(FlatBufferBuilder builder, int adcMvOffset) { builder.addOffset(8, adcMvOffset, 0); }
   public static int createAdcMvVector(FlatBufferBuilder builder, long[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addInt((int) data[i]); return builder.endVector(); }
   public static void startAdcMvVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
-  public static void addIoDirection(FlatBufferBuilder builder, int ioDirection) { builder.addByte(24, (byte) ioDirection, (byte) 0); }
-  public static void addIoValue(FlatBufferBuilder builder, int ioValue) { builder.addByte(25, (byte) ioValue, (byte) 0); }
-  public static void addDiskSizeMb(FlatBufferBuilder builder, float diskSizeMb) { builder.addFloat(26, diskSizeMb, 0.0f); }
-  public static void addDiskUsedMb(FlatBufferBuilder builder, float diskUsedMb) { builder.addFloat(27, diskUsedMb, 0.0f); }
-  public static void addLedCount(FlatBufferBuilder builder, int ledCount) { builder.addByte(28, (byte) ledCount, (byte) 0); }
+  public static void addIoDirection(FlatBufferBuilder builder, int ioDirection) { builder.addByte(9, (byte) ioDirection, (byte) 0); }
+  public static void addIoValue(FlatBufferBuilder builder, int ioValue) { builder.addByte(10, (byte) ioValue, (byte) 0); }
+  public static void addDiskSizeMb(FlatBufferBuilder builder, float diskSizeMb) { builder.addFloat(11, diskSizeMb, 0.0f); }
+  public static void addDiskUsedMb(FlatBufferBuilder builder, float diskUsedMb) { builder.addFloat(12, diskUsedMb, 0.0f); }
+  public static void addLedCount(FlatBufferBuilder builder, int ledCount) { builder.addByte(13, (byte) ledCount, (byte) 0); }
+  public static void addVersionFlatbuffersMajor(FlatBufferBuilder builder, int versionFlatbuffersMajor) { builder.addByte(14, (byte) versionFlatbuffersMajor, (byte) 0); }
+  public static void addVersionFlatbuffersMinor(FlatBufferBuilder builder, int versionFlatbuffersMinor) { builder.addShort(15, (short) versionFlatbuffersMinor, (short) 0); }
+  public static void addVersionHardwareMajor(FlatBufferBuilder builder, int versionHardwareMajor) { builder.addByte(16, (byte) versionHardwareMajor, (byte) 0); }
+  public static void addVersionHardwareMinor(FlatBufferBuilder builder, int versionHardwareMinor) { builder.addByte(17, (byte) versionHardwareMinor, (byte) 0); }
+  public static void addVersionFirmwareMajor(FlatBufferBuilder builder, int versionFirmwareMajor) { builder.addByte(18, (byte) versionFirmwareMajor, (byte) 0); }
+  public static void addVersionFirmwareMinor(FlatBufferBuilder builder, int versionFirmwareMinor) { builder.addByte(19, (byte) versionFirmwareMinor, (byte) 0); }
+  public static void addVersionFirmwareGitHash(FlatBufferBuilder builder, int versionFirmwareGitHashOffset) { builder.addOffset(20, versionFirmwareGitHashOffset, 0); }
+  public static void addVersionFirmwareDate(FlatBufferBuilder builder, int versionFirmwareDateOffset) { builder.addOffset(21, versionFirmwareDateOffset, 0); }
+  public static void addModesAvailable(FlatBufferBuilder builder, int modesAvailableOffset) { builder.addOffset(22, modesAvailableOffset, 0); }
+  public static int createModesAvailableVector(FlatBufferBuilder builder, int[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addOffset(data[i]); return builder.endVector(); }
+  public static void startModesAvailableVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
+  public static void addModeCurrent(FlatBufferBuilder builder, int modeCurrentOffset) { builder.addOffset(23, modeCurrentOffset, 0); }
+  public static void addModePinLabels(FlatBufferBuilder builder, int modePinLabelsOffset) { builder.addOffset(24, modePinLabelsOffset, 0); }
+  public static int createModePinLabelsVector(FlatBufferBuilder builder, int[] data) { builder.startVector(4, data.length, 4); for (int i = data.length - 1; i >= 0; i--) builder.addOffset(data[i]); return builder.endVector(); }
+  public static void startModePinLabelsVector(FlatBufferBuilder builder, int numElems) { builder.startVector(4, numElems, 4); }
+  public static void addModeBitorderMsb(FlatBufferBuilder builder, boolean modeBitorderMsb) { builder.addBoolean(25, modeBitorderMsb, false); }
+  public static void addModeMaxPacketSize(FlatBufferBuilder builder, long modeMaxPacketSize) { builder.addInt(26, (int) modeMaxPacketSize, (int) 0L); }
+  public static void addModeMaxWrite(FlatBufferBuilder builder, long modeMaxWrite) { builder.addInt(27, (int) modeMaxWrite, (int) 0L); }
+  public static void addModeMaxRead(FlatBufferBuilder builder, long modeMaxRead) { builder.addInt(28, (int) modeMaxRead, (int) 0L); }
   public static int endStatusResponse(FlatBufferBuilder builder) {
     int o = builder.endTable();
     return o;

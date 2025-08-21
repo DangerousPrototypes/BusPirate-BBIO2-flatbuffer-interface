@@ -29,28 +29,19 @@ public struct DataRequest : IFlatbufferObject
   public ArraySegment<byte>? GetDataWriteBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public byte[] GetDataWriteArray() { return __p.__vector_as_array<byte>(8); }
-  public ushort BytesRead { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
-  public bool StopMain { get { int o = __p.__offset(12); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public bool StopAlt { get { int o = __p.__offset(14); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
   public static Offset<bpio.DataRequest> CreateDataRequest(FlatBufferBuilder builder,
       bool start_main = false,
       bool start_alt = false,
-      VectorOffset data_writeOffset = default(VectorOffset),
-      ushort bytes_read = 0,
-      bool stop_main = false,
-      bool stop_alt = false) {
-    builder.StartTable(6);
+      VectorOffset data_writeOffset = default(VectorOffset)) {
+    builder.StartTable(3);
     DataRequest.AddDataWrite(builder, data_writeOffset);
-    DataRequest.AddBytesRead(builder, bytes_read);
-    DataRequest.AddStopAlt(builder, stop_alt);
-    DataRequest.AddStopMain(builder, stop_main);
     DataRequest.AddStartAlt(builder, start_alt);
     DataRequest.AddStartMain(builder, start_main);
     return DataRequest.EndDataRequest(builder);
   }
 
-  public static void StartDataRequest(FlatBufferBuilder builder) { builder.StartTable(6); }
+  public static void StartDataRequest(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddStartMain(FlatBufferBuilder builder, bool startMain) { builder.AddBool(0, startMain, false); }
   public static void AddStartAlt(FlatBufferBuilder builder, bool startAlt) { builder.AddBool(1, startAlt, false); }
   public static void AddDataWrite(FlatBufferBuilder builder, VectorOffset dataWriteOffset) { builder.AddOffset(2, dataWriteOffset.Value, 0); }
@@ -59,9 +50,6 @@ public struct DataRequest : IFlatbufferObject
   public static VectorOffset CreateDataWriteVectorBlock(FlatBufferBuilder builder, ArraySegment<byte> data) { builder.StartVector(1, data.Count, 1); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateDataWriteVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<byte>(dataPtr, sizeInBytes); return builder.EndVector(); }
   public static void StartDataWriteVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(1, numElems, 1); }
-  public static void AddBytesRead(FlatBufferBuilder builder, ushort bytesRead) { builder.AddUshort(3, bytesRead, 0); }
-  public static void AddStopMain(FlatBufferBuilder builder, bool stopMain) { builder.AddBool(4, stopMain, false); }
-  public static void AddStopAlt(FlatBufferBuilder builder, bool stopAlt) { builder.AddBool(5, stopAlt, false); }
   public static Offset<bpio.DataRequest> EndDataRequest(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<bpio.DataRequest>(o);
@@ -77,9 +65,6 @@ static public class DataRequestVerify
       && verifier.VerifyField(tablePos, 4 /*StartMain*/, 1 /*bool*/, 1, false)
       && verifier.VerifyField(tablePos, 6 /*StartAlt*/, 1 /*bool*/, 1, false)
       && verifier.VerifyVectorOfData(tablePos, 8 /*DataWrite*/, 1 /*byte*/, false)
-      && verifier.VerifyField(tablePos, 10 /*BytesRead*/, 2 /*ushort*/, 2, false)
-      && verifier.VerifyField(tablePos, 12 /*StopMain*/, 1 /*bool*/, 1, false)
-      && verifier.VerifyField(tablePos, 14 /*StopAlt*/, 1 /*bool*/, 1, false)
       && verifier.VerifyTableEnd(tablePos);
   }
 }

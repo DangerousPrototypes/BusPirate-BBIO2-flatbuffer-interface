@@ -154,82 +154,21 @@ class ConfigurationRequest extends Table
     }
 
     /**
-     * @return bool
-     */
-    public function getLedResume()
-    {
-        $o = $this->__offset(32);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
-     * @param int offset
-     * @return uint
-     */
-    public function getLedColor($j)
-    {
-        $o = $this->__offset(34);
-        return $o != 0 ? $this->bb->getUint($this->__vector($o) + $j * 4) : 0;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLedColorLength()
-    {
-        $o = $this->__offset(34);
-        return $o != 0 ? $this->__vector_len($o) : 0;
-    }
-
-    public function getPrintString()
-    {
-        $o = $this->__offset(36);
-        return $o != 0 ? $this->__string($o + $this->bb_pos) : null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getHardwareBootloader()
-    {
-        $o = $this->__offset(38);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getHardwareReset()
-    {
-        $o = $this->__offset(40);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getHardwareSelftest()
-    {
-        $o = $this->__offset(42);
-        return $o != 0 ? $this->bb->getBool($o + $this->bb_pos) : false;
-    }
-
-    /**
      * @param FlatBufferBuilder $builder
      * @return void
      */
     public static function startConfigurationRequest(FlatBufferBuilder $builder)
     {
-        $builder->StartObject(20);
+        $builder->StartObject(14);
     }
 
     /**
      * @param FlatBufferBuilder $builder
      * @return ConfigurationRequest
      */
-    public static function createConfigurationRequest(FlatBufferBuilder $builder, $mode, $mode_configuration, $mode_bitorder_msb, $mode_bitorder_lsb, $psu_disable, $psu_enable, $psu_set_mv, $psu_set_ma, $pullup_disable, $pullup_enable, $io_direction_mask, $io_direction, $io_value_mask, $io_value, $led_resume, $led_color, $print_string, $hardware_bootloader, $hardware_reset, $hardware_selftest)
+    public static function createConfigurationRequest(FlatBufferBuilder $builder, $mode, $mode_configuration, $mode_bitorder_msb, $mode_bitorder_lsb, $psu_disable, $psu_enable, $psu_set_mv, $psu_set_ma, $pullup_disable, $pullup_enable, $io_direction_mask, $io_direction, $io_value_mask, $io_value)
     {
-        $builder->startObject(20);
+        $builder->startObject(14);
         self::addMode($builder, $mode);
         self::addModeConfiguration($builder, $mode_configuration);
         self::addModeBitorderMsb($builder, $mode_bitorder_msb);
@@ -244,12 +183,6 @@ class ConfigurationRequest extends Table
         self::addIoDirection($builder, $io_direction);
         self::addIoValueMask($builder, $io_value_mask);
         self::addIoValue($builder, $io_value);
-        self::addLedResume($builder, $led_resume);
-        self::addLedColor($builder, $led_color);
-        self::addPrintString($builder, $print_string);
-        self::addHardwareBootloader($builder, $hardware_bootloader);
-        self::addHardwareReset($builder, $hardware_reset);
-        self::addHardwareSelftest($builder, $hardware_selftest);
         $o = $builder->endObject();
         return $o;
     }
@@ -392,90 +325,6 @@ class ConfigurationRequest extends Table
     public static function addIoValue(FlatBufferBuilder $builder, $ioValue)
     {
         $builder->addByteX(13, $ioValue, 0);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addLedResume(FlatBufferBuilder $builder, $ledResume)
-    {
-        $builder->addBoolX(14, $ledResume, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param VectorOffset
-     * @return void
-     */
-    public static function addLedColor(FlatBufferBuilder $builder, $ledColor)
-    {
-        $builder->addOffsetX(15, $ledColor, 0);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param array offset array
-     * @return int vector offset
-     */
-    public static function createLedColorVector(FlatBufferBuilder $builder, array $data)
-    {
-        $builder->startVector(4, count($data), 4);
-        for ($i = count($data) - 1; $i >= 0; $i--) {
-            $builder->putUint($data[$i]);
-        }
-        return $builder->endVector();
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param int $numElems
-     * @return void
-     */
-    public static function startLedColorVector(FlatBufferBuilder $builder, $numElems)
-    {
-        $builder->startVector(4, $numElems, 4);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param StringOffset
-     * @return void
-     */
-    public static function addPrintString(FlatBufferBuilder $builder, $printString)
-    {
-        $builder->addOffsetX(16, $printString, 0);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addHardwareBootloader(FlatBufferBuilder $builder, $hardwareBootloader)
-    {
-        $builder->addBoolX(17, $hardwareBootloader, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addHardwareReset(FlatBufferBuilder $builder, $hardwareReset)
-    {
-        $builder->addBoolX(18, $hardwareReset, false);
-    }
-
-    /**
-     * @param FlatBufferBuilder $builder
-     * @param bool
-     * @return void
-     */
-    public static function addHardwareSelftest(FlatBufferBuilder $builder, $hardwareSelftest)
-    {
-        $builder->addBoolX(19, $hardwareSelftest, false);
     }
 
     /**

@@ -99,44 +99,8 @@ func (rcv *DataRequest) MutateDataWrite(j int, n byte) bool {
 	return false
 }
 
-func (rcv *DataRequest) BytesRead() uint16 {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(10))
-	if o != 0 {
-		return rcv._tab.GetUint16(o + rcv._tab.Pos)
-	}
-	return 0
-}
-
-func (rcv *DataRequest) MutateBytesRead(n uint16) bool {
-	return rcv._tab.MutateUint16Slot(10, n)
-}
-
-func (rcv *DataRequest) StopMain() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(12))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *DataRequest) MutateStopMain(n bool) bool {
-	return rcv._tab.MutateBoolSlot(12, n)
-}
-
-func (rcv *DataRequest) StopAlt() bool {
-	o := flatbuffers.UOffsetT(rcv._tab.Offset(14))
-	if o != 0 {
-		return rcv._tab.GetBool(o + rcv._tab.Pos)
-	}
-	return false
-}
-
-func (rcv *DataRequest) MutateStopAlt(n bool) bool {
-	return rcv._tab.MutateBoolSlot(14, n)
-}
-
 func DataRequestStart(builder *flatbuffers.Builder) {
-	builder.StartObject(6)
+	builder.StartObject(3)
 }
 func DataRequestAddStartMain(builder *flatbuffers.Builder, startMain bool) {
 	builder.PrependBoolSlot(0, startMain, false)
@@ -149,15 +113,6 @@ func DataRequestAddDataWrite(builder *flatbuffers.Builder, dataWrite flatbuffers
 }
 func DataRequestStartDataWriteVector(builder *flatbuffers.Builder, numElems int) flatbuffers.UOffsetT {
 	return builder.StartVector(1, numElems, 1)
-}
-func DataRequestAddBytesRead(builder *flatbuffers.Builder, bytesRead uint16) {
-	builder.PrependUint16Slot(3, bytesRead, 0)
-}
-func DataRequestAddStopMain(builder *flatbuffers.Builder, stopMain bool) {
-	builder.PrependBoolSlot(4, stopMain, false)
-}
-func DataRequestAddStopAlt(builder *flatbuffers.Builder, stopAlt bool) {
-	builder.PrependBoolSlot(5, stopAlt, false)
 }
 func DataRequestEnd(builder *flatbuffers.Builder) flatbuffers.UOffsetT {
 	return builder.EndObject()
