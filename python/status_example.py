@@ -16,13 +16,21 @@ def show_detailed_status(client):
     
     # Get full status
     status = client.status_request()
+
+    if status is None:
+        print("Failed to retrieve status.")
+        return False
     
     if status.get('error'):
         print(f"Error getting status: {status['error']}")
         return False
+
+    # Flatbuffers Version
+    print("Flatbuffers Information:")
+    print(f"  Version: {status.get('version_flatbuffers_major', 'Unknown')}.{status.get('version_flatbuffers_minor', 'Unknown')}")
     
     # Hardware Information
-    print("Hardware Information:")
+    print("\nHardware Information:")
     print(f"  Version: {status.get('version_hardware_major', 'Unknown')}.{status.get('version_hardware_minor', 'Unknown')}")
     
     # Firmware Information  

@@ -31,6 +31,8 @@ class BPIOClient:
         self.timeout = timeout
         self.debug = debug
         self.serial_port = None
+        self.version_flatbuffers_major = 3
+        self.minimum_version_flatbuffers_minor = 1
         
         # Open serial port
         try:
@@ -148,8 +150,8 @@ class BPIOClient:
         """Send a request packet and return the response"""
         """Wrap contents in a RequestPacket"""
         RequestPacket.Start(builder)
-        RequestPacket.AddVersionMajor(builder, 2)  # BPIO2
-        RequestPacket.AddMinimumVersionMinor(builder, 0) # Minimum flatbuffers version required
+        RequestPacket.AddVersionMajor(builder, self.version_flatbuffers_major)  # BPIO2
+        RequestPacket.AddMinimumVersionMinor(builder, self.minimum_version_flatbuffers_minor) # Minimum flatbuffers version required
         RequestPacket.AddContentsType(builder, request_contents_type)
         RequestPacket.AddContents(builder, request_contents)
         final_packet = RequestPacket.End(builder)
@@ -320,7 +322,7 @@ class BPIOClient:
         # copy the status response into a dictionary
         status_dict = {
             'error': status_resp.Error().decode('utf-8') if status_resp.Error() else None,
-            'version_flatbuffers_major': status_resp.VersionFlatbuffersMajor
+            'version_flatbuffers_major': status_resp.VersionFlatbuffersMajor(),
             'version_flatbuffers_minor': status_resp.VersionFlatbuffersMinor(),
             'version_hardware_major': status_resp.VersionHardwareMajor(),
             'version_hardware_minor': status_resp.VersionHardwareMinor(),
