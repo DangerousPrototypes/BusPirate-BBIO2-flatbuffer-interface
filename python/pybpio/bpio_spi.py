@@ -69,3 +69,17 @@ class BPIOSPI(BPIOBase):
             bytes_read=read_bytes,
             stop_main=True
         )
+
+    def transfer_duplex(self, write_data, read_bytes=None):
+        """Perform Full Duplex SPI transfer"""
+        if not self.configured:
+            print("SPI not configured. Call configure() first.")
+            return None
+            
+        return self.client.data_request(
+            start_main=False,
+            start_alt=True,
+            data_write=write_data,
+            bytes_read=read_bytes,
+            stop_main=True
+        )
